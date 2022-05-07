@@ -15,8 +15,8 @@
   <body>
     <nav class="nav">
       <div class="nav-logo">
-        <a href="index.html">
-          <img src="/img/logo.png" />
+        <a href="home.html">
+          <img src="../img/logo.png" />
         </a>
       </div>
       <ul class="menu-nav">
@@ -28,6 +28,57 @@
         </li>
       </ul>
     </nav>
+
+    <form class="login" action="submit">
+      <div class="login-id">
+        <label for="login-id">아이디</label>
+        <input type="text" name="id" class="login-id__input" />
+      </div>
+
+      <div class="login-password">
+        <label for="login-password">비밀번호</label>
+        <input type="password" name="password" class="login-password__input" />
+      </div>
+
+      <div class="login-btn">
+        <button type="button">
+          <div class="login-btn__icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="login-btn__text">
+            <span>로그인하기</span>
+          </div>
+        </button>
+      </div>
+
+      <div class="login-sns">
+        <div class="login-sns__title">
+          <span>SNS 로그인하기</span>
+        </div>
+
+        <div class="login-btn">
+          <button type="button">
+            <div class="login-btn__icon">
+              <img class="line_icon" src="../img/line_icon.png" />
+            </div>
+            <div class="login-btn__text">
+              <span>Line으로 로그인하기</span>
+            </div>
+          </button>
+        </div>
+
+        <div class="login-btn">
+          <button type="button">
+            <div class="login-btn__icon">
+              <img class="facebook_icon" src="../img/facebook_icon.png" />
+            </div>
+            <div class="login-btn__text">
+              <span>Facebook으로 로그인하기</span>
+            </div>
+          </button>
+        </div>
+      </div>
+    </form>
 
     <section class="contact">
       <!-- Company phone, address -->

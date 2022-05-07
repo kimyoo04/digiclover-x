@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="Digiclover-x" content="" />
+    <title>Digiclover-x</title>
+    <script
+      src="https://kit.fontawesome.com/f5b2afa047.js"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-logo">
+        <img src="../img/logo.png" alt="Digiclover-x" />
+      </div>
+
+      <div class="sidebar-menu">
+        <nav class="sidebar-nav">
+          <li class="sidebar-nav__item">
+            <span>문서화관리</span>
+            <i class="fas fa-"></i>
+          </li>
+          <li class="sidebar-nav__item">
+            <span>문서 보관함</span>
+            <i class="fas fa-"></i>
+          </li>
+        </nav>
+      </div>
+
+      <div class="sidebar-btns">
+        <button class="sidebar-btn" type="button">
+          <span class="login-btn__text">문서 업로드</span>
+        </button>
+
+        <button class="sidebar-btn" type="button">
+          <span class="login-btn__text">제출</span>
+        </button>
+      </div>
+    </div>
+
+    <main class="main">
+      <header class="header">
+        <h1 class="header-title">문서화 관리</h1>
+        <input
+          class="header-search"
+          type="text"
+          placeholder="검색어를 입력하세요."
+        />
+        <div class="header-profile">
+          <!-- 님 글자 js로 바꾸기 -->
+          <span class="header-profile__name">Higgs님</span>
+          <span class="header-profile__logout-btn">로그아웃</span>
+          <img
+            class="header-profile__img"
+            src="../img/profileA.png"
+            alt="../img/white.png"
+          />
+        </div>
+      </header>
+
+      <nav class="nav">
+        <li class="nav__item">
+          <span class="nav__text">인증대기</span>
+          <div class="nav__box">
+            <span class="nav__number">1</span>
+          </div>
+        </li>
+        <li class="nav__item">
+          <span class="nav__text">문서화 완료</span>
+          <div class="nav__box">
+            <span class="nav__number">0</span>
+          </div>
+        </li>
+        <li class="nav__item">
+          <span class="nav__text">인증서 발급</span>
+          <div class="nav__box">
+            <span class="nav__number">0</span>
+          </div>
+        </li>
+      </nav>
+
+      <div class="contents outline">
+        <!-- 날짜 js 적용 필요 -->
+        <div class="content">
+          <div class="content-info">
+            <span class="content-info__filename">contract-seong.pdf</span>
+            <span class="content-info__date">2022.05.11</span>
+            <span class="content-info__hash">
+              ahjsgduy12gd817628dgashjg12ljkhed72189hgd872dawksjhdjh
+            </span>
+          </div>
+          <!-- 인증완료, 미인증 효과 적용 -->
+          <div class="content-sign">
+            <div class="contracter">
+              <span>갑</span>
+              <span>인증완료</span>
+            </div>
+            <div class="contracter">
+              <span>을</span>
+              <span>미완료</span>
+            </div>
+          </div>
+          <div class="content-btn">
+            <button>
+              <span>인증 요청하기</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
