@@ -160,7 +160,7 @@ div {
   height: 100vh;
 }
 
-.nav {
+.nav-enter {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -172,14 +172,14 @@ div {
           align-items: center;
 }
 
-.nav-link {
+.nav-enter-link {
   text-decoration: none;
   color: white;
   margin: 0px 30px 0 30px;
   font-size: 25px;
 }
 
-.nav-link__gray {
+.nav-enter-link__gray {
   text-decoration: none;
   margin: 0px 30px 0 30px;
   font-size: 25px;
@@ -288,9 +288,8 @@ div {
 .horizontal-line__login {
   border: 1px solid #254aaf;
   position: absolute;
-  width: 5%;
+  width: 69px;
   top: 140px;
-  left: 43.1%;
 }
 
 .normal-btn {
@@ -465,9 +464,8 @@ div {
 .horizontal-line__signin {
   border: 1px solid #254aaf;
   position: absolute;
-  width: 6%;
+  width: 92px;
   top: 140px;
-  left: 50.5%;
 }
 
 .storage {
@@ -839,8 +837,8 @@ div {
 }
 
 .nav-logo a img {
-  width: 10%;
-  height: 10%;
+  width: 190px;
+  height: 40px;
   margin: 30px;
 }
 

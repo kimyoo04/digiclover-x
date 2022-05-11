@@ -9,7 +9,7 @@
 }
 
 // ------------------------------------------------------------------
-.nav {
+.nav-enter {
   @include layout-horizontal-center;
 
   &-link {
@@ -96,9 +96,8 @@
   &__login {
     border: 1px solid #254aaf;
     position: absolute;
-    width: 5%;
+    width: 69px;
     top: 140px;
-    left: 43.1%;
   }
 }
 
