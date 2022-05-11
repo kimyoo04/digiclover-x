@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="Digiclover-x" content="" />
+    <link rel="stylesheet" href="../src/css/App.css" />
     <title>Digiclover-x</title>
     <script
       src="https://kit.fontawesome.com/f5b2afa047.js"
@@ -12,21 +13,23 @@
     ></script>
   </head>
 
-  <body>
+  <body class="storage">
     <div class="sidebar">
       <div class="sidebar-logo">
-        <img src="../img/logo.png" alt="Digiclover-x" />
+        <a href="home.html">
+          <img src="../src/assets/img/logo.png" />
+        </a>
       </div>
 
       <div class="sidebar-menu">
         <nav class="sidebar-nav">
           <li class="sidebar-nav__item">
             <span>문서화관리</span>
-            <i class="fas fa-"></i>
+            <i class="fas fa-chevron-up"></i>
           </li>
           <li class="sidebar-nav__item">
             <span>문서 보관함</span>
-            <i class="fas fa-"></i>
+            <i class="fas fa-chevron-up"></i>
           </li>
         </nav>
       </div>
@@ -52,59 +55,71 @@
         />
         <div class="header-profile">
           <!-- 님 글자 js로 바꾸기 -->
-          <span class="header-profile__name">Higgs님</span>
-          <span class="header-profile__logout-btn">로그아웃</span>
-          <img
-            class="header-profile__img"
-            src="../img/profileA.png"
-            alt="../img/white.png"
-          />
+          <div class="header-profile__text">
+            <span class="header-profile__name">Higgs님</span>
+            <span class="header-profile__logout-btn">로그아웃</span>
+          </div>
+          <img src="../src/assets/img/profileA.png" />
         </div>
       </header>
 
+      <hr class="sidebar-horizontal-line now-page" />
+      <hr class="sidebar-horizontal-line" />
+
       <nav class="nav">
-        <li class="nav__item">
-          <span class="nav__text">인증대기</span>
+        <li class="nav-item">
+          <a href="waiting.html" class="nav-link nav-storage now-page">
+            인증대기
+          </a>
           <div class="nav__box">
-            <span class="nav__number">1</span>
+            <span class="nav__number now-page">1</span>
           </div>
         </li>
-        <li class="nav__item">
-          <span class="nav__text">문서화 완료</span>
+        <li class="nav-item">
+          <a href="documentation.html" class="nav-link nav-storage">
+            문서화 완료
+          </a>
+
           <div class="nav__box">
-            <span class="nav__number">0</span>
+            <span class="nav__number">2</span>
           </div>
         </li>
-        <li class="nav__item">
-          <span class="nav__text">인증서 발급</span>
+        <li class="nav-item">
+          <a href="certification.html" class="nav-link nav-storage">
+            인증서 발급
+          </a>
           <div class="nav__box">
             <span class="nav__number">0</span>
           </div>
         </li>
       </nav>
 
-      <div class="contents outline">
+      <div class="signature-wrap">
         <!-- 날짜 js 적용 필요 -->
-        <div class="content">
-          <div class="content-info">
-            <span class="content-info__filename">contract-seong.pdf</span>
-            <span class="content-info__date">2022.05.11</span>
-            <span class="content-info__hash">
+        <div class="signature">
+          <div class="signature-info">
+            <span class="signature-info__filename">contract-seong.pdf</span>
+            <span class="signature-info__date now-page">2022.05.11</span>
+            <span class="signature-info__hash">
               ahjsgduy12gd817628dgashjg12ljkhed72189hgd872dawksjhdjh
             </span>
           </div>
           <!-- 인증완료, 미인증 효과 적용 -->
-          <div class="content-sign">
-            <div class="contracter">
-              <span>갑</span>
-              <span>인증완료</span>
+          <div class="signature-sign">
+            <div class="signature-sign__wrap">
+              <div class="signature-sign__confirm">
+                <span>갑</span>
+                <span>인증완료</span>
+              </div>
             </div>
-            <div class="contracter">
-              <span>을</span>
-              <span>미완료</span>
+            <div class="signature-sign__wrap">
+              <div class="signature-sign__confirm">
+                <span>을</span>
+                <span>인증완료</span>
+              </div>
             </div>
           </div>
-          <div class="content-btn">
+          <div class="signature-btn">
             <button>
               <span>인증 요청하기</span>
             </button>

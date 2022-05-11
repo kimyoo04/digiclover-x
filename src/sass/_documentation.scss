@@ -1,0 +1,236 @@
+.storage {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: $regular;
+  width: 100%;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: fixed;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background: #051536;
+  padding: 0 20px 0 20px;
+
+  &-nav {
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      color: white;
+      list-style: none;
+
+      span {
+        margin-top: 20px;
+      }
+
+      i {
+        margin-top: 22px;
+        color: gray;
+      }
+    }
+  }
+
+  &-btns {
+  }
+
+  &-btn {
+    @include btn-sidebar;
+    color: #a3c735;
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+  }
+}
+
+// ------------------------------------------------------------------
+.main {
+  background-image: url("../assets/img/bg-main.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+  z-index: -2;
+  position: fixed;
+  left: 240px;
+  right: 0px;
+}
+
+.header {
+  padding: 30px 50px 30px 50px;
+
+  &-title {
+    color: white;
+    font-size: 24px;
+  }
+
+  &-search {
+    @include btn;
+    width: 50%;
+    height: 40px;
+    padding-left: 10px;
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    color: white;
+  }
+
+  & input::placeholder {
+    color: white;
+  }
+
+  @include layout-horizontal-center;
+  justify-content: space-between;
+
+  &-profile {
+    @include layout-horizontal-center;
+
+    &__text {
+      @include layout-vertical-center;
+    }
+
+    & span {
+      margin: 3px 10px 3px 0;
+      display: block;
+      color: white;
+    }
+
+    &__name {
+      font-size: 14px;
+    }
+
+    &__logout-btn {
+      font-size: 10px;
+      background-color: #223daa;
+      border-radius: 10px;
+      padding: 6px;
+    }
+
+    & img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+}
+
+// ------------------------------------------------------------------
+.nav {
+  @include layout-horizontal-center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+
+  &-item {
+    @include layout-horizontal-center;
+    list-style: none;
+    margin: 0 50px 0 50px;
+  }
+
+  &__box {
+    @include layout-horizontal-center;
+    background-color: #223daa;
+    width: 20px;
+    height: 20px;
+    border-radius: 4px;
+  }
+
+  &__number {
+    color: white;
+    font-size: 12px;
+  }
+
+  &-storage {
+    font-size: 14px;
+    margin: 0 10px 0 0;
+    color: gray;
+  }
+}
+
+// ------------------------------------------------------------------
+.signature-wrap {
+  margin: 50px 50px 50px 50px;
+}
+
+.signature {
+  @include layout-horizontal-center;
+  justify-content: space-between;
+  font-family: "Noto Sans KR", sans-serif;
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+
+  &-info {
+    & span {
+      display: block;
+      margin: 10px 30px;
+    }
+
+    &__filename {
+      font-size: 16px;
+      color: white;
+    }
+
+    &__date {
+      font-size: 12px;
+    }
+
+    &__hash {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+  }
+
+  &-sign {
+    @include layout-horizontal-center;
+
+    &__wrap {
+      @include layout-horizontal-center;
+      width: 70px;
+      height: 70px;
+      background-color: rgba(255, 255, 255, 0.7);
+      border-radius: 50%;
+      margin: 0 10px;
+    }
+
+    &__confirm {
+      @include layout-vertical-center;
+      align-items: center;
+      width: 60px;
+      height: 60px;
+      border: 2px solid black;
+      border-radius: 50%;
+      transform: rotate(-30deg);
+      & span {
+        @include layout-vertical-center;
+        font-size: 12px;
+        font-weight: 700;
+        margin: 2px 0;
+      }
+    }
+  }
+
+  &-btn button {
+    width: 120px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #223daa;
+    color: white;
+    margin: 0 30px;
+  }
+}
+
+// ------------------------------------------------------------------
+.sidebar-horizontal-line {
+  border: 1px solid rgba(199, 199, 199, 0.1);
+  position: absolute;
+  width: 100%;
+  top: 145px;
+  z-index: -1;
+}
+
+.now-page {
+  color: #a3c735;
+}

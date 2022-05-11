@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="Digiclover-x" content="" />
+    <link rel="stylesheet" href="../src/css/App.css" />
     <title>Digiclover-x</title>
     <script
       src="https://kit.fontawesome.com/f5b2afa047.js"
@@ -12,107 +13,61 @@
     ></script>
   </head>
 
-  <body>
+  <body class="login">
+    <div class="nav-logo">
+      <a href="home.html">
+        <img src="../src/assets/img/logo.png" />
+      </a>
+    </div>
     <nav class="nav">
-      <div class="nav-logo">
-        <a href="home.html">
-          <img src="../img/logo.png" />
-        </a>
-      </div>
-      <ul class="menu-nav">
-        <li class="menu-nav__item">
-          <a href="login.html" class="menu-nav__link">로그인</a>
-        </li>
-        <li class="menu-nav__item">
-          <a href="signin.html" class="menu-nav__link">회원가입</a>
-        </li>
-      </ul>
+      <a href="login.html" class="nav-link">로그인</a>
+      <a href="signin.html" class="nav-link__gray">회원가입</a>
     </nav>
-
-    <form class="login" action="submit">
-      <div class="login-id">
-        <label for="login-id">아이디</label>
-        <input type="text" name="id" class="login-id__input" />
-      </div>
-
-      <div class="login-password">
-        <label for="login-password">비밀번호</label>
-        <input type="password" name="password" class="login-password__input" />
-      </div>
-
-      <div class="login-btn">
-        <button type="button">
-          <div class="login-btn__icon">
-            <i class="fas fa-envelope"></i>
+    <hr class="horizontal-line__login" />
+    <hr class="horizontal-line" />
+    <div class="login-wrap">
+      <form class="login-forms" action="submit">
+        <div class="login-form">
+          <div class="login-form-id">
+            <label for="login-form-id__input">아이디</label>
+            <input type="text" name="id" class="login-form-id__input" />
           </div>
-          <div class="login-btn__text">
-            <span>로그인하기</span>
-          </div>
-        </button>
-      </div>
 
-      <div class="login-sns">
-        <div class="login-sns__title">
-          <span>SNS 로그인하기</span>
+          <div class="login-form-password">
+            <label for="login-form-password__input">비밀번호</label>
+            <input
+              type="password"
+              name="password"
+              class="login-form-password__input"
+            />
+          </div>
+
+          <div class="normal">
+            <button class="normal-btn" type="button">
+              <i class="fas fa-envelope"></i>
+              <span>로그인하기</span>
+            </button>
+          </div>
         </div>
 
-        <div class="login-btn">
-          <button type="button">
-            <div class="login-btn__icon">
-              <img class="line_icon" src="../img/line_icon.png" />
-            </div>
-            <div class="login-btn__text">
+        <div class="login-form-sns">
+          <div class="login-form-sns__title">
+            <span>SNS 로그인하기</span>
+          </div>
+
+          <div class="line">
+            <button class="line-btn" type="button">
               <span>Line으로 로그인하기</span>
-            </div>
-          </button>
-        </div>
+            </button>
+          </div>
 
-        <div class="login-btn">
-          <button type="button">
-            <div class="login-btn__icon">
-              <img class="facebook_icon" src="../img/facebook_icon.png" />
-            </div>
-            <div class="login-btn__text">
+          <div class="facebook">
+            <button class="facebook-btn" type="button">
               <span>Facebook으로 로그인하기</span>
-            </div>
-          </button>
+            </button>
+          </div>
         </div>
-      </div>
-    </form>
-
-    <section class="contact">
-      <!-- Company phone, address -->
-      <div class="contact__list">
-        <div class="contact__email">
-          <i class="fas fa-envelope"></i> Email
-          <div class="text-secondary">email@email.com</div>
-        </div>
-        <div class="contact__phone">
-          <i class="fas fa-mobile-alt"></i> Phone
-          <div class="text-secondary">(010)1111-1111</div>
-        </div>
-        <div class="contact__address">
-          <i class="fas fa-marker"></i> Address
-          <div class="text-secondary">경기도 수원시 권선구 서수원로</div>
-        </div>
-      </div>
-
-      <!-- SNS Links -->
-      <div class="social-icons">
-        <a href="#!">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <a href="#!">
-          <i class="fab fa-facebook fa-2x"></i>
-        </a>
-        <a href="#!">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-        <a href="#!">
-          <i class="fab fa-github fa-2x"></i>
-        </a>
-      </div>
-      <footer>&copy; Copyright 2022</footer>
-    </section>
+      </form>
+    </div>
   </body>
 </html>

@@ -1,0 +1,105 @@
+.signin {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: $regular;
+  background-image: url("../assets/img/bg-login.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+
+// nav는 login.scss--------------------------------------------------
+.nav {
+  @include layout-horizontal-center;
+
+  &-link {
+    text-decoration: none;
+    color: white;
+    margin: 0px 30px 0 30px;
+    font-size: 25px;
+    &__gray {
+      text-decoration: none;
+      margin: 0px 30px 0 30px;
+      font-size: 25px;
+      color: gray;
+    }
+  }
+}
+
+// ------------------------------------------------------------------
+.signin-wrap {
+  @include layout-vertical-center;
+  margin-top: 50px;
+  .signin-forms {
+    border: 1px solid rgba(199, 199, 199, 0.3);
+    background-color: rgba(199, 199, 199, 0.1);
+    border-radius: 3%;
+    padding: 50px;
+    margin: 50px;
+    .signin-form {
+      & label {
+        display: block;
+        font-size: 10px;
+        color: white;
+        margin: 20px 8px 8px 8px;
+      }
+      &-email {
+        &__input {
+          @include layout-horizontal-center;
+          @include btn;
+          color: white;
+          font-family: "Noto Sans KR", sans-serif;
+          background-color: rgba(255, 255, 255, 0.1);
+          border-color: rgba(199, 199, 199, 0.3);
+        }
+        &__input:focus {
+          border: 2px solid rgba(52, 147, 255, 0.8);
+        }
+      }
+
+      &-id {
+        &__input {
+          @extend .signin-form-email__input;
+        }
+      }
+
+      &-phone {
+        &__input {
+          @extend .signin-form-email__input;
+        }
+      }
+
+      &-password {
+        &__input {
+          @extend .signin-form-email__input;
+        }
+      }
+
+      &-btn {
+        @include btn;
+        border-color: #c4d71f;
+        background-color: #c4d71f;
+        margin-top: 30px;
+        & i {
+          margin-right: 5px;
+        }
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------
+.horizontal-line {
+  border: 1px solid rgba(199, 199, 199, 0.1);
+  position: absolute;
+  width: 100%;
+  top: 140px;
+
+  &__signin {
+    border: 1px solid #254aaf;
+    position: absolute;
+    width: 6%;
+    top: 140px;
+    left: 50.5%;
+  }
+}

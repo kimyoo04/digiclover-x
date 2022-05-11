@@ -1,10 +1,32 @@
 $primary-color: #272727;
 $accent-color: #ff652f;
 $text-color: #fff;
-$font-weights: (
-  "regular": 400,
-  "medium": 500,
-  "bold": 700,
-);
-
 $mobile: 800px;
+
+// font ----------------------------------------------
+
+// Typography
+$base: 16;
+
+// 글꼴
+$serief: "Tiems New Roman", Serief;
+$sans-serief: Verdana, Sans-Serief;
+
+$serief-ko: Gulim, Serief;
+$sans-serief-ko: "Nanum Gothic", Dotum, Sans-Serief;
+
+// 구글 웹폰트
+$noto-sans: "Noto+Sans+KR";
+$monoton: "Monoton";
+
+$webfont: $noto-sans;
+
+// font weight 변수
+$regular: 400;
+$medium: 500;
+$bold: 700;
+
+// asset 경로 ----------------------------------------------
+
+// ~@는 src 폴더를 표현
+$asset-path: "/src/assets/";

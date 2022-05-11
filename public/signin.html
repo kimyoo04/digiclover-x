@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="Digiclover-x" content="" />
+    <link rel="stylesheet" href="../src/css/App.css" />
     <title>Digiclover-x</title>
     <script
       src="https://kit.fontawesome.com/f5b2afa047.js"
@@ -12,89 +13,54 @@
     ></script>
   </head>
 
-  <body>
+  <body class="signin">
+    <div class="nav-logo">
+      <a href="home.html">
+        <img src="../src/assets/img/logo.png" />
+      </a>
+    </div>
     <nav class="nav">
-      <div class="nav-logo">
-        <a href="home.html">
-          <img src="/img/logo.png" />
-        </a>
-      </div>
-      <ul class="menu-nav">
-        <li class="menu-nav__item">
-          <a href="login.html" class="menu-nav__link">로그인</a>
-        </li>
-        <li class="menu-nav__item">
-          <a href="signin.html" class="menu-nav__link">회원가입</a>
-        </li>
-      </ul>
+      <a href="login.html" class="nav-link__gray">로그인</a>
+      <a href="signin.html" class="nav-link">회원가입</a>
     </nav>
+    <hr class="horizontal-line__signin" />
+    <hr class="horizontal-line" />
 
-    <form class="signin" action="submit">
-      <div class="signin-email-wrap">
-        <label for="signin-email__label">이메일</label>
-        <input type="email" name="email" class="signin-email__input" />
-      </div>
-
-      <div class="signin-id">
-        <label for="signin-id">아이디</label>
-        <input type="text" name="id" class="signin-id__input" />
-      </div>
-
-      <div class="signin-phone">
-        <label for="signin-phone">휴대폰 번호</label>
-        <input type="tel" name="phone" class="signin-phone__input" />
-      </div>
-
-      <div class="signin-password">
-        <label for="signin-password">비밀번호</label>
-        <input type="password" name="password" class="signin-password__input" />
-      </div>
-
-      <div class="signin-btn">
-        <button type="button">
-          <div class="signin-btn__icon">
-            <i class="fas fa-envelope"></i>
+    <div class="signin-wrap">
+      <form class="signin-forms" action="submit">
+        <div class="signin-form">
+          <div class="signin-form-email">
+            <label for="signin-form-email__input">이메일</label>
+            <input type="email" name="email" class="signin-form-email__input" />
           </div>
-          <div class="signin-btn__text">
-            <span>회원가입하기</span>
+
+          <div class="signin-form-id">
+            <label for="signin-form-id__input">아이디</label>
+            <input type="text" name="id" class="signin-form-id__input" />
           </div>
-        </button>
-      </div>
-    </form>
 
-    <section class="contact">
-      <!-- Company phone, address -->
-      <div class="contact__list">
-        <div class="contact__email">
-          <i class="fas fa-envelope"></i> Email
-          <div class="text-secondary">email@email.com</div>
-        </div>
-        <div class="contact__phone">
-          <i class="fas fa-mobile-alt"></i> Phone
-          <div class="text-secondary">(010)1111-1111</div>
-        </div>
-        <div class="contact__address">
-          <i class="fas fa-marker"></i> Address
-          <div class="text-secondary">경기도 수원시 권선구 서수원로</div>
-        </div>
-      </div>
+          <div class="signin-form-phone">
+            <label for="signin-form-phone__input">휴대폰 번호</label>
+            <input type="tel" name="phone" class="signin-form-phone__input" />
+          </div>
 
-      <!-- SNS Links -->
-      <div class="social-icons">
-        <a href="#!">
-          <i class="fab fa-twitter fa-2x"></i>
-        </a>
-        <a href="#!">
-          <i class="fab fa-facebook fa-2x"></i>
-        </a>
-        <a href="#!">
-          <i class="fab fa-instagram fa-2x"></i>
-        </a>
-        <a href="#!">
-          <i class="fab fa-github fa-2x"></i>
-        </a>
-      </div>
-      <footer>&copy; Copyright 2022</footer>
-    </section>
+          <div class="signin-form-password">
+            <label for="signin-form-password__input">비밀번호</label>
+            <input
+              type="password"
+              name="password"
+              class="signin-form-password__input"
+            />
+          </div>
+
+          <div class="signin-btn-form-wrap">
+            <button class="signin-form-btn" type="button">
+              <i class="fas fa-envelope"></i>
+              <span>회원가입하기</span>
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
   </body>
 </html>
