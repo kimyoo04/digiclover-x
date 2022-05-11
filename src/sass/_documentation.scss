@@ -229,6 +229,23 @@
   width: 100%;
   top: 145px;
   z-index: -1;
+
+  &__waiting {
+    border: 1px solid #a3c735;
+    position: absolute;
+    top: 145px;
+    width: 81.51px;
+  }
+
+  &__documentation {
+    @extend .sidebar-horizontal-line__waiting;
+    width: 97.55px;
+  }
+
+  &__certification {
+    @extend .sidebar-horizontal-line__waiting;
+    width: 97.55px;
+  }
 }
 
 .now-page {

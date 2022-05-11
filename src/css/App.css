@@ -832,6 +832,21 @@ div {
   z-index: -1;
 }
 
+.sidebar-horizontal-line__waiting, .sidebar-horizontal-line__documentation, .sidebar-horizontal-line__certification {
+  border: 1px solid #a3c735;
+  position: absolute;
+  top: 145px;
+  width: 81.51px;
+}
+
+.sidebar-horizontal-line__documentation {
+  width: 97.55px;
+}
+
+.sidebar-horizontal-line__certification {
+  width: 97.55px;
+}
+
 .now-page {
   color: #a3c735;
 }
