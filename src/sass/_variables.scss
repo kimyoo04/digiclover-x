@@ -1,5 +1,5 @@
 // Color ----------------------------------------------
-$text-color: #fff;
+$color-text: #fff;
 
 $color-primary: #272727;
 $color-accent: #ff652f;
@@ -15,6 +15,16 @@ $color-primary-variant: #111e88;
 $color-dark-variant: #677483;
 $color-background: #f6f6f9;
 
+// dark mode
+.dark-theme-variables {
+  $color-background: #181a1e;
+  $color-white: #202528;
+  $color-dark: #edeffd;
+  $color-dark-variant: #a3bdcc;
+  $color-light: rgba(0, 0, 0, 0.4);
+  $box-shadow: 0 2rem 3rem var(--color-light);
+}
+
 // border-radius ----------------------------------------------
 $card-border-radius: 2rem;
 $border-radius-1: 0.4rem;
@@ -23,16 +33,26 @@ $border-radius-3: 1.2rem;
 
 // padding ----------------------------------------------
 $card-padding: 1.8rem;
-$padding-1: 1.2rem;
+$padding-1: 0.8rem;
+$padding-2: 1.2rem;
+$padding-3: 1.6rem;
+$padding-4: 2rem;
 
 // shadow ----------------------------------------------
 $box-shadow: 0 2rem 3rem var(--color-light);
 
-// display-size ----------------------------------------------
-$mobile: 800px;
-
 // font ----------------------------------------------
+// noto sans kr (default)
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap");
+
+// ultra (Emphasis),
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=Ultra&display=swap");
+
+// cormorant garomond (classic)
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap");
+
+// Rokkitt (coding feeling)
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Rokkitt:wght@100;300;500;700;900&display=swap");
 
 // asset 경로 ----------------------------------------------
 
