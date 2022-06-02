@@ -1,0 +1,43 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Digiclover-x
+        link(rel='stylesheet', href='./css/App.css', type='text/css')
+        script(src="https://kit.fontawesome.com/f5b2afa047.js" crossorigin="anonymous") 
+    body.signin 
+        //- 네비게이션 시작
+        .nav-logo 
+            a(href="/home") 
+                img(src="../assets/img/logo.png")
+        nav.nav-enter 
+            a(href="/login" class="nav-link__gray") 로그인
+            a(href="/signin" class="nav-link") 회원가입
+                hr.horizontal-line__signin
+        hr.horizontal-line
+        //- 네비게이션 끝
+        //- 위에까지 반복 요소임 모듈화 하자
+
+
+        //- 회원가입 시작
+        .signin-wrap 
+            form.signin-forms(action="submit") 
+                .signin-form 
+                    .signin-form-email 
+                        label(for="signin-form-email__input") 이메일
+                        input.signin-form-email__input(type="email" name="email") 
+                    .signin-form-id 
+                        label(for="signin-form-id__input") 아이디
+                        input.signin-form-id__input(type="text" name="id") 
+                    .signin-form-phone 
+                        label(for="signin-form-phone__input") 휴대폰 번호
+                        input.signin-form-phone__input(type="tel" name="phone") 
+                    .signin-form-password 
+                        label(for="signin-form-password__input") 비밀번호
+                        input.signin-form-password__input(type="password" name="password") 
+                    .signin-btn-form-wrap
+                        button.signin-form-btn(type="button")
+                            i.fas.fa-envelope 
+                            span 회원가입하기
+        //- 회원가입 끝
