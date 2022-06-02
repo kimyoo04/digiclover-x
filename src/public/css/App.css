@@ -1,7 +1,7 @@
-/* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=Ultra&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Rokkitt:wght@100;300;500;700;900&display=swap");
 html,
 body,
 div,
@@ -91,6 +91,12 @@ video {
   vertical-align: baseline;
 }
 
+html {
+  font-size: 0.88rem;
+  line-height: 1;
+  font-family: "Noto Sans KR", sans-serif;
+}
+
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -107,7 +113,14 @@ section {
 }
 
 body {
-  line-height: 1;
+  width: 100vw;
+  height: 100vh;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  color: var(--color-dark);
+  background: var(--color-background);
 }
 
 ol,
@@ -149,9 +162,34 @@ div {
   outline: none;
 }
 
+h1 {
+  font-weight: 800;
+  font-size: 1.8rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 0.87rem;
+}
+
+h4 {
+  font-size: 0.8rem;
+}
+
+h5 {
+  font-size: 0.77rem;
+}
+
+small {
+  font-size: 0.75rem;
+}
+
 .login {
   font-family: "Noto Sans KR", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   background-image: url("../assets/img/bg-login.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -164,11 +202,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .nav-enter-link {
@@ -190,15 +228,15 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-top: 50px;
 }
 
@@ -217,17 +255,16 @@ div {
   margin: 8px;
 }
 
-.login-wrap .login-forms .login-form-id__input,
-.login-wrap .login-forms .login-form-password__input {
+.login-wrap .login-forms .login-form-id__input, .login-wrap .login-forms .login-form-password__input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-family: "Noto Sans KR", sans-serif;
   margin: 5px;
   width: 300px;
@@ -241,8 +278,7 @@ div {
   border-color: rgba(199, 199, 199, 0.3);
 }
 
-.login-wrap .login-forms .login-form-id__input:focus,
-.login-wrap .login-forms .login-form-password__input:focus {
+.login-wrap .login-forms .login-form-id__input:focus, .login-wrap .login-forms .login-form-password__input:focus {
   border: 2px solid rgba(52, 147, 255, 0.8);
 }
 
@@ -251,11 +287,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-size: 10px;
   color: rgba(199, 199, 199, 0.8);
   margin: 50px 0 20px 0;
@@ -266,11 +302,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   padding: 5px;
   border-radius: 5px;
 }
@@ -345,7 +381,7 @@ div {
 
 .signin {
   font-family: "Noto Sans KR", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   background-image: url("../assets/img/bg-login.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -358,11 +394,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .nav-link {
@@ -384,15 +420,15 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   margin-top: 50px;
 }
 
@@ -411,19 +447,16 @@ div {
   margin: 20px 8px 8px 8px;
 }
 
-.signin-wrap .signin-forms .signin-form-email__input,
-.signin-wrap .signin-forms .signin-form-id__input,
-.signin-wrap .signin-forms .signin-form-phone__input,
-.signin-wrap .signin-forms .signin-form-password__input {
+.signin-wrap .signin-forms .signin-form-email__input, .signin-wrap .signin-forms .signin-form-id__input, .signin-wrap .signin-forms .signin-form-phone__input, .signin-wrap .signin-forms .signin-form-password__input {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-family: "Noto Sans KR", sans-serif;
   margin: 5px;
   width: 300px;
@@ -437,10 +470,7 @@ div {
   border-color: rgba(199, 199, 199, 0.3);
 }
 
-.signin-wrap .signin-forms .signin-form-email__input:focus,
-.signin-wrap .signin-forms .signin-form-id__input:focus,
-.signin-wrap .signin-forms .signin-form-phone__input:focus,
-.signin-wrap .signin-forms .signin-form-password__input:focus {
+.signin-wrap .signin-forms .signin-form-email__input:focus, .signin-wrap .signin-forms .signin-form-id__input:focus, .signin-wrap .signin-forms .signin-form-phone__input:focus, .signin-wrap .signin-forms .signin-form-password__input:focus {
   border: 2px solid rgba(52, 147, 255, 0.8);
 }
 
@@ -477,7 +507,7 @@ div {
 
 .storage {
   font-family: "Noto Sans KR", sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   width: 100%;
 }
 
@@ -487,11 +517,11 @@ div {
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   position: fixed;
   left: 0;
   width: 200px;
@@ -505,8 +535,8 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   color: white;
   list-style: none;
 }
@@ -521,17 +551,31 @@ div {
 }
 
 .sidebar-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   font-family: "Noto Sans KR", sans-serif;
   margin: 0 0 20px 0;
-  width: 100%;
+  width: 197px;
   height: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 5px;
   font-size: 14px;
   color: #a3c735;
   font-family: "Noto Sans KR", sans-serif;
   background-color: rgba(255, 255, 255, 0.2);
   border: 1.5px solid rgba(255, 255, 255, 0.4);
+  -webkit-transition: all 200ms ease;
+  transition: all 200ms ease;
+}
+
+.sidebar-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
 .main {
@@ -552,14 +596,14 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
 }
 
 .header-title {
@@ -605,11 +649,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .header-profile__text {
@@ -617,15 +661,15 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .header-profile span {
@@ -655,14 +699,14 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-bottom: 40px;
 }
 
@@ -671,11 +715,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   list-style: none;
   margin: 0 50px 0 50px;
 }
@@ -685,11 +729,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   background-color: #223daa;
   width: 20px;
   height: 20px;
@@ -716,14 +760,14 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-pack: justify;
-  -ms-flex-pack: justify;
-  justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 100px;
@@ -756,11 +800,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .signature-sign__wrap {
@@ -768,11 +812,11 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   width: 70px;
   height: 70px;
   background-color: rgba(255, 255, 255, 0.7);
@@ -785,22 +829,22 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   align-items: center;
   width: 60px;
   height: 60px;
   border: 2px solid black;
   border-radius: 50%;
   -webkit-transform: rotate(-30deg);
-  transform: rotate(-30deg);
+          transform: rotate(-30deg);
 }
 
 .signature-sign__confirm span {
@@ -808,15 +852,15 @@ div {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
-  -ms-flex-direction: column;
-  flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
   font-size: 12px;
   font-weight: 700;
   margin: 2px 0;
@@ -839,9 +883,7 @@ div {
   z-index: -1;
 }
 
-.sidebar-horizontal-line__waiting,
-.sidebar-horizontal-line__documentation,
-.sidebar-horizontal-line__certification {
+.sidebar-horizontal-line__waiting, .sidebar-horizontal-line__documentation, .sidebar-horizontal-line__certification {
   border: 1px solid #a3c735;
   position: absolute;
   top: 145px;

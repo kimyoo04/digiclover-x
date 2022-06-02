@@ -9,3 +9,5 @@ $breakpoints: (
 
 @include media(">=tablet", "<=950px") {
 }
+
+// width - 1096px 에서 waitforauth의 인증 요청하기 버튼이 밀려나가는 현상 생김

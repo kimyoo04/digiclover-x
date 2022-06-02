@@ -22,8 +22,10 @@ html(lang="en")
                         i.fas.fa-chevron-up 
             
             form.sidebar-btns(method="POST" action="/waitforauth" enctype="multipart/form-data")
-                input.sidebar-btn(type="file" name="file")
-                input.sidebar-btn(type="submit" name="제출")
+                label.sidebar-btn(for="file-upload") 문서 업로드
+                input(type="file" name="file" id="file-upload" style={display:"none"}) 
+                label.sidebar-btn(for="file-submit") 제출
+                input(type="submit" name="제출" id="file-submit" style={display:"none"})
 
             main.main
                 //- 헤더 시작
