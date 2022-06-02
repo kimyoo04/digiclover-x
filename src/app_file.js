@@ -9,7 +9,6 @@ const fs = require("fs");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false})); //
-
 app.use(upload());
 
 // 뷰 엔진에 퍼그 등록
@@ -19,21 +18,13 @@ app.set("view engine", "pug");
 
 //--------------------------------------------------------------------
 
-app.get("/topic/new", function (req, res) {
-  res.render("new"); //html이나 탬플릿을 적용해서 화면에 보여준다.
-});
-
-app.post("/topic", function (req, res) {
-  res.send("Hi, post");
-});
-
 // pug render test
-app.get("/", function (req, res) {
-  res.render("index", {nickname: "babo"});
+app.get("/", (req, res) => {
+  res.render("index");
 });
 
 // pug file upload test
-app.post("/", function (req, res) {
+app.post("/", (req, res) => {
   if (req.files) {
     // console.log(req.files);
 
@@ -55,6 +46,6 @@ app.post("/", function (req, res) {
 //--------------------------------------------------------------------
 
 // 서버 연결
-app.listen(3000, function () {
+app.listen(3000, () => {
   console.log("Connected, 3000 port!");
 });
