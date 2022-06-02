@@ -43,10 +43,6 @@
   }
 }
 
-// font ----------------------------------------------
-
-@import url("https://fonts.googleapis.com/css2?family=#{$webfont}:wght@400;500;700&display=swap");
-
 // btn ----------------------------------------------
 @mixin btn {
   font-family: "Noto Sans KR", sans-serif;
