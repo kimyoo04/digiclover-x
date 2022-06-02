@@ -3,6 +3,9 @@ html
         link(rel="stylesheet" href="/public/index.css")
     body 
         h1 User profile page
-        //- div=msg
         h2 Nickname
         div.green= nickname
+
+        form(method="POST" action="/" enctype="multipart/form-data")
+            input(type="file" name="file") 
+            input(type="submit" name="Upload")
