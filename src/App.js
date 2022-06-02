@@ -9,11 +9,12 @@ const fs = require("fs");
 
 const app = express();
 app.use(bodyParser.urlencoded({extended: false})); //
+app.use(express.static(path.join(__dirname, "public"))); // 정적 파일 적용 (img, css)
 app.use(upload());
 
 // 뷰 엔진에 퍼그 등록
 app.engine("pug", require("pug").__express);
-app.set("views", path.join(__dirname, "views")); // 현재 디렉토리에서 views폴더를 의미
+app.set("views", path.join(__dirname, "views")); // 현재 디렉토리에서 views 폴더를 의미
 app.set("view engine", "pug");
 
 //--------------------------------------------------------------------
@@ -41,6 +42,34 @@ app.post("/", (req, res) => {
       }
     });
   }
+});
+
+//--------------------------------------------------------------------
+
+app.get("/home", (req, res) => {
+  res.render("home");
+});
+
+app.get("/signin", (req, res) => {
+  res.render("signin");
+});
+
+app.get("/login", (req, res) => {
+  res.render("login");
+});
+
+//--------------------------------------------------------------------
+
+app.get("/waitforauth", (req, res) => {
+  res.render("wait_for_auth");
+});
+
+app.get("/documentation", (req, res) => {
+  res.render("documentation");
+});
+
+app.get("/certification", (req, res) => {
+  res.render("certification");
 });
 
 //--------------------------------------------------------------------
