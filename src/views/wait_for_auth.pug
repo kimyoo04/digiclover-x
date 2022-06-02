@@ -21,11 +21,9 @@ html(lang="en")
                         span 문서 보관함
                         i.fas.fa-chevron-up 
             
-            .sidebar-btns 
-                button.sidebar-btn(type="button")
-                    span.login-btn__text 문서 업로드
-                button.sidebar-btn(type="button")
-                    span.login-btn__text 제출
+            form.sidebar-btns(method="POST" action="/waitforauth" enctype="multipart/form-data")
+                input.sidebar-btn(type="file" name="file")
+                input.sidebar-btn(type="submit" name="제출")
 
             main.main
                 //- 헤더 시작

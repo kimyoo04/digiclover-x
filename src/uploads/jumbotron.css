@@ -1,0 +1,272 @@
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)  { /* STYLES GO HERE */
+  .fullscreen .forge-jumbotron .container{
+    top: -50px;
+ }
+}
+
+@media screen and (max-width: 768px) {
+  .forge-jumbotron .container {
+    margin-left: 20px;
+    margin-right: 20px;
+    min-height: 250px;
+  }
+}
+
+@media (max-width: 768px) {
+  .fullscreen .forge-jumbotron .container {
+      height: 100vh;
+      width: 90vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .explode .forge-jumbotron .range-style {
+      width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .forge-jumbotron .forge-logo img {
+    width: 200px !important;
+  }
+}
+
+/*Iphone 5 & 5s*/
+@media (min-device-width : 320px) 
+and (max-device-width : 568px) { /* STYLES GO HERE */
+.forge-jumbotron .forge-logo img {
+    width: 200px !important;
+  }
+/*
+.forge-jumbotron .forge-btn, .explode-btn, .explode-motion-btn, .rotate-motion-btn, .reset-btn, .properties-btn{
+  font-size: 1.2em !important;
+  height: 35px !important;
+  width: 35px !important;
+}
+
+.properties-btn{
+  right: 40px !important;
+}
+
+.explode-btn {
+  right: 80px !important;
+}
+
+.explode-motion-btn {
+  right: 120px !important;
+}
+
+.rotate-motion-btn {
+  right: 160px !important;
+}
+
+.reset-btn{
+  right: 200px !important;
+}*/
+
+}
+
+/*Iphone 6 plus*/
+/*@media (min-width : 414px) 
+and (max-width : 736px)*/
+
+@media screen and (max-width: 736px) { /* STYLES GO HERE */
+  .forge-jumbotron .forge-logo img {
+    width: 200px !important;
+  }
+
+  .fullscreen .forge-jumbotron {
+    height: 100vh;
+  }
+  
+  .fullscreen .forge-jumbotron .container{
+    bottom: 5px;
+ }
+
+/*  Suppose to handle Safari browser
+  ::i-block-chrome, .forge-jumbotron .container{
+    top: -50px;
+  }*/
+
+ .forge-jumbotron .forge-logo {
+    top: 30px !important;
+ }
+}
+
+/* CSS for non mobile devices */
+
+.forge-jumbotron {
+  background: #EDEDED;
+  margin: 0;
+  padding: 20px 10px;
+  position: relative;
+}
+
+.forge-jumbotron .container {
+  height: 60vh;
+  min-height: 200px;
+  position: relative;
+  transition: all 300ms ease;
+}
+
+.fullscreen .forge-jumbotron .container {
+  height: 100vh;
+  width: 90vw;
+}
+
+
+.forge-jumbotron .forge-logo {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  z-index: 2;
+}
+
+.forge-jumbotron .forge-logo img {
+  width: 300px;
+}
+
+
+.forge-jumbotron .forge-viewer {
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+}
+
+.forge-jumbotron .forge-btn {
+  background-color: #EE8822;
+  border-radius: 50%;
+  border: none;
+  bottom: -48px;
+  color: white;
+  font-size: 2em;
+  height: 55px;
+  line-height: 1.8;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  transition: all 300ms ease;
+  width: 55px;
+  z-index: 2;
+}
+
+.forge-jumbotron .forge-btn:focus {
+  outline: none;
+}
+
+.forge-jumbotron .forge-btn:active {
+  background-color: #b4610e;
+}
+
+.fullscreen .forge-jumbotron .forge-btn {
+  bottom: 40px;
+}
+
+.forge-jumbotron .explode-btn, .explode-motion-btn, .rotate-motion-btn, .reset-btn, .properties-btn {
+  background-color: rgba(135,135,135, 0.6);
+  border-radius: 50%;
+  border: none;
+  bottom: -48px;
+  color: white;
+  font-size: 2em;
+  height: 55px;
+  line-height: 1.8;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  width: 55px;
+  z-index: 2;
+  visibility: hidden;
+  outline: none;
+}
+
+.forge-jumbotron .properties-table {
+  visibility: hidden;
+}
+
+.fullscreen .forge-jumbotron .properties-table {
+  visibility: visible;
+}
+
+.properties-btn{
+  right: 60px;
+}
+
+.explode-btn {
+  right: 120px;
+}
+
+.explode-motion-btn {
+  right: 180px;
+}
+
+.rotate-motion-btn {
+  right: 240px;
+}
+
+.reset-btn{
+  right: 300px;
+}
+
+.fullscreen .forge-jumbotron .properties-btn {
+  bottom: 40px;
+  visibility: visible;
+}
+
+.fullscreen .forge-jumbotron .explode-btn {
+  bottom: 40px;
+  visibility: visible;
+}
+
+.fullscreen .forge-jumbotron .explode-motion-btn {
+  bottom: 40px;
+  visibility: visible;
+}
+
+.fullscreen .forge-jumbotron .rotate-motion-btn {
+  bottom: 40px;
+  visibility: visible;
+}
+
+.fullscreen .forge-jumbotron .reset-btn {
+  bottom: 40px;
+  visibility: visible;
+}
+
+.forge-jumbotron .btn--active, .expbtn--active, .rotbtn--active {
+  background-color: rgba(53,102,204, 0.9);
+}
+
+.forge-jumbotron .btn--deactive, .expbtn--deactive, .rotbtn--deactive {
+  background-color: rgba(135,135,135, 0.6);
+}
+
+.forge-jumbotron .range-style {
+  background-color: rgba(135,135,135, 0.8);
+  bottom: -48px;
+  color: white;
+  font-size: 2em;
+  height: 55px;
+  line-height: 1.8;
+  padding: 0;
+  position: absolute;
+  text-align: center;
+  transition: all 300ms ease;
+  width: 55px;
+  right: 0;
+  z-index: 2;
+  visibility: hidden;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}
+
+.explode .forge-jumbotron .range-style {
+  bottom: 100px;
+  width: 24%;
+  visibility: visible;
+  transition: visibility 0s linear 0s, opacity 300ms;
+}
