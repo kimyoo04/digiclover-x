@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta name="Digiclover-x" content="" />
-    <link rel="stylesheet" href="../src/css/App.css" />
+    <link rel="stylesheet" href="../css/App.css" />
     <title>Digiclover-x</title>
     <script
       src="https://kit.fontawesome.com/f5b2afa047.js"
@@ -17,7 +17,7 @@
     <div class="sidebar">
       <div class="sidebar-logo">
         <a href="home.html">
-          <img src="../src/assets/img/logo.png" />
+          <img src="../assets/img/logo.png" />
         </a>
       </div>
 
@@ -67,9 +67,12 @@
 
       <nav class="nav">
         <li class="nav-item">
-          <a href="waiting.html" class="nav-link nav-storage"> 인증대기 </a>
+          <hr class="sidebar-horizontal-line__waiting now-page" />
+          <a href="waiting.html" class="nav-link nav-storage now-page">
+            인증대기
+          </a>
           <div class="nav__box">
-            <span class="nav__number">1</span>
+            <span class="nav__number now-page">1</span>
           </div>
         </li>
         <li class="nav-item">
@@ -82,12 +85,11 @@
           </div>
         </li>
         <li class="nav-item">
-          <hr class="sidebar-horizontal-line__certification now-page" />
-          <a href="certification.html" class="nav-link nav-storage now-page">
+          <a href="certification.html" class="nav-link nav-storage">
             인증서 발급
           </a>
           <div class="nav__box">
-            <span class="nav__number now-page">0</span>
+            <span class="nav__number">0</span>
           </div>
         </li>
       </nav>
