@@ -3,37 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 const jsPDF = require("jspdf");
-const iconv = require("iconv-lite");
-
-const multer = require("multer");
-const _storage = multer.diskStorage({
-  fileFilter: (req, file, cb) => {
-    if (
-      file.mimetype.substring(0, "image".length) == "image" ||
-      file.mimetype === "application/pdf"
-    ) {
-      cb(null, true);
-    } else {
-      cb(null, false);
-      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
-    }
-  },
-  destination: function (request, file, cb) {
-    if (file.mimetype.substring(0, "image".length) == "image") {
-      cb(null, "uploads/img");
-    } else if (file.mimetype === "application/pdf") {
-      cb(null, "uploads/pdf");
-    } else if (file.mimetype === "application/word") {
-      cb(null, "uploads/docu");
-    }
-  },
-  filename: function (request, file, cb) {
-    // cb(null, file.originalname + "-" + Date.now());
-    // 한글 인코딩 해결
-    cb(null, iconv.decode(file.originalname, "utf-8").toString());
-  },
-});
-const upload = multer({storage: _storage});
+const upload = require("./upload.js");
 
 //------------------------------ 세팅들 ------------------------------
 
@@ -101,6 +71,7 @@ app.post("/upload_process", upload.single("userfile"), (request, response) => {
   console.log(file);
   console.log(filename);
   console.log(name);
+  console.log("------------------------" + file.originalname.split(".")[-1]);
   response.redirect(`/waitforauth`);
   console.log("파일 업로드 완료");
 });
