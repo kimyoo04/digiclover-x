@@ -57,7 +57,9 @@ const printingBtn = document.querySelector(".printingBtn");
 printingBtn.addEventListener("click", doc.autoPrint());
 
 /*       
-      `${firstCompany}와(과) ${secondCompany} (${firstCompany} 책임자 : ${firstCompanyLeader}, ${secondCompany} 책임자 : ${secondCompanyLeader}) 는 다음과 같이 업무 제휴 협약을 체결한다.
+      ` ${firstCompany} & ${secondCompany} MOU협약서
+       
+      ${firstCompany}와(과) ${secondCompany} (${firstCompany} 책임자; : ${firstCompanyLeader}, ${secondCompany} 책임자 : ${secondCompanyLeader}) 는 다음과 같이 업무 제휴 협약을 체결한다.
       제 ${}조 (${})
       본 MOU는 ${}와(과) ${}가 ${}관한 협력관계를 갖는 것을 목적으로 한다.
       제 ${}조 (${})
@@ -67,5 +69,5 @@ printingBtn.addEventListener("click", doc.autoPrint());
       제 ${}조 (${})
       양 측은 신의 성실의 원칙에 입각하여 본 양해각서의 내용을 성실히 이행한다.
       제 ${}조 (${})
-      본 양해각서는 양측의 연구기간 ${}간 효력을 발휘하며 연구기간이 --될 경우 확정된 기간에도 같은 효력이 발휘된다.`;
+      본 양해각서는 양측의 연구기간 ${}간 효력을 발휘하며 연구기간이 확정될 경우 확정된 기간에도 같은 효력이 발휘된다.`;
  */
