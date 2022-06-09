@@ -913,4 +913,8 @@ small {
   height: 40px;
   padding-top: 30px;
 }
+
+.hidden {
+  opacity: 0;
+}
 /*# sourceMappingURL=App.css.map */
