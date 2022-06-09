@@ -1,23 +1,7 @@
-html(lang="en")
-    head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Digiclover-x
-        link(rel='stylesheet', href='./css/App.css', type='text/css')
-        script(src="https://kit.fontawesome.com/f5b2afa047.js" crossorigin="anonymous") 
-    body.signin 
-        //- 네비게이션 시작
-        .nav-logo 
-            a(href="/home") 
-                img(src="../assets/img/logo.png")
-        nav.nav-enter 
-            a(href="/login" class="nav-link__gray") 로그인
-            a(href="/signin" class="nav-link") 회원가입
-                hr.horizontal-line__signin
-        hr.horizontal-line
-        //- 네비게이션 끝
-        //- 위에까지 반복 요소임 모듈화 하자
+extends ./_login-signin
+block script
+//- head와 nav
+block content
 
 
         //- 회원가입 시작
@@ -40,4 +24,3 @@ html(lang="en")
                         button.signin-form-btn(type="button")
                             i.fas.fa-envelope 
                             span 회원가입하기
-        //- 회원가입 끝

@@ -1,0 +1,79 @@
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        meta(http-equiv="X-UA-Compatible", content="IE=edge")
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title Digiclover-x
+        link(rel='stylesheet', href='./css/App.css', type='text/css')
+        script(src="https://kit.fontawesome.com/f5b2afa047.js" crossorigin="anonymous") 
+    block script
+
+    body.storage
+        //- 사이드바 시작
+        .sidebar
+            .sidebar-logo 
+                a(href="/home") 
+                    img(src="../assets/img/logo.png")
+            
+            .sidebar-menu 
+                nav.sidebar-nav 
+                    li.sidebar-nav__item 
+                        span 문서화관리
+                        i.fas.fa-chevron-up 
+                    li.sidebar-nav__item 
+                        span 문서 보관함
+                        i.fas.fa-chevron-up 
+            
+            form.sidebar-btns(method="POST" action="/upload_process" enctype="multipart/form-data")
+                label.sidebar-btn(for="file-upload") 문서 업로드
+                input(type="file" name="userfile" id="file-upload" style={display:"none"}) 
+                label.sidebar-btn(for="file-submit") 제출
+                input(type="submit" name="제출" id="file-submit" style={display:"none"})      
+        //- 사이드바 끝
+
+        //- 메인 시작
+        main.main
+            //- 헤더 시작
+            header.header 
+                h1.header-title 문서화 관리
+                input.header-search(type="text" placeholder="검색어를 입력하세요.")
+                .header-profile 
+                    .header-profile__text 
+                        span.header-profile__name Higgs 님
+                        span.header-profile__logout-btn 로그아웃
+                    img(src="../assets/img/profileA.png")
+            //- 헤더 끝
+
+            //- 네비게이션 시작
+            hr.sidebar-horizontal-line
+            nav.nav 
+                li.nav-item 
+                    hr.sidebar-horizontal-line__waiting.nowpage
+                    a(href="/waitforauth" class="nav-link nav-storage") 인증대기
+                    .nav__box
+                        span.nav__number 1
+                li.nav-item 
+                    hr.sidebar-horizontal-line__documentation.nowpage
+                    a(href="/documentation" class="nav-link nav-storage") 문서화 완료
+                    .nav__box
+                        span.nav__number 2
+                li.nav-item 
+                    hr.sidebar-horizontal-line__certification.nowpage
+                    a(href="/certification" class="nav-link nav-storage") 인증서 발급
+                    .nav__box
+                        span.nav__number 0        
+            //- 네비게이션 끝
+            
+            block content
+
+        //- ==============================================================================================
+        //- PDF 검색 기능 구현
+        //- 유저정보 프로필 표시 기능 구현
+        //- 밑줄 하이라이트 hidden 클래스 넣어주는 기능 구현
+        //- now-page를 활성화된 사이트에 클래스 구현 혹은 focus 알아보기, 각 네비게이션 별 개수 표시 자바스크립트 구현
+                    a(href="/waitforauth" class="nav-link nav-storage now-page") 인증대기
+                    .nav__box
+                        span.nav__number.now-page 1
+        //- pdf 문서 객체화 해서 넣기
+        //- 사이드바의 카테고리 드롭다운 기능 넣기 혹은 디자인 새로하기
+        //- ==============================================================================================
