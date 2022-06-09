@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const fs = require("fs");
 const jsPDF = require("jspdf");
-const upload = require("./upload.js");
+const upload = require("./lib/uploader.js");
 
 //------------------------------ 세팅들 ------------------------------
 
@@ -65,13 +65,7 @@ app.post("/upload_process", upload.single("userfile"), (request, response) => {
   path: 'uploads\\b2dd142b24713d3a6025744646cec7da',
   size: 206230 
   */
-  var file = request.file;
-  var filename = file.originalname; // 기존 파일명
-  var name = file.filename; // 디스크 스토리지 파일명
-  console.log(file);
-  console.log(filename);
-  console.log(name);
-  console.log("------------------------" + file.originalname.split(".")[-1]);
+
   response.redirect(`/waitforauth`);
   console.log("파일 업로드 완료");
 });

@@ -1,4 +1,4 @@
-import jsPDF from "../jsPDF-master/dist/jspdf.es.js";
+const jsPDF = require("jspdf");
 
 document.getElementById("export").addEventListener("click", exportPDF);
 
