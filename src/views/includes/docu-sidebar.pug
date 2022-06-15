@@ -1,0 +1,19 @@
+.sidebar
+    .sidebar-logo 
+        a(href="/home") 
+            img(src="../assets/img/logo.png")
+    
+    .sidebar-menu 
+        nav.sidebar-nav 
+            li.sidebar-nav__item 
+                span 문서화관리
+                i.fas.fa-chevron-up 
+            li.sidebar-nav__item 
+                span 문서 보관함
+                i.fas.fa-chevron-up 
+    
+    form.sidebar-btns(method="POST" action="/upload_process" enctype="multipart/form-data")
+        label.sidebar-btn(for="file-upload") 문서 업로드
+        input(type="file" name="userfile" id="file-upload" style={display:"none"}) 
+        label.sidebar-btn(for="file-submit") 제출
+        input(type="submit" name="제출" id="file-submit" style={display:"none"})      

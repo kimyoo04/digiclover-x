@@ -45,23 +45,23 @@ html(lang="en")
             //- 헤더 끝
 
             //- 네비게이션 시작
-            hr.sidebar-horizontal-line
             nav.nav 
                 li.nav-item 
-                    hr.sidebar-horizontal-line__waiting.nowpage
                     a(href="/waitforauth" class="nav-link nav-storage") 인증대기
+                    hr.sidebar-horizontal-line__waiting.nowpage
                     .nav__box
                         span.nav__number 1
                 li.nav-item 
-                    hr.sidebar-horizontal-line__documentation.nowpage
                     a(href="/documentation" class="nav-link nav-storage") 문서화 완료
+                    hr.sidebar-horizontal-line__documentation.nowpage
                     .nav__box
                         span.nav__number 2
                 li.nav-item 
-                    hr.sidebar-horizontal-line__certification.nowpage
                     a(href="/certification" class="nav-link nav-storage") 인증서 발급
+                    hr.sidebar-horizontal-line__certification.nowpage
                     .nav__box
                         span.nav__number 0        
+            hr.sidebar-horizontal-line
             //- 네비게이션 끝
             
             block content
