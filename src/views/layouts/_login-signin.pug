@@ -10,12 +10,12 @@ html(lang="en")
 
     body.login
         .nav-logo 
-            a(href="/home") 
+            a(href="/") 
                 img(src="../assets/img/logo.png")
         nav.nav-enter 
-            a(href="/login" class="nav-link__gray") 로그인
+            a(href="/auth/login" class="nav-link__gray") 로그인
                 hr.horizontal-line__login
-            a(href="/signin" class="nav-link__gray") 회원가입
+            a(href="/auth/signin" class="nav-link__gray") 회원가입
                 hr.horizontal-line__signin
         hr.horizontal-line
     block content

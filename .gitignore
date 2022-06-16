@@ -25,3 +25,4 @@ yarn-error.log*
 # exclude
 desktop.ini
 db.js
+.env

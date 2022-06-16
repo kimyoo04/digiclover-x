@@ -1,3 +1,12 @@
-extends ./_docu-storage
-block content
-    body
+html(lang="en")
+    //- 헤드 테그
+    include includes/html-head.pug
+        script(src="./js/progress-indicator.js") 
+
+    body.converting 
+        form(action="/") 
+            input(type="text")
+            input(type="text")
+            input(type="text")
+            input(type="text")
+            input(type="text")

@@ -1,5 +1,5 @@
 //----------------------------------------------------------------
-// 전자문서들 저장소 페이지
+// 로그인, 회원가입 페이지
 //----------------------------------------------------------------
 
 // 모듈 세팅
@@ -40,5 +40,15 @@ router.use(
 router.use(express.json()); // json 파싱
 router.use(express.urlencoded({extended: true})); // form 파싱
 router.use(compression());
+
+//------------------------------ 로그인 페이지 ------------------------------
+router.get("/signin", (req, res) => {
+  res.render("signin");
+});
+
+//------------------------------ 회원가입 페이지 ------------------------------
+router.get("/login", (req, res) => {
+  res.render("login");
+});
 
 module.exports = router;

@@ -1,107 +1,69 @@
+// 모듈 세팅
+const dotenv = require("dotenv");
 const express = require("express");
-const bodyParser = require("body-parser");
 const path = require("path");
-const fs = require("fs");
-const jsPDF = require("jspdf");
-const upload = require("./lib/uploader.js");
-
-//------------------------------ 세팅들 ------------------------------
-
+const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
+const session = require("express-session");
+dotenv.config();
 const app = express();
-app.use(bodyParser.urlencoded({extended: false})); // bodyParser 실행
-app.use(express.static(path.join(__dirname, "public"))); // 정적 파일 적용 (img, css, js)
-console.log(__dirname);
-app.use("/user", express.static("uploads/pdf")); // uploads/pdf 폴더를 웹주소 /user로 접근
+
+// lib 폴더 세팅
+const db = require("./lib/db"); // C:\Bitnami\wampstack-8.1.6-0\mariadb\bin
+
+app.use(morgan("dev")); // "combined"
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: false,
+    secret: process.env.COOKIE_SECRET,
+    cookie: {
+      httpOnly: true,
+    },
+    name: "connect.sid",
+  })
+);
+
+// public 폴더 정적파일 연결
+app.use(express.static(path.join(__dirname, "../public")));
+
+app.use(express.json()); // json 파싱
+app.use(express.urlencoded({extended: true})); // form 파싱
 
 // 뷰 엔진에 퍼그 등록
 app.engine("pug", require("pug").__express);
-app.set("views", path.join(__dirname, "views")); // 현재 디렉토리에서 views 폴더를 의미
+app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-//------------------------------ 로그인 페이지 ------------------------------
+// 라우터
+const indexRouter = require("./routes/index.js");
+const authRouter = require("./routes/auth.js");
+const convertRouter = require("./routes/convert.js");
+const documentRouter = require("./routes/document.js");
+const storageRouter = require("./routes/storage.js");
 
-app.get("/", (req, res) => {
-  res.render("index");
+// 라우터
+app
+  .use("/", indexRouter)
+  .use("/auth", authRouter)
+  .use("/convert", convertRouter)
+  .use("/document", documentRouter)
+  .use("/storage", storageRouter);
+
+//------------------------------ 에러 처리 미들웨어  ------------------------------
+app.use((req, res, next) => {
+  res.status(200).send("sorry cant find that!"); // 404에러를 200으로 속임
 });
 
-app.get("/signin", (req, res) => {
-  res.render("signin");
-});
-
-app.get("/login", (req, res) => {
-  res.render("login");
-});
-
-//------------------------------ 문서화 관리 페이지 ------------------------------
-
-app.get("/waitforauth", (req, res) => {
-  res.render("wait_for_auth");
-});
-
-app.get("/documentation", (req, res) => {
-  res.render("documentation");
-});
-
-app.get("/certification", (req, res) => {
-  res.render("certification");
-});
-
-//------------------------------ HTML to PDF  ------------------------------
-
-app.get("/converting", (req, res) => {
-  res.render("converting");
-});
-
-//------------------------------ PDF 업로드 및 파일 저장 ------------------------------
-
-app.post("/upload_process", upload.single("userfile"), (request, response) => {
-  /* 
-  fieldname: 'userfile',
-  originalname: 'BÃ«t-Bi_Image_Sheet.jpg',
-  encoding: '7bit',
-  mimetype: 'image/jpeg',
-  destination: 'uploads/',
-  filename: 'b2dd142b24713d3a6025744646cec7da',
-  path: 'uploads\\b2dd142b24713d3a6025744646cec7da',
-  size: 206230 
-  */
-
-  response.redirect(`/waitforauth`);
-  console.log("파일 업로드 완료");
+app.use((err, req, res, next) => {
+  console.error(err);
+  res.status(500).send("Something broke!"); // 에러처리
 });
 
 //------------------------------ 서버 연결 ------------------------------
-
 app.listen(3000, () => {
-  console.log("Connected, 3000 port!");
-});
-
-//------------------------------ HTML to PDF 페이지  ------------------------------
-
-app.get("/converting", (req, res) => {
-  res.render("converting");
-});
-
-//------------------------------ PDF 생성 ------------------------------
-
-app.post(".converting", (req, res) => {
-  var post = req.body;
-  var title = post.title;
-  var description = post.description;
-
-  const doc = new jsPDF({
-    orientation: "p", // "portrait" or "landscape" (or shortcuts "p" or "l").
-    unit: "mm", // "in" <-- inch
-    lineHeight,
-    format: "a4", // [4, 2],
-  }).setProperties({title: "String Splitting"});
-
-  const pageWidth = 8.5,
-    lineHeight = 1.2,
-    margin = 0.5,
-    maxLineWidth = pageWidth - margin * 2,
-    fontSize = 24,
-    ptsPerInch = 72,
-    oneLineHeight = (fontSize * lineHeight) / ptsPerInch;
-  const contentText = post.content;
+  console.log(
+    "--------------------------------작동!--------------------------------"
+  );
 });
