@@ -7,7 +7,6 @@ const dotenv = require("dotenv");
 const express = require("express");
 const path = require("path");
 const compression = require("compression");
-const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const router = express.Router();
@@ -16,8 +15,6 @@ dotenv.config();
 // lib 폴더 세팅
 const template = require("../lib/template.js");
 const db = require("../lib/db");
-
-router.use(morgan("dev")); // "combined"
 
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
