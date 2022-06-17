@@ -41,13 +41,21 @@ router.use(compression());
 //------------------------------ 추가 모듈  ------------------------------
 const jsPDF = require("jspdf");
 
-//------------------------------ HTML to PDF ------------------------------
-router.get("/", (req, res) => {
-  res.render("converting");
+//------------------------------ contract writing ------------------------------
+router.get("/select-conpanies", (req, res) => {
+  res.render("select-companies");
+});
+
+router.get("/select-contract", (req, res) => {
+  res.render("select-contract");
+});
+
+router.get("/writing", (req, res) => {
+  res.render("writing");
 });
 
 //------------------------------ PDF 생성 ------------------------------
-router.post(".converting", (req, res) => {
+router.post("/convert-html-to-pdf", (req, res) => {
   var post = req.body;
   var title = post.title;
   var description = post.description;
@@ -67,6 +75,21 @@ router.post(".converting", (req, res) => {
     ptsPerInch = 72,
     oneLineHeight = (fontSize * lineHeight) / ptsPerInch;
   const contentText = post.content;
+});
+
+//------------------------------ PDF에 서명 ------------------------------
+router.get("/signning", (req, res) => {
+  res.render("signning");
+});
+
+//------------------------------ 이메일 전송 ------------------------------
+router.get("/sending", (req, res) => {
+  res.render("sending");
+});
+
+//------------------------------ convert 메인 페이지 ------------------------------
+router.get("/", (req, res) => {
+  res.render("converting");
 });
 
 module.exports = router;

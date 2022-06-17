@@ -26,7 +26,7 @@ app.use(
 );
 
 // public 폴더 정적파일 연결
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "./public")));
 
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱

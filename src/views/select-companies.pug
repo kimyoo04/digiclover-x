@@ -1,0 +1,24 @@
+html(lang="en")
+    //- 헤드 테그
+    include includes/html-head.pug
+        script(src="./js/progress-indicator.js") 
+
+    body.converting 
+        //- 로고
+        .nav-logo 
+            a(href="/") 
+                img(src="../assets/img/logo.png")
+        
+        h2 Select Companies
+        form.selectCompanies(method="POST" action="/convert/select-companies")
+            input(type="text" name="company${num}" style={border: "1px solid gray"})
+            input(type="text" name="contractor-name${num}" style={border: "1px solid gray"})
+            input(type="text" name="company${num}" style={border: "1px solid gray"})
+            input(type="text" name="contractor-name${num}" style={border: "1px solid gray"})
+            input(class="addCompanyBtn" type="button" value="   +   ")
+            input(type="submit" name="beforeBtn" value="이전")
+            input(type="submit" name="afterBtn" value="다음")
+        //- db 적용해서 회원 아이디 정보 자동 입력기능
+        //- 멤버 회사 검색 후 추가 기능
+        //- 직접 입력 기능
+        //- 회원가입 연결 기능

@@ -1,0 +1,47 @@
+.slide_wrapper {
+  position: relative;
+  width: 663px;
+  margin: 0 auto;
+  height: 205px;
+  overflow: hidden;
+}
+.slides {
+  position: absolute;
+  left: 0;
+
+  &.animated {
+    transition: left 0.3s ease-out;
+  }
+
+  & li {
+    @include layout-horizontal-center;
+    width: 198px;
+    height: 198px;
+    background: #ccc;
+    float: left;
+    margin: 2.5px 0 2.5px 0;
+    border: 1px solid #ccc;
+  }
+
+  & li:not(:last-child) {
+    margin-right: 30px;
+  }
+
+  & li:focus {
+    // 크기 변하는 문제 해결 필요
+    border: 1px solid $color-primary;
+    background-color: rgb(156, 156, 156);
+  }
+}
+
+.controls {
+  text-align: center;
+  margin-top: 50px;
+
+  & i {
+    color: #333;
+    padding: 10px 20px;
+    margin: 0 10px;
+    // 포인터 바꾸기
+  }
+}
