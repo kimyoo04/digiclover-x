@@ -46,7 +46,7 @@ function setInitialPos() {
   slides.style.transform = `translateX(${initialTranslateValue}px)`;
 }
 
-// --------------------------- 버튼 클릭 ---------------------------
+// --------------------------- 슬라이드 버튼 클릭 ---------------------------
 function moveSlide(num) {
   // slide의 width인 slideWidth + slideMargin에 한개씩 곱해준다.
   slides.style.left = `${-num * (slideWidth + slideMargin)}px`;
@@ -69,3 +69,12 @@ nextBtn.addEventListener("click", function () {
 prevBtn.addEventListener("click", function () {
   moveSlide(currentIdx - 1);
 });
+
+// --------------------------- 슬라이드 버튼 클릭 ---------------------------
+function changeRadio() {
+  slide.firstchild.checked = true;
+}
+
+for (var i = 0; i < slideCount; i++) {
+  slide[i].addEventListener("click", console.log(`대답${i}`));
+}

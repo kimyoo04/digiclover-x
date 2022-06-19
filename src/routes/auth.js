@@ -9,6 +9,7 @@ const path = require("path");
 const compression = require("compression");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const bodyParser = require("body-parser");
 const router = express.Router();
 dotenv.config();
 
@@ -34,8 +35,8 @@ router.use(
 );
 
 // 미들웨어 세팅
-router.use(express.json()); // json 파싱
-router.use(express.urlencoded({extended: true})); // form 파싱
+router.use(bodyParser.json()); // json 파싱
+router.use(bodyParser.urlencoded({extended: true})); // form 파싱
 router.use(compression());
 
 //------------------------------ 로그인 페이지 ------------------------------

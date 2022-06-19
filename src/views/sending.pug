@@ -1,7 +1,6 @@
 html(lang="en")
     //- 헤드 테그
     include includes/html-head.pug
-        script(src="./js/progress-indicator.js") 
 
     body.converting 
         //- 로고
@@ -9,4 +8,18 @@ html(lang="en")
             a(href="/") 
                 img(src="../assets/img/logo.png")
         
+        //- 진행률 표시
+        aside.progress-indicator
+
         h2 Sending E-mail
+
+
+
+
+
+        //- 이전 페이지, 다음 페이지 이동 버튼
+        .moveBtns
+            input(type="button" onclick="history.back()" value="이전")
+            input(type="button" onclick="history.forward()" value="다음")
+
+        script(type='text/javascript' src="./js/progress-indicator.js")

@@ -1,23 +1,43 @@
 html(lang="en")
     //- 헤드 테그
     include includes/html-head.pug
-        script(src="./js/progress-indicator.js") 
 
     body.converting 
         //- 로고
         .nav-logo 
             a(href="/") 
                 img(src="../assets/img/logo.png")
+
+        //- 진행률 표시
+        aside.progress-indicator
         
         h2 Select Companies
-        form.selectCompanies(method="POST" action="/convert/select-companies")
-            input(type="text" name="company${num}" style={border: "1px solid gray"})
-            input(type="text" name="contractor-name${num}" style={border: "1px solid gray"})
-            input(type="text" name="company${num}" style={border: "1px solid gray"})
-            input(type="text" name="contractor-name${num}" style={border: "1px solid gray"})
+        form.selectCompanies(method="POST" action="/convert/select-companies" accept-charset="utf-8" name="contractorInfo")
+            label 갑 회사명:
+                input(type="text" name="companyName1" placeholder="ex) Leli 주식회사"  autofocus required style={border: "1px solid gray"})
+            label 갑 회사 계약자 성명:
+                input(type="text" name="contractorName1" placeholder="ex) 홍길동" maxlength="10" required style={border: "1px solid gray"})
+            label 갑 회사 계약자 전화번호:
+                input(type="tel" name="contractorPhone1" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="ex) 010-0000-0000" required  maxlength="15" style={border: "1px solid gray"})
+            label 갑 회사 계약자 이메일:
+                input(type="tel" name="contractorEmail1" placeholder="ex) name@leli.com" required style={border: "1px solid gray"})
+            label 을 회사명:
+                input(type="text" name="companyName2" required style={border: "1px solid gray"})
+            label 을 회사 계약자 성명:
+                input(type="text" name="contractorName2" maxlength="10" required  style={border: "1px solid gray"})
+            label 을 회사 계약자 전화번호:
+                input(type="tel" name="contractorPhone2" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="ex) 010-0000-0000" required  maxlength="15" style={border: "1px solid gray"})
+            label 을 회사 계약자 이메일:
+                input(type="tel" name="contractorEmail2" placeholder="ex) name@leli.com" required style={border: "1px solid gray"})
             input(class="addCompanyBtn" type="button" value="   +   ")
-            input(type="submit" name="beforeBtn" value="이전")
-            input(type="submit" name="afterBtn" value="다음")
+            
+            //- 이전 페이지, 다음 페이지 이동 버튼
+            .moveBtns
+                input(type="button" onclick="history.back()" value="이전")
+                input(type="submit" value="다음")
+
+        script(type='text/javascript' src="./js/progress-indicator.js")
+
         //- db 적용해서 회원 아이디 정보 자동 입력기능
         //- 멤버 회사 검색 후 추가 기능
         //- 직접 입력 기능
