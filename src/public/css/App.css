@@ -979,7 +979,6 @@ small {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin: 0 20px;
 }
 
 .docu-wrapper {
@@ -997,28 +996,48 @@ small {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  padding: 0 50px;
-  margin: 20px 0;
+  width: 794px;
+  margin: 30px 0;
 }
 
 .docu-title {
+  margin: 50px 0;
+}
+
+.docu-title input {
   font-size: 24px;
-  margin: 50px;
+  font-weight: bold;
+  text-align: center;
+  padding: 0 50px;
 }
 
 .docu-describe {
+  width: 100%;
+  height: 30px;
   margin-bottom: 50px;
+}
+
+.docu-describe input {
+  width: 100%;
+  height: 30px;
+  text-align: center;
+  padding: 0 50px;
 }
 
 .docu-contents {
   width: 100%;
 }
 
+.docu-content {
+  padding: 0 50px;
+}
+
 .docu-content:not(:last-child) {
   margin-bottom: 50px;
 }
 
-.docu-content span {
+.docu-content input {
+  font-size: 16px;
   font-weight: bold;
 }
 
@@ -1032,9 +1051,27 @@ small {
 }
 
 .addContentBtn {
-  width: 100%;
+  width: 694px;
   height: 40px;
   margin: 50px 0;
+  padding: 0 50px;
+  background-color: #ccc;
+}
+
+.moveBtns {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.moveBtns input {
+  width: 100px;
+  height: 50px;
+  margin: 0 50px 50px 50px;
 }
 
 .hidden {

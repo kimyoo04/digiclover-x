@@ -41,7 +41,9 @@ router.use(compression());
 
 //------------------------------ 추가 모듈  ------------------------------
 const {jsPDF} = require("jspdf");
-const docukind = require("../lib/docukind.js");
+const docukind = require("../lib/docukind.js"); // 추후 문서 종류 별 모듈화
+const htmlparser2 = require("htmlparser2");
+
 //------------------------------ 코드 시작 ------------------------------
 //------------------------------ 1. 회사 및 계약자 선택 ------------------------------
 
@@ -95,9 +97,9 @@ router.post("/select-docukind", (req, res) => {
 
 router.get("/writing", (req, res) => {
   // 1,2 단계에서 데이터 받아서 아래 변수에 할당
-  let companyName1 = "leli";
+  let companyName1 = "LeLi";
   let contractorName1 = "kimyoo";
-  let companyName2 = "naver";
+  let companyName2 = "Naver";
   let contractorName2 = "haribo";
 
   res.render("writing", {
@@ -112,30 +114,17 @@ router.post("/writing", (req, res) => {
   let post = req.body;
 
   const pageWidth = 210,
-    pageHeight = 297,
-    lineHeight = 1.2,
     margin = 20,
     maxLineWidth = pageWidth - margin * 2,
-    fontSize = 12,
-    ptsPerMm = 3.781,
-    oneLineHeight = (fontSize * lineHeight) / ptsPerMm;
+    ptsPerMm = 3.781;
 
   const doc = new jsPDF({
-    orientation: "p", // "portrait" or "landscape" (or shortcuts "p" or "l").
-    unit: "mm", // "in" <-- inch
-    lineHeight: lineHeight,
-    format: "a4", // [4, 2],
+    orientation: "p",
+    unit: "mm",
+    format: "a4", //[210,297]
     filters: ["ASCIIHexEncode"],
   }).setProperties({title: "String Splitting"});
 
-  var text;
-  for (let [key, value] of Object.entries(post)) {
-    let data = `
-    제 ${key}조 (변수처리하기-----)\n
-    ${value}\n
-    `;
-    text = text + data;
-  }
   // customfont 작업
   let NanumGothicRegular = require("../public/assets/font/Nanum_Gothic/NanumGothic-Regular-normal.js"),
     NanumGothicBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-Bold-normal.js"),
@@ -147,17 +136,59 @@ router.post("/writing", (req, res) => {
   doc.addFileToVFS("NanumGothic-ExtraBold-normal.ttf", NanumGothicExtraBold);
   doc.addFont("NanumGothic-ExtraBold-normal.ttf", "NanumGothic", "extrabold");
   doc.setFont("NanumGothic");
+  doc.setFontSize(12);
 
-  let textLines = doc
-    .setFont("NanumGothic")
-    .setFontSize(fontSize)
-    .splitTextToSize(text, maxLineWidth);
-  doc.text(textLines, margin, margin + 2 * oneLineHeight);
+  // 텍스트 생성
+  var yPos = margin;
 
-  var textHeight = (textLines.length * fontSize * lineHeight) / ptsPerMm;
-  doc
-    .setFont("NanumGothic", "extrabold")
-    .text("Text Height: " + textHeight + " mm", margin, margin + oneLineHeight);
+  // post data 분류
+  let value;
+  const title = post.title;
+  const describe = post.describe;
+
+  const indx = post.indx;
+  const content = post.content;
+
+  const indxLength = indx.length;
+  const contentLength = content.length;
+
+  value = title;
+  fontSize = 16;
+  [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+  doc.text(textLine, margin, yPos);
+  yPos += blockHeight;
+
+  value = describe;
+  fontSize = 10;
+  [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+  doc.text(textLine, margin, yPos);
+  yPos += blockHeight;
+
+  let indxContent = [];
+  for (let i = 0; i < indxLength; i++) {
+    let value = indx[i];
+    fontSize = 12;
+    [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+    doc.text(textLine, margin, yPos + 2);
+    yPos += blockHeight;
+
+    value = content[i];
+    fontSize = 10;
+    [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+    doc.text(textLine, margin, yPos - 2);
+    yPos += blockHeight;
+  }
+
+  function textProcess(value, fontSize, maxLineWidth) {
+    text = `${value}\n`;
+    let textLine = doc
+      .setFontSize(fontSize)
+      .splitTextToSize(text, maxLineWidth);
+    let textHeight = doc.getLineHeight(text) / doc.internal.scaleFactor;
+    var lines = textLine.length;
+    var blockHeight = lines * textHeight;
+    return [textLine, blockHeight];
+  }
 
   res.redirect(`/convert/signning`); //수정필요
   doc.output("save", "./uploads/test.pdf");
