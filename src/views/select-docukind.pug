@@ -18,30 +18,24 @@ html(lang="en")
 
         //- 원하는 문서 유형 선택
         form.select-docukind(method="POST" action="/convert/select-docukind")
-            //- .slide_wrapper
-            //-     .slides 
-            //-         li.slide(tabindex="1") mou
-            //-             input(type="radio" name="docukind" value="mou")
-            //-         li.slide(tabindex="2") slide2
-            //-             input(type="radio" name="docukind" value="b2")
-            //-         li.slide(tabindex="3") slide3
-            //-             input(type="radio" name="docukind" value="b3")
-            //-         li.slide(tabindex="4") slide4
-            //-             input(type="radio" name="docukind" value="b4")
-            //-         li.slide(tabindex="5") slide5
-            //-             input(type="radio" name="docukind" value="b5")
-            //- li를 클릭할때 자식요소인 input에 checked가 되도록 하기
-            label mou
-                input(type="radio" name="docukind" value="b1")
-            label slide2
-                input(type="radio" name="docukind" value="b2")
-            label slide3
-                input(type="radio" name="docukind" value="b3")
-            label slide4
-                input(type="radio" name="docukind" value="b4")
-            label slide5
-                input(type="radio" name="docukind" value="b5")
-                    
+            .slide_wrapper
+                .slides 
+                    li.slide(tabindex="1")
+                        label(name="docukind") mou
+                        input(type="radio" name="docukind" value="mou")
+                    li.slide(tabindex="2")
+                        label(name="docukind") slide2
+                        input(type="radio" name="docukind" value="b2")
+                    li.slide(tabindex="3")
+                        label(name="docukind") slide3
+                        input(type="radio" name="docukind" value="b3")
+                    li.slide(tabindex="4")
+                        label(name="docukind") slide4
+                        input(type="radio" name="docukind" value="b4")
+                    li.slide(tabindex="5")
+                        label(name="docukind") slide5
+                        input(type="radio" name="docukind" value="b5")
+
             //- 왼쪽 오른쪽 슬라이드 버튼
             p.controls
                 i(class="fas fa-chevron-left prevBtn")

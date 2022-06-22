@@ -14,13 +14,13 @@
   }
 
   & li {
+    box-sizing: border-box;
     @include layout-horizontal-center;
-    width: 198px;
-    height: 198px;
+    width: 200px;
+    height: 200px;
     background: #ccc;
     float: left;
     margin: 2.5px 0 2.5px 0;
-    border: 1px solid #ccc;
   }
 
   & li:not(:last-child) {

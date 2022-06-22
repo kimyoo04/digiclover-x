@@ -932,6 +932,8 @@ small {
 }
 
 .slides li {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -941,12 +943,11 @@ small {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  width: 198px;
-  height: 198px;
+  width: 200px;
+  height: 200px;
   background: #ccc;
   float: left;
   margin: 2.5px 0 2.5px 0;
-  border: 1px solid #ccc;
 }
 
 .slides li:not(:last-child) {
