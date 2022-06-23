@@ -7,8 +7,6 @@ let slides = document.querySelector(".slides"),
   nextBtn = document.querySelector(".nextBtn");
 var currentIdx = 0;
 
-makeClone();
-
 function makeClone() {
   // 보이는 슬라이드 수 만큼 뒤에 추가
   for (let i = 0; i < slideCount; i++) {
@@ -70,11 +68,4 @@ prevBtn.addEventListener("click", function () {
   moveSlide(currentIdx - 1);
 });
 
-// --------------------------- 슬라이드 버튼 클릭 ---------------------------
-function changeRadio() {
-  slide.firstchild.checked = true;
-}
-
-for (var i = 0; i < slideCount; i++) {
-  slide[i].addEventListener("click", console.log(`대답${i}`));
-}
+makeClone();
