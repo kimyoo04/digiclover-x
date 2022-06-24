@@ -9,7 +9,10 @@
 /coverage
 
 # production
-/build
+/src/build
+/src/models
+/src/passport
+/src/config
 
 # misc
 .DS_Store
@@ -26,3 +29,4 @@ yarn-error.log*
 desktop.ini
 db.js
 .env
+.config.json

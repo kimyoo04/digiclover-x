@@ -52,28 +52,17 @@ router.get("/select-conpanies", (req, res) => {
 });
 
 router.post("/select-companies", (req, res) => {
-  let companyName1 = req.body.companyName1;
-  let contractorName1 = req.body.contractorName1;
-  let contractorPhone1 = req.body.contractorPhone1;
-  let contractorEmail1 = req.body.contractorEmail1;
+  const post = req.body;
 
-  let companyName2 = req.body.companyName2;
-  let contractorName2 = req.body.contractorName2;
-  let contractorPhone2 = req.body.contractorPhone2;
-  let contractorEmail2 = req.body.contractorEmail2;
-  console.log(
-    `
-    ${companyName1}
-    ${contractorName1}
-    ${contractorPhone1}
-    ${contractorEmail1}
-    
-    ${companyName2}
-    ${contractorName2}
-    ${contractorPhone2}
-    ${contractorEmail2}
-    `
-  );
+  let companyName1 = post.companyName1;
+  let contractorName1 = post.contractorName1;
+  let contractorPhone1 = post.contractorPhone1;
+  let contractorEmail1 = post.contractorEmail1;
+
+  let companyName2 = post.companyName2;
+  let contractorName2 = post.contractorName2;
+  let contractorPhone2 = post.contractorPhone2;
+  let contractorEmail2 = post.contractorEmail2;
 
   res.redirect(`/convert/select-docukind`); //수정필요
   console.log("1. 회사 및 계약자 선택 완료");
@@ -83,6 +72,13 @@ router.post("/select-companies", (req, res) => {
 
 router.get("/select-docukind", (req, res) => {
   res.render("select-docukind");
+
+  // 회사, 계약자 정보 할당
+  const post = req.body;
+  let companyName1 = post.companyName1;
+  let contractorName1 = post.contractorName1;
+  let companyName2 = post.companyName2;
+  let contractorName2 = post.contractorName2;
 });
 
 router.post("/select-docukind", (req, res) => {
@@ -96,11 +92,13 @@ router.post("/select-docukind", (req, res) => {
 //------------------------------ 3. 문서 작성 및 PDF 생성 ------------------------------
 
 router.get("/writing", (req, res) => {
-  // 1,2 단계에서 데이터 받아서 아래 변수에 할당
-  let companyName1 = "LeLi";
-  let contractorName1 = "kimyoo";
-  let companyName2 = "Naver";
-  let contractorName2 = "haribo";
+  // 회사, 계약자 정보 할당
+  const post = req.body;
+
+  let companyName1 = post.companyName1;
+  let contractorName1 = post.contractorName1;
+  let companyName2 = post.companyName2;
+  let contractorName2 = post.contractorName2;
 
   res.render("writing", {
     companyName1,
@@ -114,6 +112,7 @@ router.post("/writing", (req, res) => {
   let post = req.body;
 
   const pageWidth = 210,
+    pageHeight = 297,
     margin = 20,
     maxLineWidth = pageWidth - margin * 2,
     ptsPerMm = 3.781;
@@ -121,7 +120,7 @@ router.post("/writing", (req, res) => {
   const doc = new jsPDF({
     orientation: "p",
     unit: "mm",
-    format: "a4", //[210,297]
+    format: [210, 297], //[210,297]
     filters: ["ASCIIHexEncode"],
   }).setProperties({title: "String Splitting"});
 
@@ -139,7 +138,7 @@ router.post("/writing", (req, res) => {
   doc.setFontSize(12);
 
   // 텍스트 생성
-  var yPos = margin;
+  let yPos = margin;
 
   // post data 분류
   let value;
@@ -153,9 +152,9 @@ router.post("/writing", (req, res) => {
   const contentLength = content.length;
 
   value = title;
-  fontSize = 16;
-  [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
-  doc.text(textLine, margin, yPos);
+  let fontSize = 16;
+  let [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+  doc.text(textLine, 0, yPos, {align: "center"});
   yPos += blockHeight;
 
   value = describe;
@@ -164,10 +163,9 @@ router.post("/writing", (req, res) => {
   doc.text(textLine, margin, yPos);
   yPos += blockHeight;
 
-  let indxContent = [];
   for (let i = 0; i < indxLength; i++) {
     let value = indx[i];
-    fontSize = 12;
+    let fontSize = 12;
     [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
     doc.text(textLine, margin, yPos + 2);
     yPos += blockHeight;
@@ -180,7 +178,7 @@ router.post("/writing", (req, res) => {
   }
 
   function textProcess(value, fontSize, maxLineWidth) {
-    text = `${value}\n`;
+    let text = `${value}\n`;
     let textLine = doc
       .setFontSize(fontSize)
       .splitTextToSize(text, maxLineWidth);

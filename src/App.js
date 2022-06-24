@@ -5,12 +5,25 @@ const path = require("path");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
-dotenv.config();
+const {sequelize} = require("./models/index.js");
+
 const app = express();
 
+dotenv.config();
 // lib 폴더 세팅
 const db = require("./lib/db"); // C:\Bitnami\wampstack-8.1.6-0\mariadb\bin
 
+// 시퀄라이즈 연결
+sequelize
+  .sync({force: false})
+  .then(() => {
+    console.log("데이터베이스 연결 성공");
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
+// 쿠키, 세션 세팅
 app.use(morgan("dev")); // "combined"
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
@@ -31,17 +44,18 @@ app.use(express.static(path.join(__dirname, "./public")));
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱
 
+app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
 // 뷰 엔진에 퍼그 등록
 app.engine("pug", require("pug").__express);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
 // 라우터
-const indexRouter = require("./routes/index.js");
-const authRouter = require("./routes/auth.js");
-const convertRouter = require("./routes/convert.js");
-const documentRouter = require("./routes/document.js");
-const storageRouter = require("./routes/storage.js");
+const indexRouter = require("./routes/index.js"),
+  authRouter = require("./routes/auth.js"),
+  convertRouter = require("./routes/convert.js"),
+  documentRouter = require("./routes/document.js"),
+  storageRouter = require("./routes/storage.js");
 
 // 라우터
 app
@@ -53,17 +67,21 @@ app
 
 //------------------------------ 에러 처리 미들웨어  ------------------------------
 app.use((req, res, next) => {
-  res.status(200).send("sorry cant find that!"); // 404에러를 200으로 속임
+  const error = new Error(
+    `${req.method} ${req.url} 라우터가 없으니 다른 것을 찾으세요!`
+  );
+  error.status = 404;
+  next(error); // 에러 미들웨어로 넘김
 });
 
 app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(500).send("Something broke!"); // 에러처리
+  res.locals.message = err.message;
+  res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
+  res.status(err.status || 500).render("error"); // 에러처리를 pug에 띄움
+  console.error(res.locals.error);
 });
 
 //------------------------------ 서버 연결 ------------------------------
-app.listen(3000, () => {
-  console.log(
-    "--------------------------------작동!--------------------------------"
-  );
+app.listen(app.get("port"), () => {
+  console.log(app.get("port"), "번 포트 작동 중");
 });
