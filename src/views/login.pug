@@ -8,7 +8,7 @@ block content
         //- 로그인 했을 때
         if isLoggedIn
             .login-wrap 
-                form(action="submit" class="login-forms")
+                form(action="/auth/login-local" class="login-forms")
                     .login-form 
                         .login-form-id 
                             label(for="login-form-id__input") 아이디

@@ -6,7 +6,9 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const {sequelize} = require("./models/index.js");
-
+const passportConfig = require("./passport");
+const passport = require("passport");
+const flash = require("connect-flash");
 const app = express();
 
 dotenv.config();
@@ -23,7 +25,7 @@ sequelize
     console.error(err);
   });
 
-// 쿠키, 세션 세팅
+// 쿠키, 세션, 패스포트, 플래쉬 세팅
 app.use(morgan("dev")); // "combined"
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
@@ -33,10 +35,15 @@ app.use(
     secret: process.env.COOKIE_SECRET,
     cookie: {
       httpOnly: true,
+      secure: false,
     },
     name: "connect.sid",
   })
 );
+passportConfig();
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
 // public 폴더 정적파일 연결
 app.use(express.static(path.join(__dirname, "./public")));
@@ -52,7 +59,7 @@ app.set("view engine", "pug");
 
 // 라우터
 const indexRouter = require("./routes/index.js"),
-  authRouter = require("./routes/auth.js"),
+  authRouter = require("./routes/auth.js")(passport),
   convertRouter = require("./routes/convert.js"),
   documentRouter = require("./routes/document.js"),
   storageRouter = require("./routes/storage.js");
