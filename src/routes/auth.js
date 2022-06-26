@@ -56,28 +56,14 @@ router
 
 //------------------------------ 로그인 페이지 ------------------------------
 router.get("/login", (req, res) => {
-  // let fmsg = req.flash();
-  // console.log(fmsg);
-
-  // let successFeedback = "";
-  // let errorFeedback = "";
-
-  // // 로그인 성공 플래쉬메시지 넣기
-  // if (fmsg.success) {
-  //   successFeedback = fmsg.success[0];
-  // }
-
-  // // 로그인 실패 플래쉬메시지 넣기
-  // if (fmsg.error) {
-  //   errorFeedback = fmsg.error[0];
-  // }
-
+  const error = req.flash().error || [];
+  console.log(error);
   res.render("login", {
-    // successFeedback: `${successFeedback}`,
-    // errorFeedback: `${errorFeedback}`,
+    errorFeedback: error,
     user: req.user,
   });
 });
+// flash message 알아보기
 
 //------------------------------ 로그인 필요 페이지 ------------------------------
 router.get("/require-login", (req, res) => {
@@ -85,30 +71,30 @@ router.get("/require-login", (req, res) => {
 });
 
 //------------------------------ 로컬 로그인 ------------------------------
-router.post("/login-local", (req, res, next) => {
-  passport.authenticate(
-    "local",
-    // done(null, false, message)가 밑의 미들웨어 인자로 들어감
-    (authError, user, info) => {
-      if (authError) {
-        console.error("authError", authError);
-        return next(authError);
-      }
-      if (!user) {
-        return res.redirect("/auth/login");
-      }
+router.post(
+  "/login-local",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/auth/login",
+    failureFlash: true,
+    successFlash: true,
+  })
+);
 
-      // 시리얼라이즈 유저를 함
-      return req.login(user, (loginError) => {
-        if (loginError) {
-          console.error(loginError);
-          return next(loginError);
-        }
-        return res.redirect("/");
-      });
-    }
-  )(req, res, next);
-});
+//------------------------------ 카카오 로그인 ------------------------------
+// 카카오 로그인 페이지 이동
+router.get("/kakao", passport.authenticate("kakao"));
+
+// 카카오 로그인 성공하면 아래로 요청을 쏴준다.
+router.get(
+  "/kakao/callback",
+  passport.authenticate("kakao", {
+    failureRedirect: "/",
+  }),
+  (req, res) => {
+    res.redirect("/");
+  }
+);
 
 //------------------------------ 로그아웃 ------------------------------
 router.get("/logout", function (req, res, next) {

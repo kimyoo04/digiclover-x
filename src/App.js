@@ -8,12 +8,12 @@ const session = require("express-session");
 const {sequelize} = require("./models/index.js");
 const passportConfig = require("./passport");
 const passport = require("passport");
-// const flash = require("connect-flash");
+const flash = require("connect-flash");
 const app = express();
 
 dotenv.config();
 // lib 폴더 세팅
-const db = require("./lib/db"); // C:\Bitnami\wampstack-8.1.6-0\mariadb\bin
+// C:\Bitnami\wampstack-8.1.6-0\mariadb\bin
 
 // 시퀄라이즈 연결
 sequelize
@@ -43,7 +43,7 @@ app.use(
 passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
-// app.use(flash());
+app.use(flash());
 
 // public 폴더 정적파일 연결
 app.use(express.static(path.join(__dirname, "./public")));

@@ -362,6 +362,11 @@ small {
   color: white;
 }
 
+.line-btn a {
+  text-decoration: none;
+  color: white;
+}
+
 .facebook-btn {
   font-family: "Noto Sans KR", sans-serif;
   margin: 5px;
@@ -376,6 +381,33 @@ small {
   background-size: 5%;
   background-position: 16%;
   background-color: #254aaf;
+  color: white;
+}
+
+.facebook-btn a {
+  text-decoration: none;
+  color: white;
+}
+
+.kakao-btn {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 5px;
+  width: 300px;
+  height: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  font-size: 14px;
+  border-color: #fae100;
+  background-image: url("../assets/img/kakao_icon.png");
+  background-repeat: no-repeat;
+  background-size: 5%;
+  background-position: 19%;
+  background-color: #fae100;
+  color: white;
+}
+
+.kakao-btn a {
+  text-decoration: none;
   color: white;
 }
 

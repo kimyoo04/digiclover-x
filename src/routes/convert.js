@@ -9,6 +9,7 @@ const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const router = express.Router();
+const Document = require("../models/document.js");
 dotenv.config();
 
 // lib 폴더 세팅
@@ -196,8 +197,18 @@ router.post("/writing", isAuthenticated, (req, res) => {
     return [textLine, blockHeight];
   }
 
-  res.redirect(`/convert/signning`); //수정필요
-  doc.output("save", "./uploads/test.pdf");
+  try {
+    Document.create({
+      title,
+      docukindName,
+    });
+  } catch (error) {
+    console.error(error);
+    return next(error);
+  }
+
+  res.redirect(`/convert/signning`);
+  doc.output("save", `../uploads/${timestamp}${title}.pdf`);
 
   console.log("3. PDF 변환 완료");
 });

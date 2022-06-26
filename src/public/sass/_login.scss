@@ -123,6 +123,10 @@
     background-position: 22%;
     background-color: #52b52e;
     color: white;
+    & a {
+      text-decoration: none;
+      color: white;
+    }
   }
 }
 
@@ -136,5 +140,25 @@
     background-position: 16%;
     background-color: #254aaf;
     color: white;
+    & a {
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
+.kakao {
+  &-btn {
+    @include btn;
+    border-color: #fae100;
+    background-image: url("../assets/img/kakao_icon.png");
+    background-repeat: no-repeat;
+    background-size: 5%;
+    background-position: 19%;
+    background-color: #fae100;
+    color: white;
+    & a {
+      text-decoration: none;
+      color: white;
+    }
   }
 }

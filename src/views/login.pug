@@ -30,12 +30,14 @@ block content
                                 span 로그인하기
                     .login-form-sns
                         .login-form-sns__title 
-                            span SNS 로그인하기
+                            span SNS 로그인
                         .line
                             button.line-btn(type="button")
-                                span Line으로 로그인하기
-                        
+                                a(href="/auth/line") Line 로그인하기
                         .facebook
                             button.facebook-btn(type="button")
-                                span Facebook으로 로그인하기
+                                a(href="/auth/facebook") Facebook 로그인하기
+                        .kakao
+                            button.kakao-btn(type="button")
+                                a(href="/auth/kakao") Kakao 로그인하기
 
