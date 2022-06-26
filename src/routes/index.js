@@ -25,7 +25,7 @@ router.use(compression());
 
 //------------------------------ 홈페이지 ------------------------------
 router.get("/", (req, res) => {
-  res.render("index");
+  res.render("index", {user: req.user});
 });
 
 module.exports = router;

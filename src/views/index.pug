@@ -1,12 +1,25 @@
-extends ./layouts/_home
-block script 
+html(lang="en")
+    //- 헤드 테그
+    include includes/html-head.pug
 
-block content
-    body 
-        h1 User profile page
-        h2 Nickname
-        div.green= nickname
+    body.signin 
+        //- 로고
+        .nav-logo 
+            a(href="/") 
+                img(src="../assets/img/logo.png")
 
-        form(method="POST" action="/upload_process" enctype="multipart/form-data")
-            input(type="file" name="userfile") 
-            input(type="submit" value="Upload")
+                
+        if user
+            .header-profile 
+                .header-profile__text 
+                    span.header-profile__name #{user.name} 님
+                    span.header-profile__logout-btn 
+                        a(href="/auth/logout" style={color: "white"}) 로그아웃
+            .nav-enter  
+                a(href="/convert" style={color: "white", margin: "5px"}) 전자문서 만들기
+                a(href="/document/waitforauth" style={color: "white", margin: "5px"}) 문서함 관리
+        else 
+            .nav-enter  
+                a(href="/auth/login" style={color: "white", margin: "5px"}) 로그인
+                a(href="/convert" style={color: "white", margin: "5px"}) 전자문서 만들기
+                a(href="/document/waitforauth" style={color: "white", margin: "5px"}) 문서함 관리

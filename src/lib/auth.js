@@ -16,20 +16,13 @@ module.exports = {
     return authStatusUI;
   },
 
-  isLoggedIn: (req, res, next) => {
+  isAuthenticated: (req, res, next) => {
     if (req.isAuthenticated()) {
       next();
     } else {
-      res.status(403).send("로그인 필요");
-    }
-  },
-
-  isNotLoggedIn: (req, res, next) => {
-    if (!req.isAuthenticated()) {
-      next();
-    } else {
-      const message = encodeURIComponent("로그인한 상태입니다.");
-      res.redirect(`/?error=${message}`);
+      const message = "-------------로그인 없이 서비스 접근함-------------";
+      console.log(message);
+      res.status(403).redirect(`/auth/require-login`);
     }
   },
 };

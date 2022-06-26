@@ -5,44 +5,27 @@ block content
 
 
         //- 로그인 시작
-        //- 로그인 했을 때
-        if isLoggedIn
+        if user
             .login-wrap 
-                form(action="/auth/login-local" class="login-forms")
-                    .login-form 
-                        .login-form-id 
-                            label(for="login-form-id__input") 아이디
-                            input(type="text" name="id" class="login-form-id__input")
-                        .login-form-password 
-                            label(for="login-form-password__input") 비밀번호
-                            input.login-form-password__input(type="password" name="password")
-                        .normal
-                            button.normal-btn(type="button")
-                                i.fas.fa-envelope
-                                span 로그인하기
-                    .login-form-sns
-                        .login-form-sns__title 
-                            span SNS 로그인하기
-                        .line
-                            button.line-btn(type="button")
-                                span Line으로 로그인하기
-                        
-                        .facebook
-                            button.facebook-btn(type="button")
-                                span Facebook으로 로그인하기
-        //- 로그인 안했을 때
+                form(action="/auth/login-local" method="post" class="login-forms")
+                    .login-form
+                        div(style={color: "white"}) #{user.email}
+                        div(style={color: "white"}) #{user.name}님 안녕하세요
+                        a(style={color: "white"} href="/auth/logout") 로그아웃
         else 
             .login-wrap 
-                form(action="submit" class="login-forms")
-                    .login-form 
+                form(action="/auth/login-local" method="post" class="login-forms")
+                    .login-form
+                        .loginFeedback 
+                            span #{errorFeedback}
                         .login-form-id 
-                            label(for="login-form-id__input") 아이디
-                            input(type="text" name="id" class="login-form-id__input")
+                            label(for="email") 이메일
+                            input(type="text" name="email" class="login-form-id__input")
                         .login-form-password 
-                            label(for="login-form-password__input") 비밀번호
+                            label(for="password") 비밀번호
                             input.login-form-password__input(type="password" name="password")
                         .normal
-                            button.normal-btn(type="button")
+                            button.normal-btn(type="submit")
                                 i.fas.fa-envelope
                                 span 로그인하기
                     .login-form-sns

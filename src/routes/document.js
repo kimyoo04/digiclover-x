@@ -13,8 +13,8 @@ dotenv.config();
 
 // lib 폴더 세팅
 const template = require("../lib/template.js");
-const db = require("../lib/db");
 const upload = require("../lib/uploader.js");
+const {isAuthenticated} = require("../lib/auth.js");
 
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
@@ -26,22 +26,26 @@ router.use(compression());
 
 //------------------------------ 문서화 관리 페이지 ------------------------------
 
-router.get("/waitforauth", (req, res) => {
+router.get("/waitforauth", isAuthenticated, (req, res) => {
   res.render("wait_for_auth");
 });
 
-router.get("/documentation", (req, res) => {
+router.get("/documentation", isAuthenticated, (req, res) => {
   res.render("documentation");
 });
 
-router.get("/certification", (req, res) => {
+router.get("/certification", isAuthenticated, (req, res) => {
   res.render("certification");
 });
 
 //------------------------------ PDF 업로드 및 파일 저장 ------------------------------
 
-router.post("/upload_process", upload.single("userfile"), (req, res) => {
-  /* 
+router.post(
+  "/upload_process",
+  isAuthenticated,
+  upload.single("userfile"),
+  (req, res) => {
+    /* 
   console.log(req.files);
 
   fieldname: 'userfile',
@@ -54,8 +58,9 @@ router.post("/upload_process", upload.single("userfile"), (req, res) => {
   size: 206230 
   */
 
-  res.redirect(`/waitforauth`); //수정필요
-  console.log("PDF 파일 업로드 완료");
-});
+    res.redirect(`/waitforauth`); //수정필요
+    console.log("PDF 파일 업로드 완료");
+  }
+);
 
 module.exports = router;

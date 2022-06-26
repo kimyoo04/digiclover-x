@@ -13,7 +13,7 @@ dotenv.config();
 
 // lib 폴더 세팅
 const template = require("../lib/template.js");
-const db = require("../lib/db");
+const {isAuthenticated} = require("../lib/auth.js");
 
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
@@ -31,22 +31,33 @@ const htmlparser2 = require("htmlparser2");
 //------------------------------ 코드 시작 ------------------------------
 //------------------------------ 1. 회사 및 계약자 선택 ------------------------------
 
-router.get("/select-conpanies", (req, res) => {
+router.get("/select-conpanies", isAuthenticated, (req, res) => {
   res.render("select-companies");
 });
 
-router.post("/select-companies", (req, res) => {
-  const post = req.body;
+router.post("/select-companies", isAuthenticated, (req, res) => {
+  const {
+    companyName1,
+    contractorName1,
+    contractorPhone1,
+    contractorEmail1,
+    companyName2,
+    contractorName2,
+    contractorPhone2,
+    contractorEmail2,
+  } = req.body;
 
-  let companyName1 = post.companyName1;
-  let contractorName1 = post.contractorName1;
-  let contractorPhone1 = post.contractorPhone1;
-  let contractorEmail1 = post.contractorEmail1;
+  req.session.info = {
+    companyName1: companyName1,
+    contractorName1: contractorName1,
+    contractorPhone1: contractorPhone1,
+    contractorEmail1: contractorEmail1,
 
-  let companyName2 = post.companyName2;
-  let contractorName2 = post.contractorName2;
-  let contractorPhone2 = post.contractorPhone2;
-  let contractorEmail2 = post.contractorEmail2;
+    companyName2: companyName2,
+    contractorName2: contractorName2,
+    contractorPhone2: contractorPhone2,
+    contractorEmail2: contractorEmail2,
+  };
 
   res.redirect(`/convert/select-docukind`); //수정필요
   console.log("1. 회사 및 계약자 선택 완료");
@@ -54,19 +65,28 @@ router.post("/select-companies", (req, res) => {
 
 //------------------------------ 2. 문서 종류 선택 ------------------------------
 
-router.get("/select-docukind", (req, res) => {
-  res.render("select-docukind");
-
+router.get("/select-docukind", isAuthenticated, (req, res) => {
   // 회사, 계약자 정보 할당
-  const post = req.body;
-  let companyName1 = post.companyName1;
-  let contractorName1 = post.contractorName1;
-  let companyName2 = post.companyName2;
-  let contractorName2 = post.contractorName2;
+  const info = req.session.info;
+  let companyName1 = info.companyName1;
+  let contractorName1 = info.contractorName1;
+  let companyName2 = info.companyName2;
+  let contractorName2 = info.contractorName2;
+
+  res.render("select-docukind", {
+    companyName1: companyName1,
+    contractorName1: contractorName1,
+    companyName2: companyName2,
+    contractorName2: contractorName2,
+  });
 });
 
-router.post("/select-docukind", (req, res) => {
-  let docukind = req.body.docukind;
+router.post("/select-docukind", isAuthenticated, (req, res) => {
+  const {docukind} = req.body;
+  let docukindName = docukind;
+  req.session.docukind = {
+    docukindName: docukindName,
+  };
   console.log(docukind);
 
   res.redirect(`/convert/writing`); //수정필요
@@ -75,30 +95,34 @@ router.post("/select-docukind", (req, res) => {
 
 //------------------------------ 3. 문서 작성 및 PDF 생성 ------------------------------
 
-router.get("/writing", (req, res) => {
+router.get("/writing", isAuthenticated, (req, res) => {
   // 회사, 계약자 정보 할당
-  const post = req.body;
+  const info = req.session.info;
+  const docukind = req.session.docukind;
 
-  let companyName1 = post.companyName1;
-  let contractorName1 = post.contractorName1;
-  let companyName2 = post.companyName2;
-  let contractorName2 = post.contractorName2;
+  let companyName1 = info.companyName1;
+  let contractorName1 = info.contractorName1;
+  let companyName2 = info.companyName2;
+  let contractorName2 = info.contractorName2;
+  let docukindName = docukind.docukindName;
 
   res.render("writing", {
     companyName1,
     contractorName1,
     companyName2,
     contractorName2,
+    docukindName,
   });
 });
 
-router.post("/writing", (req, res) => {
+router.post("/writing", isAuthenticated, (req, res) => {
   let post = req.body;
 
   const pageWidth = 210,
     pageHeight = 297,
     margin = 20,
     maxLineWidth = pageWidth - margin * 2,
+    centerXPos = maxLineWidth / 2 + margin,
     ptsPerMm = 3.781;
 
   const doc = new jsPDF({
@@ -138,13 +162,13 @@ router.post("/writing", (req, res) => {
   value = title;
   let fontSize = 16;
   let [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
-  doc.text(textLine, 0, yPos, {align: "center"});
+  doc.text(textLine, centerXPos, yPos, {align: "center"});
   yPos += blockHeight;
 
   value = describe;
   fontSize = 10;
   [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
-  doc.text(textLine, margin, yPos);
+  doc.text(textLine, centerXPos, yPos, {align: "center"});
   yPos += blockHeight;
 
   for (let i = 0; i < indxLength; i++) {
@@ -179,17 +203,17 @@ router.post("/writing", (req, res) => {
 });
 
 //------------------------------ 4. PDF에 서명 ------------------------------
-router.get("/signning", (req, res) => {
+router.get("/signning", isAuthenticated, (req, res) => {
   res.render("signning");
 });
 
 //------------------------------ 5. 이메일 전송 ------------------------------
-router.get("/sending", (req, res) => {
+router.get("/sending", isAuthenticated, (req, res) => {
   res.render("sending");
 });
 
 //------------------------------ convert 메인 페이지 ------------------------------
-router.get("/", (req, res) => {
+router.get("/", isAuthenticated, (req, res) => {
   res.render("converting");
 });
 

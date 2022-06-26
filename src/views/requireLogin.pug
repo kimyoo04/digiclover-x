@@ -1,0 +1,15 @@
+extends ./layouts/_login-signin
+block script
+//- head와 nav
+block content
+
+
+        //- 로그인 시작
+        .login-wrap 
+            form(action="/auth/login-local" method="post" class="login-forms")
+                .login-form
+                    .login-form-msg
+                        label(for="msg") 로그인이 필요합니다!
+                        input(type="hidden" name="msg" )
+                    .login-form-link 
+                        a(href="/auth/login") 로그인하기

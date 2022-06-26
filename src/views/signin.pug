@@ -6,14 +6,14 @@ block content
 
         //- 회원가입 시작
         .signin-wrap 
-            form.signin-forms(action="submit") 
+            form.signin-forms(action="/auth/signin" method="post") 
                 .signin-form 
                     .signin-form-email 
                         label(for="signin-form-email__input") 이메일
                         input.signin-form-email__input(type="email" name="email") 
                     .signin-form-id 
-                        label(for="signin-form-id__input") 아이디
-                        input.signin-form-id__input(type="text" name="id") 
+                        label(for="signin-form-id__input") 이름
+                        input.signin-form-id__input(type="text" name="name") 
                     .signin-form-phone 
                         label(for="signin-form-phone__input") 휴대폰 번호
                         input.signin-form-phone__input(type="tel" name="phone") 
@@ -21,6 +21,6 @@ block content
                         label(for="signin-form-password__input") 비밀번호
                         input.signin-form-password__input(type="password" name="password") 
                     .signin-btn-form-wrap
-                        button.signin-form-btn(type="button")
+                        button.signin-form-btn(type="submit")
                             i.fas.fa-envelope 
                             span 회원가입하기

@@ -8,7 +8,7 @@ const session = require("express-session");
 const {sequelize} = require("./models/index.js");
 const passportConfig = require("./passport");
 const passport = require("passport");
-const flash = require("connect-flash");
+// const flash = require("connect-flash");
 const app = express();
 
 dotenv.config();
@@ -43,7 +43,7 @@ app.use(
 passportConfig();
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(flash());
+// app.use(flash());
 
 // public 폴더 정적파일 연결
 app.use(express.static(path.join(__dirname, "./public")));
@@ -59,7 +59,7 @@ app.set("view engine", "pug");
 
 // 라우터
 const indexRouter = require("./routes/index.js"),
-  authRouter = require("./routes/auth.js")(passport),
+  authRouter = require("./routes/auth.js"),
   convertRouter = require("./routes/convert.js"),
   documentRouter = require("./routes/document.js"),
   storageRouter = require("./routes/storage.js");
