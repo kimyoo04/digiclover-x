@@ -1,0 +1,86 @@
+.progress-wrap {
+  position: relative;
+  display: flex;
+  margin: 50px;
+
+  .steps {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: left;
+    height: 600px;
+  }
+
+  .step-wrap {
+    // 원과 텍스트 가로 배치
+    display: flex;
+    width: 200px;
+    align-items: center;
+
+    & .step {
+      // 왼쪽 정렬 및 설정
+      margin-left: 5px;
+      box-sizing: border-box;
+      left: 0;
+      width: 14px;
+      height: 14px;
+      background: #acaca6;
+      border-radius: 50%;
+      transition: background 0.5s;
+      transition-delay: 1s;
+      z-index: 3;
+      margin-right: 10px;
+    }
+    & span {
+      // 세로 가운데 정렬
+      line-height: 23px;
+      vertical-align: middle;
+    }
+  }
+  .step.selected {
+    margin-left: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 3px solid #4b81bd;
+    transition: all 0.5s;
+    transition-delay: 1s;
+  }
+  .step.completed {
+    margin-left: 0;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    border: 3px solid #4b81bd;
+    background: #4b81bd;
+    transition: all 0.5s;
+    transition-delay: 1s;
+  }
+  .progress-wrap {
+    margin: 15px 0 0 10.5px;
+    position: absolute;
+    height: 95%;
+  }
+  .progress {
+    position: absolute;
+    width: 177.5px;
+    height: 100%;
+    border-left: 3px solid #acaca6;
+    z-index: 1;
+  }
+  .percent {
+    position: absolute;
+    width: 177.5px;
+    height: 0;
+    border-left: 3px solid #4b81bd;
+    z-index: 2;
+    transition: height 0.5s;
+    transition-delay: 1s;
+  }
+
+  span.focused {
+    font-weight: 700;
+  }
+}
