@@ -3,23 +3,21 @@ html(lang="en")
     include includes/html-head.pug
 
     body.converting 
-        //- 로고
-        .nav-logo 
-            a(href="/") 
-                img(src="../assets/img/logo.png")
+        header.converting-header
+            //- 로고
+            .nav-logo 
+                a(href="/") 
+                    img(src="../assets/img/logo.png")
         
-        //- 진행률 표시
-        aside.progress-indicator
+            h2.page-4#pages Sending E-mail
+            
+        main.converting-main
+            //- 진행률 표시
+            include includes/progress-container.pug
 
-        h2 Sending E-mail
-
-
-
-
-
-        //- 이전 페이지, 다음 페이지 이동 버튼
-        .moveBtns
-            input(type="button" onclick="history.back()" value="이전")
-            input(type="button" onclick="history.forward()" value="다음")
+            //- 이전 페이지, 다음 페이지 이동 버튼
+            .moveBtns
+                input(type="button" onclick="history.back()" value="이전")
+                input(type="button" onclick="history.forward()" value="다음")
 
         script(type='text/javascript' src="./js/progress-indicator.js")

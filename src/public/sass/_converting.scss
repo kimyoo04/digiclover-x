@@ -1,0 +1,34 @@
+.converting {
+  @include layout-horizontal-center;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: $regular;
+  background-color: #1c2c3b;
+  &-header {
+    @include layout-horizontal-center;
+    width: 100%;
+    height: 100px;
+    justify-content: left;
+    & h2 {
+      color: white;
+    }
+  }
+  &-main {
+    @include layout-horizontal-center;
+    width: 100%;
+    background-color: white;
+    padding: 0 20px;
+  }
+}
+
+.moveBtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  & input {
+    width: 100px;
+    height: 50px;
+    margin: 5px 0;
+    border-radius: $border-radius-1;
+    background-color: $color-btn;
+  }
+}

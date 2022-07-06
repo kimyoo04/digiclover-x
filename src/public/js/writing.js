@@ -2,14 +2,14 @@ const addContentBtn = document.querySelector(".addContentBtn");
 
 function mkDocuContent() {
   // div 테그, indx 초기화
-  let docuComponents = document.querySelector(".docu-contents");
   let docuComponent = document.querySelectorAll(".docu-content");
   let deleteBtns = document.querySelectorAll(".deleteBtn");
   let indx = docuComponent.length;
+  let lastDocuComponent = docuComponent[indx - 1];
   indx++;
 
   // div 생성 기능
-  createContentDIV(docuComponents, indx);
+  createContentDIV(lastDocuComponent, indx);
 
   // div 삭제 기능 및 조항 indx 다시 정렬
   deleteContentDIV(deleteBtns, indx);
@@ -21,7 +21,7 @@ function mkDocuContent() {
 // -------------------------------------------------------------------
 
 // div 생성 기능
-function createContentDIV(docuComponents, indx) {
+function createContentDIV(lastDocuComponent, indx) {
   // div 테그 생성
   let tempDiv = document.createElement("div");
   tempDiv.classList.add("docu-content");
@@ -47,14 +47,19 @@ function createContentDIV(docuComponents, indx) {
   tempDiv.appendChild(tempTextarea);
   tempDiv.appendChild(tempDeleteBtn);
 
-  // 추가 후 재할당
-  docuComponents.appendChild(tempDiv);
-  docuComponent = document.querySelectorAll(".docu-content");
-  deleteBtns = document.querySelectorAll(".deleteBtn");
+  // 추가
+  lastDocuComponent.parentNode.insertBefore(
+    tempDiv,
+    lastDocuComponent.nextSibling
+  );
 }
 
 // div 삭제 기능 및 조항 indx 다시 정렬
 function deleteContentDIV(deleteBtns, indx) {
+  //재할당
+  docuComponent = document.querySelectorAll(".docu-content");
+  deleteBtns = document.querySelectorAll(".deleteBtn");
+
   deleteBtns.forEach((deleteBtn) => {
     deleteBtn.addEventListener("click", () => {
       // 삭제 후 재할당
@@ -74,6 +79,7 @@ function deleteContentDIV(deleteBtns, indx) {
 
 // 조항 indx 다시 정렬
 function indexingInputs(indx) {
+  // 재할당
   let indxInputs = document.querySelectorAll("[name='indx']");
   let contentTextareas = document.querySelectorAll("[name='content']");
 

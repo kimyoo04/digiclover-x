@@ -5,7 +5,7 @@ const multer = require("multer");
 try {
   fs.readdirSync("uploads");
 } catch (error) {
-  console.log("uploads 폴더가 없어 uploads 폴더를 생성합니다.");
+  console.log("multer용 uploads 폴더가 없어 uploads 폴더를 생성합니다.");
   fs.mkdirSync("uploads");
 }
 

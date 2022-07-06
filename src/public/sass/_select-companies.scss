@@ -1,0 +1,31 @@
+.Selecting {
+  @include layout-vertical-center;
+  width: 50%;
+
+  // 회사별
+  & .company {
+    width: 100%;
+  }
+
+  .label-input-wrap {
+    width: 100%;
+
+    flex-flow: row wrap;
+
+    & label {
+      text-align: left;
+      margin: 10px 0 0 5px;
+    }
+
+    & input {
+      @include input-box;
+      margin: 5px 0;
+    }
+  }
+  .plusInput {
+    width: 100%;
+    .plusInputBtn {
+      @include input-box;
+    }
+  }
+}

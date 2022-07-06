@@ -3,38 +3,52 @@ html(lang="en")
     include includes/html-head.pug
 
     body.converting 
-        //- 로고
-        .nav-logo 
-            a(href="/") 
-                img(src="../assets/img/logo.png")
+        header.converting-header
+            //- 로고
+            .nav-logo 
+                a(href="/") 
+                    img(src="../assets/img/logo.png")
 
-        //- 진행률 표시
-        aside.progress-indicator
-        
-        h2 Select Companies
-        form.selectCompanies(method="POST" action="/convert/select-companies" accept-charset="utf-8" name="contractorInfo")
-            label 갑 회사명:
-                input(type="text" name="companyName1" placeholder="ex) Leli 주식회사"  autofocus required style={border: "1px solid gray"})
-            label 갑 회사 계약자 성명:
-                input(type="text" name="contractorName1" placeholder="ex) 홍길동" maxlength="10" required style={border: "1px solid gray"})
-            label 갑 회사 계약자 전화번호:
-                input(type="tel" name="contractorPhone1" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="ex) 010-0000-0000" required  maxlength="15" style={border: "1px solid gray"})
-            label 갑 회사 계약자 이메일:
-                input(type="tel" name="contractorEmail1" placeholder="ex) name@leli.com" required style={border: "1px solid gray"})
-            label 을 회사명:
-                input(type="text" name="companyName2" required style={border: "1px solid gray"})
-            label 을 회사 계약자 성명:
-                input(type="text" name="contractorName2" maxlength="10" required  style={border: "1px solid gray"})
-            label 을 회사 계약자 전화번호:
-                input(type="tel" name="contractorPhone2" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="ex) 010-0000-0000" required  maxlength="15" style={border: "1px solid gray"})
-            label 을 회사 계약자 이메일:
-                input(type="tel" name="contractorEmail2" placeholder="ex) name@leli.com" required style={border: "1px solid gray"})
-            input(class="addCompanyBtn" type="button" value="   +   ")
+            h2.page-0#pages 1. 회사명, 계약자 입력
+
+        main.converting-main
+            //- 진행률 표시
+            include includes/progress-container.pug
             
-            //- 이전 페이지, 다음 페이지 이동 버튼
-            .moveBtns
-                input(type="button" onclick="history.back()" value="이전")
-                input(type="submit" value="다음")
+            form.Selecting(method="POST" action="/convert/select-companies" accept-charset="utf-8" name="contractorInfo")
+                .company
+                    .label-input-wrap
+                        label 갑 회사명:
+                        input(type="text" name="companyName1" placeholder="ex) Leli 주식회사"  autofocus required style={border: "1px solid gray"})
+                    .label-input-wrap
+                        label 갑 회사 계약자 성명:
+                        input(type="text" name="contractorName1" placeholder="ex) 홍길동" maxlength="10" required style={border: "1px solid gray"})
+                    .label-input-wrap
+                        label 갑 회사 계약자 전화번호:
+                        input(type="tel" name="contractorPhone1" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="ex) 010-0000-0000" required  maxlength="15" style={border: "1px solid gray"})
+                    .label-input-wrap
+                        label 갑 회사 계약자 이메일:
+                        input(type="tel" name="contractorEmail1" placeholder="ex) name@leli.com" required style={border: "1px solid gray"})
+                .company
+                    .label-input-wrap
+                        label 을 회사명:
+                        input(type="text" name="companyName2" placeholder="ex) Leli 주식회사" required style={border: "1px solid gray"})
+                    .label-input-wrap
+                        label 을 회사 계약자 성명:
+                        input(type="text" name="contractorName2" placeholder="ex) 홍길동" maxlength="10" required  style={border: "1px solid gray"})
+                    .label-input-wrap
+                        label 을 회사 계약자 전화번호:
+                        input(type="tel" name="contractorPhone2" pattern = "[0-9]{3}-[0-9]{4}-[0-9]{4}" placeholder="ex) 010-0000-0000" required  maxlength="15" style={border: "1px solid gray"})
+                    .label-input-wrap
+                        label 을 회사 계약자 이메일:
+                        input(type="tel" name="contractorEmail2" placeholder="ex) name@leli.com" required style={border: "1px solid gray"})
+                .plusInput
+                    input(class="plusInputBtn" type="button" value="   +   ")
+                
+                //- 이전 페이지, 다음 페이지 이동 버튼
+                .moveBtns
+                    input(type="button" onclick="history.back()" value="이전")
+                    input(type="submit" value="다음")
 
         script(type='text/javascript' src="./js/progress-indicator.js")
 

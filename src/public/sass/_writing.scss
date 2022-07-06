@@ -1,12 +1,8 @@
 .docu {
-  @include layout-horizontal-center;
-
-  &-wrapper {
-    border: 1px solid gray;
-    @include layout-vertical-center;
-    width: 794px;
-    margin: 30px 0;
-  }
+  width: 70%;
+  border: 1px solid $color-border;
+  @include layout-vertical-center;
+  margin: 30px 0;
 
   &-title {
     margin: 50px 0;
@@ -14,18 +10,14 @@
       font-size: 24px;
       font-weight: bold;
       text-align: center;
-      padding: 0 50px;
     }
   }
   &-describe {
-    width: 100%;
     height: 30px;
     margin-bottom: 50px;
     & input {
-      width: 100%;
       height: 30px;
       text-align: center;
-      padding: 0 50px;
     }
   }
   &-contents {
@@ -45,27 +37,17 @@
       height: 100px;
       display: block;
       margin: 10px 0;
-      border: 1px solid #ccc;
+      border: 1px solid $color-border;
       border-radius: $border-radius-1;
     }
   }
 }
 
 .addContentBtn {
-  width: 694px;
-  height: 40px;
-  margin: 50px 0;
+  @include input-btn;
+  margin: 5px 0;
   padding: 0 50px;
-  background-color: #ccc;
 }
 
-.moveBtns {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  & input {
-    width: 100px;
-    height: 50px;
-    margin: 0 50px 50px 50px;
-  }
+.deleteBtn {
 }

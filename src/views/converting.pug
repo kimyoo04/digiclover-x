@@ -1,14 +1,22 @@
 html(lang="en")
     //- 헤드 테그
     include includes/html-head.pug
-        script(src="./js/progress-indicator.js") 
 
     body.converting 
-        //- 로고
-        .nav-logo 
-            a(href="/") 
-                img(src="../assets/img/logo.png")
+        header.converting-header
+            //- 로고
+            .nav-logo 
+                a(href="/") 
+                    img(src="../assets/img/logo.png")
         
-        h2 Welcome to html to pdf page!
-        a(href="/convert/select-conpanies")
-            input(type="button" name="convertStart" value="문서 작성")
+            h2.page-4#pages Sending E-mail
+            
+        main.converting-main
+            //- 진행률 표시
+            include includes/progress-container.pug
+
+            .description 
+                span 
+            .moveBtns
+                a(href="/convert/select-conpanies")
+                    input(type="button" name="convertStart" value="문서 작성")

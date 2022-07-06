@@ -8,6 +8,7 @@ const express = require("express");
 const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 const router = express.Router();
 const Document = require("../models/document.js");
 dotenv.config();
@@ -26,17 +27,15 @@ router.use(compression());
 
 //------------------------------ 추가 모듈  ------------------------------
 const {jsPDF} = require("jspdf");
-const docukind = require("../lib/docukind.js"); // 추후 문서 종류 별 모듈화
-const htmlparser2 = require("htmlparser2");
 
 //------------------------------ 코드 시작 ------------------------------
 //------------------------------ 1. 회사 및 계약자 선택 ------------------------------
 
-router.get("/select-conpanies", isAuthenticated, (req, res) => {
+router.get("/select-conpanies", (req, res) => {
   res.render("select-companies");
 });
 
-router.post("/select-companies", isAuthenticated, (req, res) => {
+router.post("/select-companies", (req, res) => {
   const {
     companyName1,
     contractorName1,
@@ -66,29 +65,22 @@ router.post("/select-companies", isAuthenticated, (req, res) => {
 
 //------------------------------ 2. 문서 종류 선택 ------------------------------
 
-router.get("/select-docukind", isAuthenticated, (req, res) => {
+router.get("/select-docukind", (req, res) => {
   // 회사, 계약자 정보 할당
-  const info = req.session.info;
-  let companyName1 = info.companyName1;
-  let contractorName1 = info.contractorName1;
-  let companyName2 = info.companyName2;
-  let contractorName2 = info.contractorName2;
 
   res.render("select-docukind", {
-    companyName1: companyName1,
-    contractorName1: contractorName1,
-    companyName2: companyName2,
-    contractorName2: contractorName2,
+    companyName1: req.session.info.companyName1,
+    contractorName1: req.session.info.contractorName1,
+    companyName2: req.session.info.companyName2,
+    contractorName2: req.session.info.contractorName2,
   });
 });
 
-router.post("/select-docukind", isAuthenticated, (req, res) => {
-  const {docukind} = req.body;
-  let docukindName = docukind;
+router.post("/select-docukind", (req, res) => {
+  // 세션에 문서 종류 저장
   req.session.docukind = {
-    docukindName: docukindName,
+    docukindName: req.body.docukind,
   };
-  console.log(docukind);
 
   res.redirect(`/convert/writing`); //수정필요
   console.log("2. 문서 종류 선택 완료");
@@ -96,27 +88,19 @@ router.post("/select-docukind", isAuthenticated, (req, res) => {
 
 //------------------------------ 3. 문서 작성 및 PDF 생성 ------------------------------
 
-router.get("/writing", isAuthenticated, (req, res) => {
+router.get("/writing", (req, res) => {
   // 회사, 계약자 정보 할당
-  const info = req.session.info;
-  const docukind = req.session.docukind;
-
-  let companyName1 = info.companyName1;
-  let contractorName1 = info.contractorName1;
-  let companyName2 = info.companyName2;
-  let contractorName2 = info.contractorName2;
-  let docukindName = docukind.docukindName;
 
   res.render("writing", {
-    companyName1,
-    contractorName1,
-    companyName2,
-    contractorName2,
-    docukindName,
+    companyName1: req.session.info.companyName1,
+    contractorName1: req.session.info.contractorName1,
+    companyName2: req.session.info.companyName2,
+    contractorName2: req.session.info.contractorName2,
+    docukindName: req.session.docukind.docukindName,
   });
 });
 
-router.post("/writing", isAuthenticated, (req, res) => {
+router.post("/writing", async (req, res, next) => {
   let post = req.body;
 
   const pageWidth = 210,
@@ -129,7 +113,7 @@ router.post("/writing", isAuthenticated, (req, res) => {
   const doc = new jsPDF({
     orientation: "p",
     unit: "mm",
-    format: [210, 297], //[210,297]
+    format: [pageWidth, pageHeight], //[210,297]
     filters: ["ASCIIHexEncode"],
   }).setProperties({title: "String Splitting"});
 
@@ -146,85 +130,168 @@ router.post("/writing", isAuthenticated, (req, res) => {
   doc.setFont("NanumGothic");
   doc.setFontSize(12);
 
-  // 텍스트 생성
+  // 레이아웃 세팅
+  const title = post.title,
+    describe = post.describe,
+    indx = post.indx,
+    content = post.content,
+    indxLength = indx.length;
   let yPos = margin;
 
-  // post data 분류
-  let value;
-  const title = post.title;
-  const describe = post.describe;
-
-  const indx = post.indx;
-  const content = post.content;
-
-  const indxLength = indx.length;
-  const contentLength = content.length;
-
-  value = title;
-  let fontSize = 16;
-  let [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+  // 텍스트 데이터 pdf에 입력
+  // title 입력
+  let [textLine, blockHeight] = textProcess(title, 16, maxLineWidth);
   doc.text(textLine, centerXPos, yPos, {align: "center"});
   yPos += blockHeight;
 
-  value = describe;
-  fontSize = 10;
-  [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+  // describe 입력
+  [textLine, blockHeight] = textProcess(describe, 10, maxLineWidth);
   doc.text(textLine, centerXPos, yPos, {align: "center"});
   yPos += blockHeight;
 
+  // indx와 content 입력 반복
   for (let i = 0; i < indxLength; i++) {
-    let value = indx[i];
-    let fontSize = 12;
-    [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+    [textLine, blockHeight] = textProcess(indx[i], 12, maxLineWidth);
     doc.text(textLine, margin, yPos + 2);
     yPos += blockHeight;
 
-    value = content[i];
-    fontSize = 10;
-    [textLine, blockHeight] = textProcess(value, fontSize, maxLineWidth);
+    [textLine, blockHeight] = textProcess(content[i], 10, maxLineWidth);
     doc.text(textLine, margin, yPos - 2);
     yPos += blockHeight;
   }
+  // 서명란 위의 선 입력
+  blockHeight = 100;
+  yPos += blockHeight;
+  doc.setLineWidth(0.1);
+  doc.line(margin, yPos, margin + 60, yPos);
+  doc.line(centerXPos + 20, yPos, centerXPos + 80, yPos);
+  blockHeight = 5;
+  yPos += blockHeight;
 
-  function textProcess(value, fontSize, maxLineWidth) {
-    let text = `${value}\n`;
+  // 서명란 입력
+  let textValue1 = `${req.session.info.companyName1}  서명자:         ${req.session.info.contractorName1}`;
+  [textLine, blockHeight] = textProcess(textValue1, 10, maxLineWidth);
+  doc.text(textLine, margin, yPos);
+  doc.text("(인)", margin + 53, yPos);
+
+  let textValue2 = `${req.session.info.companyName2}  서명자:         ${req.session.info.contractorName2}`;
+  [textLine, blockHeight] = textProcess(textValue2, 10, maxLineWidth);
+  doc.text(textLine, centerXPos + 20, yPos);
+  doc.text("(인)", centerXPos + 73, yPos);
+  yPos += blockHeight;
+
+  // splittext와 blockHeight 생성하는 함수
+  function textProcess(valueText, fontSize, maxLineWidth) {
+    let text = `${valueText}\n`;
     let textLine = doc
       .setFontSize(fontSize)
       .splitTextToSize(text, maxLineWidth);
     let textHeight = doc.getLineHeight(text) / doc.internal.scaleFactor;
-    var lines = textLine.length;
-    var blockHeight = lines * textHeight;
+    let lines = textLine.length;
+    let blockHeight = lines * textHeight;
     return [textLine, blockHeight];
   }
 
+  // YYYYMMDDHHMMSS 생성하는 함수
+  Date.prototype.YYYYMMDDHHMMSS = function () {
+    let yyyy = this.getFullYear().toString();
+    let MM = pad(this.getMonth() + 1, 2);
+    let dd = pad(this.getDate(), 2);
+    let hh = pad(this.getHours(), 2);
+    let mm = pad(this.getMinutes(), 2);
+    let ss = pad(this.getSeconds(), 2);
+
+    return yyyy + MM + dd + hh + mm + ss;
+  };
+
+  function pad(number, length) {
+    let str = "" + number;
+    while (str.length < length) {
+      str = "0" + str;
+    }
+    return str;
+  }
+
+  let nowDate = new Date();
+  nowDate = nowDate.YYYYMMDDHHMMSS();
+
+  // 현재 날짜 헤시화, 문서이름, 문서종류이름 저장
+  const createdAt = await bcrypt.hash(nowDate, 12);
+  const docuName = title;
+  const docukindName = req.session.docukind.docukindName;
+
+  // document DB 저장
   try {
     Document.create({
-      title,
+      docuName,
       docukindName,
+      createdAt,
     });
   } catch (error) {
     console.error(error);
     return next(error);
   }
 
+  // finish
   res.redirect(`/convert/signning`);
-  doc.output("save", `../uploads/${timestamp}${title}.pdf`);
+  doc.output("save", `./uploads/made/${nowDate} - ${docuName}.pdf`);
 
   console.log("3. PDF 변환 완료");
 });
 
 //------------------------------ 4. PDF에 서명 ------------------------------
-router.get("/signning", isAuthenticated, (req, res) => {
+router.get("/signning", (req, res) => {
   res.render("signning");
 });
 
 //------------------------------ 5. 이메일 전송 ------------------------------
-router.get("/sending", isAuthenticated, (req, res) => {
+router.get("/sending", (req, res) => {
   res.render("sending");
 });
 
+//------------------------------ PDF TEST ------------------------------
+
+router.get("/pdftest", async (req, res, next) => {
+  const pageWidth = 210,
+    pageHeight = 297,
+    margin = 20,
+    maxLineWidth = pageWidth - margin * 2,
+    centerXPos = maxLineWidth / 2 + margin,
+    ptsPerMm = 3.781;
+
+  const doc = new jsPDF({
+    orientation: "p",
+    unit: "mm",
+    format: [pageWidth, pageHeight], //[210,297]
+    filters: ["ASCIIHexEncode"],
+  }).setProperties({title: "String Splitting"});
+
+  let NanumGothicRegular = require("../public/assets/font/Nanum_Gothic/NanumGothic-Regular-normal.js"),
+    NanumGothicBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-Bold-normal.js"),
+    NanumGothicExtraBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-ExtraBold-normal.js");
+  doc.addFileToVFS("NanumGothic-Regular-normal.ttf", NanumGothicRegular);
+  doc.addFont("NanumGothic-Regular-normal.ttf", "NanumGothic", "normal");
+  doc.addFileToVFS("NanumGothic-Bold-normal.ttf", NanumGothicBold);
+  doc.addFont("NanumGothic-Bold-normal.ttf", "NanumGothic", "bold");
+  doc.addFileToVFS("NanumGothic-ExtraBold-normal.ttf", NanumGothicExtraBold);
+  doc.addFont("NanumGothic-ExtraBold-normal.ttf", "NanumGothic", "extrabold");
+  doc.setFont("NanumGothic");
+  doc.setFontSize(16);
+
+  for (let i = 0; i < 100; i++) {
+    doc.text(
+      `${i * 7} ----------------------------------------`,
+      margin,
+      i * 7
+    );
+  }
+  doc.output("save", `./uploads/test.pdf`);
+  console.log("---------------------finish---------------------");
+  res.render("test");
+});
+
 //------------------------------ convert 메인 페이지 ------------------------------
-router.get("/", isAuthenticated, (req, res) => {
+router.get("/", (req, res) => {
   res.render("converting");
 });
 
