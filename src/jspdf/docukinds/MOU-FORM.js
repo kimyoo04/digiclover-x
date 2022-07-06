@@ -1,5 +1,6 @@
 module.exports = function (req, res, title, describe, indx, content) {
   const {margin, maxLineWidth, centerXPos, doc} = require("../index");
+  const textProcess = require("../functions/textProcess");
   const indxLength = indx.length;
 
   doc.setFontSize(12);
@@ -48,18 +49,6 @@ module.exports = function (req, res, title, describe, indx, content) {
   doc.text(textLine, centerXPos + 20, yPos);
   doc.text("(인)", centerXPos + 73, yPos);
   yPos += blockHeight;
-
-  // splittext와 blockHeight 생성하는 함수
-  function textProcess(valueText, fontSize, maxLineWidth) {
-    let text = `${valueText}\n`;
-    let textLine = doc
-      .setFontSize(fontSize)
-      .splitTextToSize(text, maxLineWidth);
-    let textHeight = doc.getLineHeight(text) / doc.internal.scaleFactor;
-    let lines = textLine.length;
-    let blockHeight = lines * textHeight;
-    return [textLine, blockHeight];
-  }
 
   // doc 반환
   return doc;

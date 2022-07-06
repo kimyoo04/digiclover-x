@@ -27,15 +27,15 @@ router.use(compression());
 //------------------------------ 문서화 관리 페이지 ------------------------------
 
 router.get("/waitforauth", isAuthenticated, (req, res) => {
-  res.render("wait_for_auth");
+  res.render("wait_for_auth", {user: req.user});
 });
 
 router.get("/documentation", isAuthenticated, (req, res) => {
-  res.render("documentation");
+  res.render("documentation", {user: req.user});
 });
 
 router.get("/certification", isAuthenticated, (req, res) => {
-  res.render("certification");
+  res.render("certification", {user: req.user});
 });
 
 //------------------------------ PDF 업로드 및 파일 저장 ------------------------------
@@ -58,7 +58,7 @@ router.post(
   size: 206230 
   */
 
-    res.redirect(`/waitforauth`); //수정필요
+    res.redirect(`/document/waitforauth`); //수정필요
     console.log("PDF 파일 업로드 완료");
   }
 );
