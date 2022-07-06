@@ -9,12 +9,12 @@ html(lang="en")
                 a(href="/") 
                     img(src="../assets/img/logo.png")
 
-            h2.page-2#pages Writing Contract
+            h2.page-2#pages labor-contract-form Writing 
         main.converting-main
             //- 진행률 표시
             include includes/progress-container.pug
 
-            form.docu(method="post" action="/convert/writing")
+            form.docu(method="post" action="/convert/labor-contract-form")
                 .docu-title 
                     input(name="title" type="text" value=`${companyName1} & ${companyName2} MOU협약서`) 
 
