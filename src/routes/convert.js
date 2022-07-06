@@ -212,31 +212,43 @@ router.post("/writing", async (req, res, next) => {
     return str;
   }
 
-  let nowDate = new Date();
-  nowDate = nowDate.YYYYMMDDHHMMSS();
-
-  // 현재 날짜 헤시화, 문서이름, 문서종류이름 저장
-  const createdAt = await bcrypt.hash(nowDate, 12);
+  // 현재 날짜, 문서이름, 문서종류이름 저장
+  const nowDate = new Date().YYYYMMDDHHMMSS();
   const docuName = title;
   const docukindName = req.session.docukind.docukindName;
+  const filePath = `./uploads/made/${nowDate} - ${docuName}.pdf`;
+
+  // pdf 파일 생성
+  doc.output("save", filePath);
+
+  // pdf 파일 해시화
+  const crypto = require("crypto");
+  const fs = require("fs");
+  const hash = crypto.createHash("md5");
+
+  const input = fs.createReadStream(filePath);
+
+  input.on("readable", () => {
+    const data = input.read();
+    if (data) hash.update(data);
+  });
+
+  const hashFile = hash.copy().digest("hex");
 
   // document DB 저장
   try {
     Document.create({
       docuName,
       docukindName,
-      createdAt,
+      hashFile,
     });
   } catch (error) {
     console.error(error);
     return next(error);
   }
 
-  // finish
-  res.redirect(`/convert/signning`);
-  doc.output("save", `./uploads/made/${nowDate} - ${docuName}.pdf`);
-
   console.log("3. PDF 변환 완료");
+  res.redirect(`/convert/signning`);
 });
 
 //------------------------------ 4. PDF에 서명 ------------------------------
