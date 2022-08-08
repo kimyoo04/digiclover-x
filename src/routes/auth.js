@@ -30,7 +30,7 @@ router.use(compression());
 //------------------------------ 회원가입 페이지 ------------------------------
 router
   .get("/signin", (req, res) => {
-    res.render("signin");
+    res.render("pages/7_auth/signin");
   })
   .post("/signin", async (req, res, next) => {
     const {email, name, phone, password} = req.body;
@@ -58,7 +58,7 @@ router
 router.get("/login", (req, res) => {
   const error = req.flash().error || [];
   console.log(error);
-  res.render("login", {
+  res.render("pages/7_auth/login", {
     errorFeedback: error,
     user: req.user,
   });
@@ -67,7 +67,7 @@ router.get("/login", (req, res) => {
 
 //------------------------------ 로그인 필요 페이지 ------------------------------
 router.get("/require-login", (req, res) => {
-  res.render("requireLogin", {});
+  res.render("pages/7_auth/requireLogin", {});
 });
 
 //------------------------------ 로컬 로그인 ------------------------------

@@ -1,6 +1,6 @@
 html(lang="en")
     //- 헤드 테그
-    include includes/html-head.pug
+    include ../../includes/html-head.pug
 
     body.converting 
         header.converting-header
@@ -13,10 +13,10 @@ html(lang="en")
             
         main.converting-main
             //- 진행률 표시
-            include includes/progress-container.pug
+            include ../../includes/progress-container.pug
 
             .description 
                 span 
             .moveBtns
-                a(href="/convert/select-conpanies")
+                a(href="/document/select-conpanies")
                     input(type="button" name="convertStart" value="문서 작성")

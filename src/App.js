@@ -60,7 +60,6 @@ app.set("view engine", "pug");
 // 라우터
 const indexRouter = require("./routes/index.js"),
   authRouter = require("./routes/auth.js"),
-  convertRouter = require("./routes/convert.js"),
   documentRouter = require("./routes/document.js"),
   storageRouter = require("./routes/storage.js");
 
@@ -68,7 +67,6 @@ const indexRouter = require("./routes/index.js"),
 app
   .use("/", indexRouter)
   .use("/auth", authRouter)
-  .use("/convert", convertRouter)
   .use("/document", documentRouter)
   .use("/storage", storageRouter);
 

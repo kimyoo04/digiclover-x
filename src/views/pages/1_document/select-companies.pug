@@ -1,6 +1,6 @@
 html(lang="en")
     //- 헤드 테그
-    include includes/html-head.pug
+    include ../../includes/html-head.pug
 
     body.converting 
         header.converting-header
@@ -13,9 +13,9 @@ html(lang="en")
 
         main.converting-main
             //- 진행률 표시
-            include includes/progress-container.pug
+            include ../../includes/progress-container.pug
             
-            form.Selecting(method="POST" action="/convert/select-companies" accept-charset="utf-8" name="contractorInfo")
+            form.Selecting(method="POST" action="/document/select-companies" accept-charset="utf-8" name="contractorInfo")
                 .company
                     .label-input-wrap
                         label 갑 회사명:
