@@ -1,31 +1,44 @@
 // Color ----------------------------------------------
 $color-text: #fff;
 
-$color-primary: #272727;
-$color-accent: #ff652f;
-$color-danger: #ff7782;
-$color-success: #41f1b6;
-$color-warning: #ffbb55;
-$color-white: #fff;
+$color-primary-green: #21ec91;
+$color-primary-blue: #2ea3e5;
+
+$color-secondary-dark-blue: #233e4d;
+$color-secondary-blue: #03438b;
+$color-secondary-mint: #009cbb;
+$color-secondary-dark: #0e191e;
+$color-secondary-light-blue: #e6ecf3;
+$color-secondary-light-mint: #e5f5f8;
+
+$color-grayscale-dark: #000;
+$color-grayscale-white: #fff;
+$color-grayscale-1: #333333;
+$color-grayscale-2: #4f4f4f;
+$color-grayscale-3: #828282;
+$color-grayscale-4: #bdbdbd;
+$color-grayscale-5: #e0e0e0;
+$color-grayscale-6: #f2f2f2;
+
+$color-danger: #eb5757;
+$color-success: #219653;
+$color-warning: #f2c94c;
+
 $color-info-dark: #7d8da1;
-$color-info-light: #ffbb55;
-$color-dark: #363949;
-$color-light: rgba(132, 139, 200, 0.18);
-$color-primary-variant: #111e88;
+$color-info-light: #f2c94c;
 $color-dark-variant: #677483;
-$color-background: #f6f6f9;
+
+$color-background: #e6ecf3;
 $color-btn: #e0e0e0;
 $color-border: #e0e0e0;
 
-// dark mode
-.dark-theme-variables {
-  $color-background: #181a1e;
-  $color-white: #202528;
-  $color-dark: #edeffd;
-  $color-dark-variant: #a3bdcc;
-  $color-light: rgba(0, 0, 0, 0.4);
-  $box-shadow: 0 2rem 3rem var(--color-light);
-}
+// border ---------------------------------------------------
+$border-line-1: 0.2px solid black;
+$border-line-2: 0.6px solid black;
+$border-line-3: 1px solid black;
+
+$border-dashed-line-1: 0.6px dashed black;
+$border-dashed-line-2: 1px dashed black;
 
 // border-radius ----------------------------------------------
 $card-border-radius: 2rem;
@@ -34,14 +47,17 @@ $border-radius-2: 0.8rem;
 $border-radius-3: 1.2rem;
 
 // padding ----------------------------------------------
-$card-padding: 1.8rem;
-$padding-1: 0.8rem;
-$padding-2: 1.2rem;
-$padding-3: 1.6rem;
-$padding-4: 2rem;
+$padding-1: 8px;
+$padding-2: 12px;
+$padding-3: 16px;
+$padding-4: 20px;
 
 // shadow ----------------------------------------------
-$box-shadow: 0 2rem 3rem var(--color-light);
+$box-shadow-2: 0px 2px 2px rgba(0, 0, 0, 0.25);
+$box-shadow-4: 0px 4px 4px rgba(0, 0, 0, 0.25);
+$box-shadow-8: 0px 8px 8px rgba(0, 0, 0, 0.25);
+$box-shadow-16: 0px 16px 16px rgba(0, 0, 0, 0.25);
+$box-shadow-24: 0px 24px 24px rgba(0, 0, 0, 0.25);
 
 // asset 경로 ----------------------------------------------
 

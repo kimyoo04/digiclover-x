@@ -1,7 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display+SC:wght@400;700;900&family=Ultra&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Rokkitt:wght@100;300;500;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap");
 html,
 body,
 div,
@@ -187,9 +185,135 @@ small {
   font-size: 0.75rem;
 }
 
+.headline-1 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 40px;
+}
+
+.headline-2 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 30px;
+}
+
+.headline-3 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.title-1 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.title-1 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.subtitle-1 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.subtitle-2 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 18px;
+}
+
+.body-1 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 28px;
+}
+
+.body-2 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.body-3 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.body-4 {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+}
+
+.button-1 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.button-2 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.button-3 {
+  font-family: "Montserrat";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.caption {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+
+.overline {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 20px;
+}
+
 .login {
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 300;
   background-image: url("../assets/img/bg-login.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -428,8 +552,6 @@ small {
 }
 
 .signin {
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 300;
   background-image: url("../assets/img/bg-login.jpg");
   background-position: center;
   background-repeat: no-repeat;
@@ -562,8 +684,6 @@ small {
 }
 
 .storage {
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 300;
   width: 100%;
 }
 
@@ -1019,8 +1139,6 @@ small {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 300;
   background-color: #1c2c3b;
 }
 
@@ -1317,7 +1435,7 @@ small {
 }
 
 .select-docukind .slide_wrapper .slides .slide:focus {
-  border: 1px solid #272727;
+  border: 1px solid #21ec91;
   background-color: #9c9c9c;
 }
 

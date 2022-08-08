@@ -1,7 +1,5 @@
 .converting {
   @include layout-horizontal-center;
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: $regular;
   background-color: #1c2c3b;
   &-header {
     @include layout-horizontal-center;
