@@ -8,10 +8,13 @@ block content
         if user
             .login-wrap 
                 form(action="/auth/login-local" method="post" class="login-forms")
-                    .login-form
-                        div(style={color: "white"}) #{user.email}
-                        div(style={color: "white"}) #{user.name}님 안녕하세요
-                        a(style={color: "white"} href="/auth/logout") 로그아웃
+                    .login-profile
+                        .login-profile-text
+                            .login-profile__email #{user.email}
+                            .login-profile__username #{user.name} 님 안녕하세요.
+                        .login-profile-link
+                            a(class="login-form__logout" href="/storage") 문서 보관함
+                            a(class="login-form__logout" href="/auth/logout") 로그아웃
         else 
             .login-wrap 
                 form(action="/auth/login-local" method="post" class="login-forms")

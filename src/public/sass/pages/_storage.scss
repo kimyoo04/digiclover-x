@@ -1,40 +1,13 @@
-.storage {
-  width: 100%;
+body.storage {
+  background-color: $color-secondary-light-blue;
 }
 
+// docu-sidebar.pug
+// 사이드바 업로드 기능 버튼
 .sidebar {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: fixed;
-  left: 0;
-  width: 200px;
-  height: 100%;
-  background: #051536;
-  padding: 0 20px 0 20px;
-
-  &-nav {
-    &__item {
-      display: flex;
-      justify-content: space-between;
-      color: white;
-      list-style: none;
-
-      span {
-        margin-top: 20px;
-      }
-
-      i {
-        margin-top: 22px;
-        color: gray;
-      }
-    }
-  }
-
   &-btn {
     @include layout-horizontal-center;
     @include btn-sidebar;
-    color: #a3c735;
     font-family: "Noto Sans KR", sans-serif;
     background-color: rgba(255, 255, 255, 0.2);
     border: 1.5px solid rgba(255, 255, 255, 0.4);
@@ -46,85 +19,18 @@
   }
 }
 
-// ------------------------------------------------------------------
-.main {
-  background-image: url("../assets/img/bg-main.png");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100%;
-  position: fixed;
-  left: 240px;
-  right: 0px;
-}
-
-.header {
-  padding: 30px 50px 30px 50px;
-
-  &-title {
-    color: white;
-    font-size: 24px;
-  }
-
-  &-search {
-    @include btn;
-    width: 50%;
-    height: 40px;
-    padding-left: 10px;
-    font-family: "Noto Sans KR", sans-serif;
-    background-color: rgba(255, 255, 255, 0.2);
-    border: 2px solid rgba(255, 255, 255, 0.4);
-    color: white;
-  }
-
-  & input::placeholder {
-    color: white;
-  }
-
+// docu-status.pug
+// 문서 상태 링크, 검색창
+.docu-status {
   @include layout-horizontal-center;
   justify-content: space-between;
-
-  &-profile {
-    @include layout-horizontal-center;
-
-    &__text {
-      @include layout-vertical-center;
-    }
-
-    & span {
-      margin: 3px 10px 3px 0;
-      display: block;
-      color: white;
-    }
-
-    &__name {
-      font-size: 14px;
-    }
-
-    &__logout-btn {
-      font-size: 10px;
-      background-color: #223daa;
-      border-radius: 10px;
-      padding: 6px;
-    }
-
-    & img {
-      width: 40px;
-      height: 40px;
-    }
-  }
-}
-
-// ------------------------------------------------------------------
-.nav {
-  @include layout-horizontal-center;
-  justify-content: space-between;
-  margin-bottom: 40px;
+  margin: 25px 20px;
 
   &-item {
     @include layout-horizontal-center;
     list-style: none;
-    margin: 0 50px 0 50px;
+    padding: 15px 50px;
+    margin: 0 20px;
   }
 
   &__box {
@@ -136,7 +42,7 @@
   }
 
   &__number {
-    color: white;
+    color: #a3c735;
     font-size: 12px;
   }
 
@@ -146,13 +52,25 @@
     color: gray;
   }
 }
+.search {
+  @include btn;
+  margin: 5px 20px;
+  height: 40px;
+  padding-left: 10px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  color: black;
+}
 
-// ------------------------------------------------------------------
+// docu-signature-wrap.pug
+// 문서 마다의 상황 보여주는 카드
 .signature-wrap {
-  margin: 50px 50px 50px 50px;
+  margin: 0 40px;
+  margin-bottom: 10px;
 }
 
 .signature {
+  box-sizing: border-box;
   @include layout-horizontal-center;
   justify-content: space-between;
   font-family: "Noto Sans KR", sans-serif;
@@ -166,20 +84,22 @@
     & span {
       display: block;
       margin: 10px 30px;
+      color: black;
     }
 
     &__filename {
       font-size: 16px;
-      color: white;
+      color: black;
     }
 
     &__date {
       font-size: 12px;
+      color: black;
     }
 
     &__hash {
       font-size: 12px;
-      color: rgba(255, 255, 255, 0.4);
+      color: black;
     }
   }
 
@@ -195,6 +115,7 @@
       margin: 0 10px;
     }
 
+    // js로 모듈화해서 기능 넣기
     &__confirm {
       @include layout-vertical-center;
       align-items: center;
@@ -208,16 +129,18 @@
         font-size: 12px;
         font-weight: 700;
         margin: 2px 0;
+        color: black;
       }
     }
   }
 
+  // js로 모듈화해서 기능 넣기
   &-btn button {
     width: 120px;
     height: 40px;
     border-radius: 5px;
     background-color: #223daa;
-    color: white;
+    color: black;
     margin: 0 30px;
   }
 }
@@ -231,7 +154,6 @@
   z-index: -1;
 
   &__waiting {
-    border: 1px solid #a3c735;
     position: absolute;
     top: 145px;
     width: 81.51px;

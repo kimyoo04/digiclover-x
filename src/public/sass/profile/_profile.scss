@@ -1,0 +1,53 @@
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+
+  &__avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: $border-radius-1;
+    background-color: $color-primary-blue;
+    margin-right: 12px;
+  }
+  &__wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  &__name {
+    margin-bottom: 6px;
+  }
+  &__login-btn {
+    margin: 20px;
+    font-size: 18px;
+  }
+  &__signin-btn {
+    @extend .profile__login-btn;
+  }
+}
+
+// 로그인 후 auth/login 페이지
+.login-profile {
+  @include layout-vertical-center;
+  gap: 16px;
+  &__email {
+    color: $color-grayscale-white;
+    font-size: 20px;
+    margin-bottom: 4px;
+  }
+  &__username {
+    color: $color-grayscale-white;
+    font-size: 20px;
+  }
+
+  &-link {
+    @include layout-horizontal-center;
+    gap: 10px;
+  }
+  &__logout {
+    color: $color-grayscale-white;
+    font-size: 18px;
+  }
+}

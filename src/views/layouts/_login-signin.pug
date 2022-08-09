@@ -1,23 +1,16 @@
 html(lang="en")
     head
-        meta(charset="UTF-8")
-        meta(http-equiv="X-UA-Compatible", content="IE=edge")
-        meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Digiclover-x
-        link(rel='stylesheet', href='./css/App.css', type='text/css')
-        script(src="https://kit.fontawesome.com/f5b2afa047.js" crossorigin="anonymous") 
+        include ../includes/html-head.pug
     block script
 
     body.login
-        .nav-logo 
-            a(href="/") 
-                img(src="../assets/img/logo.png")
-        nav.nav-enter 
-            a(href="/auth/login" class="nav-link__gray") 로그인
-                hr.horizontal-line__login
-            a(href="/auth/signin" class="nav-link__gray") 회원가입
-                hr.horizontal-line__signin
-        hr.horizontal-line
+        nav.nav-auth 
+            .logo
+                a(href="/") 
+                    img(src="../assets/img/logo.png")
+            .nav-link-wrap
+                a(href="/auth/login" class="nav-link") 로그인
+                a(href="/auth/signin" class="nav-link") 회원가입
     block content
 //- 활성화된 링크 클래스 변경 기능 넣기
 //- a(href="/login" class="nav-link") 로그인

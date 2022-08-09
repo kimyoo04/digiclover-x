@@ -1,33 +1,6 @@
-.signin {
-  background-image: url("../assets/img/bg-login.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-
-// nav는 login.scss--------------------------------------------------
-.nav {
-  @include layout-horizontal-center;
-
-  &-link {
-    text-decoration: none;
-    color: white;
-    margin: 0px 30px 0 30px;
-    font-size: 25px;
-    &__gray {
-      text-decoration: none;
-      margin: 0px 30px 0 30px;
-      font-size: 25px;
-      color: gray;
-    }
-  }
-}
-
 // ------------------------------------------------------------------
 .signin-wrap {
   @include layout-vertical-center;
-  margin-top: 50px;
   .signin-forms {
     border: 1px solid rgba(199, 199, 199, 0.3);
     background-color: rgba(199, 199, 199, 0.1);

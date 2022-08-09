@@ -1,33 +1,10 @@
 .login {
-  background-image: url("../assets/img/bg-login.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  height: 100vh;
-}
-
-// ------------------------------------------------------------------
-.nav-enter {
-  @include layout-horizontal-center;
-
-  &-link {
-    text-decoration: none;
-    color: white;
-    margin: 0px 30px 0 30px;
-    font-size: 25px;
-    &__gray {
-      text-decoration: none;
-      margin: 0px 30px 0 30px;
-      font-size: 25px;
-      color: gray;
-    }
-  }
+  background-color: $color-secondary-dark-blue;
 }
 
 // ------------------------------------------------------------------
 .login-wrap {
   @include layout-vertical-center;
-  margin-top: 50px;
   .login-forms {
     border: 1px solid rgba(199, 199, 199, 0.3);
     background-color: rgba(199, 199, 199, 0.1);
@@ -84,22 +61,7 @@
   }
 }
 
-// ------------------------------------------------------------------
-.horizontal-line {
-  border: 1px solid rgba(199, 199, 199, 0.1);
-  position: absolute;
-  width: 100%;
-  top: 140px;
-
-  &__login {
-    border: 1px solid #254aaf;
-    position: absolute;
-    width: 69px;
-    top: 140px;
-  }
-}
-
-// ------------------------------------------------------------------
+// form style 정의 ------------------------------------------------
 .normal {
   &-btn {
     @include btn;
@@ -110,7 +72,6 @@
     }
   }
 }
-
 .line {
   &-btn {
     @include btn;
@@ -127,7 +88,6 @@
     }
   }
 }
-
 .facebook {
   &-btn {
     @include btn;

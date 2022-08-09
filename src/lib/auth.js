@@ -20,7 +20,7 @@ module.exports = {
     if (req.isAuthenticated()) {
       next();
     } else {
-      const message = "-------------로그인 없이 서비스 접근함-------------";
+      const message = "------------- 로그인 없이 접근 -------------";
       console.log(message);
       res.status(403).redirect(`/auth/require-login`);
     }

@@ -26,16 +26,8 @@ router.use(compression());
 
 //------------------------------ 문서화 관리 페이지 ------------------------------
 
-router.get("/waitforauth", isAuthenticated, (req, res) => {
-  res.render("wait_for_auth", {user: req.user});
-});
-
-router.get("/documentation", isAuthenticated, (req, res) => {
-  res.render("documentation", {user: req.user});
-});
-
-router.get("/certification", isAuthenticated, (req, res) => {
-  res.render("certification", {user: req.user});
+router.get("/", isAuthenticated, (req, res) => {
+  res.render("./pages/4_storage/storage", {user: req.user});
 });
 
 //------------------------------ PDF 업로드 및 파일 저장 ------------------------------
