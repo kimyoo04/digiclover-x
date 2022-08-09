@@ -2,8 +2,9 @@
   &-item {
     @include layout-horizontal-center;
     margin: 20px;
-    border: $border-line-3;
     border-radius: $border-radius-2;
+    background-color: $color-grayscale-white;
+    box-shadow: $box-shadow-4;
     &__text {
       color: black;
       padding: 100px 0;
