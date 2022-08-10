@@ -1,16 +1,15 @@
-@import "config/font", "config/variables", "config/resets", "config/config",
-  "config/logo";
-// "config/breakpoints";
+@import "config/font", "config/variables", "config/resets", "config/transition",
+  "config/logo", "config/layout"; // "config/breakpoints";
 
-@import "pages/storage", "pages/converting", "pages/progressBar",
-  "pages/select-companies", "pages/select-docukind", "pages/writing",
-  "pages/signature", "pages/send", "pages/requireLogIn", "pages/index";
+@import "components/btn", "components/cards", "components/progress-bar",
+  "components/input", "components/form", "components/nav-bar",
+  "components/profile";
+
+@import "pages/storage", "pages/document", "pages/select-companies",
+  "pages/select-docukind", "pages/writing", "pages/signature", "pages/send",
+  "pages/requireLogIn", "pages/index";
 
 @import "auth/login", "auth/signin";
-
-@import "nav/nav-bar";
-
-@import "profile/profile";
 
 @import "footer/footer";
 

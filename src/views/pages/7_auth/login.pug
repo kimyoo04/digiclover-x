@@ -1,46 +1,58 @@
 extends ../../layouts/_login-signin
 block script
-//- head와 nav
+//- head와 logo, nav
 block content
 
 
         //- 로그인 시작
         if user
-            .login-wrap 
+            .form-wrap 
                 form(action="/auth/login-local" method="post" class="login-forms")
                     .login-profile
-                        .login-profile-text
-                            .login-profile__email #{user.email}
-                            .login-profile__username #{user.name} 님 안녕하세요.
-                        .login-profile-link
+                        .login-profile__info
+                            .login-profile__info__email #{user.email}
+                            .login-profile__info__username #{user.name} 님 안녕하세요.
+                        .login-profile__link
                             a(class="login-form__logout" href="/storage") 문서 보관함
                             a(class="login-form__logout" href="/auth/logout") 로그아웃
         else 
-            .login-wrap 
-                form(action="/auth/login-local" method="post" class="login-forms")
-                    .login-form
-                        .loginFeedback 
+            .form-wrap
+                form(action="/auth/login-local" method="post")
+                    .form
+                        .form__Feedback 
                             span #{errorFeedback}
-                        .login-form-id 
-                            label(for="email") 이메일
-                            input(type="text" name="email" class="login-form-id__input")
-                        .login-form-password 
-                            label(for="password") 비밀번호
-                            input.login-form-password__input(type="password" name="password")
-                        .normal
-                            button.normal-btn(type="submit")
-                                i.fas.fa-envelope
-                                span 로그인하기
-                    .login-form-sns
-                        .login-form-sns__title 
+                            label.form__label(for="email") 이메일
+                            input.form__input(type="text" name="email")
+                            label.form__label(for="password") 비밀번호
+                            input.form__input(type="password" name="password")
+                            button.form__button.normal(type="submit")
+                                .form__button__item
+                                    i.fas.fa-envelope
+                                .form__button__item
+                                    span 로그인하기
+                                .form__button__item
+                    .form
+                        .form__text
                             span SNS 로그인
-                        .line
-                            button.line-btn(type="button")
-                                a(href="/auth/line") Line 로그인하기
-                        .facebook
-                            button.facebook-btn(type="button")
-                                a(href="/auth/facebook") Facebook 로그인하기
-                        .kakao
-                            button.kakao-btn(type="button")
-                                a(href="/auth/kakao") Kakao 로그인하기
+                        a(href="/auth/line")
+                            button.form__button.line(type="button")
+                                .form__button__item
+                                    img(src="../../../assets/img/line_icon.png" alt="")
+                                .form__button__item
+                                    span Line 로그인
+                                .form__button__item
+                        a(href="/auth/facebook")
+                            button.form__button.facebook(type="button")
+                                .form__button__item
+                                    img(src="../../../assets/img/facebook_icon.png" alt="")
+                                .form__button__item
+                                    span Facebook 로그인
+                                .form__button__item
+                        a(href="/auth/kakao")
+                            button.form__button.kakao(type="button")
+                                .form__button__item
+                                    img(src="../../../assets/img/kakao_icon.png" alt="")
+                                .form__button__item
+                                    span Kakao 로그인
+                                .form__button__item
 

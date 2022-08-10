@@ -1,8 +1,10 @@
 const links = document.querySelectorAll(".nav-link");
 const nowUrl = location.href;
+// console.log("현재url = ", nowUrl);
 
 links.forEach((link) => {
-  if (link.href === nowUrl) {
+  // console.log("link = ", link.href);
+  if (nowUrl === link.href + "/") {
     link.className += " selected-url";
   }
 });

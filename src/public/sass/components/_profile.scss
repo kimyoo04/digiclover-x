@@ -15,6 +15,9 @@
   &__wrapper {
     display: flex;
     flex-direction: column;
+    & a {
+      @include font-profile;
+    }
   }
   &__name {
     margin-bottom: 6px;
@@ -32,17 +35,19 @@
 .login-profile {
   @include layout-vertical-center;
   gap: 16px;
-  &__email {
-    color: $color-grayscale-white;
-    font-size: 20px;
-    margin-bottom: 4px;
-  }
-  &__username {
-    color: $color-grayscale-white;
-    font-size: 20px;
+  .login-profile__info {
+    &__email {
+      color: $color-grayscale-white;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    &__username {
+      color: $color-grayscale-white;
+      font-size: 20px;
+    }
   }
 
-  &-link {
+  &__link {
     @include layout-horizontal-center;
     gap: 10px;
   }

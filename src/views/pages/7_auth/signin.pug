@@ -5,22 +5,20 @@ block content
 
 
         //- 회원가입 시작
-        .signin-wrap 
+        .form-wrap 
             form.signin-forms(action="/auth/signin" method="post") 
-                .signin-form 
-                    .signin-form-email 
-                        label(for="signin-form-email__input") 이메일
-                        input.signin-form-email__input(type="email" name="email") 
-                    .signin-form-id 
-                        label(for="signin-form-id__input") 이름
-                        input.signin-form-id__input(type="text" name="name") 
-                    .signin-form-phone 
-                        label(for="signin-form-phone__input") 휴대폰 번호
-                        input.signin-form-phone__input(type="tel" name="phone") 
-                    .signin-form-password 
-                        label(for="signin-form-password__input") 비밀번호
-                        input.signin-form-password__input(type="password" name="password") 
-                    .signin-btn-form-wrap
-                        button.signin-form-btn(type="submit")
+                .form 
+                    label.form__label(for="form-email__input") 이메일
+                    input.form__input(type="email" name="email") 
+                    label.form__label(for="form-id__input") 이름
+                    input.form__input(type="text" name="name") 
+                    label.form__label(for="form-phone__input") 휴대폰 번호
+                    input.form__input(type="tel" name="phone") 
+                    label.form__label(for="form-password__input") 비밀번호
+                    input.form__input(type="password" name="password") 
+                    button.form__button.normal(type="submit")
+                        .form__button__item
                             i.fas.fa-envelope 
+                        .form__button__item
                             span 회원가입하기
+                        .form__button__item

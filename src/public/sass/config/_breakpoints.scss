@@ -11,3 +11,20 @@ $breakpoints: (
 }
 
 // width - 1096px 에서 waitforauth의 인증 요청하기 버튼이 밀려나가는 현상 생김
+
+// media size ----------------------------------------------
+@mixin media-md {
+  @media screen and (min-width: 768px) {
+    @content;
+  }
+}
+@mixin media-lg {
+  @media screen and (min-width: 1024px) {
+    @content;
+  }
+}
+@mixin media-xl {
+  @media screen and (min-width: 1600px) {
+    @content;
+  }
+}

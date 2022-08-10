@@ -11,14 +11,15 @@
   }
 }
 
-.requireLogin-form-msg {
-  display: block;
-  font-size: 14px;
-  color: red;
-  text-align: center;
-}
-
-.requireLogin-form-link {
-  font-size: 24px;
-  text-align: center;
+.requireLogin-form {
+  &__msg {
+    display: block;
+    font-size: 14px;
+    color: red;
+    text-align: center;
+  }
+  &__link {
+    font-size: 24px;
+    text-align: center;
+  }
 }

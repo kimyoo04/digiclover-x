@@ -8,8 +8,8 @@
     justify-content: space-between;
   }
   &-link {
+    @include font-nav;
     padding: 0 20px;
-    font-size: 18px;
     &:hover {
       color: $color-primary-blue;
     }

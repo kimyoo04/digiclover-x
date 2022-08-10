@@ -1,128 +1,113 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;800;900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap");
 .headline-1 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 900;
   font-size: 34px;
   line-height: 40px;
 }
 
 .headline-2 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 900;
   font-size: 24px;
   line-height: 30px;
 }
 
 .headline-3 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 900;
   font-size: 14px;
   line-height: 18px;
 }
 
 .title-1 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 800;
   font-size: 20px;
   line-height: 24px;
 }
 
 .title-1 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 800;
   font-size: 16px;
   line-height: 20px;
 }
 
 .subtitle-1 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 500;
   font-size: 16px;
   line-height: 20px;
 }
 
 .subtitle-2 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 18px;
 }
 
 .body-1 {
-  font-family: "Roboto";
-  font-style: normal;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 16px;
   line-height: 28px;
 }
 
 .body-2 {
-  font-family: "Roboto";
-  font-style: normal;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 14px;
   line-height: 22px;
 }
 
 .body-3 {
-  font-family: "Roboto";
-  font-style: normal;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 18px;
 }
 
 .body-4 {
-  font-family: "Roboto";
-  font-style: normal;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 10px;
   line-height: 12px;
 }
 
 .button-1 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 16px;
   line-height: 20px;
 }
 
 .button-2 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
 }
 
 .button-3 {
-  font-family: "Montserrat", sans-serif;
-  font-style: normal;
+  font-family: "Nunito", sans-serif;
   font-weight: 600;
   font-size: 12px;
   line-height: 20px;
 }
 
 .caption {
-  font-family: "Roboto";
-  font-style: normal;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
 }
 
 .overline {
-  font-family: "Roboto";
-  font-style: normal;
+  font-family: "Roboto", sans-serif;
   font-weight: 400;
   font-size: 12px;
   line-height: 20px;
@@ -218,7 +203,7 @@ video {
 }
 
 html {
-  font-size: 0.88rem;
+  font-size: 16px;
   line-height: 1;
   font-family: "Noto Sans KR", sans-serif;
 }
@@ -338,247 +323,30 @@ a {
   padding-top: 30px;
 }
 
-body.storage {
-  background-color: #e6ecf3;
-}
-
-.sidebar-btn {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 0 0 20px 0;
-  width: 197px;
-  height: 50px;
-  border-radius: 0.4rem;
-  font-size: 14px;
-  font-family: "Noto Sans KR", sans-serif;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  transition: all 200ms ease;
-}
-.sidebar-btn:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-.docu-status {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-between;
-  margin: 25px 20px;
-}
-.docu-status-item {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  padding: 15px 50px;
-  margin: 0 20px;
-}
-.docu-status__box {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  background-color: #223daa;
-  width: 20px;
-  height: 20px;
-  border-radius: 4px;
-}
-.docu-status__number {
-  color: #a3c735;
-  font-size: 12px;
-}
-.docu-status-storage {
-  font-size: 14px;
-  margin: 0 10px 0 0;
-  color: gray;
-}
-
-.search {
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
-  width: 300px;
-  height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.4rem;
-  font-size: 14px;
-  margin: 5px 20px;
-  height: 40px;
-  padding-left: 10px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 2px solid rgba(255, 255, 255, 0.4);
-  color: black;
-}
-
-.signature-wrap {
-  margin: 0 40px;
-  margin-bottom: 10px;
-}
-
-.signature {
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-between;
-  font-family: "Noto Sans KR", sans-serif;
-  width: 100%;
-  height: 100px;
-  border-radius: 5px;
-  background-color: rgba(255, 255, 255, 0.2);
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-}
-.signature-info span {
-  display: block;
-  margin: 10px 30px;
-  color: black;
-}
-.signature-info__filename {
-  font-size: 16px;
-  color: black;
-}
-.signature-info__date {
-  font-size: 12px;
-  color: black;
-}
-.signature-info__hash {
-  font-size: 12px;
-  color: black;
-}
-.signature-sign {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-}
-.signature-sign__wrap {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  width: 70px;
-  height: 70px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 50%;
-  margin: 0 10px;
-}
-.signature-sign__confirm {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  align-items: center;
-  width: 60px;
-  height: 60px;
-  border: 2px solid black;
-  border-radius: 50%;
-  transform: rotate(-30deg);
-}
-.signature-sign__confirm span {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 700;
-  margin: 2px 0;
-  color: black;
-}
-.signature-btn button {
-  width: 120px;
-  height: 40px;
-  border-radius: 5px;
-  background-color: #223daa;
-  color: black;
-  margin: 0 30px;
-}
-
-.sidebar-horizontal-line {
-  border: 1px solid rgba(199, 199, 199, 0.1);
-  position: absolute;
-  width: 100%;
-  top: 145px;
-  z-index: -1;
-}
-.sidebar-horizontal-line__waiting, .sidebar-horizontal-line__certification, .sidebar-horizontal-line__documentation {
-  position: absolute;
-  top: 145px;
-  width: 81.51px;
-}
-.sidebar-horizontal-line__documentation {
-  width: 97.55px;
-}
-.sidebar-horizontal-line__certification {
-  width: 97.55px;
-}
-
-.now-page {
-  color: #a3c735;
-}
-
-.converting {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  background-color: #1c2c3b;
-}
-.converting-header {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100px;
-  justify-content: left;
-}
-.converting-header h2 {
-  color: white;
-}
-.converting-main {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-  padding: 0 20px;
-}
-
-.moveBtns {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-}
-.moveBtns input {
-  width: 100px;
-  height: 50px;
-  margin: 5px 0;
-  border-radius: 0.4rem;
-  background-color: #e0e0e0;
-}
-
 .progress-wrap {
   position: relative;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   margin: 50px;
 }
 .progress-wrap .steps {
   position: relative;
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   flex-direction: column;
   justify-content: space-between;
   align-items: left;
-  height: 600px;
+  width: 600px;
 }
 .progress-wrap .step-wrap {
   display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   width: 200px;
   align-items: center;
 }
@@ -598,6 +366,7 @@ body.storage {
 .progress-wrap .step-wrap span {
   line-height: 23px;
   vertical-align: middle;
+  color: black;
 }
 .progress-wrap .step.selected {
   margin-left: 0;
@@ -642,6 +411,333 @@ body.storage {
 }
 .progress-wrap span.focused {
   font-weight: 700;
+}
+
+.auth {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #233e4d;
+}
+
+.form-wrap {
+  border: 1px solid rgba(199, 199, 199, 0.3);
+  background-color: rgba(199, 199, 199, 0.1);
+  border-radius: 3%;
+  padding: 50px;
+  margin: 30px;
+}
+
+.nav {
+  background-color: #233e4d;
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
+}
+.nav-wrap {
+  margin: 0 20px;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav-link {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+  line-height: 20px;
+  font-size: 18px;
+  padding: 0 20px;
+}
+.nav-link:hover {
+  color: #2ea3e5;
+}
+
+.nav-auth {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.selected-url {
+  color: #2ea3e5;
+}
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
+.profile__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.4rem;
+  background-color: #2ea3e5;
+  margin-right: 12px;
+}
+.profile__wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.profile__wrapper a {
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+.profile__name {
+  margin-bottom: 6px;
+}
+.profile__login-btn, .profile__signin-btn {
+  margin: 20px;
+  font-size: 18px;
+}
+.login-profile {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+}
+.login-profile .login-profile__info__email {
+  color: #fff;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+.login-profile .login-profile__info__username {
+  color: #fff;
+  font-size: 20px;
+}
+.login-profile__link {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.login-profile__logout {
+  color: #fff;
+  font-size: 18px;
+}
+
+body.storage {
+  background-color: #e6ecf3;
+}
+
+.sidebar-btn {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0 0 20px 0;
+  width: 197px;
+  height: 50px;
+  border-radius: 0.4rem;
+  font-size: 14px;
+  font-family: "Noto Sans KR", sans-serif;
+  background-color: rgba(255, 255, 255, 0.2);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  transition: all 200ms ease;
+}
+.sidebar-btn:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.docu-status {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  margin: 25px 20px;
+}
+.docu-status__item {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 15px 0;
+  margin: 0 20px;
+}
+.docu-status__link {
+  color: black;
+  margin: 0 10px 0 0;
+}
+.docu-status__box {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #223daa;
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+.docu-status__number {
+  color: #a3c735;
+  font-size: 12px;
+}
+
+.search {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 6px 4px;
+  width: 300px;
+  height: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 0.4rem;
+  font-size: 14px;
+  margin: 5px 20px;
+  height: 40px;
+  padding-left: 10px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  color: black;
+}
+
+.signature-wrap {
+  margin: 0 40px;
+  margin-bottom: 10px;
+}
+
+.signature {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  padding: 10px 20px;
+}
+.signature-info span {
+  display: block;
+  color: black;
+  margin: 10px 0;
+}
+.signature-info__filename {
+  font-size: 16px;
+}
+.signature-info__date {
+  font-size: 12px;
+}
+.signature-info__hash {
+  font-size: 12px;
+}
+.signature-icon {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+.signature-icon__wrap {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+.signature-icon__confirm {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  align-items: center;
+  width: 60px;
+  height: 60px;
+  border: 2px solid black;
+  border-radius: 50%;
+  transform: rotate(-30deg);
+}
+.signature-icon__confirm span {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  margin: 2px 0;
+  color: black;
+}
+.signature-btn button {
+  width: 120px;
+  height: 40px;
+  border-radius: 5px;
+  background-color: #223daa;
+  color: black;
+}
+
+.sidebar-horizontal-line {
+  border: 1px solid rgba(199, 199, 199, 0.1);
+  position: absolute;
+  width: 100%;
+  top: 145px;
+  z-index: -1;
+}
+.sidebar-horizontal-line__waiting, .sidebar-horizontal-line__certification, .sidebar-horizontal-line__documentation {
+  position: absolute;
+  top: 145px;
+  width: 81.51px;
+}
+.sidebar-horizontal-line__documentation {
+  width: 97.55px;
+}
+.sidebar-horizontal-line__certification {
+  width: 97.55px;
+}
+
+.now-page {
+  color: #a3c735;
+}
+
+.document {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  background-color: #1c2c3b;
+}
+.document-header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  justify-content: left;
+}
+.document-header h2 {
+  color: white;
+}
+.document-main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  padding: 0 20px;
+}
+
+.moveBtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.moveBtns input {
+  width: 100px;
+  height: 50px;
+  margin: 5px 0;
+  border-radius: 0.4rem;
+  background-color: #e0e0e0;
 }
 
 .Selecting {
@@ -799,14 +895,13 @@ body.storage {
   margin: 50px;
 }
 
-.requireLogin-form-msg {
+.requireLogin-form__msg {
   display: block;
   font-size: 14px;
   color: red;
   text-align: center;
 }
-
-.requireLogin-form-link {
+.requireLogin-form__link {
   font-size: 24px;
   text-align: center;
 }
@@ -826,146 +921,96 @@ body.storage {
   padding: 100px 0;
 }
 
-.login {
-  background-color: #233e4d;
-}
-
-.login-wrap {
+.form__text {
   display: flex;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  font-size: 12px;
+  color: #fff;
+  margin: 28px 0 14px 0;
 }
-.login-wrap .login-forms {
-  border: 1px solid rgba(199, 199, 199, 0.3);
-  background-color: rgba(199, 199, 199, 0.1);
-  border-radius: 3%;
-  padding: 50px;
-  margin: 50px;
-}
-.login-wrap .login-forms .login-form label {
+.form__label {
   display: block;
-  font-size: 10px;
+  font-size: 12px;
   color: white;
-  margin: 8px;
+  margin-left: 4px;
 }
-.login-wrap .login-forms .login-form-id__input, .login-wrap .login-forms .login-form-password__input {
+.form__input {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
   font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
+  margin: 6px 4px;
   width: 300px;
   height: 35px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
   color: white;
-  font-family: "Noto Sans KR", sans-serif;
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(199, 199, 199, 0.3);
+  padding-left: 12px;
+  font-size: 14px;
 }
-.login-wrap .login-forms .login-form-id__input:focus, .login-wrap .login-forms .login-form-password__input:focus {
+.form__input:focus {
   border: 2px solid rgba(52, 147, 255, 0.8);
 }
-.login-wrap .login-forms .login-form-sns__title {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  font-size: 10px;
-  color: rgba(199, 199, 199, 0.8);
-  margin: 50px 0 20px 0;
-}
-.login-wrap .login-forms .login-form-btn button {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  padding: 5px;
-  border-radius: 5px;
-}
-.login-wrap .login-forms .login-form-btn__text {
-  color: white;
-}
-
-.normal-btn {
+.form__button {
   font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
+  margin: 6px 4px;
   width: 300px;
   height: 35px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
-  border-color: #c4d71f;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.form__button__item {
+  width: 33%;
+}
+.form__button__item:nth-child(1) {
+  display: flex;
+  justify-content: flex-end;
+}
+.form__button__item:nth-child(1) i {
+  color: white;
+}
+.form__button__item:nth-child(2) {
+  display: flex;
+  justify-content: center;
+}
+.form__button__item:nth-child(2) span {
+  font-size: 12px;
+}
+.form__button img {
+  width: 16px;
+  height: 16px;
+}
+
+.normal {
   background-color: #c4d71f;
-}
-.normal-btn i {
-  margin-right: 5px;
+  margin-top: 8px;
 }
 
-.line-btn {
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
-  width: 300px;
-  height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.4rem;
-  font-size: 14px;
-  border-color: #52b52e;
-  background-image: url("../assets/img/line_icon.png");
-  background-repeat: no-repeat;
-  background-size: 7%;
-  background-position: 22%;
+.line {
   background-color: #52b52e;
-  color: white;
-}
-.line-btn a {
-  text-decoration: none;
-  color: white;
 }
 
-.facebook-btn {
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
-  width: 300px;
-  height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.4rem;
-  font-size: 14px;
-  border-color: #254aaf;
-  background-image: url("../assets/img/facebook_icon.png");
-  background-repeat: no-repeat;
-  background-size: 5%;
-  background-position: 16%;
+.facebook {
   background-color: #254aaf;
-  color: white;
-}
-.facebook-btn a {
-  text-decoration: none;
-  color: white;
 }
 
-.kakao-btn {
-  font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
-  width: 300px;
-  height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.4rem;
-  font-size: 14px;
-  border-color: #fae100;
-  background-image: url("../assets/img/kakao_icon.png");
-  background-repeat: no-repeat;
-  background-size: 5%;
-  background-position: 19%;
+.kakao {
   background-color: #fae100;
-  color: white;
 }
-.kakao-btn a {
-  text-decoration: none;
-  color: white;
+.kakao a {
+  color: black;
 }
 
 .signin-wrap {
@@ -993,7 +1038,7 @@ body.storage {
   justify-content: center;
   align-items: center;
   font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
+  margin: 6px 4px;
   width: 300px;
   height: 35px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1009,7 +1054,7 @@ body.storage {
 }
 .signin-wrap .signin-forms .signin-form-btn {
   font-family: "Noto Sans KR", sans-serif;
-  margin: 5px;
+  margin: 6px 4px;
   width: 300px;
   height: 35px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1034,90 +1079,6 @@ body.storage {
   position: absolute;
   width: 92px;
   top: 140px;
-}
-
-.nav {
-  background-color: #233e4d;
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
-}
-.nav-wrap {
-  margin: 0 20px;
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  justify-content: space-between;
-}
-.nav-link {
-  padding: 0 20px;
-  font-size: 18px;
-}
-.nav-link:hover {
-  color: #2ea3e5;
-}
-
-.nav-auth {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.selected-url {
-  color: #2ea3e5;
-}
-
-.profile {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-.profile__avatar {
-  width: 36px;
-  height: 36px;
-  border-radius: 0.4rem;
-  background-color: #2ea3e5;
-  margin-right: 12px;
-}
-.profile__wrapper {
-  display: flex;
-  flex-direction: column;
-}
-.profile__name {
-  margin-bottom: 6px;
-}
-.profile__login-btn, .profile__signin-btn {
-  margin: 20px;
-  font-size: 18px;
-}
-.login-profile {
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 16px;
-}
-.login-profile__email {
-  color: #fff;
-  font-size: 20px;
-  margin-bottom: 4px;
-}
-.login-profile__username {
-  color: #fff;
-  font-size: 20px;
-}
-.login-profile-link {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-.login-profile__logout {
-  color: #fff;
-  font-size: 18px;
 }
 
 .hidden {

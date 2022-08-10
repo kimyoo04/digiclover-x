@@ -1,0 +1,20 @@
+html(lang="en")
+    head
+        include ../../includes/html-head.pug
+
+    body
+        include ../../includes/nav-bar.pug
+        header.document-header
+            h2.title-1#pages Sending E-mail
+            
+        main.document-main
+            //- 진행률 표시
+            include ../../includes/progress-bar.pug
+
+            .description 
+                span 
+            .moveBtns
+                a(href="/document/select-conpanies")
+                    input(type="button" name="convertStart" value="문서 작성")
+    
+    script(type='text/javascript' src="../../../js/navActiveLink.js")

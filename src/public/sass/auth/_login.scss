@@ -1,122 +1,72 @@
-.login {
-  background-color: $color-secondary-dark-blue;
-}
-
-// ------------------------------------------------------------------
-.login-wrap {
-  @include layout-vertical-center;
-  .login-forms {
-    border: 1px solid rgba(199, 199, 199, 0.3);
-    background-color: rgba(199, 199, 199, 0.1);
-    border-radius: 3%;
-    padding: 50px;
-    margin: 50px;
-    .login-form {
-      & label {
-        display: block;
-        font-size: 10px;
-        color: white;
-        margin: 8px;
-      }
-      &-id {
-        &__input {
-          @include layout-horizontal-center;
-          @include btn;
-          color: white;
-          font-family: "Noto Sans KR", sans-serif;
-          background-color: rgba(255, 255, 255, 0.1);
-          border-color: rgba(199, 199, 199, 0.3);
-        }
-        &__input:focus {
-          border: 2px solid rgba(52, 147, 255, 0.8);
-        }
-      }
-
-      &-password {
-        &__input {
-          @extend .login-form-id__input;
-        }
-      }
-      &-sns {
-        &__title {
-          @include layout-horizontal-center;
-          font-size: 10px;
-          color: rgba(199, 199, 199, 0.8);
-          margin: 50px 0 20px 0;
-        }
-      }
-      &-btn {
-        & button {
-          @include layout-horizontal-center;
-
-          padding: 5px;
-          border-radius: 5px;
-        }
-
-        &__text {
-          color: white;
-        }
-      }
-    }
+.form {
+  &__text {
+    @include layout-horizontal-center;
+    font-size: 12px;
+    color: $color-grayscale-white;
+    margin: 28px 0 14px 0;
   }
-}
 
-// form style 정의 ------------------------------------------------
-.normal {
-  &-btn {
+  &__label {
+    display: block;
+    font-size: 12px;
+    color: white;
+    margin-left: 4px;
+  }
+  &__input {
+    @include layout-horizontal-center;
     @include btn;
-    border-color: #c4d71f;
-    background-color: #c4d71f;
-    & i {
-      margin-right: 5px;
+    color: white;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: rgba(199, 199, 199, 0.3);
+    padding-left: 12px;
+    font-size: 14px;
+  }
+  &__input:focus {
+    border: 2px solid rgba(52, 147, 255, 0.8);
+  }
+
+  &__button {
+    @include btn;
+    @include layout-horizontal-center;
+    cursor: pointer;
+    &__item {
+      width: 33%;
+    }
+    &__item:nth-child(1) {
+      display: flex;
+      justify-content: flex-end;
+      & i {
+        color: white;
+      }
+    }
+    &__item:nth-child(2) {
+      display: flex;
+      justify-content: center;
+      & span {
+        font-size: 12px;
+      }
+    }
+    & img {
+      width: 16px;
+      height: 16px;
     }
   }
+}
+
+// 회사별 style 정의 ------------------------------------------------
+.normal {
+  background-color: #c4d71f;
+  margin-top: 8px;
 }
 .line {
-  &-btn {
-    @include btn;
-    border-color: #52b52e;
-    background-image: url("../assets/img/line_icon.png");
-    background-repeat: no-repeat;
-    background-size: 7%;
-    background-position: 22%;
-    background-color: #52b52e;
-    color: white;
-    & a {
-      text-decoration: none;
-      color: white;
-    }
-  }
+  background-color: #52b52e;
 }
 .facebook {
-  &-btn {
-    @include btn;
-    border-color: #254aaf;
-    background-image: url("../assets/img/facebook_icon.png");
-    background-repeat: no-repeat;
-    background-size: 5%;
-    background-position: 16%;
-    background-color: #254aaf;
-    color: white;
-    & a {
-      text-decoration: none;
-      color: white;
-    }
-  }
+  background-color: #254aaf;
 }
 .kakao {
-  &-btn {
-    @include btn;
-    border-color: #fae100;
-    background-image: url("../assets/img/kakao_icon.png");
-    background-repeat: no-repeat;
-    background-size: 5%;
-    background-position: 19%;
-    background-color: #fae100;
-    color: white;
-    & a {
-      text-decoration: none;
-      color: white;
-    }
+  background-color: #fae100;
+  & a {
+    color: black;
   }
 }

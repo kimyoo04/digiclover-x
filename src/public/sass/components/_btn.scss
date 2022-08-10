@@ -1,0 +1,19 @@
+// btn ----------------------------------------------
+@mixin btn {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 6px 4px;
+  width: 300px;
+  height: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: $border-radius-1;
+  font-size: 14px;
+}
+
+@mixin btn-sidebar {
+  font-family: "Noto Sans KR", sans-serif;
+  margin: 0 0 20px 0;
+  width: 197px;
+  height: 50px;
+  border-radius: $border-radius-1;
+  font-size: 14px;
+}

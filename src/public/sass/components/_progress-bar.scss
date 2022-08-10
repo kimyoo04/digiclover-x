@@ -1,20 +1,23 @@
 .progress-wrap {
   position: relative;
-  display: flex;
+  @include layout-horizontal-center;
+
   margin: 50px;
 
   .steps {
     position: relative;
-    display: flex;
+    @include layout-horizontal-center;
+
     flex-direction: column;
     justify-content: space-between;
     align-items: left;
-    height: 600px;
+    width: 600px;
   }
 
   .step-wrap {
     // 원과 텍스트 가로 배치
-    display: flex;
+    @include layout-horizontal-center;
+
     width: 200px;
     align-items: center;
 
@@ -36,6 +39,7 @@
       // 세로 가운데 정렬
       line-height: 23px;
       vertical-align: middle;
+      color: black;
     }
   }
   .step.selected {

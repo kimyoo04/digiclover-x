@@ -27,7 +27,7 @@ router.use(compression());
 //------------------------------ 문서화 관리 페이지 ------------------------------
 
 router.get("/", isAuthenticated, (req, res) => {
-  res.render("./pages/4_storage/storage", {user: req.user});
+  res.render("./pages/5_storage/storage", {user: req.user});
 });
 
 //------------------------------ PDF 업로드 및 파일 저장 ------------------------------
@@ -50,7 +50,7 @@ router.post(
   size: 206230 
   */
 
-    res.redirect(`/document/waitforauth`); //수정필요
+    res.redirect(`/storage`); //수정필요
     console.log("PDF 파일 업로드 완료");
   }
 );
