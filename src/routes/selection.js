@@ -1,3 +1,28 @@
+//----------------------------------------------------------------
+// 문서 양식을 선택 및 설정을 하는 페이지
+//----------------------------------------------------------------
+
+// 모듈 세팅
+const dotenv = require("dotenv");
+const express = require("express");
+const path = require("path");
+const compression = require("compression");
+const bodyParser = require("body-parser");
+const router = express.Router();
+const Document = require("../models/document.js");
+dotenv.config();
+
+// lib 폴더 세팅
+const {isAuthenticated} = require("../lib/auth.js");
+
+// public 폴더 정적파일 연결
+router.use(express.static(path.join(__dirname, "../public")));
+
+// 미들웨어 세팅
+router.use(bodyParser.json()); // json 파싱
+router.use(bodyParser.urlencoded({extended: true})); // form 파싱
+router.use(compression());
+
 //------------------------------ 2. 문서 종류 선택 ------------------------------
 
 router.get("/select-docukind", (req, res) => {
@@ -170,3 +195,10 @@ router
   })
   .post("/dept-ack-form", (req, res) => {});
 // 차용증 끝
+
+//------------------------------ document 메인 페이지 ------------------------------
+router.get("/", isAuthenticated, (req, res) => {
+  res.render("./pages/2_selection/selection", {user: req.user});
+});
+
+module.exports = router;

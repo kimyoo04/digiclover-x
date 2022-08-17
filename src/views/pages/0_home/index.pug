@@ -15,9 +15,10 @@ html(lang="en")
 
                 if user
                     .profile 
-                        .profile__avatar
+                        a(href="/profile")
+                            .profile__avatar
                         .profile__wrapper
-                            a(class="profile__name" href="/setting") #{user.name} 님
+                            a(class="profile__name" href="/profile") #{user.name} 님
                             a(class="profile__logout-btn" href="/auth/logout" ) 로그아웃
 
                 else

@@ -61,14 +61,22 @@ app.set("view engine", "pug");
 const indexRouter = require("./routes/index.js"),
   authRouter = require("./routes/auth.js"),
   documentRouter = require("./routes/document.js"),
-  storageRouter = require("./routes/storage.js");
+  selectionRouter = require("./routes/selection.js"),
+  sendRouter = require("./routes/send.js"),
+  signatureRouter = require("./routes/signature.js"),
+  storageRouter = require("./routes/storage.js"),
+  profileRouter = require("./routes/profile.js");
 
 // 라우터
 app
   .use("/", indexRouter)
   .use("/auth", authRouter)
   .use("/document", documentRouter)
-  .use("/storage", storageRouter);
+  .use("/selection", selectionRouter)
+  .use("/send", sendRouter)
+  .use("/signature", signatureRouter)
+  .use("/storage", storageRouter)
+  .use("/profile", profileRouter);
 
 //------------------------------ 에러 처리 미들웨어  ------------------------------
 app.use((req, res, next) => {

@@ -8,9 +8,7 @@ const express = require("express");
 const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
 const router = express.Router();
-const Document = require("../models/document.js");
 dotenv.config();
 
 // lib 폴더 세팅

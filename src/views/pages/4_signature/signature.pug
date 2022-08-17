@@ -2,18 +2,14 @@ html(lang="en")
     head
         include ../../includes/html-head.pug
 
-    body.converting 
-        header.converting-header
-            //- 로고
-            .logo 
-                a(href="/") 
-                    img(src="../assets/img/logo.png")
-
-            h2.page-3#pages Signning
+    body
+        include ../../includes/nav-bar.pug
+        header.document-header
+            h2.title-1#pages Signning
             
         main.converting-main
             //- 진행률 표시
-            include ../../includes/progress-container.pug
+            include ../../includes/progress-bar.pug
 
             //- 이전 페이지, 다음 페이지 이동 버튼
             .moveBtns

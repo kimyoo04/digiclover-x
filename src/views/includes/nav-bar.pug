@@ -9,7 +9,8 @@
         a(class="nav-link" href="/signature") 사인 | 도장
         a(class="nav-link" href="/storage") 문서 보관함
         .profile 
-            .profile__avatar
+            a(href="/profile")
+                .profile__avatar
             .profile__wrapper
-                a(class="profile__name" href="/setting") #{user.name} 님
+                a(class="profile__name" href="/profile") #{user.name} 님
                 a(class="profile__logout-btn" href="/auth/logout" ) 로그아웃
