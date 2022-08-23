@@ -2,12 +2,11 @@
   "config/logo", "config/layout"; // "config/breakpoints";
 
 @import "components/btn", "components/cards", "components/progress-bar",
-  "components/input", "components/form", "components/nav-bar",
-  "components/profile";
+  "components/form", "components/nav-bar", "components/profile";
 
-@import "pages/storage", "pages/document", "pages/select-companies",
-  "pages/select-docukind", "pages/writing", "pages/signature", "pages/send",
-  "pages/requireLogIn", "pages/index";
+@import "pages/storage", "pages/document", "pages/contractors", "pages/docukind",
+  "pages/writing", "pages/signature", "pages/send", "pages/signning",
+  "pages/email", "pages/requireLogIn", "pages/index", "pages/modification";
 
 @import "auth/login", "auth/signin";
 

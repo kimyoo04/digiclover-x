@@ -61,7 +61,6 @@ app.set("view engine", "pug");
 const indexRouter = require("./routes/index.js"),
   authRouter = require("./routes/auth.js"),
   documentRouter = require("./routes/document.js"),
-  selectionRouter = require("./routes/selection.js"),
   sendRouter = require("./routes/send.js"),
   signatureRouter = require("./routes/signature.js"),
   storageRouter = require("./routes/storage.js"),
@@ -72,7 +71,6 @@ app
   .use("/", indexRouter)
   .use("/auth", authRouter)
   .use("/document", documentRouter)
-  .use("/selection", selectionRouter)
   .use("/send", sendRouter)
   .use("/signature", signatureRouter)
   .use("/storage", storageRouter)

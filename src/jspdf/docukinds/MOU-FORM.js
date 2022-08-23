@@ -1,7 +1,20 @@
-module.exports = function (req, res, title, describe, indx, content) {
+module.exports = function (req, title, describe, indx, content) {
   const {margin, maxLineWidth, centerXPos, doc} = require("../index");
-  const textProcess = require("../functions/textProcess");
   const indxLength = indx.length;
+
+  // splittext와 blockHeight 생성하는 함수
+  function textProcess(valueText, fontSize, maxLineWidth) {
+    let text = `${valueText}\n`;
+    let textLine = doc
+      .setFontSize(fontSize)
+      .splitTextToSize(text, maxLineWidth);
+    let textHeight = doc.getLineHeight(text) / doc.internal.scaleFactor;
+    let lines = textLine.length;
+    let blockHeight = lines * textHeight;
+    return [textLine, blockHeight];
+  }
+
+  module.exports = textProcess;
 
   doc.setFontSize(12);
 
@@ -10,22 +23,22 @@ module.exports = function (req, res, title, describe, indx, content) {
 
   // 텍스트 데이터 pdf에 입력
   // title 입력
-  let [textLine, blockHeight] = textProcess(title, 16, maxLineWidth);
+  let [textLine, blockHeight] = textProcess(title, 16, maxLineWidth, doc);
   doc.text(textLine, centerXPos, yPos, {align: "center"});
   yPos += blockHeight;
 
   // describe 입력
-  [textLine, blockHeight] = textProcess(describe, 10, maxLineWidth);
+  [textLine, blockHeight] = textProcess(describe, 10, maxLineWidth, doc);
   doc.text(textLine, centerXPos, yPos, {align: "center"});
   yPos += blockHeight;
 
   // indx와 content 입력 반복
   for (let i = 0; i < indxLength; i++) {
-    [textLine, blockHeight] = textProcess(indx[i], 12, maxLineWidth);
+    [textLine, blockHeight] = textProcess(indx[i], 12, maxLineWidth, doc);
     doc.text(textLine, margin, yPos + 2);
     yPos += blockHeight;
 
-    [textLine, blockHeight] = textProcess(content[i], 10, maxLineWidth);
+    [textLine, blockHeight] = textProcess(content[i], 10, maxLineWidth, doc);
     doc.text(textLine, margin, yPos - 2);
     yPos += blockHeight;
   }

@@ -1,8 +1,8 @@
-const addContentBtn = document.querySelector(".addContentBtn");
+const addContentBtn = document.querySelector(".button--plus");
 
 function mkDocuContent() {
   // div 테그, indx 초기화
-  let docuComponent = document.querySelectorAll(".docu-content");
+  let docuComponent = document.querySelectorAll(".docu__content");
   let deleteBtns = document.querySelectorAll(".deleteBtn");
   let indx = docuComponent.length;
   let lastDocuComponent = docuComponent[indx - 1];
@@ -23,8 +23,12 @@ function mkDocuContent() {
 // div 생성 기능
 function createContentDIV(lastDocuComponent, indx) {
   // div 테그 생성
+  let temWrapDiv = document.createElement("div");
+  temWrapDiv.classList.add("docu__content");
+
+  // div 테그 생성
   let tempDiv = document.createElement("div");
-  tempDiv.classList.add("docu-content");
+  tempDiv.classList.add("docu__content__header");
 
   // input 테그 생성
   let tempInput = document.createElement("input");
@@ -44,12 +48,13 @@ function createContentDIV(lastDocuComponent, indx) {
 
   // div 테그 안에 넣기
   tempDiv.appendChild(tempInput);
-  tempDiv.appendChild(tempTextarea);
   tempDiv.appendChild(tempDeleteBtn);
+  temWrapDiv.appendChild(tempDiv);
+  temWrapDiv.appendChild(tempTextarea);
 
   // 추가
   lastDocuComponent.parentNode.insertBefore(
-    tempDiv,
+    temWrapDiv,
     lastDocuComponent.nextSibling
   );
 }
@@ -57,18 +62,14 @@ function createContentDIV(lastDocuComponent, indx) {
 // div 삭제 기능 및 조항 indx 다시 정렬
 function deleteContentDIV(deleteBtns, indx) {
   //재할당
-  docuComponent = document.querySelectorAll(".docu-content");
   deleteBtns = document.querySelectorAll(".deleteBtn");
 
   deleteBtns.forEach((deleteBtn) => {
     deleteBtn.addEventListener("click", () => {
       // 삭제 후 재할당
-      p = deleteBtn.parentElement;
+      const p = deleteBtn.parentElement.parentElement;
       p.remove();
 
-      docuComponents = document.querySelector(".docu-contents");
-      docuComponent = document.querySelectorAll(".docu-content");
-      deleteBtns = document.querySelectorAll(".deleteBtn");
       indx--;
 
       // 조항 indx 다시 정렬

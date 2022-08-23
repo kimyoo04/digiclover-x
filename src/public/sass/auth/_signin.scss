@@ -18,6 +18,7 @@
         &__input {
           @include layout-horizontal-center;
           @include btn;
+          width: 300px;
           color: white;
           font-family: "Noto Sans KR", sans-serif;
           background-color: rgba(255, 255, 255, 0.1);
@@ -48,6 +49,8 @@
 
       &-btn {
         @include btn;
+        width: 300px;
+        margin: 8px 0;
         border-color: #c4d71f;
         background-color: #c4d71f;
         margin-top: 30px;

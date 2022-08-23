@@ -9,11 +9,11 @@ html(lang="en")
                 a(href="/") 
                     img(src="../assets/img/logo.png")
         
-            h2.page-1#pages 2. 문서 양식 선택
+            h2.page-1#pages 2-1. 문서 선택
 
         main.converting-main
             //- 진행률 표시
-            include ../../includes/progress-container.pug
+            include ../../includes/progress-bar.pug
             
             //- 선택한 회사 명과 서명자 이름 표시
 
@@ -24,15 +24,12 @@ html(lang="en")
                 .slide_wrapper
                     .slides 
                         li.slide(tabindex="1")
-                            label(name="docukind") 자유형식
-                            input(type="radio" name="docukind" value="자유형식" style={display: "none"})
-                        li.slide(tabindex="2")
                             label(name="docukind") MOU계약서
                             input(type="radio" name="docukind" value="MOU계약서" style={display: "none"})
-                        li.slide(tabindex="3")
+                        li.slide(tabindex="2")
                             label(name="docukind") 근로계약서
                             input(type="radio" name="docukind" value="근로계약서" style={display: "none"})
-                        li.slide(tabindex="4")
+                        li.slide(tabindex="3")
                             label(name="docukind") 차용증
                             input(type="radio" name="docukind" value="차용증" style={display: "none"})
                         

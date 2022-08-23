@@ -323,6 +323,36 @@ a {
   padding-top: 30px;
 }
 
+.btn--wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.btn--link input {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 200px;
+  height: 35px;
+  border-radius: 0.4rem;
+  font-size: 14px;
+  background-color: #2ea3e5;
+  margin: 5px 0;
+}
+
+.button--plus {
+  font-family: "Noto Sans KR", sans-serif;
+  width: 200px;
+  height: 35px;
+  border-radius: 0.4rem;
+  font-size: 14px;
+  width: 100%;
+  margin: 5px 0;
+  background-color: #2ea3e5;
+}
+
 .progress-wrap {
   position: relative;
   display: flex;
@@ -531,7 +561,6 @@ body.storage {
   justify-content: center;
   align-items: center;
   font-family: "Noto Sans KR", sans-serif;
-  margin: 0 0 20px 0;
   width: 197px;
   height: 50px;
   border-radius: 0.4rem;
@@ -583,10 +612,8 @@ body.storage {
 
 .search {
   font-family: "Noto Sans KR", sans-serif;
-  margin: 6px 4px;
-  width: 300px;
+  width: 200px;
   height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
   margin: 5px 20px;
@@ -698,85 +725,65 @@ body.storage {
   color: #a3c735;
 }
 
-.document {
+.document header {
   display: flex;
-  flex-flow: row wrap;
-  justify-content: center;
-  align-items: center;
-  background-color: #1c2c3b;
-}
-.document-header {
-  display: flex;
-  flex-flow: row wrap;
+  flex-flow: column wrap;
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100px;
-  justify-content: left;
 }
-.document-header h2 {
-  color: white;
+.document header h2 {
+  color: black;
+  font-size: 14px;
 }
-.document-main {
+.document main {
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  background-color: white;
-  padding: 0 20px;
 }
 
-.moveBtns {
-  width: 100%;
+.contractors header {
   display: flex;
-  justify-content: space-between;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
 }
-.moveBtns input {
-  width: 100px;
-  height: 50px;
-  margin: 5px 0;
-  border-radius: 0.4rem;
-  background-color: #e0e0e0;
+.contractors main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }
 
-.Selecting {
+.contractors-form {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
   width: 50%;
 }
-.Selecting .company {
+.contractors-form__company {
   width: 100%;
 }
-.Selecting .label-input-wrap {
+.contractors-form__inputWrap {
   width: 100%;
   flex-flow: row wrap;
 }
-.Selecting .label-input-wrap label {
+.contractors-form__inputWrap label {
   text-align: left;
-  margin: 10px 0 0 5px;
+  margin-left: 5px;
+  font-size: 14px;
 }
-.Selecting .label-input-wrap input {
+.contractors-form__inputWrap input {
   font-family: "Noto Sans KR", sans-serif;
   width: 100%;
   height: 35px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
-  margin: 5px 0;
-}
-.Selecting .plusInput {
-  width: 100%;
-}
-.Selecting .plusInput .plusInputBtn {
-  font-family: "Noto Sans KR", sans-serif;
-  width: 100%;
-  height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.4rem;
-  font-size: 14px;
+  margin-top: 5px;
+  margin-bottom: 10px;
 }
 
 .select-docukind {
@@ -818,45 +825,79 @@ body.storage {
   background-color: rgb(156, 156, 156);
 }
 
-.docu {
-  width: 70%;
-  border: 1px solid #e0e0e0;
+.writing header {
   display: flex;
   flex-flow: column wrap;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+.writing header h2 {
+  color: black;
+  font-size: 14px;
+}
+.writing main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.writing-form {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  border: 1px solid #e0e0e0;
+  background-color: white;
   margin: 30px 0;
+  padding: 50px;
 }
-.docu-title {
-  margin: 50px 0;
+
+.docu {
+  width: 100%;
 }
-.docu-title input {
+.docu__title {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+}
+.docu__title input {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
 }
-.docu-describe {
+.docu__describe {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
   height: 30px;
   margin-bottom: 50px;
 }
-.docu-describe input {
-  height: 30px;
+.docu__describe input {
+  width: 100%;
+  height: 60px;
   text-align: center;
 }
-.docu-contents {
-  width: 100%;
+.docu__content__header {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
 }
-.docu-content {
-  padding: 0 50px;
+.docu__content:not(:last-child) {
+  margin-bottom: 30px;
 }
-.docu-content:not(:last-child) {
-  margin-bottom: 50px;
-}
-.docu-content input {
+.docu__content input {
   font-size: 16px;
   font-weight: bold;
 }
-.docu-content textarea {
+.docu__content textarea {
   width: 100%;
   height: 100px;
   display: block;
@@ -874,6 +915,53 @@ body.storage {
   font-size: 14px;
   margin: 5px 0;
   padding: 0 50px;
+}
+
+.send header {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  height: 100px;
+}
+.send header h2 {
+  color: black;
+  font-size: 14px;
+}
+.send main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.signning header {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.signning main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.email header {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+.email main {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
 }
 
 .requireLogin {
@@ -934,7 +1022,7 @@ body.storage {
   display: block;
   font-size: 12px;
   color: white;
-  margin-left: 4px;
+  margin: 20px 8px 8px 8px;
 }
 .form__input {
   display: flex;
@@ -942,12 +1030,11 @@ body.storage {
   justify-content: center;
   align-items: center;
   font-family: "Noto Sans KR", sans-serif;
-  margin: 6px 4px;
-  width: 300px;
+  width: 200px;
   height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
+  width: 300px;
   color: white;
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(199, 199, 199, 0.3);
@@ -959,16 +1046,16 @@ body.storage {
 }
 .form__button {
   font-family: "Noto Sans KR", sans-serif;
-  margin: 6px 4px;
-  width: 300px;
+  width: 200px;
   height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
   display: flex;
   flex-flow: row wrap;
   justify-content: center;
   align-items: center;
+  width: 300px;
+  margin: 8px 0;
   cursor: pointer;
 }
 .form__button__item {
@@ -1038,12 +1125,11 @@ body.storage {
   justify-content: center;
   align-items: center;
   font-family: "Noto Sans KR", sans-serif;
-  margin: 6px 4px;
-  width: 300px;
+  width: 200px;
   height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
+  width: 300px;
   color: white;
   font-family: "Noto Sans KR", sans-serif;
   background-color: rgba(255, 255, 255, 0.1);
@@ -1054,12 +1140,12 @@ body.storage {
 }
 .signin-wrap .signin-forms .signin-form-btn {
   font-family: "Noto Sans KR", sans-serif;
-  margin: 6px 4px;
-  width: 300px;
+  width: 200px;
   height: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 0.4rem;
   font-size: 14px;
+  width: 300px;
+  margin: 8px 0;
   border-color: #c4d71f;
   background-color: #c4d71f;
   margin-top: 30px;

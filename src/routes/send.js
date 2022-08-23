@@ -1,7 +1,3 @@
-//----------------------------------------------------------------
-// 이메일 전송을 하기위한 수집
-//----------------------------------------------------------------
-
 // 모듈 세팅
 const dotenv = require("dotenv");
 const express = require("express");
@@ -22,14 +18,56 @@ router.use(bodyParser.json()); // json 파싱
 router.use(bodyParser.urlencoded({extended: true})); // form 파싱
 router.use(compression());
 
-//------------------------------ 5. 요청자의 문서 서명 ------------------------------
-router.get("/signning", isAuthenticated, (req, res) => {
-  res.render("./pages/3_send/signning", {user: req.user});
-});
+// --------------------------------------------------------------------------------
+// 4. 요청자의 서명
+// --------------------------------------------------------------------------------
+router
+  // 서명 그리기 기능 & 도장 svg, png 삽입 및 위치 이동 기능
+  .get("/signning", isAuthenticated, (req, res) => {
+    res.render("./pages/2_send/signning", {user: req.user});
+  })
+  // 요청자의 서명이후 헤시값 B 저장
+  .post("/signning", isAuthenticated, (req, res) => {
+    res.redirect("/send/email");
+  });
 
-//------------------------------ 4. 이메일 수신자 설정 ------------------------------
+// --------------------------------------------------------------------------------
+// 5. 이메일 전송 및 이용 동의
+// --------------------------------------------------------------------------------
+router
+  //
+  .get("/email", isAuthenticated, (req, res) => {
+    const {
+      companyName1,
+      contractorName1,
+      contractorPhone1,
+      contractorEmail1,
+      companyName2,
+      contractorName2,
+      contractorPhone2,
+      contractorEmail2,
+    } = req.session.info;
+    res.render("./pages/2_send/email", {
+      companyName1,
+      contractorName1,
+      contractorPhone1,
+      contractorEmail1,
+      companyName2,
+      contractorName2,
+      contractorPhone2,
+      contractorEmail2,
+    });
+  })
+  // 이메일 전송 프로세스, 로그 기록
+  .post("/email", isAuthenticated, (req, res) => {
+    res.redirect("/storage");
+  });
+
+// --------------------------------------------------------------------------------
+// 4-0. 문서 전송 시작 전 페이지
+// --------------------------------------------------------------------------------
 router.get("/", isAuthenticated, (req, res) => {
-  res.render("./pages/3_send/send", {user: req.user});
+  res.render("./pages/2_send/send", {user: req.user});
 });
 
 module.exports = router;

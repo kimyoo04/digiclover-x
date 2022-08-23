@@ -14,10 +14,6 @@ const User = require("../models/user.js");
 const router = express.Router();
 dotenv.config();
 
-// lib 폴더 세팅
-const {isAuthenticated} = require("../lib/auth.js");
-const template = require("../lib/template.js");
-
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
 
@@ -30,7 +26,7 @@ router.use(compression());
 //------------------------------ 회원가입 페이지 ------------------------------
 router
   .get("/signin", (req, res) => {
-    res.render("pages/7_auth/signin");
+    res.render("pages/6_auth/signin");
   })
   .post("/signin", async (req, res, next) => {
     const {email, name, phone, password} = req.body;
@@ -58,7 +54,7 @@ router
 router.get("/login", (req, res) => {
   const error = req.flash().error || [];
   console.log(error);
-  res.render("pages/7_auth/login", {
+  res.render("pages/6_auth/login", {
     errorFeedback: error,
     user: req.user,
   });
@@ -67,7 +63,7 @@ router.get("/login", (req, res) => {
 
 //------------------------------ 로그인 필요 페이지 ------------------------------
 router.get("/require-login", (req, res) => {
-  res.render("pages/7_auth/requireLogin", {});
+  res.render("pages/6_auth/requireLogin", {});
 });
 
 //------------------------------ 로컬 로그인 ------------------------------

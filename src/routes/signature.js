@@ -24,7 +24,7 @@ router.use(compression());
 
 //------------------------------ 4. 유저의 서명 조회 ------------------------------
 router.get("/", isAuthenticated, (req, res) => {
-  res.render("./pages/4_signature/signature", {user: req.user});
+  res.render("./pages/3_signature/signature", {user: req.user});
 });
 
 module.exports = router;

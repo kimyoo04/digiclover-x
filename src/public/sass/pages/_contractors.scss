@@ -1,0 +1,33 @@
+.contractors {
+  header {
+    @include layout-vertical-center;
+  }
+  main {
+    @include layout-horizontal-center;
+  }
+}
+
+.contractors-form {
+  @include layout-vertical-center;
+  width: 50%;
+
+  // 회사별
+  &__company {
+    width: 100%;
+  }
+
+  &__inputWrap {
+    width: 100%;
+    flex-flow: row wrap;
+    & label {
+      text-align: left;
+      margin-left: 5px;
+      font-size: 14px;
+    }
+    & input {
+      @include input-box;
+      margin-top: 5px;
+      margin-bottom: 10px;
+    }
+  }
+}

@@ -1,0 +1,20 @@
+html(lang="en")
+    head
+        include ../../includes/html-head.pug
+
+    body.send
+        include ../../includes/nav-bar.pug
+        header.document-header
+            h2.title-1#pages Sending E-mail process
+            
+            h2 이 페이지는 작성 완료한 문서들을 선택해서 문서를 전송 하는 프로세스의 시작 페이지입니다.
+        //- 진행률 표시
+        include ../../includes/progress-bar.pug
+        
+
+        main
+            //- 이전 페이지, 다음 페이지 이동 버튼
+            a.button--link(href="/send/contractors")
+                input(type="button" value="문서 전송")
+
+        script(type='text/javascript' src="./js/progress-indicator.js")

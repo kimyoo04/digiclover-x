@@ -1,0 +1,8 @@
+.email {
+  header {
+    @include layout-vertical-center;
+  }
+  main {
+    @include layout-horizontal-center;
+  }
+}

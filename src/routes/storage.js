@@ -27,7 +27,7 @@ router.use(compression());
 //------------------------------ 문서화 관리 페이지 ------------------------------
 
 router.get("/", isAuthenticated, (req, res) => {
-  res.render("./pages/5_storage/storage", {user: req.user});
+  res.render("./pages/4_storage/storage", {user: req.user});
 });
 
 //------------------------------ PDF 업로드 및 파일 저장 ------------------------------

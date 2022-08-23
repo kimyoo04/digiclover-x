@@ -1,0 +1,30 @@
+html(lang="en")
+    head
+        include ../../includes/html-head.pug
+
+    body.writing
+        header
+            //- 로고
+            .logo 
+                a(href="/") 
+                    img(src="../assets/img/logo.png")
+
+            h2.page-2#pages 3. 서명 위치 설정
+        //- 진행률 표시
+        include ../../includes/progress-bar.pug
+        main
+            form.custom-form(method="post" action="/document/custom")
+
+                //- 설정 후 분기처리 yes -> /send/contractor  ||  no -> /storage
+                            
+                //- 이전 페이지, 다음 페이지 이동 버튼
+                .btn--wrapper
+                    .btn--link
+                        input(type="button" onclick="history.back()" value="이전")
+                    .btn--link
+                        input(type="submit" name="isContinue" value="작성 종료")
+                    .btn--link
+                        input(type="submit" name="isContinue" value="작성 계속")
+
+            
+        script(type='text/javascript' src="./js/progress-indicator.js")

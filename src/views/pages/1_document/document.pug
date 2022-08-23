@@ -2,19 +2,19 @@ html(lang="en")
     head
         include ../../includes/html-head.pug
 
-    body
+    body.document
         include ../../includes/nav-bar.pug
         header.document-header
-            h2.title-1#pages Sending E-mail
+            h2.title-1#pages Document Writing
             
-        main.document-main
-            //- 진행률 표시
-            include ../../includes/progress-bar.pug
+            h2 이 페이지는 문서를 전송하기 문서 작성과 설정들을 하는 프로세스의 시작 페이지입니다.
+        //- 진행률 표시
+        include ../../includes/progress-bar.pug
+        
+        main
 
-            .description 
-                span 
-            .moveBtns
-                a(href="/document/select-conpanies")
-                    input(type="button" name="convertStart" value="문서 작성")
+            a.btn--link(href="/document/contractors")
+                input(type="button" name="contractors" value="문서 작성")
+
     
     script(type='text/javascript' src="../../../js/navActiveLink.js")
