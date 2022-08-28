@@ -1,0 +1,28 @@
+.signature-maker {
+  @include layout-vertical-center;
+}
+
+.canvas {
+  max-width: 450px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: $box-shadow-2;
+  margin-bottom: 20px;
+
+  &__destroy {
+    @include btn;
+    width: 31%;
+  }
+
+  &__save {
+    @include btn;
+    width: 31%;
+  }
+
+  &__file {
+    @include layout-horizontal-center;
+    @include btn;
+    width: 31%;
+    cursor: pointer;
+  }
+}

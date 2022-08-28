@@ -26,7 +26,7 @@ router
   .get("/signning", isAuthenticated, (req, res) => {
     res.render("./pages/2_send/signning", {user: req.user});
   })
-  // 요청자의 서명이후 헤시값 B 저장
+  // 요청자의 서명이후 헤시값 B와 C 저장 (기존에 저장된 가장 최신의 헤시값과)
   .post("/signning", isAuthenticated, (req, res) => {
     res.redirect("/send/email");
   });
@@ -35,7 +35,7 @@ router
 // 5. 이메일 전송 및 이용 동의
 // --------------------------------------------------------------------------------
 router
-  //
+  // 이메일 수정 & 이용 동의 서식
   .get("/email", isAuthenticated, (req, res) => {
     const {
       companyName1,

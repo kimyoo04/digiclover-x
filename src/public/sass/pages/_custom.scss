@@ -1,4 +1,4 @@
-.signning {
+.custom {
   width: 100vw;
   height: 100vh;
   @include layout-vertical-center;
@@ -7,11 +7,11 @@
     margin-bottom: 20px;
   }
   main {
-    @include layout-vertical-center;
+    @include layout-horizontal-center;
     padding: 0 50px;
   }
 }
 
-.signning-form {
+.custom-form {
   width: 100%;
 }

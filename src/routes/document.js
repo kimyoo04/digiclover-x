@@ -32,6 +32,7 @@ router.use(compression());
 // --------------------------------------------------------------------------------
 router
   .get("/contractors", isAuthenticated, (req, res) => {
+    console.log(req.user);
     res.render("./pages/1_document/contractors", {user: req.user});
   })
   // 세션에 데이터 저장 & 문서 작성-문서 선택 -> 분기 처리

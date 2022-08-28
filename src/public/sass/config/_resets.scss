@@ -198,3 +198,9 @@ a {
   color: white;
   text-decoration: none;
 }
+
+button,
+input[type="submit"],
+input[type="button"] {
+  cursor: pointer;
+}

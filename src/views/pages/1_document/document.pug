@@ -9,12 +9,11 @@ html(lang="en")
             
             h2 이 페이지는 문서를 전송하기 문서 작성과 설정들을 하는 프로세스의 시작 페이지입니다.
         //- 진행률 표시
-        include ../../includes/progress-bar.pug
+        //- include ../../includes/progress-bar.pug
         
         main
 
-            a.btn--link(href="/document/contractors")
-                input(type="button" name="contractors" value="문서 작성")
+            a.btn--anchor(href="/document/contractors") 문서 작성
 
     
     script(type='text/javascript' src="../../../js/navActiveLink.js")

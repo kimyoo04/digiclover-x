@@ -1,10 +1,12 @@
 // btn ----------------------------------------------
 @mixin btn {
   font-family: "Noto Sans KR", sans-serif;
+  background-color: white;
   width: 200px;
   height: 35px;
   border-radius: $border-radius-1;
   font-size: 14px;
+  transition: 0.1s;
 }
 
 @mixin btn-sidebar {
@@ -34,22 +36,56 @@
   font-size: 14px;
 }
 
-.btn--wrapper {
+.btn--wrap {
+  width: 100%;
   @include layout-horizontal-center;
   justify-content: space-between;
-  width: 100%;
-}
-.btn--link {
-  & input {
-    @include btn;
-    background-color: $color-primary-blue;
-    margin: 5px 0;
+  gap: 6px;
+  margin-bottom: 20px;
+
+  input[type="file"] {
+    display: none;
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
   }
+
+  & button:hover,
+  input:hover,
+  label:hover {
+    scale: 1.06;
+    font-weight: 600;
+  }
+}
+
+.btn--anchor {
+  display: block;
+  @include btn;
+  @include layout-horizontal-center;
+  width: 48%;
+  background-color: $color-primary-blue;
+}
+
+.btn--link2 {
+  @include btn;
+  width: 48%;
+  background-color: $color-primary-blue;
+}
+
+.btn--link3 {
+  @include btn;
+  width: 32%;
+  background-color: $color-primary-blue;
 }
 
 .button--plus {
   @include btn;
   width: 100%;
-  margin: 5px 0;
+  margin-bottom: 10px;
   background-color: $color-primary-blue;
+
+  &:hover {
+    scale: 1.06;
+    font-weight: 600;
+  }
 }
