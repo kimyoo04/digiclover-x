@@ -1,56 +1,60 @@
 html(lang="en")
     head
-        include ../../includes/html-head.pug
+        include ../../../includes/html-head.pug
 
-    body.converting
-        header.converting-header
+    body.writing
+        header
             //- 로고
             .logo 
                 a(href="/") 
                     img(src="../assets/img/logo.png")
+            h2.step-2(style={display: "none"}) 2-2. MOU 계약서 수정
 
-            h2.page-2#pages mou-form Writing
-        main.converting-main
+        main
             //- 진행률 표시
-            include ../../includes/progress-container.pug
+            include ../../../includes/progress-bar.pug
 
-            form.docu(method="post" action="/document/mou-form")
-                .docu-title 
-                    input(name="title" type="text" value=`${companyName1} & ${companyName2} MOU협약서`) 
+            form.writing-form(method="post" action="/document/finished_document" accept-charset="utf-8")
+                .docu
+                    .docu__title 
+                        input(name="title" type="text" value=`${info.companyName1} & ${info.companyName2} MOU협약서`) 
 
-                .docu-describe 
-                    input(name="describe" type="text" value=`${companyName1} 와(과) ${companyName2} ( ${companyName1} 책임자 : ${contractorName1}, ${companyName2} 책임자 : ${contractorName2} ) 는 다음과 같이 업무 제휴 협약을 체결한다.`) 
-                .docu-contents
-                    .docu-content
-                        input(name="indx" type="text" value="제 1조 (목적)")
-                        textarea(name="content") 본 MOU는 #{companyName1} 와(과) #{companyName2}  블록체인 기반의 SOC (사회간접자본) 관련 시범 사업에 관한 협력 관계를 갖는 것을 목적으로 한다."
-                        input(class="deleteBtn" type="button" value="삭제")
+                    .docu__describe 
+                        input(name="describe" type="text" value=`${info.companyName1} 와(과) ${info.companyName2} ( ${info.companyName1} 책임자 : ${info.contractorName1}, ${info.companyName2} 책임자 : ${info.contractorName2} ) 는 다음과 같이 업무 제휴 협약을 체결한다.`) 
+                    .docu__content
+                        .docu__content__header
+                            input(name="indx" type="text" value="제 1조 (목적)")
+                            input(class="deleteBtn" type="button" value="삭제")
+                        textarea(name="content") 본 MOU는 #{info.companyName1} 와(과) #{info.companyName2}  블록체인 기반의 SOC (사회간접자본) 관련 시범 사업에 관한 협력 관계를 갖는 것을 목적으로 한다."
 
-                    .docu-content
-                        input(name="indx" type="text" value="제 2조 (연구 / 기술 협력)") 
-                        textarea(name="content") #{companyName1}는 #{companyName2} 와(과) 하드웨어 기반의 데이터 수집 및 모니터링 관련 기술을 기반으로 하여 BIM을 공동으로 연구하며 신뢰 기반 건설 프로젝트의 컨소시엄에 대한 시범 사업에 적극 협력한다.
-                        input(class="deleteBtn" type="button" value="삭제")
+                    .docu__content
+                        .docu__content__header
+                            input(name="indx" type="text" value="제 2조 (연구 / 기술 협력)") 
+                            input(class="deleteBtn" type="button" value="삭제")
+                        textarea(name="content") #{info.companyName1}는 #{info.companyName2} 와(과) 하드웨어 기반의 데이터 수집 및 모니터링 관련 기술을 기반으로 하여 BIM을 공동으로 연구하며 신뢰 기반 건설 프로젝트의 컨소시엄에 대한 시범 사업에 적극 협력한다.
 
-                    .docu-content
-                        input(name="indx" type="text" value="제 3조 (비밀유지)") 
+                    .docu__content
+                        .docu__content__header
+                            input(name="indx" type="text" value="제 3조 (비밀유지)") 
+                            input(class="deleteBtn" type="button" value="삭제")
                         textarea(name="content") 본 MOU를 위해 양측은 제공된 정보 중 비밀로 표시된 것은 서로간의 보안을 유지해야하며, 만약 이중 위반하여 그 정보를 유출한 자는 그로인한 손해배상금을 지급해야한다.
-                        input(class="deleteBtn" type="button" value="삭제")
 
-                    .docu-content
-                        input(name="indx" type="text" value="제 4조 (항의 이행)") 
+                    .docu__content
+                        .docu__content__header
+                            input(name="indx" type="text" value="제 4조 (항의 이행)") 
+                            input(class="deleteBtn" type="button" value="삭제")
                         textarea(name="content") 양 측은 신의 성실의 원칙에 입각하여 본 양해각서의 내용을 성실히 이행한다.
-                        input(class="deleteBtn" type="button" value="삭제")
                 
                     //- 추가 버튼
-                    input(class="addContentBtn" type="button" value="   +   ")
+                    input.button--plus(type="button" value="+")
 
                     //- 서명과 하단 포멧 설정 필요
 
 
                     //- 이전 페이지, 다음 페이지 이동 버튼
-                    .moveBtns
-                        input(type="button" onclick="history.back()" value="이전")
-                        input(type="submit" value="다음")
+                    .btn--wrap
+                        input.btn--link2(type="button" onclick="history.back()" value="이전")
+                        input.btn--link2(type="submit" value="다음")
 
-        script(type='text/javascript' src="./js/progress-indicator.js")
-        script(type='text/javascript' src="./js/writing.js")
+        script(type='text/javascript' src="../../js/progress-indicator.js")
+        script(type='text/javascript' src="../../js/writing.js")

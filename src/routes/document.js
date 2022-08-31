@@ -1,6 +1,6 @@
-//----------------------------------------------------------------
+// --------------------------------------------------------------------------------
 // html의 form 데이터를 전자문서화 페이지
-//----------------------------------------------------------------
+// --------------------------------------------------------------------------------
 
 // 모듈 세팅
 const dotenv = require("dotenv");
@@ -23,9 +23,6 @@ router.use(express.static(path.join(__dirname, "../public")));
 router.use(bodyParser.json()); // json 파싱
 router.use(bodyParser.urlencoded({extended: true})); // form 파싱
 router.use(compression());
-
-//추가 모듈  -----------------------------------------------------
-// const {jsPDF} = require("jspdf");
 
 // --------------------------------------------------------------------------------
 //1. contractors
@@ -79,18 +76,12 @@ router
 router
   // 회사, 계약자 정보 할당
   .get("/writing", isAuthenticated, (req, res) => {
-    const {companyName1, contractorName1, companyName2, contractorName2} =
-      req.session.info;
-
     req.session.docukind = {
-      docukindName: "자유 형식",
+      docukindName: "MOU 양식",
     };
 
     res.render("./pages/1_document/writing", {
-      companyName1,
-      contractorName1,
-      companyName2,
-      contractorName2,
+      info: req.session.info,
     });
   })
 
@@ -175,14 +166,8 @@ router
 router
   // 회사, 계약자 정보 할당
   .get("/docukind", isAuthenticated, (req, res) => {
-    const {companyName1, contractorName1, companyName2, contractorName2} =
-      req.session.info;
-
     res.render("./pages/1_document/docukind", {
-      companyName1,
-      contractorName1,
-      companyName2,
-      contractorName2,
+      info: req.session.info,
     });
   })
 
@@ -202,15 +187,22 @@ router
 router
   // 문서 종류별 랜더
   .get("/modification", isAuthenticated, (req, res) => {
-    const {docukindName} = req.session.dokukind;
+    const {docukindName} = req.session.docukind;
     if (docukindName === "MOU계약서") {
-      res.render("./pages/1_document/docukind/mou-form", {docukindName});
-    } else if (docukindName === "근로계약서") {
-      res.render("./pages/1_document/docukind/labor-contract-form", {
+      res.render("./pages/1_document/docukinds/mou-form", {
         docukindName,
+        info: req.session.info,
+      });
+    } else if (docukindName === "근로계약서") {
+      res.render("./pages/1_document/docukinds/labor-contract-form", {
+        docukindName,
+        info: req.session.info,
       });
     } else if (docukindName === "차용증") {
-      res.render("./pages/1_document/docukind/dept-ack-form", {docukindName});
+      res.render("./pages/1_document/docukinds/dept-ack-form", {
+        docukindName,
+        info: req.session.info,
+      });
     }
   });
 

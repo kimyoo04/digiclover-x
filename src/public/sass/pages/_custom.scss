@@ -1,17 +1,21 @@
 .custom {
-  width: 100vw;
-  height: 100vh;
   @include layout-vertical-center;
-  header {
-    @include layout-vertical-center;
-    margin-bottom: 20px;
-  }
-  main {
-    @include layout-horizontal-center;
-    padding: 0 50px;
-  }
-}
+  width: auto;
+  height: auto;
+  padding: 0 50px;
 
-.custom-form {
-  width: 100%;
+  & header {
+    @include layout-vertical-center;
+    max-width: 800px;
+  }
+
+  & main {
+    @include layout-vertical-center;
+    width: 100%;
+    max-width: 800px;
+  }
+
+  &-form {
+    width: 100%;
+  }
 }

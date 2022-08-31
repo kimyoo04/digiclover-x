@@ -1,42 +1,61 @@
-.select-docukind {
-  width: 50%;
+.docukind {
+  @include layout-vertical-center;
+  width: auto;
+  height: auto;
+  padding: 0 50px;
 
-  .info {
-    font-size: 20px;
-    margin: 10px 5px;
-    text-align: left; //center
+  & header {
+    @include layout-vertical-center;
+    max-width: 600px;
   }
 
-  .company-contractor_wrapper {
+  & main {
+    @include layout-vertical-center;
+    width: 100%;
+    max-width: 600px;
   }
 
-  .slide_wrapper {
-    margin: 0 auto;
-    height: 400px;
+  &-form {
+    @include layout-vertical-center;
+    width: 100%;
 
-    .slides {
-      @include layout-horizontal-left;
+    &__info {
+      color: black;
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+  }
+}
 
-      & .slide {
-        list-style: none;
-        box-sizing: border-box;
-        width: 120px;
-        height: 120px;
-        background: $color-btn;
-        margin: 2.5px;
+.slide {
+  @include layout-horizontal-center;
+  width: 100%;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  transition: 0.1s;
 
-        // 가로,세로 가운데 정렬
-        & label {
-          @include layout-horizontal-center;
-          height: 100%;
-          margin: 0 10px;
-        }
+  &__item {
+    @include layout-horizontal-center;
+    list-style: none;
+    width: 31%;
+    height: 80px;
+    background-color: white;
+    border-radius: 10px;
+
+    & label {
+      display: block;
+      font-size: 18px;
+      font-weight: 400;
+    }
+    &:hover {
+      scale: 1.06;
+      & label {
+        font-weight: 600;
       }
-
-      & .slide:focus {
-        border: 1px solid $color-primary-green;
-        background-color: rgb(156, 156, 156);
-      }
+    }
+    &--selected {
+      background-color: $color-primary-blue;
     }
   }
 }

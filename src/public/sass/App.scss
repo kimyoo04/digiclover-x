@@ -12,6 +12,9 @@
 
 @import "auth/login", "auth/signin";
 
+@import "docukinds/dept-ack-form", "docukinds/labor-contract-form",
+  "docukinds/mou-form";
+
 @import "footer/footer";
 
 .hidden {

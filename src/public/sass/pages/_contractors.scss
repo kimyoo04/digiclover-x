@@ -1,24 +1,34 @@
 .contractors {
-  header {
+  @include layout-vertical-center;
+  width: auto;
+  height: auto;
+  padding: 0 50px;
+
+  & header {
     @include layout-vertical-center;
+    max-width: 400px;
   }
-  main {
-    @include layout-horizontal-center;
+
+  & main {
+    @include layout-vertical-center;
+    width: 100%;
+    max-width: 400px;
   }
 }
 
 .contractors-form {
   @include layout-vertical-center;
-  width: 50%;
+  width: 100%;
 
   // 회사별
   &__company {
     width: 100%;
+    margin-bottom: 10px;
   }
 
   &__inputWrap {
-    width: 100%;
     flex-flow: row wrap;
+    width: 100%;
     & label {
       text-align: left;
       margin-left: 5px;
@@ -28,6 +38,7 @@
       @include input-box;
       margin-top: 5px;
       margin-bottom: 10px;
+      padding-left: 6px;
     }
   }
 }

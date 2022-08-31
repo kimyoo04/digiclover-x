@@ -1,38 +1,24 @@
-let els = document.getElementsByClassName("step");
+const steps = Array.from(document.querySelectorAll(".step"));
+// html 상의 숨겨진 텍스트
+const title = document.querySelector("h2").innerText;
+const pageNum = document.querySelector("h2").className.slice(-1);
 
-//steps에 배열로 step element 넣기
-let steps = [];
-Array.prototype.forEach.call(els, (e) => {
-  steps.push(e);
-});
+// progress-bar의 h1 title을 삽입
+const pageTitle = document.createElement("h1");
+pageTitle.innerText = title;
+const progressTitle = document.querySelector(".progress__title");
 
-// id의 값 만큼 효과 적용하는 함수
-function progress(stepNum) {
-  // stepe들의 개수만큼 percentage 얻기
-  let pNum = stepNum * (100 / (steps.length - 1));
-  // 진행된 선 높이 길이 조절
-  document.getElementsByClassName("percent")[0].style.height = `${pNum}%`;
-  steps.forEach((e) => {
-    // 선택한 id의 값이 기존과 같으면 selected 추가
-    if (e.id === stepNum) {
-      e.classList.add("selected");
-      e.classList.remove("completed");
-      e.nextSibling.classList.add("focused"); // h2
+//step 별 클래스 추가
+setTimeout(
+  steps.forEach((step) => {
+    const stepNum = step.id.slice(-1);
+    progressTitle.appendChild(pageTitle);
+
+    if (stepNum === pageNum) {
+      step.classList += " step--now";
+    } else if (pageNum > stepNum) {
+      step.classList += " step--finished";
     }
-    // 선택한 id의 값이 기존보다 크면 completed 추가
-    if (e.id < stepNum) {
-      e.classList.add("completed");
-      e.nextSibling.classList.add("focused"); // h2
-    }
-    // 선택한 id의 값이 기존보다 작으면 selected, completed 제거
-    if (e.id > stepNum) {
-      e.classList.remove("selected", "completed");
-      e.nextSibling.classList.remove("focused"); //h2
-    }
-  });
-}
-
-// 현재 페이지의 인덱스 숫자 만큼 프로그레스 인디케이터 적용
-const pageIndx = document.getElementById("pages").className.slice(-1);
-
-progress(pageIndx);
+  }),
+  2000
+);

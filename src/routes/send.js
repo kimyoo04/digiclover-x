@@ -28,6 +28,7 @@ router
   })
   // 요청자의 서명이후 헤시값 B와 C 저장 (기존에 저장된 가장 최신의 헤시값과)
   .post("/signning", isAuthenticated, (req, res) => {
+    console.log("4. 요청자 서명 완료");
     res.redirect("/send/email");
   });
 
@@ -37,29 +38,13 @@ router
 router
   // 이메일 수정 & 이용 동의 서식
   .get("/email", isAuthenticated, (req, res) => {
-    const {
-      companyName1,
-      contractorName1,
-      contractorPhone1,
-      contractorEmail1,
-      companyName2,
-      contractorName2,
-      contractorPhone2,
-      contractorEmail2,
-    } = req.session.info;
     res.render("./pages/2_send/email", {
-      companyName1,
-      contractorName1,
-      contractorPhone1,
-      contractorEmail1,
-      companyName2,
-      contractorName2,
-      contractorPhone2,
-      contractorEmail2,
+      info: req.session.info,
     });
   })
   // 이메일 전송 프로세스, 로그 기록
   .post("/email", isAuthenticated, (req, res) => {
+    console.log("5. 이메일 전송 완료");
     res.redirect("/storage");
   });
 

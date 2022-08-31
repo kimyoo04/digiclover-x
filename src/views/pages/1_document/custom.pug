@@ -8,11 +8,12 @@ html(lang="en")
             .logo 
                 a(href="/") 
                     img(src="../assets/img/logo.png")
+            h2.step-3(style={display: "none"}) 3. 서명 위치 설정
 
-            h2.page-2#pages 3. 서명 위치 설정
-        //- 진행률 표시
-        //- include ../../includes/progress-bar.pug
         main
+            //- 진행률 표시
+            include ../../includes/progress-bar.pug
+
             form.custom-form(method="post" action="/document/custom")
 
                 //- 설정 후 분기처리 yes -> /send/contractor  ||  no -> /storage

@@ -2,44 +2,40 @@ html(lang="en")
     head
         include ../../includes/html-head.pug
 
-    body.converting 
-        header.converting-header
+    body.docukind 
+        header
             //- 로고
             .logo 
                 a(href="/") 
                     img(src="../assets/img/logo.png")
-        
-            h2.page-1#pages 2-1. 문서 선택
+            //- 
+            h2.step-2(style={display: "none"}) 2-1. 문서 양식 선택
 
-        main.converting-main
+        main
             //- 진행률 표시
             include ../../includes/progress-bar.pug
             
             //- 선택한 회사 명과 서명자 이름 표시
 
             //- 원하는 문서 유형 선택
-            form.select-docukind(method="POST" action="/document/select-docukind")
-                h2.info=`${companyName1} 서명자: ${contractorName1} & ${companyName2} 서명자: ${contractorName2}`
+            form.docukind-form(method="POST" action="/document/docukind")
+                h2.docukind-form__info=`${info.companyName1} 서명자: ${info.contractorName1} - ${info.companyName2} 서명자: ${info.contractorName2}`
 
-                .slide_wrapper
-                    .slides 
-                        li.slide(tabindex="1")
-                            label(name="docukind") MOU계약서
-                            input(type="radio" name="docukind" value="MOU계약서" style={display: "none"})
-                        li.slide(tabindex="2")
-                            label(name="docukind") 근로계약서
-                            input(type="radio" name="docukind" value="근로계약서" style={display: "none"})
-                        li.slide(tabindex="3")
-                            label(name="docukind") 차용증
-                            input(type="radio" name="docukind" value="차용증" style={display: "none"})
+                .slide
+                    li.slide__item(tabindex="1")
+                        label(name="docukind") MOU계약서
+                        input.slide__radio(type="radio" name="docukind" value="MOU계약서" style={display: "none"})
+                    li.slide__item(tabindex="2")
+                        label(name="docukind") 근로계약서
+                        input.slide__radio(type="radio" name="docukind" value="근로계약서" style={display: "none"})
+                    li.slide__item(tabindex="3")
+                        label(name="docukind") 차용증
+                        input.slide__radio(type="radio" name="docukind" value="차용증" style={display: "none"})
                         
-                    //- 이전 페이지, 다음 페이지 이동 버튼
-                    .moveBtns
-                        input(type="button" onclick="history.back()" value="이전")
-                        input(type="submit" value="다음")
-
-
-
+                //- 이전 페이지, 다음 페이지 이동 버튼
+                .btn--wrap
+                    input.btn--link2(type="button" onclick="history.back()" value="이전")
+                    input.btn--link2(type="submit" value="다음")
 
 
         script(type='text/javascript' src="./js/progress-indicator.js")

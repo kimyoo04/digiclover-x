@@ -1,9 +1,5 @@
-.signature-maker {
-  @include layout-vertical-center;
-}
-
 .canvas {
-  max-width: 450px;
+  max-width: 400px;
   background-color: white;
   border-radius: 20px;
   box-shadow: $box-shadow-2;

@@ -1,24 +1,27 @@
 .writing {
+  @include layout-vertical-center;
+  width: auto;
+  height: auto;
+  padding: 0 50px;
+
   & header {
     @include layout-vertical-center;
-    width: 100%;
-
-    & h2 {
-      color: black;
-      font-size: 14px;
-    }
   }
+
   & main {
-    @include layout-horizontal-center;
+    @include layout-vertical-center;
+    flex-wrap: nowrap;
+    width: 100%;
   }
 }
 
 .writing-form {
+  width: 100%;
+  max-width: 800px;
   @include layout-vertical-center;
-  width: 70%;
   border: 1px solid $color-border;
   background-color: white;
-  margin: 30px 0;
+  margin-bottom: 20px;
   padding: 50px;
 }
 

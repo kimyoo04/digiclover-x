@@ -2,18 +2,18 @@ html(lang="en")
     head
         include ../../includes/html-head.pug
 
-    body.writing
+    body.contractors
         header
             //- 로고
             .logo 
                 a(href="/") 
                     img(src="../assets/img/logo.png")
+            h2.step-1(style={display: "none"}) 1. 회사명, 계약자 입력
 
-            h2.page-2#pages 1. 회사명, 계약자 입력
-        //- 진행률 표시
-        include ../../includes/progress-bar.pug
         main
-            
+            //- 진행률 표시
+            include ../../includes/progress-bar.pug
+
             form.contractors-form(method="POST" action="/document/contractors" accept-charset="utf-8" name="contractorInfo" autocomplete="on")
                 .contractors-form__company
                     .contractors-form__inputWrap
@@ -46,6 +46,7 @@ html(lang="en")
                     input.btn--link2(type="submit" name="redirect" value="문서 작성")
                     input.btn--link2(type="submit" name="redirect" value="문서 선택")
 
+        script(type='text/javascript' src="./js/progress-indicator.js")
 
         //- db 적용해서 회원 아이디 정보 자동 입력기능
         //- 멤버 회사 검색 후 추가 기능

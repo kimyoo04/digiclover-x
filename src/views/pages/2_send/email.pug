@@ -8,19 +8,18 @@ html(lang="en")
             .logo 
                 a(href="/") 
                     img(src="../assets/img/logo.png")
-            h2.page-2#pages 5. 이용 동의 및 메일 전송
+            h2.step-5(style={display: "none"}) 5. 이용 동의 및 메일 전송
 
-        //- 진행률 표시
-        include ../../includes/progress-bar.pug
         main
+            //- 진행률 표시
+            include ../../includes/progress-bar.pug
+
             form.email-form(method="post" action="/send/email")
 
                 //- 이전 페이지, 다음 페이지 이동 버튼
-                .btn--wrapper
-                    .btn--link
-                        input(type="button" onclick="history.back()" value="이전")
-                    .btn--link
-                        input(type="submit" name="isContinue" value="메일 전송")
+                .btn--wrap
+                    input.btn--link2(type="button" onclick="history.back()" value="이전")
+                    input.btn--link2(type="submit" name="isContinue" value="메일 전송")
 
 
         script(type='text/javascript' src="./js/progress-indicator.js")
