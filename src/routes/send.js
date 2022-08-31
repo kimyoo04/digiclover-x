@@ -44,6 +44,72 @@ router
   })
   // 이메일 전송 프로세스, 로그 기록
   .post("/email", isAuthenticated, (req, res) => {
+    const {
+      companyName1,
+      contractorName1,
+      contractorPhone1,
+      contractorEmail1,
+
+      companyName2,
+      contractorName2,
+      contractorPhone2,
+      contractorEmail2,
+    } = req.session.info;
+
+    const output = `
+    <p>You have a new contact request</p>
+    <h3>Contact Details</h3>
+    <br />
+    <ul>
+      <li>Name: ${contractorName1}</li>
+      <li>Company: ${companyName1}</li>
+      <li>Email: ${contractorEmail1}</li>
+      <li>Phone: ${contractorPhone1}</li>
+    </ul>
+    <br />
+    <ul>
+      <li>Name: ${contractorName2}</li>
+      <li>Company: ${companyName2}</li>
+      <li>Email: ${contractorEmail2}</li>
+      <li>Phone: ${contractorPhone2}</li>
+    </ul>
+    <br />
+    <a href="http://localhost:8001/recipient/login"><button>서명하러가기</button></a>
+    `;
+
+    const nodemailer = require("nodemailer");
+
+    async function sendingMail() {
+      // 기본 SMTP transport 를 활용하는 재사용가능한 transporter 객체를 생성
+      let transporter = nodemailer.createTransport({
+        host: "localhost",
+        port: 25,
+        secure: false, // true for 465, false for other ports
+        // auth: {
+        //   user: process.env.SENDMAIL_ID,
+        //   pass: process.env.SENDMAIL_PASSWORD,
+        // },
+        tls: {
+          rejectUnauthorized: false, //도메인 없이 localhost일 때만 false 설정
+        },
+      });
+
+      // transport object 가 정의된 메일을 보내기
+      let info = await transporter.sendMail({
+        from: '"Digiclover" <kimyoo04eco@naver.com>', // sender address
+        to: `${contractorEmail1}, ${contractorEmail2}`, // list of receivers
+        subject: `[서명 요청] ${contractorName1}님이 전자문서 서명 요청을 보냈습니다.`, // Subject line
+        text: "texting email", // plain text body
+        html: output, // html body
+      });
+
+      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+      console.log("Message sent: %s", info.messageId);
+    }
+
+    // 이메일 전송 async 함수 실행
+    sendingMail().catch(console.error);
+
     console.log("5. 이메일 전송 완료");
     res.redirect("/storage");
   });

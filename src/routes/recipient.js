@@ -1,7 +1,3 @@
-//----------------------------------------------------------------
-// 로그인, 회원가입 페이지
-//----------------------------------------------------------------
-
 // 모듈 세팅
 const dotenv = require("dotenv");
 const passport = require("passport");
@@ -14,6 +10,9 @@ const User = require("../models/user.js");
 const router = express.Router();
 dotenv.config();
 
+// lib 폴더 세팅
+const {isAuthenticated} = require("../lib/auth.js");
+
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
 
@@ -22,12 +21,26 @@ router.use(bodyParser.json()); // json 파싱
 router.use(bodyParser.urlencoded({extended: true})); // form 파싱
 router.use(compression());
 
-// passport 미들웨어 가져오기
+// --------------------------------------------------------------------------------
+// 2. 수신자 서명 및 동의 -> 헤시값 C, D, E ... 생성
+// --------------------------------------------------------------------------------
+router
+  // 서명 그리기 기능 & 도장 svg, png 삽입 및 위치 이동 기능
+  .get("/signning", isAuthenticated, (req, res) => {
+    res.render("./pages/2_send/signning", {user: req.user});
+  })
+  // 요청자의 서명이후 헤시값 B와 C 저장 (기존에 저장된 가장 최신의 헤시값과)
+  .post("/signning", isAuthenticated, (req, res) => {
+    console.log("2. 수신자 서명 완료");
+    res.redirect("/storage");
+  });
 
-//------------------------------ 회원가입 페이지 ------------------------------
+// --------------------------------------------------------------------------------
+// 1-2. 수신자 회원가입 페이지
+// --------------------------------------------------------------------------------
 router
   .get("/signin", (req, res) => {
-    res.render("pages/6_auth/signin");
+    res.render("pages/6_auth/recipient-signin");
   })
   .post("/signin", async (req, res, next) => {
     const {email, name, phone, password} = req.body;
@@ -44,6 +57,7 @@ router
         name,
         phone,
       });
+      console.log("1-2. 수신자 회원가입 완료");
       return res.redirect("/auth/login");
     } catch (error) {
       console.error(error);
@@ -51,21 +65,22 @@ router
     }
   });
 
-//------------------------------ 로그인 페이지 ------------------------------
-router.get("/login", (req, res) => {
-  const error = req.flash().error || [];
-  console.log(error);
-  res.render("pages/6_auth/login", {
-    errorFeedback: error,
-    user: req.user,
+// --------------------------------------------------------------------------------
+// 1-1. 수신자 로그인 페이지
+// --------------------------------------------------------------------------------
+router
+  .get("/login", (req, res) => {
+    const error = req.flash().error || [];
+    console.log(error);
+    res.render("./pages/6_auth/recipient-login", {
+      errorFeedback: error,
+      user: req.user,
+    });
+  })
+  .post("/login", (req, res) => {
+    console.log("1-1. 수신자 로그인 완료");
+    res.redirect("/recipient/signning");
   });
-});
-// flash message 알아보기
-
-//------------------------------ 로그인 필요 페이지 ------------------------------
-router.get("/require-login", (req, res) => {
-  res.render("pages/6_auth/requireLogin", {});
-});
 
 //------------------------------ 로컬 로그인 ------------------------------
 router.post(
@@ -93,13 +108,4 @@ router.get(
   }
 );
 
-//------------------------------ 로그아웃 ------------------------------
-router.get("/logout", function (req, res, next) {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/auth/login");
-  });
-});
 module.exports = router;
