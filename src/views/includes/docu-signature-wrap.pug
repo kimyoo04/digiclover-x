@@ -1,22 +1,35 @@
-//- pdf 문서 시작
-.signature-wrap 
-    .signature 
-        .signature-info 
-            span.signature-info__filename contract-seong.pdf 
-            span.signature-info__date 2022.05.11 
-            //- 헤쉬 길이  ~~~... 으로 길이 통일 시키기
-            span.signature-info__hash ahjsgduy12gd817628dgashjg12ljkhed72189hgd872dawksjhdjh
-        .signature-icon 
-            .signature-icon__wrap
-                //- 서명 받을 사람들이 늘어나면 아이콘 더 추가하기
-                .signature-icon__confirm 
-                    span 갑
-                    span 인증완료
-            .signature-icon__wrap
-                .signature-icon__confirm 
-                    span 을
-                    span 인증완료
-        .signature-btn 
-            button 
-                span 인증 요청하기
-//- pdf 문서 끝
+- let backupNum
+
+each document in documents
+    - backupNum = document.id
+    .signature-wrap 
+        .signature 
+            .signature-info 
+                span.signature-info__filename #{document.docuName}.pdf 
+                span.signature-info__date #{document.createdAt} 
+                span.signature-info__hash= document.hashFile.slice(0,30)+"..."
+            .signature-icon 
+
+                - let peopleNum = 0
+                - const people = ["갑", "을", "병", "정"]
+
+                //- 계약자 추가시 아이콘 추가
+                each docuSignature in docuSignatures
+                    if backupNum == docuSignature.DocumentId
+                        if docuSignature.isSigned == 0
+                            .signature-icon__wrap
+                                .signature-icon__confirm
+                                    span= people[peopleNum]
+                                    span 인증예정
+                        else 
+                            .signature-icon__wrap
+                                .signature-icon__confirm 
+                                    span= people[peopleNum]
+                                    span 인증완료
+                        - peopleNum += 1
+                    else 
+                        - continue
+
+            .signature-btn 
+                button 
+                    a(href="") 인증하기

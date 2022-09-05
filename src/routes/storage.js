@@ -12,9 +12,12 @@ const router = express.Router();
 dotenv.config();
 
 // lib 폴더 세팅
-const template = require("../lib/template.js");
-const upload = require("../lib/uploader.js");
 const {isAuthenticated} = require("../lib/auth.js");
+
+// db
+const Signature = require("../models/signature.js");
+const Document = require("../models/document.js");
+const {Op} = require("sequelize");
 
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
@@ -26,33 +29,76 @@ router.use(compression());
 
 //------------------------------ 문서화 관리 페이지 ------------------------------
 
-router.get("/", isAuthenticated, (req, res) => {
-  res.render("./pages/4_storage/storage", {user: req.user});
+router.get("/", isAuthenticated, async (req, res) => {
+  const signatures = await Signature.findAll({
+    where: {
+      contractorPhone: req.user.phone,
+    },
+    group: ["DocumentId"],
+    raw: true,
+  });
+
+  console.log(
+    `================================================ 유저의 폰번호와 같은 signature rows`,
+    signatures
+  );
+
+  // [ { documentId: 1 }, { documentId: 2 }]
+  // => [1, 2]
+  const documentIds = [];
+  signatures.forEach((signature) => {
+    documentIds.push(signature.DocumentId);
+  });
+
+  // 로그인한 유저의 폰과 일치하는 문서들 할당
+  const documents = await Document.findAll({
+    attributes: {
+      exclude: ["docukindName", "deletedAt"],
+    },
+    where: {
+      id: {
+        [Op.in]: documentIds,
+      },
+    },
+    raw: true,
+    // signature 와 조인 고려
+    // include: [
+    //   {
+    //     model: Signature,
+    //     attributes: {
+    //       exclude: ["id", "DocumentId", "deletedAt"],
+    //     },
+    //     required: true,
+    //   },
+    // ],
+  });
+  console.log(
+    "================================================ 문서 보관함 용 documents",
+    documents
+  );
+
+  // 로그인한 유저의 폰과 일치하는 문서들 할당
+  const docuSignatures = await Signature.findAll({
+    attributes: {
+      exclude: ["id", "deletedAt"],
+    },
+    where: {
+      DocumentId: {
+        [Op.in]: documentIds,
+      },
+    },
+    raw: true,
+  });
+  console.log(
+    "================================================ 문서 보관함 용 docuSignatures",
+    docuSignatures
+  );
+
+  res.render("./pages/4_storage/storage", {
+    user: req.user,
+    documents,
+    docuSignatures,
+  });
 });
-
-//------------------------------ PDF 업로드 및 파일 저장 ------------------------------
-
-router.post(
-  "/upload_process",
-  isAuthenticated,
-  upload.single("userfile"),
-  (req, res) => {
-    /* 
-  console.log(req.files);
-
-  fieldname: 'userfile',
-  originalname: 'BÃ«t-Bi_Image_Sheet.jpg',
-  encoding: '7bit',
-  mimetype: 'image/jpeg',
-  destination: 'uploads/',
-  filename: 'b2dd142b24713d3a6025744646cec7da',
-  path: 'uploads\\b2dd142b24713d3a6025744646cec7da',
-  size: 206230 
-  */
-
-    res.redirect(`/storage`); //수정필요
-    console.log("PDF 파일 업로드 완료");
-  }
-);
 
 module.exports = router;

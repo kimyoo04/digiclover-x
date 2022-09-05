@@ -10,6 +10,10 @@ dotenv.config();
 // lib 폴더 세팅
 const {isAuthenticated} = require("../lib/auth.js");
 
+// db
+const Signature = require("../models/signature.js");
+const Document = require("../models/document.js");
+
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
 
@@ -28,7 +32,75 @@ router
   })
   // 요청자의 서명이후 헤시값 B와 C 저장 (기존에 저장된 가장 최신의 헤시값과)
   .post("/signning", isAuthenticated, (req, res) => {
-    console.log("4. 요청자 서명 완료");
+    const documentId = req.session.docu.documentId;
+
+    async function hashingB(documentId) {
+      const crypto = require("crypto");
+      const hash = crypto.createHash("md5");
+      const nowDate = Date.now();
+      const hashA = await Document.findOne({
+        attributes: ["hashFile"],
+        where: {
+          id: documentId,
+        },
+      });
+
+      console.log(
+        "================================================ hashA 는 --> ",
+        hashA.hashFile
+      );
+
+      if (hashA) {
+        hash.update(hashA.hashFile + nowDate);
+        console.log(
+          `================================================ hashB 는 -->`,
+          hash.copy().digest("hex")
+        );
+      }
+
+      return {hashB: hash.copy().digest("hex"), documentId};
+    }
+
+    async function updateIsSigned(hashB, documentId) {
+      await Signature.update(
+        {isSigned: true, hashValue: hashB},
+        {
+          where: {
+            documentId,
+            contractorPhone: req.session.info["user1"].contractorPhone,
+          },
+          limit: 1,
+        }
+      ).catch((e) => {
+        console.log("update error : ", e);
+      });
+
+      await Signature.findOne({
+        where: {
+          documentId,
+          contractorPhone: req.session.info["user1"].contractorPhone,
+        },
+        raw: true,
+      })
+        .then((result) => {
+          // create 결과 로그 기록
+          console.log(
+            "================================================ SignatureRow"
+          );
+          console.log(result);
+        })
+        .catch((e) => {
+          console.log("findOne error : ", e);
+        });
+    }
+
+    hashingB(documentId).then(({hashB, documentId}) =>
+      updateIsSigned(hashB, documentId)
+    );
+
+    console.log(
+      "================================================ 4. 요청자 서명 완료"
+    );
     res.redirect("/send/email");
   });
 
@@ -110,7 +182,9 @@ router
     // 이메일 전송 async 함수 실행
     sendingMail().catch(console.error);
 
-    console.log("5. 이메일 전송 완료");
+    console.log(
+      "================================================ 5. 이메일 전송 완료"
+    );
     res.redirect("/storage");
   });
 

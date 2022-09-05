@@ -10,6 +10,7 @@ const compression = require("compression");
 const bodyParser = require("body-parser");
 const router = express.Router();
 const Document = require("../models/document.js"); // Database
+const Signature = require("../models/signature.js"); // Database
 dotenv.config();
 
 // lib 폴더 세팅
@@ -25,11 +26,10 @@ router.use(bodyParser.urlencoded({extended: true})); // form 파싱
 router.use(compression());
 
 // --------------------------------------------------------------------------------
-//1. contractors
+// 1. contractors
 // --------------------------------------------------------------------------------
 router
   .get("/contractors", isAuthenticated, (req, res) => {
-    console.log(req.user);
     res.render("./pages/1_document/contractors", {user: req.user});
   })
   // 세션에 데이터 저장 & 문서 작성-문서 선택 -> 분기 처리
@@ -47,37 +47,42 @@ router
 
     // 세션에 데이터 저장
     req.session.info = {
-      companyName1,
-      contractorName1,
-      contractorPhone1,
-      contractorEmail1,
-
-      companyName2,
-      contractorName2,
-      contractorPhone2,
-      contractorEmail2,
+      user1: {
+        companyName: companyName1,
+        contractorName: contractorName1,
+        contractorPhone: contractorPhone1,
+        contractorEmail: contractorEmail1,
+      },
+      user2: {
+        companyName: companyName2,
+        contractorName: contractorName2,
+        contractorPhone: contractorPhone2,
+        contractorEmail: contractorEmail2,
+      },
     };
 
     // 문서 작성-문서 선택 -> 분기 처리
     const submit = req.body.redirect;
-    console.log(submit);
+    console.log("================================================ ", submit);
     if (submit === "문서 작성") {
       res.redirect("/document/writing");
     } else if (submit === "문서 선택") {
       res.redirect("/document/docukind");
     } else {
-      console.error("잘못된 요청입니다.");
+      console.error(
+        "================================================ 잘못된 요청입니다."
+      );
     }
   });
 
 // --------------------------------------------------------------------------------
-//2. writing
+// 2. writing
 // --------------------------------------------------------------------------------
 router
   // 회사, 계약자 정보 할당
   .get("/writing", isAuthenticated, (req, res) => {
     req.session.docukind = {
-      docukindName: "MOU 양식",
+      docukindName: "자유 양식",
     };
 
     res.render("./pages/1_document/writing", {
@@ -126,8 +131,7 @@ router
     // pdf 파일 생성
     doc.output("save", filePath);
 
-    // pdf 파일 해시화
-    function hashing(filePath) {
+    function hashingA(filePath) {
       const crypto = require("crypto");
       const fs = require("fs");
       const hash = crypto.createHash("md5");
@@ -137,31 +141,82 @@ router
         const data = input.read();
         if (data) hash.update(data);
         else {
-          console.log(`--------헤시값 A 완료--------`, hash.digest("hex"));
+          console.log(
+            `================================================ 헤시값 A 완료 --> `,
+            hash.digest("hex")
+          );
         }
       });
       return hash.copy().digest("hex");
     }
-    const hashFile = hashing(filePath);
+    const hashFile = hashingA(filePath);
 
-    // document DB 저장
-    try {
-      Document.create({
-        docuName,
-        docukindName,
-        hashFile,
-      });
-    } catch (error) {
-      console.error(error);
-      return next(error);
+    async function createDocumentRow(reqSession) {
+      // Document 모델에 row 생성
+      try {
+        const documentRow = await Document.create({
+          docuName,
+          docukindName,
+          hashFile,
+        });
+        // create 결과 로그 기록
+        console.log(
+          "================================================ documentRow "
+        );
+        console.log(documentRow.dataValues);
+
+        // 세션쿠키에 documentId 저장
+        console.log(
+          "================================================ documentRow.id"
+        );
+        console.log(documentRow.id);
+        reqSession.docu = {
+          documentId: documentRow.id, // 해결 하는데 2일 걸림
+        };
+        reqSession.save(); // 이것으로 해결함..
+
+        return documentRow;
+      } catch (error) {
+        console.error(error);
+        return next(error);
+      }
     }
 
-    console.log("2. PDF 변환 완료");
+    async function createSignatureRow(documentRow) {
+      // 서명자 수에 맞게 반복하여 Signature 모델에 row 생성
+      for (let i = 0; i < Object.keys(req.session.info).length; i++) {
+        try {
+          await Signature.create({
+            contractorPhone: req.session.info[`user${i + 1}`].contractorPhone, // 세션의 유저별 폰번호
+            isSigned: false,
+            hashValue: 0,
+            DocumentId: documentRow.id, // 방금 전 생성한 docuement의 id
+          }).then((result) => {
+            // create 결과 로그 기록
+            console.log(
+              "================================================ SignatureRow"
+            );
+            console.log(result.dataValues);
+          });
+        } catch (error) {
+          console.error(error);
+          return next(error);
+        }
+      }
+    }
+
+    createDocumentRow(req.session).then((documentRow) => {
+      createSignatureRow(documentRow);
+    });
+
+    console.log(
+      "================================================ 2. PDF 변환 완료"
+    );
     res.redirect(`/document/custom`);
   });
 
 // --------------------------------------------------------------------------------
-//2-1. docukind
+// 2-1. docukind
 // --------------------------------------------------------------------------------
 router
   // 회사, 계약자 정보 할당
@@ -178,11 +233,13 @@ router
     };
 
     res.redirect(`/document/modification`);
-    console.log("2-1. docukind 완료");
+    console.log(
+      "================================================ 2-1. docukind 완료 "
+    );
   });
 
 // --------------------------------------------------------------------------------
-//2-2. modification
+// 2-2. modification
 // --------------------------------------------------------------------------------
 router
   // 문서 종류별 랜더
@@ -193,21 +250,26 @@ router
         docukindName,
         info: req.session.info,
       });
+      console.log("================================================ MOU계약서");
     } else if (docukindName === "근로계약서") {
       res.render("./pages/1_document/docukinds/labor-contract-form", {
         docukindName,
         info: req.session.info,
       });
+      console.log(
+        "================================================ 근로계약서"
+      );
     } else if (docukindName === "차용증") {
       res.render("./pages/1_document/docukinds/dept-ack-form", {
         docukindName,
         info: req.session.info,
       });
+      console.log("================================================ 차용증");
     }
   });
 
 // --------------------------------------------------------------------------------
-//3. custom
+// 3. custom
 // --------------------------------------------------------------------------------
 router
   .get("/custom", isAuthenticated, (req, res) => {
@@ -217,15 +279,19 @@ router
     const submit = req.body.isContinue;
     if (submit === "작성 종료") {
       res.redirect("/storage");
+      console.log("================================================ 작성 종료");
     } else if (submit === "작성 계속") {
       res.redirect("/send/signning");
+      console.log("================================================ 작성 계속");
     } else {
-      console.error("잘못된 요청입니다.");
+      console.error(
+        "================================================ 잘못된 요청입니다."
+      );
     }
   });
 
 // --------------------------------------------------------------------------------
-//document
+// 0. document
 // --------------------------------------------------------------------------------
 router.get("/", isAuthenticated, (req, res) => {
   res.render("./pages/1_document/document", {user: req.user});

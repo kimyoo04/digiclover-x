@@ -9,13 +9,13 @@ block content
             form.signin-forms(action="/auth/signin" method="post") 
                 .form 
                     label.form__label(for="form-email__input") 이메일
-                    input.form__input(type="email" name="email") 
+                    input.form__input(type="email" name="email" required) 
                     label.form__label(for="form-id__input") 이름
-                    input.form__input(type="text" name="name") 
+                    input.form__input(type="text" name="name" required) 
                     label.form__label(for="form-phone__input") 휴대폰 번호
-                    input.form__input(type="tel" name="phone") 
+                    input.form__input(type="tel" name="phone" required) 
                     label.form__label(for="form-password__input") 비밀번호
-                    input.form__input(type="password" name="password") 
+                    input.form__input(type="password" name="password" required) 
                     button.form__button.normal(type="submit")
                         .form__button__item
                             i.fas.fa-envelope 

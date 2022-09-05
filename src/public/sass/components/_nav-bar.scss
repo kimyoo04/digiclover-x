@@ -2,6 +2,7 @@
 .nav {
   background-color: $color-secondary-dark-blue;
   box-shadow: $box-shadow-8;
+  margin-bottom: 20px;
   &-wrap {
     margin: 0 20px;
     @include layout-horizontal-center;

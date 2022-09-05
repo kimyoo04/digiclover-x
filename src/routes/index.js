@@ -11,10 +11,6 @@ const bodyParser = require("body-parser");
 const router = express.Router();
 dotenv.config();
 
-// lib 폴더 세팅
-const template = require("../lib/template.js");
-const db = require("../lib/db");
-
 // public 폴더 정적파일 연결
 router.use(express.static(path.join(__dirname, "../public")));
 

@@ -15,6 +15,14 @@ dotenv.config();
 // lib 폴더 세팅
 // C:\Bitnami\wampstack-8.1.6-0\mariadb\bin
 
+// // 삭제 순서 지킬 것!
+// const Document = require("./models/document");
+// const User = require("./models/user");
+// const Signature = require("./models/signature");
+// Signature.drop();
+// Document.drop();
+// User.drop();
+
 // 시퀄라이즈 연결
 sequelize
   .sync({force: false})
