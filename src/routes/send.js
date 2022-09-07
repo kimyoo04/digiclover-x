@@ -32,6 +32,12 @@ router
   })
   // 요청자의 서명이후 헤시값 B와 C 저장 (기존에 저장된 가장 최신의 헤시값과)
   .post("/signning", isAuthenticated, (req, res) => {
+    const signatureImg = req.body.photo;
+    console.log(
+      "================================================ imgUrl",
+      signatureImg
+    );
+
     const documentId = req.session.docu.documentId;
 
     async function hashingB(documentId) {

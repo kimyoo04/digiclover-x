@@ -14,15 +14,15 @@ html(lang="en")
             //- 진행률 표시
             include ../../includes/progress-bar.pug
 
-            canvas.canvas(style={width: "70vw"})
-            .btn--wrap
-                button.canvas__destroy(id="destroy-btn") 지우기
-                button.canvas__save(id="save") 서명 저장
-                label.canvas__file(for="file") 서명 업로드
-                input(id="file" type="file" accept="image/*")
+            //- 작성한 문서 뷰어 구현 필요@@
 
-            form.signning-form(method="post" action="/send/signning")
-                //- 작성한 문서 뷰어 구현 필요@@
+            form.signning-form(method="post")
+                canvas.canvas(style={width: "70vw"})
+                .btn--wrap
+                    span.canvas__destroy(id="destroy-btn") 지우기
+                    span.canvas__save(id="save") 서명 저장
+                    label.canvas__file(for="file") 서명 업로드
+                    input(id="file" type="file" accept="image/*")
 
                 //- 이전 페이지, 다음 페이지 이동 버튼
                 .btn--wrap

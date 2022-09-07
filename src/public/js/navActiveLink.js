@@ -1,5 +1,5 @@
 const links = document.querySelectorAll(".nav-link");
-const nowUrl = location.href;
+const nowUrl = window.location.href;
 // console.log("현재url = ", nowUrl);
 
 links.forEach((link) => {

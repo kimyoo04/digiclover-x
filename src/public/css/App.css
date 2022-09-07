@@ -346,7 +346,7 @@ input[type=button] {
   position: absolute;
   z-index: -1;
 }
-.btn--wrap button:hover,
+.btn--wrap button:hover, .btn--wrap span:hover,
 .btn--wrap input:hover,
 .btn--wrap label:hover {
   scale: 1.06;
@@ -536,6 +536,11 @@ input[type=button] {
   margin-bottom: 20px;
 }
 .canvas__destroy {
+  display: block;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   font-family: "Noto Sans KR", sans-serif;
   background-color: white;
   width: 200px;
@@ -544,8 +549,15 @@ input[type=button] {
   font-size: 14px;
   transition: 0.1s;
   width: 31%;
+  color: black;
+  cursor: pointer;
 }
 .canvas__save {
+  display: block;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   font-family: "Noto Sans KR", sans-serif;
   background-color: white;
   width: 200px;
@@ -554,6 +566,8 @@ input[type=button] {
   font-size: 14px;
   transition: 0.1s;
   width: 31%;
+  color: black;
+  cursor: pointer;
 }
 .canvas__file {
   display: flex;

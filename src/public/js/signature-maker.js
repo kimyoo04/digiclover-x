@@ -1,5 +1,6 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const canvasForm = document.querySelector(".signning-form");
 
 //--------------------------------------------------------------------------------
 // inputs
@@ -134,6 +135,29 @@ function onSaveClick() {
 }
 
 //--------------------------------------------------------------------------------
+// onCanvasSubmit function - 서명 완료 버튼을 눌렀을 때 서버로 img의 url 전송
+//--------------------------------------------------------------------------------
+async function onCanvasSubmit() {
+  const url = "/send/signning";
+  const imgUrl = canvas.toDataURL(); // 이미지 url 생성
+  const fetchData = {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({photo: imgUrl}),
+  };
+
+  return fetch(url, fetchData)
+    .then(function (value) {
+      if (value.ok) {
+        return value.json();
+      }
+    })
+    .catch(function (err) {
+      console.error(err);
+    });
+}
+
+//--------------------------------------------------------------------------------
 // addEventListener
 //--------------------------------------------------------------------------------
 // 그리기 기능
@@ -141,10 +165,16 @@ canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", startPainting);
 canvas.addEventListener("mouseup", cancelPainting);
 canvas.addEventListener("mouseleave", cancelPainting);
+
 // 이미지 파일 기능
 fileInput.addEventListener("change", onFileChange);
+
 // 버튼 클릭 기능
 destroyBtn.addEventListener("click", onDestroyClick);
 saveBtn.addEventListener("click", onSaveClick);
+
 // 캔버스 width 추적 기능
 window.addEventListener("resize", onWidthChange);
+
+// Form Submit 기능
+canvasForm.addEventListener("submit", onCanvasSubmit);

@@ -6,13 +6,21 @@
   margin-bottom: 20px;
 
   &__destroy {
+    display: block;
+    @include layout-horizontal-center;
     @include btn;
     width: 31%;
+    color: black;
+    cursor: pointer;
   }
 
   &__save {
+    display: block;
+    @include layout-horizontal-center;
     @include btn;
     width: 31%;
+    color: black;
+    cursor: pointer;
   }
 
   &__file {
