@@ -14,6 +14,8 @@ html(lang="en")
             //- 진행률 표시
             include ../../includes/progress-bar.pug
 
+            #root
+            
             form.writing-form(method="post" action="/document/finished_document" accept-charset="utf-8")
                 .docu
                     .docu__title 
@@ -57,5 +59,6 @@ html(lang="en")
                         input.btn--link2(type="button" onclick="history.back()" value="이전")
                         input.btn--link2(type="submit" value="다음")
 
+        script(type='text/javascript' src="../../../app/app.js")
         script(type='text/javascript' src="../../js/progress-indicator.js")
         script(type='text/javascript' src="../../js/writing.js")
