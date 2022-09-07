@@ -1,27 +1,26 @@
 //----------------------------------------------------------------
-// 홈페이지
+// 서명들을 진행하는 모든 프로세스를 모은 페이지
 //----------------------------------------------------------------
 
 // 모듈 세팅
 const dotenv = require("dotenv");
 const express = require("express");
-const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const router = express.Router();
 dotenv.config();
 
-// public 폴더 정적파일 연결
-router.use(express.static(path.join(__dirname, "../public")));
+// lib 폴더 세팅
+const {isAuthenticated} = require("../lib/auth.js");
 
 // 미들웨어 세팅
 router.use(bodyParser.json()); // json 파싱
 router.use(bodyParser.urlencoded({extended: true})); // form 파싱
 router.use(compression());
 
-//------------------------------ 홈페이지 ------------------------------
-router.get("/", (req, res) => {
-  res.render("./pages/0_home/index", {user: req.user});
+//------------------------------ 4. 유저의 서명 조회 ------------------------------
+router.get("/", isAuthenticated, (req, res) => {
+  res.render("./pages/3_signature/signature", {user: req.user});
 });
 
 module.exports = router;

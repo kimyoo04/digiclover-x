@@ -54,7 +54,7 @@ app.use(passport.session());
 app.use(flash());
 
 // public 폴더 정적파일 연결
-app.use(express.static(path.join(__dirname, "./public")));
+app.use(express.static(path.join(__dirname, "../client/public")));
 
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱
@@ -62,7 +62,7 @@ app.use(express.urlencoded({extended: true})); // form 파싱
 app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
 // 뷰 엔진에 퍼그 등록
 app.engine("pug", require("pug").__express);
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../client/views"));
 app.set("view engine", "pug");
 
 // 라우터
@@ -73,7 +73,7 @@ const indexRouter = require("./routes/index.js"),
   signatureRouter = require("./routes/signature.js"),
   storageRouter = require("./routes/storage.js"),
   profileRouter = require("./routes/profile.js"),
-  recipientRouter = require("./routes/recipient.js");
+  recipientRouter = require("./routes/recipient.js"); // 이메일 수신자를 위한 링크 처리일지 아닐지 파악하기
 
 // 라우터
 app

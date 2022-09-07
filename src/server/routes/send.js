@@ -1,7 +1,6 @@
 // 모듈 세팅
 const dotenv = require("dotenv");
 const express = require("express");
-const path = require("path");
 const compression = require("compression");
 const bodyParser = require("body-parser");
 const router = express.Router();
@@ -13,9 +12,6 @@ const {isAuthenticated} = require("../lib/auth.js");
 // db
 const Signature = require("../models/signature.js");
 const Document = require("../models/document.js");
-
-// public 폴더 정적파일 연결
-router.use(express.static(path.join(__dirname, "../public")));
 
 // 미들웨어 세팅
 router.use(bodyParser.json()); // json 파싱
