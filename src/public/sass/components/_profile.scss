@@ -23,8 +23,9 @@
     margin-bottom: 6px;
   }
   &__login-btn {
+    @include font-nav;
     margin: 20px;
-    font-size: 18px;
+    color: $color-primary-blue;
   }
   &__signin-btn {
     @extend .profile__login-btn;

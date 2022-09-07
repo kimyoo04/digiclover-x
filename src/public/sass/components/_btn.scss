@@ -68,7 +68,9 @@
 }
 
 .btn--link2 {
+  display: inline-block;
   @include btn;
+  @include layout-horizontal-center;
   width: 48%;
   background-color: $color-primary-blue;
 }

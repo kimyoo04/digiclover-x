@@ -17,21 +17,21 @@ html(lang="en")
             form.writing-form(method="post" action="/document/finished_document" accept-charset="utf-8")
                 .docu
                     .docu__title 
-                        input(name="title" type="text" value=`${info.companyName1} & ${info.companyName2} MOU협약서`) 
+                        input(name="title" type="text" value=`${info.user1.companyName} & ${info.user2.companyName} 차용증`) 
 
                     .docu__describe 
-                        input(name="describe" type="text" value=`${info.companyName1} 와(과) ${info.companyName2} ( ${info.companyName1} 책임자 : ${info.contractorName1}, ${info.companyName2} 책임자 : ${info.contractorName2} ) 는 다음과 같이 업무 제휴 협약을 체결한다.`) 
+                        input(name="describe" type="text" value=`${info.user1.companyName} 와(과) ${info.user2.companyName} ( ${info.user1.companyName} 책임자 : ${info.user1.contractorName}, ${info.user2.companyName} 책임자 : ${info.user2.contractorName} ) 는 다음과 같이 업무 제휴 협약을 체결한다.`) 
                     .docu__content
                         .docu__content__header
                             input(name="indx" type="text" value="제 1조 (목적)")
                             input(class="deleteBtn" type="button" value="삭제")
-                        textarea(name="content") 본 MOU는 #{info.companyName1} 와(과) #{info.companyName2}  블록체인 기반의 SOC (사회간접자본) 관련 시범 사업에 관한 협력 관계를 갖는 것을 목적으로 한다."
+                        textarea(name="content") 본 MOU는 #{info.user1.companyName} 와(과) #{info.user2.companyName}  블록체인 기반의 SOC (사회간접자본) 관련 시범 사업에 관한 협력 관계를 갖는 것을 목적으로 한다."
 
                     .docu__content
                         .docu__content__header
                             input(name="indx" type="text" value="제 2조 (연구 / 기술 협력)") 
                             input(class="deleteBtn" type="button" value="삭제")
-                        textarea(name="content") #{info.companyName1}는 #{info.companyName2} 와(과) 하드웨어 기반의 데이터 수집 및 모니터링 관련 기술을 기반으로 하여 BIM을 공동으로 연구하며 신뢰 기반 건설 프로젝트의 컨소시엄에 대한 시범 사업에 적극 협력한다.
+                        textarea(name="content") #{info.user1.companyName}는 #{info.user2.companyName} 와(과) 하드웨어 기반의 데이터 수집 및 모니터링 관련 기술을 기반으로 하여 BIM을 공동으로 연구하며 신뢰 기반 건설 프로젝트의 컨소시엄에 대한 시범 사업에 적극 협력한다.
 
                     .docu__content
                         .docu__content__header

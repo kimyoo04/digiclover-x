@@ -16,9 +16,12 @@ html(lang="en")
 
             //- 유저별 카드 적용
             .cards 
+                include ../../includes/contractor-card.pug
+
+            //- 이메일 전송 동의 후 버튼 활성화 기능 추후 적용
+            h2.email-question 이메일을 전송하시겠습니까?
 
             form.email-form(method="post" action="/send/email")
-
                 //- 이전 페이지, 다음 페이지 이동 버튼
                 .btn--wrap
                     input.btn--link2(type="button" onclick="history.back()" value="이전")
@@ -26,4 +29,3 @@ html(lang="en")
 
 
         script(type='text/javascript' src="./js/progress-indicator.js")
-        script(type='text/javascript' src="./js/card.js")

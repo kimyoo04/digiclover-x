@@ -1,8 +1,8 @@
 @import "config/font", "config/variables", "config/resets", "config/transition",
   "config/logo", "config/layout"; // "config/breakpoints";
 
-@import "components/btn", "components/cards", "components/progress-bar",
-  "components/form", "components/nav-bar", "components/canvas",
+@import "components/btn", "components/progress-bar", "components/form",
+  "components/nav-bar", "components/contractor-card", "components/canvas",
   "components/profile";
 
 @import "pages/storage", "pages/document", "pages/contractors", "pages/docukind",

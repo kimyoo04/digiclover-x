@@ -17,7 +17,7 @@ html(lang="en")
             form.writing-form(method="post" action="/document/finished_document" accept-charset="utf-8")
                 .docu
                     .docu__title 
-                        input(name="title" type="text" value=`문서 제목 입력`) 
+                        input(name="title" type="text" placeholder=`문서 제목 입력` required) 
 
                     .docu__describe 
                         input(name="describe" type="text" value=`${info.user1.companyName} 와(과) ${info.user2.companyName} ( ${info.user1.companyName} 책임자 : ${info.user1.contractorName}, ${info.user2.companyName} 책임자 : ${info.user2.contractorName} )`)

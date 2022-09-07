@@ -245,7 +245,7 @@ router
   // 문서 종류별 랜더
   .get("/modification", isAuthenticated, (req, res) => {
     const {docukindName} = req.session.docukind;
-    if (docukindName === "MOU계약서") {
+    if (docukindName === "MOU") {
       res.render("./pages/1_document/docukinds/mou-form", {
         docukindName,
         info: req.session.info,

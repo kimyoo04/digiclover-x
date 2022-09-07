@@ -1,6 +1,6 @@
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
-const canvasForm = document.querySelector(".signning-form");
+const submitBtn = document.querySelector(".canvas__submit");
 
 //--------------------------------------------------------------------------------
 // inputs
@@ -142,6 +142,7 @@ async function onCanvasSubmit() {
   const imgUrl = canvas.toDataURL(); // 이미지 url 생성
   const fetchData = {
     method: "POST",
+    redirect: "error",
     headers: {"Content-Type": "application/json"},
     body: JSON.stringify({photo: imgUrl}),
   };
@@ -177,4 +178,4 @@ saveBtn.addEventListener("click", onSaveClick);
 window.addEventListener("resize", onWidthChange);
 
 // Form Submit 기능
-canvasForm.addEventListener("submit", onCanvasSubmit);
+submitBtn.addEventListener("click", onCanvasSubmit);

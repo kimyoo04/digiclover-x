@@ -19,12 +19,12 @@ html(lang="en")
 
             //- 원하는 문서 유형 선택
             form.docukind-form(method="POST" action="/document/docukind")
-                h2.docukind-form__info=`${info.companyName1} 서명자: ${info.contractorName1} - ${info.companyName2} 서명자: ${info.contractorName2}`
+                h2.docukind-form__info=`${info.user1.companyName} 서명자: ${info.user1.contractorName} - ${info.user2.companyName} 서명자: ${info.user2.contractorName}`
 
                 .slide
                     li.slide__item(tabindex="1")
-                        label(name="docukind") MOU계약서
-                        input.slide__radio(type="radio" name="docukind" value="MOU계약서" style={display: "none"})
+                        label(name="docukind") MOU
+                        input.slide__radio(type="radio" name="docukind" value="MOU" style={display: "none"})
                     li.slide__item(tabindex="2")
                         label(name="docukind") 근로계약서
                         input.slide__radio(type="radio" name="docukind" value="근로계약서" style={display: "none"})

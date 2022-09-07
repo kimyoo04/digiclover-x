@@ -371,6 +371,7 @@ input[type=button] {
 }
 
 .btn--link2 {
+  display: inline-block;
   font-family: "Noto Sans KR", sans-serif;
   background-color: white;
   width: 200px;
@@ -378,6 +379,10 @@ input[type=button] {
   border-radius: 0.4rem;
   font-size: 14px;
   transition: 0.1s;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   width: 48%;
   background-color: #2ea3e5;
 }
@@ -528,6 +533,29 @@ input[type=button] {
   color: #2ea3e5;
 }
 
+.cards {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.cardwrap {
+  width: 100%;
+  height: 100px;
+  background-color: white;
+  border-radius: 0.4rem;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+.card div {
+  margin-bottom: 10px;
+}
+.card div span {
+  color: black;
+}
 .canvas {
   max-width: 400px;
   background-color: white;
@@ -612,8 +640,12 @@ input[type=button] {
   margin-bottom: 6px;
 }
 .profile__login-btn, .profile__signin-btn {
-  margin: 20px;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 500;
+  line-height: 20px;
   font-size: 18px;
+  margin: 20px;
+  color: #2ea3e5;
 }
 .login-profile {
   display: flex;
@@ -1151,6 +1183,11 @@ body.storage {
 }
 .email-form {
   width: 100%;
+}
+
+.email-question {
+  margin-bottom: 20px;
+  color: black;
 }
 
 .requireLogin {
