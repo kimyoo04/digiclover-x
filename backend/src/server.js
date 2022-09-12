@@ -54,15 +54,15 @@ app.use(passport.session());
 app.use(flash());
 
 // public 폴더 정적파일 연결
-app.use(express.static(path.join(__dirname, "../client/public")));
+app.use(express.static(path.join(__dirname, "./public")));
 
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱
 
-app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
+app.set("port", process.env.PORT || 3001); // 개발, 배포 포트 적용
 // 뷰 엔진에 퍼그 등록
 app.engine("pug", require("pug").__express);
-app.set("views", path.join(__dirname, "../client/views"));
+app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "pug");
 
 // 라우터
