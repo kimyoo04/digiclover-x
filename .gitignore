@@ -10,11 +10,11 @@
 /sql
 
 # production
-/src/build
-/src/models
-/src/passport
-/src/config
-/uploads
+**/build/
+**/models/
+**/lib/
+**/config/
+**/uploads/
 
 # misc
 .DS_Store

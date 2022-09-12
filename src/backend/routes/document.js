@@ -90,7 +90,7 @@ router
   .post("/finished_document", isAuthenticated, async (req, res, next) => {
     const {title, describe, indx, content} = req.body;
 
-    const doc = require("../jspdf/docukinds/MOU-FORM")(
+    const doc = require("../lib/jspdf/docukinds/MOU-FORM")(
       req,
       title,
       describe,
