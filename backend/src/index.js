@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passportConfig = require("./passport");
-const passport = require("passport");
+const passport = require("./passport");
 const flash = require("connect-flash");
 const dotenv = require("dotenv");
 dotenv.config();

@@ -1,6 +1,6 @@
 const express = require("express");
-const DocumentsCtrl = require("./documents.controller.js");
-const SignaturesCtrl = require("./signatures.controller.js");
+const DocumentsCtrl = require("../controllers/documents.controller.js");
+const SignaturesCtrl = require("../controllers/signatures.controller.js");
 const router = express.Router();
 
 // 유저별 전체 문서 조회

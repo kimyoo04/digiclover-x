@@ -1,19 +1,21 @@
 import {Link, useMatch} from "react-router-dom";
 import styled from "styled-components";
 import {motion} from "framer-motion";
-import logo from "../public/assets/img/logo.png";
+import logo from "public/assets/img/logo.png";
 
 const Nav = styled.ul`
+  position: fixed;
+  top: 0;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
-  position: fixed;
   width: 100%;
-  top: 0;
-  font-size: 14px;
-  padding: 20px 60px;
   color: white;
+  font-size: 14px;
+  padding: 20px 30px;
+  background-color: ${(props) => props.theme.bgColor};
+  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
   z-index: 100;
   & Link {
     font-style: none;
@@ -40,7 +42,8 @@ const Item = styled.li`
 `;
 
 const UnactiveLink = styled.span`
-  font-weight: 500;
+  font-family: "Noto Sans KR", sans-serif;
+  font-weight: 600;
   line-height: 20px;
   font-size: 18px;
 `;
@@ -67,15 +70,6 @@ const Header = () => {
             <ActiveLink>문서 작성</ActiveLink>
           ) : (
             <UnactiveLink>문서 작성</UnactiveLink>
-          )}
-        </Link>
-      </Item>
-      <Item>
-        <Link to="/signature">
-          {signatureMatch ? (
-            <ActiveLink>문서 전송</ActiveLink>
-          ) : (
-            <UnactiveLink>문서 전송</UnactiveLink>
           )}
         </Link>
       </Item>

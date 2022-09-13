@@ -1,36 +1,35 @@
 import styled from "styled-components";
+// import logo from "public/assets/img/logo.png";
 
 const Wrapper = styled.div`
   width: 100vw;
-  height: 300px;
   background-color: ${(props) => props.theme.bgColor};
   padding: 40px;
 `;
 
-const Logo = styled.img``;
+// const Logo = styled.img`
+//   width: 160px;
+//   height: 34px;
+// `;
 
-const InfoWrap = styled.div``;
+const InfoWrap = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const CompanyName = styled.span`
   color: ${(props) => props.theme.textWhiteColor};
+  font-size: 12px;
 `;
-const PersonInfo = styled.span`
-  color: ${(props) => props.theme.textWhiteColor};
-`;
-const BusinessNumber = styled.span`
-  color: ${(props) => props.theme.textWhiteColor};
-`;
-const PhoneNumber = styled.span`
-  color: ${(props) => props.theme.textWhiteColor};
-`;
-const CopyRight = styled.span`
-  color: ${(props) => props.theme.textWhiteColor};
-`;
+const PersonInfo = styled(CompanyName)``;
+const BusinessNumber = styled(CompanyName)``;
+const PhoneNumber = styled(CompanyName)``;
+const CopyRight = styled(CompanyName)``;
 
-const Col = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 6px;
+const Row = styled.div`
+  display: inline;
+  margin-right: 14px;
 `;
 
 const Footer = () => {
@@ -39,23 +38,23 @@ const Footer = () => {
 
   return (
     <Wrapper>
-      <Logo />
+      {/* <Logo src={logo} /> */}
       <InfoWrap>
-        <Col>
+        <Row>
           <CompanyName>LeLi</CompanyName>
-        </Col>
-        <Col>
+        </Row>
+        <Row>
           <PersonInfo>대표자 : 임혜수 | 정보관리 책임자 : 이상문</PersonInfo>
-        </Col>
-        <Col>
+        </Row>
+        <Row>
           <BusinessNumber>법인사업자등록번호 : 882-81-01394</BusinessNumber>
-        </Col>
-        <Col>
-          <PhoneNumber></PhoneNumber>
-        </Col>
-        <Col>
+        </Row>
+        <Row>
+          <PhoneNumber>010-0000-1111</PhoneNumber>
+        </Row>
+        <Row>
           <CopyRight>Copyright © {nowYear} LeLi. All Rights Reserved</CopyRight>
-        </Col>
+        </Row>
       </InfoWrap>
     </Wrapper>
   );

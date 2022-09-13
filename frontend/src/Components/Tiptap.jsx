@@ -5,13 +5,15 @@ import StarterKit from "@tiptap/starter-kit";
 import styled from "styled-components";
 
 const Wrapper = styled.div`
-  padding: 0 40px;
+  background-color: ${(props) => props.theme.textWhiteColor};
+  padding: 40px;
   margin-top: 100px;
   margin-bottom: 20px;
 `;
 
 const MenuBarWrap = styled.div`
   padding: 0 40px;
+  padding-bottom: 40px;
 `;
 
 const EditorWrap = styled.div`

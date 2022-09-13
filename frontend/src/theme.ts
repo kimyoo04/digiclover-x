@@ -9,7 +9,7 @@ export const darkTheme: DefaultTheme = {
   textblackColor: "black",
   textAcentColor: "teal",
 
-  btnColor: "#e0e0e0",
+  btnColor: "#c4d71f",
 
   grayscaleblackColor: "#000",
   grayscalewhiteColor: " #fff",
@@ -48,7 +48,7 @@ export const lightTheme: DefaultTheme = {
   textblackColor: "white",
   textAcentColor: "blue",
 
-  btnColor: "#4f4f4f",
+  btnColor: "#c4d71f",
 
   grayscaleblackColor: "#fff",
   grayscalewhiteColor: "#000",
