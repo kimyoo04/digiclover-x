@@ -15,8 +15,8 @@ app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
 //--------------------------------------------------------------------------------
 // 라우터
 //--------------------------------------------------------------------------------
-const documents = require("./api/documents.route.js"),
-  users = require("./api/users.route.js");
+const documents = require("./routes/documents.route.js"),
+  users = require("./routes/users.route.js");
 
 app.use("/api/v1/documents", documents);
 app.use("/api/v1/users", users);

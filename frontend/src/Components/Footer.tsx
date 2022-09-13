@@ -12,19 +12,19 @@ const Logo = styled.img``;
 const InfoWrap = styled.div``;
 
 const CompanyName = styled.span`
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textWhiteColor};
 `;
 const PersonInfo = styled.span`
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textWhiteColor};
 `;
 const BusinessNumber = styled.span`
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textWhiteColor};
 `;
 const PhoneNumber = styled.span`
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textWhiteColor};
 `;
 const CopyRight = styled.span`
-  color: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.textWhiteColor};
 `;
 
 const Col = styled.div`
