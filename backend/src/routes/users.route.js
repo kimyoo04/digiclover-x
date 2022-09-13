@@ -1,5 +1,5 @@
 const express = require("express");
-const UserCtrl = require("./users.controller.js");
+const UserCtrl = require("../controllers/users.controller.js");
 const router = express.Router();
 
 // 유저 정보 조회
