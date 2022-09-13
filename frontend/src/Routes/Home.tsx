@@ -9,7 +9,7 @@ const Wapper = styled.div`
 const Home = () => {
   return (
     <div>
-      <Wapper>whow</Wapper>
+      <Wapper></Wapper>
     </div>
   );
 };
