@@ -2,9 +2,12 @@ import styled from "styled-components";
 // import logo from "public/assets/img/logo.png";
 
 const Wrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100vw;
+  height: 6vh;
   background-color: ${(props) => props.theme.bgColor};
-  padding: 40px;
 `;
 
 // const Logo = styled.img`

@@ -6,7 +6,7 @@ export const Wrapper = styled.div`
   align-items: center;
   justify-content: center;
   width: 100vw;
-  height: 90vh;
+  height: 94vh;
   padding-top: 100px;
 `;
 
@@ -22,6 +22,7 @@ export const Label = styled.label`
   text-align: right;
   color: white;
   font-size: 16px;
+  font-weight: 500;
   margin-bottom: 4px;
 `;
 
@@ -30,6 +31,17 @@ export const ErrorMessage = styled.span`
   font-size: 12px;
   margin-bottom: 4px;
   color: ${(props) => props.theme.dangerColor};
+`;
+
+export const Input = styled.input`
+  width: 300px;
+  height: 40px;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: 0.1s;
+  color: white;
+  border: none;
+  padding-left: 10px;
 `;
 
 export interface IForm {

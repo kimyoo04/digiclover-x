@@ -1,5 +1,4 @@
 import {useForm} from "react-hook-form";
-import Input from "Components/style/inputs";
 import Button from "Components/style/buttons";
 import {
   Wrapper,
@@ -7,6 +6,7 @@ import {
   IForm,
   Label,
   ErrorMessage,
+  Input,
 } from "Components/style/auth";
 import {Col, Row} from "Components/style/layout";
 
@@ -47,6 +47,10 @@ const Signin = () => {
                     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
                   message: "Only emails allowed",
                 },
+                maxLength: {
+                  value: 30,
+                  message: "Your email is too long.",
+                },
               })}
               placeholder="Email"
               name="email"
@@ -59,9 +63,16 @@ const Signin = () => {
               <ErrorMessage>{errors?.name?.message}</ErrorMessage>
             </Row>
             <Input
-              {...register("name", {required: "Name is required"})}
+              {...register("name", {
+                required: "Name is required",
+                maxLength: {
+                  value: 20,
+                  message: "Your name is too long.",
+                },
+              })}
               placeholder="Name"
               name="name"
+              type="text"
             />
           </Col>
 
@@ -80,7 +91,7 @@ const Signin = () => {
               })}
               placeholder="Phone"
               name="phone"
-              type="phone"
+              type="tel"
             />
           </Col>
 
@@ -93,8 +104,12 @@ const Signin = () => {
               {...register("password", {
                 required: "Password is required",
                 minLength: {
-                  value: 5,
+                  value: 6,
                   message: "Your password have to be longer than 5.",
+                },
+                maxLength: {
+                  value: 16,
+                  message: "Your password have to be shorter than 17.",
                 },
               })}
               placeholder="Password"

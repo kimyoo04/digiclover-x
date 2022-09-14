@@ -1,17 +1,7 @@
-import styled from "styled-components";
-
-const Wapper = styled.div`
-  background-color: ${(props) => props.theme.bgColor};
-  width: 100vw;
-  height: 90vw;
-`;
+import {Wrapper} from "Components/style/home";
 
 const Home = () => {
-  return (
-    <div>
-      <Wapper></Wapper>
-    </div>
-  );
+  return <Wrapper></Wrapper>;
 };
 
 export default Home;

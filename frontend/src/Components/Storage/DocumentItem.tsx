@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Button from "./style/buttons";
+import Button from "../style/buttons";
 
 const DocumentWrapper = styled.div``;
 const DocuInfo = styled.div``;
@@ -65,7 +65,7 @@ const DocumentItem = ({onDocuClicked}: IDocuModal) => {
     <div>
       {documentsData.map((documentData, index) => {
         return (
-          <DocumentWrapper>
+          <DocumentWrapper key={documentData.DocumentId}>
             <DocuInfo>
               <FileName>{}</FileName>
               <Date></Date>
@@ -73,7 +73,7 @@ const DocumentItem = ({onDocuClicked}: IDocuModal) => {
             </DocuInfo>
             <IconWrapper>
               <ConfirmPerson>{people[index]}</ConfirmPerson>
-              <ConfirmText key={documentData.DocumentId}>
+              <ConfirmText>
                 {documentData.isSigned ? "인증완료" : "인증예정"}
               </ConfirmText>
               <ModalButton

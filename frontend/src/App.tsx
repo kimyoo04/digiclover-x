@@ -1,20 +1,25 @@
 import {useState} from "react";
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import Header from "./Components/Header";
-import Home from "./Routes/Home";
-import Document from "./Routes/Document";
-import Storage from "./Routes/Storage";
-import Login from "./Routes/Login";
-import Signin from "./Routes/Signin";
-import Footer from "./Components/Footer";
 import {ThemeProvider} from "styled-components";
-import {darkTheme, lightTheme} from "./theme";
-import DocumentModal from "Components/DocumentModal";
+import {darkTheme, lightTheme} from "theme";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+
+import Header from "Components/Header";
+import Footer from "Components/Footer";
+import DocumentModal from "Components/Storage/DocumentModal";
+import DocumentLayout from "Components/Document/Layout";
+
+import DocumentStart from "Routes/document/Start";
+import Storage from "Routes/Storage";
+import Login from "Routes/Login";
+import Signin from "Routes/Signin";
+import Home from "Routes/Home";
+
 import Contractor from "Routes/document/Contractor";
 import DocuSelect from "Routes/document/DocuSelect";
 import Writing from "Routes/document/Writing";
 import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
+import NoMatch from "Routes/document/NoMatch";
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -22,21 +27,24 @@ function App() {
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <Router>
-        <Header />
         <Routes>
-          <Route path="/document" element={<Document />}>
+          <Route element={<DocumentLayout />}>
             <Route path="/document/contractor" element={<Contractor />} />
             <Route path="/document/docuselect" element={<DocuSelect />} />
             <Route path="/document/writing" element={<Writing />} />
             <Route path="/document/signning" element={<Signning />} />
             <Route path="/document/email" element={<Email />} />
+            <Route path="*" element={<NoMatch />} />
           </Route>
-          <Route path="/storage" element={<Storage />}>
-            <Route path="/storage/:documentId" element={<DocumentModal />} />
+          <Route element={<Header />}>
+            <Route path="/document/start" element={<DocumentStart />} />
+            <Route path="/storage" element={<Storage />}>
+              <Route path="/storage/:documentId" element={<DocumentModal />} />
+            </Route>
+            <Route path="/login" element={<Login />}></Route>
+            <Route path="/signin" element={<Signin />}></Route>
+            <Route path="/" element={<Home />}></Route>
           </Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signin" element={<Signin />}></Route>
-          <Route path="/" element={<Home />}></Route>
         </Routes>
         <Footer />
       </Router>

@@ -1,4 +1,4 @@
-import {Link, Outlet, useMatch} from "react-router-dom";
+import {Link, useMatch} from "react-router-dom";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import logo from "public/assets/img/logo.png";
@@ -52,58 +52,55 @@ const ActiveLink = styled(motion(UnactiveLink))`
   color: ${(props) => props.theme.primaryBlueColor};
 `;
 
-const Header = () => {
+const DocumentHeader = () => {
   const documentMatch = useMatch("/document/start");
   const storageMatch = useMatch("/storage");
   const loginMatch = useMatch("/login");
   const signinMatch = useMatch("/signin");
 
   return (
-    <>
-      <Nav>
-        <Link to="/">
-          <Logo src={logo} />
+    <Nav>
+      <Link to="/">
+        <Logo src={logo} />
+      </Link>
+      <Item>
+        <Link to="/document/start">
+          {documentMatch ? (
+            <ActiveLink>문서 작성</ActiveLink>
+          ) : (
+            <UnactiveLink>문서 작성</UnactiveLink>
+          )}
         </Link>
-        <Item>
-          <Link to="/document/start">
-            {documentMatch ? (
-              <ActiveLink>문서 작성</ActiveLink>
-            ) : (
-              <UnactiveLink>문서 작성</UnactiveLink>
-            )}
-          </Link>
-        </Item>
-        <Item>
-          <Link to="/storage">
-            {storageMatch ? (
-              <ActiveLink>문서 보관함</ActiveLink>
-            ) : (
-              <UnactiveLink>문서 보관함</UnactiveLink>
-            )}
-          </Link>
-        </Item>
-        <Item>
-          <Link to="/login">
-            {loginMatch ? (
-              <ActiveLink>로그인</ActiveLink>
-            ) : (
-              <UnactiveLink>로그인</UnactiveLink>
-            )}
-          </Link>
-        </Item>
-        <Item>
-          <Link to="/signin">
-            {signinMatch ? (
-              <ActiveLink>회원가입</ActiveLink>
-            ) : (
-              <UnactiveLink>회원가입</UnactiveLink>
-            )}
-          </Link>
-        </Item>
-      </Nav>
-      <Outlet />
-    </>
+      </Item>
+      <Item>
+        <Link to="/storage">
+          {storageMatch ? (
+            <ActiveLink>문서 보관함</ActiveLink>
+          ) : (
+            <UnactiveLink>문서 보관함</UnactiveLink>
+          )}
+        </Link>
+      </Item>
+      <Item>
+        <Link to="/login">
+          {loginMatch ? (
+            <ActiveLink>로그인</ActiveLink>
+          ) : (
+            <UnactiveLink>로그인</UnactiveLink>
+          )}
+        </Link>
+      </Item>
+      <Item>
+        <Link to="/signin">
+          {signinMatch ? (
+            <ActiveLink>회원가입</ActiveLink>
+          ) : (
+            <UnactiveLink>회원가입</UnactiveLink>
+          )}
+        </Link>
+      </Item>
+    </Nav>
   );
 };
 
-export default Header;
+export default DocumentHeader;

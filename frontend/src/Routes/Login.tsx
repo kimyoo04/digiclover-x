@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import {useForm} from "react-hook-form";
-import Input from "Components/style/inputs";
 import Button from "Components/style/buttons";
 import {
   Wrapper,
@@ -8,6 +7,7 @@ import {
   IForm,
   Label,
   ErrorMessage,
+  Input,
 } from "Components/style/auth";
 import {Col, Row} from "Components/style/layout";
 

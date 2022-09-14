@@ -67,6 +67,9 @@ a {
   text-decoration:none;
   color:inherit;
 }
+div {
+  box-sizing: border-box;
+}
 `;
 
 const client = new QueryClient();
