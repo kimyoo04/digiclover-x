@@ -90,7 +90,7 @@ router
   .post("/finished_document", isAuthenticated, async (req, res, next) => {
     const {title, describe, indx, content} = req.body;
 
-    const doc = require("../lib/jspdf/docukinds/MOU-FORM")(
+    const doc = require("../jspdf/docukinds/MOU-FORM")(
       req,
       title,
       describe,
@@ -122,7 +122,7 @@ router
     const nowDate = new Date().YYYYMMDDHHMMSS();
     const docuName = title;
     const docukindName = req.session.docukind.docukindName;
-    const filePath = `./uploads/made/${nowDate} - ${docuName}.pdf`;
+    const filePath = `./src/uploads/made/${nowDate} - ${docuName}.pdf`;
 
     // pdf 파일 생성
     doc.output("save", filePath);

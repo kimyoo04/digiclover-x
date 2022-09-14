@@ -1,8 +1,8 @@
 // customfont 작업
 module.exports = function (doc) {
-  let NanumGothicRegular = require("../public/assets/font/Nanum_Gothic/NanumGothic-Regular-normal.js.js"),
-    NanumGothicBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-Bold-normal.js.js"),
-    NanumGothicExtraBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-ExtraBold-normal.js.js");
+  let NanumGothicRegular = require("../public/assets/font/Nanum_Gothic/NanumGothic-Regular-normal.js"),
+    NanumGothicBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-Bold-normal.js"),
+    NanumGothicExtraBold = require("../public/assets/font/Nanum_Gothic/NanumGothic-ExtraBold-normal.js");
   doc.addFileToVFS("NanumGothic-Regular-normal.ttf", NanumGothicRegular);
   doc.addFont("NanumGothic-Regular-normal.ttf", "NanumGothic", "normal");
   doc.addFileToVFS("NanumGothic-Bold-normal.ttf", NanumGothicBold);
