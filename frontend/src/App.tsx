@@ -10,6 +10,11 @@ import Footer from "./Components/Footer";
 import {ThemeProvider} from "styled-components";
 import {darkTheme, lightTheme} from "./theme";
 import DocumentModal from "Components/DocumentModal";
+import Contractor from "Routes/document/Contractor";
+import DocuSelect from "Routes/document/DocuSelect";
+import Writing from "Routes/document/Writing";
+import Signning from "Routes/document/Signning";
+import Email from "Routes/document/Email";
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -19,7 +24,13 @@ function App() {
       <Router>
         <Header />
         <Routes>
-          <Route path="/document" element={<Document />}></Route>
+          <Route path="/document" element={<Document />}>
+            <Route path="/document/contractor" element={<Contractor />} />
+            <Route path="/document/docuselect" element={<DocuSelect />} />
+            <Route path="/document/writing" element={<Writing />} />
+            <Route path="/document/signning" element={<Signning />} />
+            <Route path="/document/email" element={<Email />} />
+          </Route>
           <Route path="/storage" element={<Storage />}>
             <Route path="/storage/:documentId" element={<DocumentModal />} />
           </Route>

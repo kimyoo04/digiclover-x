@@ -4,10 +4,12 @@
 const express = require("express");
 const app = express();
 const path = require("path");
+const cors = require("cors");
 
 // public 폴더 정적파일 연결
 app.use(express.static(path.join(__dirname, "../client/public")));
 
+app.use(cors({orgin: true, credentials: true})); //cors 오류 해결
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱
 app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
