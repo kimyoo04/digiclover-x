@@ -33,11 +33,10 @@ router.get("/", isAuthenticated, async (req, res) => {
     group: ["DocumentId"],
     raw: true,
   });
-
-  // console.log(
-  //   `================================================ 유저의 폰번호와 같은 signature rows`,
-  //   signatures
-  // );
+  console.log(
+    `================================================ 유저의 폰번호와 같은 signature rows`,
+    signatures
+  );
 
   // [ { documentId: 1 }, { documentId: 2 }]
   // => [1, 2]
@@ -50,20 +49,7 @@ router.get("/", isAuthenticated, async (req, res) => {
   const documents = await Document.findAll({
     group: "id",
     attributes: {
-      include: [
-        "id",
-        "docuName",
-        "hashFile",
-        ["createdAt", "docuCreatedAt"],
-        [fn("GROUP_CONCAT", col("Signature.isSigned")), "isSigned"],
-        [fn("GROUP_CONCAT", col("Signature.hashValue")), "hashValue"],
-        [fn("GROUP_CONCAT", col("Signature.updatedAt")), "updatedAt"],
-        [fn("GROUP_CONCAT", col("Signature.createdAt")), "createdAt"],
-        [
-          fn("GROUP_CONCAT", col("Signature.contractorPhone")),
-          "contractorPhone",
-        ],
-      ],
+      include: ["id", "docuName", "hashFile", "createdAt"],
       exclude: ["docukindName", "deletedAt"],
     },
     where: {
@@ -72,14 +58,6 @@ router.get("/", isAuthenticated, async (req, res) => {
       },
     },
     raw: true,
-    // signature 와 조인 고려
-    include: [
-      {
-        model: Signature,
-        attributes: ["id"],
-        required: true,
-      },
-    ],
   });
   console.log(
     "================================================ 문서 보관함 용 documents",
@@ -89,7 +67,7 @@ router.get("/", isAuthenticated, async (req, res) => {
   // 로그인한 유저의 폰과 일치하는 문서들 할당
   const docuSignatures = await Signature.findAll({
     attributes: {
-      exclude: ["id", "deletedAt"],
+      exclude: ["deletedAt"],
     },
     where: {
       DocumentId: {
@@ -98,10 +76,10 @@ router.get("/", isAuthenticated, async (req, res) => {
     },
     raw: true,
   });
-  // console.log(
-  //   "================================================ 문서 보관함 용 docuSignatures",
-  //   docuSignatures
-  // );
+  console.log(
+    "================================================ 문서 보관함 용 docuSignatures",
+    docuSignatures
+  );
 
   res.render("./pages/4_storage/storage", {
     user: req.user,
