@@ -10,6 +10,7 @@ const Button = styled.button`
   color: black;
   background-color: ${(props) => props.theme.primaryGreenColor};
   border: none;
+  cursor: pointer;
 `;
 
 export default Button;

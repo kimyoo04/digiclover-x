@@ -9,6 +9,7 @@ import Signin from "./Routes/Signin";
 import Footer from "./Components/Footer";
 import {ThemeProvider} from "styled-components";
 import {darkTheme, lightTheme} from "./theme";
+import DocumentModal from "Components/DocumentModal";
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -19,7 +20,9 @@ function App() {
         <Header />
         <Routes>
           <Route path="/document" element={<Document />}></Route>
-          <Route path="/storage" element={<Storage />}></Route>
+          <Route path="/storage" element={<Storage />}>
+            <Route path="/storage/:documentId" element={<DocumentModal />} />
+          </Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signin" element={<Signin />}></Route>
           <Route path="/" element={<Home />}></Route>

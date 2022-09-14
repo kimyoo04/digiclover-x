@@ -15,7 +15,11 @@ const ModalButton = styled(Button)``;
 
 // document model 의 row 하나당 signature row의 특정 컬럼들(contractorPhone, hashValue, imgUrl, updatedAt)만 계약자별 여러개를 한 document row에 조인 하는 방법을 알 필요가 있다.. 그래서 documentsData로 데이터를 할당하여 컴포넌트를 맵함수에 넣는다.
 
-const DocumentItem = () => {
+interface IDocuModal {
+  onDocuClicked: (docuId: number) => void;
+}
+
+const DocumentItem = ({onDocuClicked}: IDocuModal) => {
   const people = ["갑", "을", "병", "정"];
 
   const documentOnlyData = [
@@ -41,7 +45,7 @@ const DocumentItem = () => {
       isSigned: 0,
       hashValue: "0",
       imgUrl: null,
-      DocumentId: 5,
+      DocumentId: 3,
       createdAt: "2022-09-07",
       updatedAt: "2022-09-07",
     },
@@ -72,7 +76,11 @@ const DocumentItem = () => {
               <ConfirmText key={documentData.DocumentId}>
                 {documentData.isSigned ? "인증완료" : "인증예정"}
               </ConfirmText>
-              <ModalButton>상세보기</ModalButton>
+              <ModalButton
+                onClick={() => onDocuClicked(documentData.DocumentId)}
+              >
+                상세보기
+              </ModalButton>
             </IconWrapper>
           </DocumentWrapper>
         );

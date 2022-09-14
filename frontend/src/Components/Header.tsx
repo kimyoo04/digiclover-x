@@ -54,7 +54,6 @@ const ActiveLink = styled(motion(UnactiveLink))`
 
 const Header = () => {
   const documentMatch = useMatch("/document");
-  const signatureMatch = useMatch("/signature");
   const storageMatch = useMatch("/storage");
   const loginMatch = useMatch("/login");
   const signinMatch = useMatch("/signin");
