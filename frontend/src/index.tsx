@@ -4,6 +4,7 @@ import {RecoilRoot} from "recoil";
 import App from "./App";
 import {createGlobalStyle} from "styled-components";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+import "remixicon/fonts/remixicon.css";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap');;

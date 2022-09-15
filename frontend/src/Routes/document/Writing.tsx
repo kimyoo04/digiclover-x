@@ -2,7 +2,18 @@ import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/document";
 import {useNavigate} from "react-router-dom";
-import Tiptap from "Components/Tiptap";
+import TiptapEditor from "Components/Document/Tiptap";
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 10vw;
+  margin-bottom: 20px;
+`;
 
 const Writing = () => {
   let navigate = useNavigate();
@@ -10,14 +21,16 @@ const Writing = () => {
     navigate(-1);
   }
   function nextClick() {
-    navigate(1);
+    navigate(`/document/signning`);
   }
 
   return (
     <Wrapper>
-      <Tiptap />
-      <Button onClick={prevClick}>Next</Button>
-      <Button onClick={nextClick}>Next</Button>
+      <TiptapEditor />
+      <ButtonWrapper>
+        <Button onClick={prevClick}>Prev</Button>
+        <Button onClick={nextClick}>Next</Button>
+      </ButtonWrapper>
     </Wrapper>
   );
 };
