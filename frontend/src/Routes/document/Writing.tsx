@@ -21,7 +21,7 @@ const Writing = () => {
     navigate(-1);
   }
   function nextClick() {
-    navigate(`/document/signning`);
+    navigate(`/document/signning`); //, {state: data}로 문서 html값을 넣을 것, recoil 이용할 것
   }
 
   return (

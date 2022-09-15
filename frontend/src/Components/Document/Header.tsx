@@ -1,19 +1,23 @@
-import {Link, useMatch} from "react-router-dom";
+import {useMatch} from "react-router-dom";
 import styled from "styled-components";
 import {motion} from "framer-motion";
-import logo from "public/assets/img/logo.png";
 
 const Nav = styled.ul`
   position: fixed;
   top: 0;
+
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+
   width: 100%;
+  height: 6vh;
+  padding: 0 30px;
+
   color: white;
   font-size: 14px;
-  padding: 20px 30px;
+
   background-color: ${(props) => props.theme.bgColor};
   box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
   z-index: 100;
@@ -22,28 +26,17 @@ const Nav = styled.ul`
   }
 `;
 
-const Logo = styled.img`
-  width: 190px;
-  height: 40px;
-  margin: 0 30px 0 0;
-`;
-
 const Item = styled.li`
-  margin: 4px 20px 0 0;
-  color: ${(props) => props.theme.textWhiteColor};
   transition: color 0.3s ease-in-out;
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
-  &:hover {
-    color: ${(props) => props.theme.textWhiteColor};
-  }
+  color: ${(props) => props.theme.textWhiteColor};
 `;
 
 const UnactiveLink = styled.span`
-  font-family: "Noto Sans KR", sans-serif;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 20px;
   font-size: 18px;
 `;
@@ -52,52 +45,57 @@ const ActiveLink = styled(motion(UnactiveLink))`
   color: ${(props) => props.theme.primaryBlueColor};
 `;
 
+const ArrowIcon = styled.i`
+  font-size: 24px;
+`;
+
 const DocumentHeader = () => {
-  const documentMatch = useMatch("/document/start");
-  const storageMatch = useMatch("/storage");
-  const loginMatch = useMatch("/login");
-  const signinMatch = useMatch("/signin");
+  const contractorMatch = useMatch("/document/contractor");
+  const docuselectMatch = useMatch("/document/docuselect");
+  const writeMatch = useMatch("/document/write");
+  const signningMatch = useMatch("/document/signning");
+  const emailMatch = useMatch("/document/email");
 
   return (
     <Nav>
-      <Link to="/">
-        <Logo src={logo} />
-      </Link>
       <Item>
-        <Link to="/document/start">
-          {documentMatch ? (
-            <ActiveLink>문서 작성</ActiveLink>
-          ) : (
-            <UnactiveLink>문서 작성</UnactiveLink>
-          )}
-        </Link>
+        {contractorMatch ? (
+          <ActiveLink>계약자 정보 입력</ActiveLink>
+        ) : (
+          <UnactiveLink>계약자 정보 입력</UnactiveLink>
+        )}
       </Item>
+      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
       <Item>
-        <Link to="/storage">
-          {storageMatch ? (
-            <ActiveLink>문서 보관함</ActiveLink>
-          ) : (
-            <UnactiveLink>문서 보관함</UnactiveLink>
-          )}
-        </Link>
+        {docuselectMatch ? (
+          <ActiveLink>문서 선택</ActiveLink>
+        ) : (
+          <UnactiveLink>문서 선택</UnactiveLink>
+        )}
       </Item>
+      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
       <Item>
-        <Link to="/login">
-          {loginMatch ? (
-            <ActiveLink>로그인</ActiveLink>
-          ) : (
-            <UnactiveLink>로그인</UnactiveLink>
-          )}
-        </Link>
+        {writeMatch ? (
+          <ActiveLink>문서 작성</ActiveLink>
+        ) : (
+          <UnactiveLink>문서 작성</UnactiveLink>
+        )}
       </Item>
+      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
       <Item>
-        <Link to="/signin">
-          {signinMatch ? (
-            <ActiveLink>회원가입</ActiveLink>
-          ) : (
-            <UnactiveLink>회원가입</UnactiveLink>
-          )}
-        </Link>
+        {signningMatch ? (
+          <ActiveLink>서명</ActiveLink>
+        ) : (
+          <UnactiveLink>서명</UnactiveLink>
+        )}
+      </Item>
+      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
+      <Item>
+        {emailMatch ? (
+          <ActiveLink>이메일 전송</ActiveLink>
+        ) : (
+          <UnactiveLink>이메일 전송</UnactiveLink>
+        )}
       </Item>
     </Nav>
   );
