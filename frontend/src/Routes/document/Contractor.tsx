@@ -44,7 +44,7 @@ const Contractor = () => {
       );
     } else {
       // form data 저장하는 곳
-      navigate(`/document/docuselect`);
+      navigate(`/document/docukind`);
     }
   };
 
@@ -125,8 +125,16 @@ const Contractor = () => {
 
           <ErrorMessage>{errors?.extraError?.message}</ErrorMessage>
           <ButtonWrapper>
-            <Button onClick={prevClick}>Prev</Button>
-            <Button>Next</Button>
+            <Button
+              onClick={prevClick}
+              whileHover={{scale: 1.1}}
+              transition={{duration: 0.05}}
+            >
+              Prev
+            </Button>
+            <Button whileHover={{scale: 1.1}} transition={{duration: 0.05}}>
+              Next
+            </Button>
           </ButtonWrapper>
         </form>
       </FormWrapper>

@@ -126,8 +126,20 @@ const Docukind = () => {
           </RadioLabel>
         </Form>
         <ButtonWrapper>
-          <Button onClick={prevClick}>Prev</Button>
-          <Button form="docukindForm">Next</Button>
+          <Button
+            onClick={prevClick}
+            whileHover={{scale: 1.1}}
+            transition={{duration: 0.05}}
+          >
+            Prev
+          </Button>
+          <Button
+            form="docukindForm"
+            whileHover={{scale: 1.1}}
+            transition={{duration: 0.05}}
+          >
+            Next
+          </Button>
         </ButtonWrapper>
       </FormRadioWrapper>
       <ErrorMessage>{errors?.docukind?.message}</ErrorMessage>

@@ -21,7 +21,9 @@ const DocumentStart = () => {
     <Wrapper>
       <Text>문서작성을 시작하시겠습니까?</Text>
       <Link to={{pathname: `/document/contractor`}}>
-        <StartBtn>문서 작성 시작</StartBtn>
+        <StartBtn whileHover={{scale: 1.1}} transition={{duration: 0.05}}>
+          문서 작성 시작
+        </StartBtn>
       </Link>
     </Wrapper>
   );

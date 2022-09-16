@@ -1,6 +1,7 @@
+import {motion} from "framer-motion";
 import styled from "styled-components";
 
-const Button = styled.button`
+const Button = styled(motion.button)`
   width: 100%;
   height: 35px;
   border-radius: 6px;

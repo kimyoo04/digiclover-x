@@ -108,8 +108,20 @@ const Email = () => {
           <AgreeInput id="agree" type="checkbox" onChange={toggleChecking} />
         </AgreeLabel>
         <ButtonWrapper>
-          <Button onClick={prevClick}>Prev</Button>
-          <Button onClick={finishClick}>Finish</Button>
+          <Button
+            onClick={prevClick}
+            whileHover={{scale: 1.1}}
+            transition={{duration: 0.05}}
+          >
+            Prev
+          </Button>
+          <Button
+            onClick={finishClick}
+            whileHover={{scale: 1.1}}
+            transition={{duration: 0.05}}
+          >
+            Finish
+          </Button>
         </ButtonWrapper>
 
         {alert ? (

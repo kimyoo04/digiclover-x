@@ -8,7 +8,7 @@ import Footer from "Components/Footer";
 import DocumentModal from "Components/Storage/DocumentModal";
 import DocumentLayout from "Components/Document/Layout";
 
-import DocumentStart from "Routes/document/Start";
+import DocumentStart from "Routes/Start";
 import Storage from "Routes/Storage";
 import Login from "Routes/Login";
 import Signin from "Routes/Signin";

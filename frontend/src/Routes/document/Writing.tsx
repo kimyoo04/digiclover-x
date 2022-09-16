@@ -28,8 +28,20 @@ const Writing = () => {
     <Wrapper>
       <TiptapEditor />
       <ButtonWrapper>
-        <Button onClick={prevClick}>Prev</Button>
-        <Button onClick={nextClick}>Next</Button>
+        <Button
+          onClick={prevClick}
+          whileHover={{scale: 1.1}}
+          transition={{duration: 0.05}}
+        >
+          Prev
+        </Button>
+        <Button
+          onClick={nextClick}
+          whileHover={{scale: 1.1}}
+          transition={{duration: 0.05}}
+        >
+          Next
+        </Button>
       </ButtonWrapper>
     </Wrapper>
   );
