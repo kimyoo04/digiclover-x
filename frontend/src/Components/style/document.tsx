@@ -53,7 +53,7 @@ export interface IContractorForm {
   extraError?: string;
 }
 
-export interface IDocuSelectForm {
+export interface IDocukindForm {
   docukind: string;
   extraError?: string;
 }

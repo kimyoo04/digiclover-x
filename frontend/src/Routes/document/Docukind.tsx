@@ -3,7 +3,7 @@ import Button from "Components/style/buttons";
 import {
   ErrorMessage,
   FormWrapper,
-  IDocuSelectForm,
+  IDocukindForm,
   Input,
   Label,
   Wrapper,
@@ -59,7 +59,7 @@ const ButtonWrapper = styled.div`
   margin-top: 20px;
 `;
 
-const DocuSelect = () => {
+const Docukind = () => {
   let navigate = useNavigate();
   function prevClick() {
     navigate(-1);
@@ -70,11 +70,11 @@ const DocuSelect = () => {
     handleSubmit,
     formState: {errors},
     setError,
-  } = useForm<IDocuSelectForm>({
+  } = useForm<IDocukindForm>({
     defaultValues: {},
   });
 
-  const onValid = (data: IDocuSelectForm) => {
+  const onValid = (data: IDocukindForm) => {
     if (!data.docukind) {
       setError("docukind", {message: "Please click one of these."});
     } else {
@@ -135,4 +135,4 @@ const DocuSelect = () => {
   );
 };
 
-export default DocuSelect;
+export default Docukind;

@@ -15,7 +15,7 @@ import Signin from "Routes/Signin";
 import Home from "Routes/Home";
 
 import Contractor from "Routes/document/Contractor";
-import DocuSelect from "Routes/document/DocuSelect";
+import Docukind from "Routes/document/Docukind";
 import Writing from "Routes/document/Writing";
 import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
@@ -30,7 +30,7 @@ function App() {
         <Routes>
           <Route element={<DocumentLayout />}>
             <Route path="/document/contractor" element={<Contractor />} />
-            <Route path="/document/docuselect" element={<DocuSelect />} />
+            <Route path="/document/docukind" element={<Docukind />} />
             <Route path="/document/writing" element={<Writing />} />
             <Route path="/document/signning" element={<Signning />} />
             <Route path="/document/email" element={<Email />} />
