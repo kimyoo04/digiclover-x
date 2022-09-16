@@ -1,4 +1,4 @@
-import {Link, Outlet, useMatch} from "react-router-dom";
+import {Link, Outlet, PathMatch, useMatch} from "react-router-dom";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import logo from "public/assets/img/logo.png";
@@ -53,10 +53,10 @@ const ActiveLink = styled(motion(UnactiveLink))`
 `;
 
 const Header = () => {
-  const documentMatch = useMatch("/document/start");
-  const storageMatch = useMatch("/storage");
-  const loginMatch = useMatch("/login");
-  const signinMatch = useMatch("/signin");
+  const documentMatch: PathMatch<string> | null = useMatch("/document/start");
+  const storageMatch: PathMatch<string> | null = useMatch("/storage");
+  const loginMatch: PathMatch<string> | null = useMatch("/login");
+  const signinMatch: PathMatch<string> | null = useMatch("/signin");
 
   return (
     <>

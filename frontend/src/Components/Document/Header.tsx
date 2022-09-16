@@ -1,4 +1,4 @@
-import {useMatch} from "react-router-dom";
+import {PathMatch, useMatch} from "react-router-dom";
 import styled from "styled-components";
 import {motion} from "framer-motion";
 
@@ -50,11 +50,16 @@ const ArrowIcon = styled.i`
 `;
 
 const DocumentHeader = () => {
-  const contractorMatch = useMatch("/document/contractor");
-  const docuselectMatch = useMatch("/document/docuselect");
-  const writeMatch = useMatch("/document/write");
-  const signningMatch = useMatch("/document/signning");
-  const emailMatch = useMatch("/document/email");
+  const contractorMatch: PathMatch<string> | null = useMatch(
+    "/document/contractor"
+  );
+  const docuselectMatch: PathMatch<string> | null = useMatch(
+    "/document/docuselect"
+  );
+  const writeMatch: PathMatch<string> | null = useMatch("/document/write");
+  const signningMatch: PathMatch<string> | null =
+    useMatch("/document/signning");
+  const emailMatch: PathMatch<string> | null = useMatch("/document/email");
 
   return (
     <Nav>
