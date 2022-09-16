@@ -1,10 +1,13 @@
+import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {motion} from "framer-motion";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
 import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/document";
-import {useNavigate} from "react-router-dom";
-import {useState, useEffect} from "react";
 import ContractorCard from "Components/Document/ContractorCard";
-import {motion} from "framer-motion";
 import Alert from "Components/Alert";
 
 const Main = styled.div`
@@ -52,6 +55,31 @@ interface IContractor {
 }
 
 const Email = () => {
+  const navigate = useNavigate();
+  function prevClick() {
+    navigate(-1);
+  }
+  function finishClick() {
+    // 동의 확인 후 리다이렉트
+    if (isCheck) {
+      navigate(`/storage`);
+    } else {
+      setAlert((prev) => !prev);
+    }
+  }
+  function goHome() {
+    navigate(`/`);
+  }
+
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  // 로그인 분기 처리
+  useEffect(() => {
+    if (!isLoggedIn) {
+      goHome();
+    }
+  }, []);
+
   const [contractors, setContractors] = useState<IContractor[]>([]);
   const [isCheck, setIsCheck] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -75,18 +103,6 @@ const Email = () => {
   useEffect(() => {
     setContractors(dummy);
   }, []);
-
-  let navigate = useNavigate();
-  function prevClick() {
-    navigate(-1);
-  }
-  function finishClick() {
-    if (isCheck) {
-      navigate(`/storage`);
-    } else {
-      setAlert((prev) => !prev);
-    }
-  }
 
   function toggleChecking() {
     setIsCheck((prev) => !prev);

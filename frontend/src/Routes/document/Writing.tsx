@@ -1,7 +1,11 @@
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
 import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/document";
-import {useNavigate} from "react-router-dom";
 import TiptapEditor from "Components/Document/Tiptap";
 
 const ButtonWrapper = styled.div`
@@ -16,13 +20,25 @@ const ButtonWrapper = styled.div`
 `;
 
 const Writing = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   function prevClick() {
     navigate(-1);
   }
   function nextClick() {
     navigate(`/document/signning`); //, {state: data}로 문서 html값을 넣을 것, recoil 이용할 것
   }
+  function goHome() {
+    navigate(`/`);
+  }
+
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  // 로그인 분기 처리
+  useEffect(() => {
+    if (!isLoggedIn) {
+      goHome();
+    }
+  }, []);
 
   return (
     <Wrapper>

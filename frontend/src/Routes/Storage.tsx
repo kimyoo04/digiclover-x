@@ -1,8 +1,11 @@
+import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
 import styled from "styled-components";
 import DocumentItem from "Components/Storage/DocumentItem";
 import DocumentModal from "Components/Storage/DocumentModal";
-import {useEffect} from "react";
 
 const Wrapper = styled.div`
   background-color: ${(props) => props.theme.bgWhiteColor};
@@ -12,12 +15,22 @@ const Wrapper = styled.div`
 
 const Storage = () => {
   const navigate = useNavigate();
-  const onDocuClicked = (docuId: number) => {
+  function onDocuClicked(docuId: number) {
+    // 선택한 문서 아이디로 이동 (DocumentModal 컴포넌트)
     navigate(`/storage/${docuId}`);
-  };
+  }
+  function goHome() {
+    navigate(`/`);
+  }
 
-  // 추후 로그인 분기 처리
-  useEffect(() => console.log("작동"), []);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  // 로그인 분기 처리
+  useEffect(() => {
+    if (!isLoggedIn) {
+      goHome();
+    }
+  }, []);
 
   return (
     <Wrapper>

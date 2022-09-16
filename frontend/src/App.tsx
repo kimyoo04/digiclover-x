@@ -1,8 +1,8 @@
 import {useState} from "react";
-import {ThemeProvider} from "styled-components";
-import {darkTheme, lightTheme} from "theme";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import {darkTheme, lightTheme} from "theme";
 
+import {ThemeProvider} from "styled-components";
 import Header from "Components/Header";
 import Footer from "Components/Footer";
 import DocumentModal from "Components/Storage/DocumentModal";
@@ -19,7 +19,7 @@ import Docukind from "Routes/document/Docukind";
 import Writing from "Routes/document/Writing";
 import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
-import NoMatch from "Routes/document/NoMatch";
+import NoMatch from "Routes/NoMatch";
 
 function App() {
   const [isDark, setIsDark] = useState(true);
@@ -34,7 +34,6 @@ function App() {
             <Route path="/document/writing" element={<Writing />} />
             <Route path="/document/signning" element={<Signning />} />
             <Route path="/document/email" element={<Email />} />
-            <Route path="*" element={<NoMatch />} />
           </Route>
           <Route element={<Header />}>
             <Route path="/document/start" element={<DocumentStart />} />
@@ -44,6 +43,7 @@ function App() {
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signin" element={<Signin />}></Route>
             <Route path="/" element={<Home />}></Route>
+            <Route path="*" element={<NoMatch />} />
           </Route>
         </Routes>
         <Footer />

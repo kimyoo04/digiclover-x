@@ -1,6 +1,11 @@
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useForm} from "react-hook-form";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
 import styled from "styled-components";
 import Button from "Components/style/buttons";
-import {useNavigate} from "react-router-dom";
 import {
   ErrorMessage,
   FormWrapper,
@@ -10,7 +15,6 @@ import {
   Input,
 } from "Components/style/document";
 import {Col, Row} from "Components/style/layout";
-import {useForm} from "react-hook-form";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -21,11 +25,24 @@ const ButtonWrapper = styled.div`
 `;
 
 const Contractor = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   function prevClick() {
     navigate(-1);
   }
+  function goHome() {
+    navigate(`/`);
+  }
 
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  // 로그인 분기 처리
+  useEffect(() => {
+    if (!isLoggedIn) {
+      goHome();
+    }
+  }, []);
+
+  // 계약자 정보 받는 리액트-훅-폼
   const {
     register,
     handleSubmit,

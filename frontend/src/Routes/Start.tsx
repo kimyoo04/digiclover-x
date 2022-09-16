@@ -1,8 +1,11 @@
+import {useEffect} from "react";
+import {Link, useNavigate} from "react-router-dom";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
+import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/document";
-import {useEffect} from "react";
-import {Link} from "react-router-dom";
-import styled from "styled-components";
 
 const StartBtn = styled(Button)`
   padding: 10px;
@@ -14,8 +17,19 @@ const Text = styled.span`
 `;
 
 const DocumentStart = () => {
-  // 추후 로그인 분기 처리
-  useEffect(() => console.log("작동"), []);
+  const navigate = useNavigate();
+  function goHome() {
+    navigate(`/`);
+  }
+
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  // 로그인 분기 처리
+  useEffect(() => {
+    if (!isLoggedIn) {
+      goHome();
+    }
+  }, []);
 
   return (
     <Wrapper>

@@ -1,6 +1,9 @@
 import {Link, Outlet, PathMatch, useMatch} from "react-router-dom";
-import styled from "styled-components";
 import {motion} from "framer-motion";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
+import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
 
 const Nav = styled.ul`
@@ -42,7 +45,6 @@ const Item = styled.li`
 `;
 
 const UnactiveLink = styled.span`
-  font-family: "Noto Sans KR", sans-serif;
   font-weight: 600;
   line-height: 20px;
   font-size: 18px;
@@ -52,11 +54,28 @@ const ActiveLink = styled(motion(UnactiveLink))`
   color: ${(props) => props.theme.primaryBlueColor};
 `;
 
+const LogoutButton = styled.button`
+  font-weight: 600;
+  line-height: 20px;
+  font-size: 18px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+`;
+
 const Header = () => {
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  function onlogOut() {
+    setIsLoggedIn(false);
+  }
+
   const documentMatch: PathMatch<string> | null = useMatch("/document/start");
   const storageMatch: PathMatch<string> | null = useMatch("/storage");
   const loginMatch: PathMatch<string> | null = useMatch("/login");
   const signinMatch: PathMatch<string> | null = useMatch("/signin");
+  const profileMatch: PathMatch<string> | null = useMatch("/profile");
 
   return (
     <>
@@ -82,24 +101,43 @@ const Header = () => {
             )}
           </Link>
         </Item>
-        <Item>
-          <Link to="/login">
-            {loginMatch ? (
-              <ActiveLink>로그인</ActiveLink>
-            ) : (
-              <UnactiveLink>로그인</UnactiveLink>
-            )}
-          </Link>
-        </Item>
-        <Item>
-          <Link to="/signin">
-            {signinMatch ? (
-              <ActiveLink>회원가입</ActiveLink>
-            ) : (
-              <UnactiveLink>회원가입</UnactiveLink>
-            )}
-          </Link>
-        </Item>
+        {isLoggedIn ? (
+          <>
+            <Item>
+              <Link to="/profile">
+                {profileMatch ? (
+                  <ActiveLink>내 정보</ActiveLink>
+                ) : (
+                  <UnactiveLink>내 정보</UnactiveLink>
+                )}
+              </Link>
+            </Item>
+            <Item>
+              <LogoutButton onClick={onlogOut}>로그아웃</LogoutButton>
+            </Item>
+          </>
+        ) : (
+          <>
+            <Item>
+              <Link to="/login">
+                {loginMatch ? (
+                  <ActiveLink>로그인</ActiveLink>
+                ) : (
+                  <UnactiveLink>로그인</UnactiveLink>
+                )}
+              </Link>
+            </Item>
+            <Item>
+              <Link to="/signin">
+                {signinMatch ? (
+                  <ActiveLink>회원가입</ActiveLink>
+                ) : (
+                  <UnactiveLink>회원가입</UnactiveLink>
+                )}
+              </Link>
+            </Item>
+          </>
+        )}
       </Nav>
       <Outlet />
     </>

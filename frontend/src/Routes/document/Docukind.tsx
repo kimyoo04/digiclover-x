@@ -1,3 +1,9 @@
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
+import {useForm} from "react-hook-form";
+import {useRecoilState} from "recoil";
+import {isLoggedInState} from "atom";
+
 import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {
@@ -8,8 +14,6 @@ import {
   Label,
   Wrapper,
 } from "Components/style/document";
-import {useNavigate} from "react-router-dom";
-import {useForm} from "react-hook-form";
 
 const FormRadioWrapper = styled(FormWrapper)`
   width: 40vw;
@@ -60,11 +64,24 @@ const ButtonWrapper = styled.div`
 `;
 
 const Docukind = () => {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   function prevClick() {
     navigate(-1);
   }
+  function goHome() {
+    navigate(`/`);
+  }
 
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+
+  // 로그인 분기 처리
+  useEffect(() => {
+    if (!isLoggedIn) {
+      goHome();
+    }
+  }, []);
+
+  // 문서 종류를 선택하는 리액트-훅-폼
   const {
     register,
     handleSubmit,
@@ -74,6 +91,7 @@ const Docukind = () => {
     defaultValues: {},
   });
 
+  // 선택 했을 때만 다음 단계 이동
   const onValid = (data: IDocukindForm) => {
     if (!data.docukind) {
       setError("docukind", {message: "Please click one of these."});
