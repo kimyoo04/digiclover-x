@@ -1,7 +1,7 @@
 import {Link, Outlet, PathMatch, useMatch} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useRecoilState} from "recoil";
-import {isLoggedInState} from "atom";
+import {isLoggedInState} from "atom/userAtom";
 
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";

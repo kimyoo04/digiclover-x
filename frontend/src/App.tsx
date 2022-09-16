@@ -1,6 +1,7 @@
-import {useState} from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {darkTheme, lightTheme} from "theme";
+import {useRecoilState} from "recoil";
+import {isDarkState} from "atom/themeAtom";
 
 import {ThemeProvider} from "styled-components";
 import Header from "Components/Header";
@@ -22,10 +23,10 @@ import Email from "Routes/document/Email";
 import NoMatch from "Routes/NoMatch";
 
 function App() {
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useRecoilState(isDarkState);
 
   return (
-    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+    <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>
       <Router>
         <Routes>
           <Route element={<DocumentLayout />}>

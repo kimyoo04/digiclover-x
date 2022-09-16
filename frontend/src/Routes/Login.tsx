@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {useRecoilState} from "recoil";
-import {isLoggedInState} from "atom";
+import {isLoggedInState} from "atom/userAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
