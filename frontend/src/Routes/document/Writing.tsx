@@ -1,12 +1,13 @@
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {useRecoilState} from "recoil";
-import {isLoggedInState} from "atom/userAtom";
-
 import styled from "styled-components";
+
+import {useEffect} from "react";
+import {useRecoilState} from "recoil";
+
+import {useNavigate} from "react-router-dom";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/document";
-import TiptapEditor from "Components/Document/Tiptap";
+import {isLoggedInState} from "atom/userAtom";
+import Tiptap from "Components/Document/tiptap";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -24,9 +25,6 @@ const Writing = () => {
   function prevClick() {
     navigate(-1);
   }
-  function nextClick() {
-    navigate(`/document/signning`); //, {state: data}로 문서 html값을 넣을 것, recoil 이용할 것
-  }
   function goHome() {
     navigate(`/`);
   }
@@ -42,7 +40,7 @@ const Writing = () => {
 
   return (
     <Wrapper>
-      <TiptapEditor />
+      <Tiptap isEditable={true} />
       <ButtonWrapper>
         <Button
           onClick={prevClick}
@@ -52,7 +50,7 @@ const Writing = () => {
           Prev
         </Button>
         <Button
-          onClick={nextClick}
+          form="docuTitleForm"
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}
         >

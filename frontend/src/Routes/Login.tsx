@@ -99,6 +99,8 @@ const Login = () => {
               })}
               placeholder="Email"
               name="email"
+              type="text"
+              autoComplete="" // 추후 설정
             />
           </Col>
 
@@ -118,6 +120,7 @@ const Login = () => {
               placeholder="Password"
               name="password"
               type="password"
+              autoComplete="" // 추후 설정
             />
           </Col>
 

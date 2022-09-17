@@ -37,7 +37,8 @@ const TitleForm = ({isEditable}: IIsEditable) => {
   const onValid = async (data: IDocuTitle) => {
     if (!data) {
     } else {
-      console.log("data는~~~~~~~~~~", data);
+      console.log(data);
+      // atom 데이터 저장
       setDocuTitle(data);
       navigate(`/document/signning`);
     }

@@ -58,3 +58,8 @@ export interface IDocuKindForm {
   docuKind: "free" | "mou" | "labor" | "dept" | "";
   extraError?: string;
 }
+
+export interface IDocuTitleForm {
+  docuTitle: string;
+  extraError?: string;
+}

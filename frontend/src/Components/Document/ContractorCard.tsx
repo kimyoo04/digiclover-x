@@ -33,24 +33,24 @@ const InfoText = styled.span`
   font-weight: 400;
 `;
 
-const ContractorCard = (children: IContractor) => {
+const ContractorCard = (contractor: IContractor) => {
   return (
     <Card>
       <InfoWrapper>
         <Info>회사명 :</Info>
-        <InfoText>{children.companyName}</InfoText>
+        <InfoText>{contractor.companyName}</InfoText>
       </InfoWrapper>
       <InfoWrapper>
         <Info>성명 :</Info>
-        <InfoText>{children.name}</InfoText>
+        <InfoText>{contractor.name}</InfoText>
       </InfoWrapper>
       <InfoWrapper>
         <Info>전화번호 :</Info>
-        <InfoText>{children.phone}</InfoText>
+        <InfoText>{contractor.phone}</InfoText>
       </InfoWrapper>
       <InfoWrapper>
         <Info>이메일 :</Info>
-        <InfoText>{children.email}</InfoText>
+        <InfoText>{contractor.email}</InfoText>
       </InfoWrapper>
     </Card>
   );

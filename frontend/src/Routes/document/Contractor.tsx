@@ -1,8 +1,10 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
+
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {isLoggedInState} from "atom/userAtom";
+import {contractorState, IContractor} from "atom/documentAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -15,11 +17,6 @@ import {
   Input,
 } from "Components/style/document";
 import {Col, Row} from "Components/style/layout";
-import {
-  contractorState,
-  docuProcessState,
-  IContractor,
-} from "atom/documentAtom";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -74,8 +71,8 @@ const Contractor = () => {
         {shouldFocus: true}
       );
     } else {
-      // form data 저장하는 곳
       console.log(data);
+      // atom 데이터 저장
       setContractor([data]);
       navigate(`/document/docukind`);
     }

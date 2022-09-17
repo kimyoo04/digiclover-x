@@ -1,8 +1,10 @@
 import {useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
-import {useRecoilState} from "recoil";
+
+import {useRecoilState, useRecoilValue} from "recoil";
 import {isLoggedInState} from "atom/userAtom";
+import {docuAllState, IContractor} from "atom/documentAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -28,7 +30,7 @@ const ButtonWrapper = styled.div`
 
 const AgreeLabel = styled.label`
   display: block;
-  font-weight: 700;
+  font-weight: 500;
   margin-bottom: 20px;
   color: ${(props) => props.theme.textColor};
 `;
@@ -48,21 +50,17 @@ const Overlay = styled(motion.div)`
   z-index: 100;
 `;
 
-interface IContractor {
-  companyName: string;
-  name: string;
-  phone: string;
-  email: string;
-}
-
 const Email = () => {
   const navigate = useNavigate();
   function prevClick() {
     navigate(-1);
   }
   function finishClick() {
-    // 동의 확인 후 리다이렉트
+    // 동의 확인 경고창 - 동의 확인 후 /storage 로 navigate
     if (isCheck) {
+      // atom 데이터 저장
+
+      // 모든 프로세스 종료 후 navigate
       navigate(`/storage`);
     } else {
       setAlert((prev) => !prev);
@@ -72,6 +70,8 @@ const Email = () => {
     navigate(`/`);
   }
 
+  const docuAll = useRecoilValue(docuAllState);
+  console.log(docuAll);
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
 
   // 로그인 분기 처리
@@ -81,29 +81,10 @@ const Email = () => {
     }
   }, []);
 
-  const [contractors, setContractors] = useState<IContractor[]>([]);
   const [isCheck, setIsCheck] = useState(false);
   const [alert, setAlert] = useState(false);
 
-  // 임시 더미 데이터
-  const dummy: IContractor[] = [
-    {
-      companyName: "Leli",
-      name: "김유",
-      phone: "010-8131-5224",
-      email: "kimyoo04eco@naver.com",
-    },
-    {
-      companyName: "가나다",
-      name: "홍길동",
-      phone: "010-1111-2222",
-      email: "wow@gmail.com",
-    },
-  ];
-
-  useEffect(() => {
-    setContractors(dummy);
-  }, []);
+  useEffect(() => {}, []);
 
   function toggleChecking() {
     setIsCheck((prev) => !prev);
@@ -117,7 +98,7 @@ const Email = () => {
   return (
     <Wrapper>
       <Main>
-        {contractors.map((contractor: IContractor, index) => {
+        {docuAll.contractors.map((contractor: IContractor, index: number) => {
           return <ContractorCard key={index} {...contractor} />;
         })}
         <AgreeLabel htmlFor="agree">

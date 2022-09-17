@@ -6,7 +6,7 @@ import styled from "styled-components";
 import Button from "./style/buttons";
 
 const ToggleButton = styled(Button)`
-  position: absolute;
+  position: fixed;
   right: 50px;
   bottom: 50px;
   width: 40px;

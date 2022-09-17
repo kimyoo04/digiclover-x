@@ -28,7 +28,7 @@ export const contractorState = atom<IContractor[]>({
 //--------------------------------------------------------------------------------
 // 문서 종류 추가될 때마다 넣어 줄 것!
 export interface IDocuKind {
-  docuKind: "free" | "mou" | "labor" | "dept" | "";
+  docuKind: "자유양식" | "MOU" | "근로계약서" | "차용증" | string;
 }
 
 export const docuKindState = atom<IDocuKind>({
@@ -65,22 +65,22 @@ export const docuContentState = atom<IDocuContent>({
 // document/signning 페이지 서명 완료시 POST 요청 전 마지막 모든 데이터 저장 기능
 //--------------------------------------------------------------------------------
 export interface IDocuInfo {
-  docuKind: "free" | "mou" | "labor" | "dept" | "";
+  docuKind: "자유양식" | "MOU" | "근로계약서" | "차용증" | string;
   docuTitle: string;
   docuContent: string;
 }
 
-export interface IDocument {
+export interface IDocuAll {
   contractors: IContractor[];
-  documentInfo: IDocuInfo;
+  docuInfo: IDocuInfo;
   imgUrl: string;
 }
 
-export const documentState = atom<IDocument>({
-  key: "document",
+export const docuAllState = atom<IDocuAll>({
+  key: "docuAll",
   default: {
     contractors: [],
-    documentInfo: {
+    docuInfo: {
       docuKind: "",
       docuTitle: "",
       docuContent: "",

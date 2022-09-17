@@ -69,6 +69,7 @@ const Tiptap = ({isEditable}: IIsEditable) => {
     autofocus: true,
     editable: isEditable,
     onUpdate: ({editor}) => {
+      // atom 데이터 저장
       setDocuContent({docuContent: editor.getHTML()});
     },
   });

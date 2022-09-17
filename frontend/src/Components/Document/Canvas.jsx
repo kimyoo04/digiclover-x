@@ -1,7 +1,17 @@
-import styled from "styled-components";
 import {useRef, useState, useEffect} from "react";
-import Button from "Components/style/buttons";
 import {useNavigate} from "react-router-dom";
+
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {
+  contractorState,
+  docuContentState,
+  docuKindState,
+  docuAllState,
+  docuTitleState,
+} from "atom/documentAtom";
+
+import styled from "styled-components";
+import Button from "Components/style/buttons";
 
 const CanvasItem = styled.canvas`
   background-color: white;
@@ -36,11 +46,27 @@ const LabelButton = styled.label`
 `;
 
 const Canvas = () => {
+  const contractors = useRecoilValue(contractorState);
+  const {docuKind} = useRecoilValue(docuKindState);
+  const {docuTitle} = useRecoilValue(docuTitleState);
+  const {docuContent} = useRecoilValue(docuContentState);
+  const setDocuAll = useSetRecoilState(docuAllState);
+
   let navigate = useNavigate();
   function prevClick() {
     navigate(-1);
   }
   function nextClick() {
+    // atom 데이터 저장
+    const imgUrl = canvasRef.current.toDataURL();
+    setDocuAll({
+      contractors,
+      docuInfo: {docuKind, docuTitle, docuContent},
+      imgUrl,
+    });
+
+    // fetch --- docuAll 변수를 이용해서 이 곳에 할 것!
+
     navigate(`/document/email`);
   }
 
@@ -116,7 +142,6 @@ const Canvas = () => {
           canvasRef.current.height / 2 - this.height
         );
 
-        console.log(this.width, this.height);
         ctxRef.current.drawImage(
           image,
           this.width / 2,

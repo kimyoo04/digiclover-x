@@ -1,8 +1,10 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
+
 import {useRecoilState, useSetRecoilState} from "recoil";
 import {isLoggedInState} from "atom/userAtom";
+import {docuKindState, IDocuKind} from "atom/documentAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -14,7 +16,6 @@ import {
   Label,
   Wrapper,
 } from "Components/style/document";
-import {docuKindState, IDocuKind} from "atom/documentAtom";
 
 const FormRadioWrapper = styled(FormWrapper)`
   width: 40vw;
@@ -98,8 +99,8 @@ const Docukind = () => {
     if (!data.docuKind) {
       setError("docuKind", {message: "Please click one of these."});
     } else {
-      // form data 저장하는 곳
       console.log(data);
+      // atom 데이터 저장
       setDocukind(data);
       navigate(`/document/writing`);
     }
@@ -156,7 +157,7 @@ const Docukind = () => {
             Prev
           </Button>
           <Button
-            form="docukindForm"
+            form="docuKindForm"
             whileHover={{scale: 1.1}}
             transition={{duration: 0.05}}
           >
