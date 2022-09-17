@@ -5,7 +5,6 @@ import {isLoggedInState} from "atom/userAtom";
 
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
-import {Text} from "./style/text";
 
 const Nav = styled.ul`
   position: fixed;

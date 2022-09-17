@@ -2,6 +2,8 @@ import "./tiptap.scss";
 import {useEditor, EditorContent} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
+
+import styled from "styled-components";
 import {
   freeForm,
   mouForm,
@@ -9,10 +11,9 @@ import {
   deptForm,
 } from "Components/Document/docukind";
 
-import styled from "styled-components";
-
 import {useRecoilState, useRecoilValue} from "recoil";
 import {docuContentState, docuKindState} from "atom/documentAtom";
+
 import MenuBar from "./MenuBar";
 import TitleForm from "./TitleForm";
 

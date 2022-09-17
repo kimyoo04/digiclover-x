@@ -1,6 +1,7 @@
 import {PathMatch, useMatch} from "react-router-dom";
-import styled from "styled-components";
 import {motion} from "framer-motion";
+
+import styled from "styled-components";
 
 const Nav = styled.ul`
   position: fixed;
