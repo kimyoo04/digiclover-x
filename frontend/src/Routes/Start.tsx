@@ -14,6 +14,7 @@ const StartBtn = styled(Button)`
 const Text = styled.span`
   font-size: 18px;
   font-weight: 500;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const DocumentStart = () => {

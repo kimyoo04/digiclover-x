@@ -5,6 +5,7 @@ import {isLoggedInState} from "atom/userAtom";
 
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
+import {Text} from "./style/text";
 
 const Nav = styled.ul`
   position: fixed;
@@ -33,14 +34,14 @@ const Logo = styled.img`
 
 const Item = styled.li`
   margin: 4px 20px 0 0;
-  color: ${(props) => props.theme.textWhiteColor};
+  color: ${(props) => props.theme.textColor};
   transition: color 0.3s ease-in-out;
   position: relative;
   display: flex;
   justify-content: center;
   flex-direction: column;
   &:hover {
-    color: ${(props) => props.theme.textWhiteColor};
+    color: ${(props) => props.theme.textColor};
   }
 `;
 
@@ -54,13 +55,7 @@ const ActiveLink = styled(motion(UnactiveLink))`
   color: ${(props) => props.theme.primaryBlueColor};
 `;
 
-const LogoutButton = styled.button`
-  font-weight: 600;
-  line-height: 20px;
-  font-size: 18px;
-  background: none;
-  border: none;
-  color: white;
+const LogoutButton = styled(motion(UnactiveLink))`
   cursor: pointer;
 `;
 

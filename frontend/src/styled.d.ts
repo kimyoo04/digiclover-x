@@ -5,9 +5,11 @@ declare module "styled-components" {
     // 바뀌는 색
     bgColor: string;
     bgWhiteColor: string;
+    bgWhiteTransColor1: string;
+    bgWhiteTransColor2: string;
+    bgBlackTransColor: string;
 
-    textWhiteColor: string;
-    textblackColor: string;
+    textColor: string;
     textAcentColor: string;
 
     btnColor: string;

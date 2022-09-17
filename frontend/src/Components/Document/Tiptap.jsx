@@ -16,13 +16,13 @@ const Paper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: ${(props) => props.theme.textWhiteColor};
+  background-color: white;
   padding: 40px 20px;
   margin: 0 10vw;
   width: 100%;
   max-width: 900px;
   min-height: 1000px;
-  border: 1px solid ${(props) => props.theme.grayscale4Color};
+  border: 1px solid rgba(0, 0, 0, 0.2);
 `;
 
 const MenuBarWrap = styled.div`
@@ -39,14 +39,14 @@ const EditorWrap = styled.div`
 
 const EditorButton = styled.button`
   background-color: white;
-  color: ${(props) => props.theme.grayscale2Color};
+  color: gray;
   border-radius: 6px;
   border: none;
   & i {
     font-size: 20px;
   }
   &.is-active {
-    background-color: ${(props) => props.theme.bgWhiteColor};
+    background-color: ${(props) => props.theme.secondaryLightBlueColor};
     color: black;
     font-weight: 700;
   }

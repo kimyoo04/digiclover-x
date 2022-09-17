@@ -32,7 +32,7 @@ const Item = styled.li`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  color: ${(props) => props.theme.textWhiteColor};
+  color: ${(props) => props.theme.textColor};
 `;
 
 const UnactiveLink = styled.span`
@@ -45,8 +45,9 @@ const ActiveLink = styled(motion(UnactiveLink))`
   color: ${(props) => props.theme.primaryBlueColor};
 `;
 
-const ArrowIcon = styled.i`
+const ArrowIcon = styled(motion.i)`
   font-size: 24px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const DocumentHeader = () => {

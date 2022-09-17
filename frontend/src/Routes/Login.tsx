@@ -26,8 +26,8 @@ const ButtonWrapper = styled.div`
   gap: 10px;
 `;
 
-const TextLogin = styled.span`
-  color: white;
+const SnsLogin = styled.span`
+  color: ${(props) => props.theme.textColor};
   font-size: 14px;
 `;
 
@@ -125,7 +125,7 @@ const Login = () => {
           <Button>Login</Button>
         </HookForm>
         <ButtonWrapper>
-          <TextLogin>SNS Login</TextLogin>
+          <SnsLogin>SNS Login</SnsLogin>
           <KakaoBtn>Kakao Login</KakaoBtn>
           <GmailBtn>Gmail Login</GmailBtn>
         </ButtonWrapper>

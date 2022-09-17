@@ -5,6 +5,7 @@
 db.*
 **/models/
 **/config/
+**/dao/
 
 # pdf
 **/uploads/

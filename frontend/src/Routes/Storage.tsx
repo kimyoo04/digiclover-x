@@ -8,7 +8,7 @@ import DocumentItem from "Components/Storage/DocumentItem";
 import DocumentModal from "Components/Storage/DocumentModal";
 
 const Wrapper = styled.div`
-  background-color: ${(props) => props.theme.bgWhiteColor};
+  background-color: ${(props) => props.theme.bgColor};
   padding-top: 100px;
   min-height: 94vh;
 `;

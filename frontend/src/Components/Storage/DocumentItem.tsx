@@ -4,12 +4,20 @@ import Button from "../style/buttons";
 const DocumentWrapper = styled.div``;
 const DocuInfo = styled.div``;
 const FileName = styled.span``;
-const Date = styled.span``;
-const Hash = styled.span``;
+const Date = styled.span`
+  color: ${(props) => props.theme.textColor};
+`;
+const Hash = styled.span`
+  color: ${(props) => props.theme.textColor};
+`;
 const IconWrapper = styled.div``;
 
-const ConfirmPerson = styled.span``;
-const ConfirmText = styled.span``;
+const ConfirmPerson = styled.span`
+  color: ${(props) => props.theme.textColor};
+`;
+const ConfirmText = styled.span`
+  color: ${(props) => props.theme.textColor};
+`;
 
 const ModalButton = styled(Button)``;
 

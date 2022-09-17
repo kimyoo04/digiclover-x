@@ -7,7 +7,7 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passportConfig = require("./passport");
-const passport = require("./passport");
+const passport = require("passport");
 const flash = require("connect-flash");
 const dotenv = require("dotenv");
 dotenv.config();
@@ -50,7 +50,7 @@ app.use(flash());
 // 시퀄라이즈 연결
 //--------------------------------------------------------------------------------
 sequelize
-  .sync({force: false})
+  .sync({force: true})
   .then(() => {
     console.log("데이터베이스 연결 성공");
   })

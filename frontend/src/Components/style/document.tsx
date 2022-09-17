@@ -8,12 +8,13 @@ export const Wrapper = styled.div`
   gap: 20px;
   min-height: 94vh;
   padding-top: 100px;
-  background-color: ${(props) => props.theme.bgWhiteColor};
+  background-color: ${(props) => props.theme.bgColor};
 `;
 
 export const FormWrapper = styled.div`
-  background-color: ${(props) => props.theme.bgColor};
-  border-radius: 6px;
+  background-color: ${(props) => props.theme.bgWhiteTransColor1};
+  border: 1px solid ${(props) => props.theme.bgWhiteColor};
+  border-radius: 12px;
   padding: 50px;
   margin-bottom: 20px;
 `;

@@ -1,6 +1,6 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {darkTheme, lightTheme} from "theme";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {isDarkState} from "atom/themeAtom";
 
 import {ThemeProvider} from "styled-components";
@@ -21,9 +21,10 @@ import Writing from "Routes/document/Writing";
 import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
 import NoMatch from "Routes/NoMatch";
+import ToggleIsDark from "Components/ToggleIsDark";
 
 function App() {
-  const [isDark, setIsDark] = useRecoilState(isDarkState);
+  const isDark = useRecoilValue(isDarkState);
 
   return (
     <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>
@@ -47,6 +48,7 @@ function App() {
             <Route path="*" element={<NoMatch />} />
           </Route>
         </Routes>
+        <ToggleIsDark />
         <Footer />
       </Router>
     </ThemeProvider>

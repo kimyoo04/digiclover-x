@@ -4,9 +4,11 @@ export const darkTheme: DefaultTheme = {
   // 바뀌는 색
   bgColor: "#233e4d",
   bgWhiteColor: "#e6ecf3",
+  bgWhiteTransColor1: " rgba(255, 255, 255, 0.1)",
+  bgWhiteTransColor2: " rgba(255, 255, 255, 0.3)",
+  bgBlackTransColor: " rgba(0, 0, 0, 0.05)",
 
-  textWhiteColor: "white",
-  textblackColor: "black",
+  textColor: "white",
   textAcentColor: "teal",
 
   btnColor: "#c4d71f",
@@ -43,9 +45,11 @@ export const lightTheme: DefaultTheme = {
   // 바뀌는 색
   bgColor: "#e6ecf3",
   bgWhiteColor: "#233e4d",
+  bgWhiteTransColor1: "rgba(0,0,0,0.05)",
+  bgWhiteTransColor2: "rgba(0,0,0,0.3)",
+  bgBlackTransColor: " rgba(255, 255, 255, 0.1)",
 
-  textWhiteColor: "black",
-  textblackColor: "white",
+  textColor: "black",
   textAcentColor: "blue",
 
   btnColor: "#c4d71f",

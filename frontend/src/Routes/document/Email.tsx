@@ -30,6 +30,7 @@ const AgreeLabel = styled.label`
   display: block;
   font-weight: 700;
   margin-bottom: 20px;
+  color: ${(props) => props.theme.textColor};
 `;
 
 const AgreeInput = styled.input`

@@ -20,7 +20,7 @@ export const FormWrapper = styled.div`
 export const Label = styled.label`
   display: block;
   text-align: right;
-  color: white;
+  color: ${(props) => props.theme.textColor};
   font-size: 16px;
   font-weight: 500;
   margin-bottom: 4px;
@@ -39,9 +39,17 @@ export const Input = styled.input`
   border-radius: 6px;
   font-size: 14px;
   transition: 0.1s;
-  color: white;
+  color: black;
   border: none;
   padding-left: 10px;
+
+  &::placeholder {
+    color: rgba(0, 0, 0, 0.2);
+  }
+
+  &:focus {
+    outline: 1px solid ${(props) => props.theme.grayscale4Color};
+  }
 `;
 
 export interface IForm {

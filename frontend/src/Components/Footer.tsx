@@ -22,7 +22,7 @@ const InfoWrap = styled.div`
 `;
 
 const CompanyName = styled.span`
-  color: ${(props) => props.theme.textWhiteColor};
+  color: ${(props) => props.theme.textColor};
   font-size: 12px;
 `;
 const PersonInfo = styled(CompanyName)``;
