@@ -1,30 +1,10 @@
-import "./styles.scss";
-
-import {EditorContent, useEditor} from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import TextAlign from "@tiptap/extension-text-align";
-
+import {Editor} from "@tiptap/react";
 import styled from "styled-components";
 
-import free from "./docukind/free";
-import mou from "./docukind/mou";
-import labor from "./docukind/labor";
-import dept from "./docukind/dept";
-import {useRecoilValue, useSetRecoilState} from "recoil";
-import {docuContentState, docuKindState} from "atom/documentAtom";
-
-const Paper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  padding: 40px 20px;
-  margin: 0 10vw;
-  width: 100%;
-  max-width: 900px;
-  min-height: 1000px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-`;
+interface IEditor {
+  editor: Editor | null;
+  isEditable: boolean;
+}
 
 const MenuBarWrap = styled.div`
   display: flex;
@@ -32,12 +12,6 @@ const MenuBarWrap = styled.div`
   margin-bottom: 40px;
   gap: 4px;
 `;
-
-const EditorWrap = styled.div`
-  width: 100%;
-  padding: 0 40px;
-`;
-
 const EditorButton = styled.button`
   background-color: white;
   color: gray;
@@ -53,12 +27,12 @@ const EditorButton = styled.button`
   }
 `;
 
-const MenuBar = ({editor}) => {
+const MenuBar = ({editor, isEditable}: IEditor) => {
   if (!editor) {
     return null;
   }
 
-  return (
+  return isEditable ? (
     <MenuBarWrap>
       <EditorButton
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -170,52 +144,7 @@ const MenuBar = ({editor}) => {
         <i className="ri-arrow-go-forward-line"></i>
       </EditorButton>
     </MenuBarWrap>
-  );
+  ) : null;
 };
 
-const TiptapEditor = () => {
-  const {docuKind} = useRecoilValue(docuKindState);
-  const setDocuContent = useSetRecoilState(docuContentState);
-
-  // 앞 단계에서 선택한 문서양식에 따라서 에디터 출력 다르게 설정
-  function selectDocukind() {
-    switch (docuKind) {
-      case "자유양식":
-        return free;
-      case "MOU":
-        return mou;
-      case "근로계약서":
-        return labor;
-      case "차용증":
-        return dept;
-      default:
-        return "Didn't select docukind. Go back to docukind page";
-    }
-  }
-
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      TextAlign.configure({
-        types: ["paragraph"],
-      }),
-    ],
-    content: selectDocukind(),
-    autofocus: true,
-    editable: true,
-    onUpdate: ({editor}) => {
-      setDocuContent({docuContent: editor.getHTML()});
-    },
-  });
-
-  return (
-    <Paper onClick={() => editor.chain().focus()}>
-      <MenuBar editor={editor} />
-      <EditorWrap>
-        <EditorContent editor={editor} />
-      </EditorWrap>
-    </Paper>
-  );
-};
-
-export default TiptapEditor;
+export default MenuBar;
