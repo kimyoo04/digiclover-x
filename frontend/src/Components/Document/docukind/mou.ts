@@ -1,3 +1,3 @@
-const mou = `<p>mou form<p>`;
+const mou = `<p>mou form</p>`;
 
 export default mou;

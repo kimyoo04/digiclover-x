@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {isLoggedInState} from "atom/userAtom";
 
 import styled from "styled-components";
@@ -9,11 +9,12 @@ import Button from "Components/style/buttons";
 import {
   ErrorMessage,
   FormWrapper,
-  IDocukindForm,
+  IDocuKindForm,
   Input,
   Label,
   Wrapper,
 } from "Components/style/document";
+import {docuKindState, IDocuKind} from "atom/documentAtom";
 
 const FormRadioWrapper = styled(FormWrapper)`
   width: 40vw;
@@ -73,6 +74,7 @@ const Docukind = () => {
   }
 
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const setDocukind = useSetRecoilState(docuKindState);
 
   // 로그인 분기 처리
   useEffect(() => {
@@ -87,16 +89,18 @@ const Docukind = () => {
     handleSubmit,
     formState: {errors},
     setError,
-  } = useForm<IDocukindForm>({
+  } = useForm<IDocuKindForm>({
     defaultValues: {},
   });
 
   // 선택 했을 때만 다음 단계 이동
-  const onValid = (data: IDocukindForm) => {
-    if (!data.docukind) {
-      setError("docukind", {message: "Please click one of these."});
+  const onValid = (data: IDocuKind) => {
+    if (!data.docuKind) {
+      setError("docuKind", {message: "Please click one of these."});
     } else {
       // form data 저장하는 곳
+      console.log(data);
+      setDocukind(data);
       navigate(`/document/writing`);
     }
   };
@@ -104,10 +108,10 @@ const Docukind = () => {
   return (
     <Wrapper>
       <FormRadioWrapper>
-        <Form id="docukindForm" onSubmit={handleSubmit(onValid)}>
+        <Form id="docuKindForm" onSubmit={handleSubmit(onValid)}>
           <RadioLabel htmlFor="free-form">
             <RadioInput
-              {...register("docukind")}
+              {...register("docuKind")}
               id="free-form"
               type="radio"
               value="자유양식"
@@ -117,7 +121,7 @@ const Docukind = () => {
 
           <RadioLabel htmlFor="mou">
             <RadioInput
-              {...register("docukind")}
+              {...register("docuKind")}
               id="mou"
               type="radio"
               value="MOU"
@@ -126,7 +130,7 @@ const Docukind = () => {
           </RadioLabel>
           <RadioLabel htmlFor="labor-contract">
             <RadioInput
-              {...register("docukind")}
+              {...register("docuKind")}
               id="labor-contract"
               type="radio"
               value="근로계약서"
@@ -135,7 +139,7 @@ const Docukind = () => {
           </RadioLabel>
           <RadioLabel htmlFor="dept-ack">
             <RadioInput
-              {...register("docukind")}
+              {...register("docuKind")}
               id="dept-ack"
               type="radio"
               value="차용증"
@@ -160,7 +164,7 @@ const Docukind = () => {
           </Button>
         </ButtonWrapper>
       </FormRadioWrapper>
-      <ErrorMessage>{errors?.docukind?.message}</ErrorMessage>
+      <ErrorMessage>{errors?.docuKind?.message}</ErrorMessage>
     </Wrapper>
   );
 };

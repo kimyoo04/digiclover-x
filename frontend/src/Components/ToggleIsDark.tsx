@@ -9,9 +9,10 @@ const ToggleButton = styled(Button)`
   position: absolute;
   right: 50px;
   bottom: 50px;
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   background-color: ${(props) => props.color};
+  border-radius: 20px;
 `;
 
 const DarkIcon = styled(motion.i)`

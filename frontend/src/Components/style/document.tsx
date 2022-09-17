@@ -54,7 +54,7 @@ export interface IContractorForm {
   extraError?: string;
 }
 
-export interface IDocukindForm {
-  docukind: string;
+export interface IDocuKindForm {
+  docuKind: "free" | "mou" | "labor" | "dept" | "";
   extraError?: string;
 }

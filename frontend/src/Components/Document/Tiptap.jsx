@@ -4,13 +4,14 @@ import {EditorContent, useEditor} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 
-import {useEffect, useState} from "react";
 import styled from "styled-components";
 
 import free from "./docukind/free";
 import mou from "./docukind/mou";
 import labor from "./docukind/labor";
 import dept from "./docukind/dept";
+import {useRecoilValue, useSetRecoilState} from "recoil";
+import {docuContentState, docuKindState} from "atom/documentAtom";
 
 const Paper = styled.div`
   display: flex;
@@ -173,27 +174,24 @@ const MenuBar = ({editor}) => {
 };
 
 const TiptapEditor = () => {
-  const [formContent, setFormContent] = useState(``);
+  const {docuKind} = useRecoilValue(docuKindState);
+  const setDocuContent = useSetRecoilState(docuContentState);
 
   // 앞 단계에서 선택한 문서양식에 따라서 에디터 출력 다르게 설정
-  useEffect((data) => {
-    switch (data) {
-      case "free":
-        setFormContent(free);
-        break;
-      case "mou":
-        setFormContent(mou);
-        break;
-      case "labor":
-        setFormContent(labor);
-        break;
-      case "dept":
-        setFormContent(dept);
-        break;
+  function selectDocukind() {
+    switch (docuKind) {
+      case "자유양식":
+        return free;
+      case "MOU":
+        return mou;
+      case "근로계약서":
+        return labor;
+      case "차용증":
+        return dept;
       default:
-        setFormContent("Didn't select docukind");
+        return "Didn't select docukind. Go back to docukind page";
     }
-  }, []);
+  }
 
   const editor = useEditor({
     extensions: [
@@ -202,11 +200,11 @@ const TiptapEditor = () => {
         types: ["paragraph"],
       }),
     ],
-    content: formContent,
+    content: selectDocukind(),
     autofocus: true,
     editable: true,
     onUpdate: ({editor}) => {
-      const save = editor.getHTML();
+      setDocuContent({docuContent: editor.getHTML()});
     },
   });
 

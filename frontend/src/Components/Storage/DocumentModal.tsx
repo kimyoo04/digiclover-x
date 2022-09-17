@@ -36,8 +36,13 @@ const DocumentModal = () => {
             onClick={onOverlayClick}
             exit={{opacity: 0}}
             animate={{opacity: 1}}
+            transition={{durationL: 0.2}}
           />
-          <Modal></Modal>
+          <Modal
+            exit={{opacity: 0}}
+            animate={{opacity: 1}}
+            transition={{durationL: 0.2}}
+          ></Modal>
         </>
       ) : null}
     </AnimatePresence>

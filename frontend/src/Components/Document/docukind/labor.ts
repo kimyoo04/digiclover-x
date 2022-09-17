@@ -1,3 +1,3 @@
-const dept = `<p>labor form<p>`;
+const dept = `<p>labor form</p>`;
 
 export default dept;

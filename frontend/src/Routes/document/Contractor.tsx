@@ -1,7 +1,7 @@
 import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import {useRecoilState} from "recoil";
+import {useRecoilState, useSetRecoilState} from "recoil";
 import {isLoggedInState} from "atom/userAtom";
 
 import styled from "styled-components";
@@ -15,6 +15,11 @@ import {
   Input,
 } from "Components/style/document";
 import {Col, Row} from "Components/style/layout";
+import {
+  contractorState,
+  docuProcessState,
+  IContractor,
+} from "atom/documentAtom";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -24,6 +29,9 @@ const ButtonWrapper = styled.div`
   margin-top: 32px;
 `;
 
+const PlusIcon = styled.i`
+  font-size: 20px;
+`;
 const Contractor = () => {
   const navigate = useNavigate();
   function prevClick() {
@@ -33,7 +41,13 @@ const Contractor = () => {
     navigate(`/`);
   }
 
+  // 1인 버전 끝난 후 수정할 것!
+  function addContractor() {
+    return null;
+  }
+
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const setContractor = useSetRecoilState(contractorState);
 
   // 로그인 분기 처리
   useEffect(() => {
@@ -52,7 +66,7 @@ const Contractor = () => {
     defaultValues: {},
   });
 
-  const onValid = (data: IContractorForm) => {
+  const onValid = async (data: IContractor) => {
     if (!data.companyName) {
       setError(
         "companyName",
@@ -61,6 +75,8 @@ const Contractor = () => {
       );
     } else {
       // form data 저장하는 곳
+      console.log(data);
+      setContractor([data]);
       navigate(`/document/docukind`);
     }
   };
@@ -141,6 +157,13 @@ const Contractor = () => {
           </Col>
 
           <ErrorMessage>{errors?.extraError?.message}</ErrorMessage>
+          <Button
+            onClick={() => addContractor()}
+            whileHover={{scale: 1.1}}
+            transition={{duration: 0.05}}
+          >
+            <PlusIcon className="ri-add-line"></PlusIcon>
+          </Button>
           <ButtonWrapper>
             <Button
               onClick={prevClick}
