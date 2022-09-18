@@ -13,10 +13,9 @@ import {
   FormWrapper,
   IContractorForm,
   Label,
-  Wrapper,
   Input,
 } from "Components/style/document";
-import {Col, Row} from "Components/style/layout";
+import {Col, Row, Wrapper} from "Components/style/layout";
 
 const ButtonWrapper = styled.div`
   display: flex;

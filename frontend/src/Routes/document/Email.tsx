@@ -8,7 +8,7 @@ import {docuAllState, IContractor} from "atom/documentAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
-import {Wrapper} from "Components/style/document";
+import {Wrapper} from "Components/style/layout";
 import ContractorCard from "Components/Document/ContractorCard";
 import Alert from "Components/Alert";
 

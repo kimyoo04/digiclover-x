@@ -14,3 +14,14 @@ export const Row = styled.div`
   align-items: flex-end;
   justify-content: space-between;
 `;
+
+export const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  min-height: 94vh;
+  padding-top: 100px;
+  background-color: ${(props) => props.theme.bgColor};
+`;

@@ -8,13 +8,13 @@ import {docuKindState, IDocuKind} from "atom/documentAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
+import {Wrapper} from "Components/style/layout";
 import {
   ErrorMessage,
   FormWrapper,
   IDocuKindForm,
   Input,
   Label,
-  Wrapper,
 } from "Components/style/document";
 
 const FormRadioWrapper = styled(FormWrapper)`

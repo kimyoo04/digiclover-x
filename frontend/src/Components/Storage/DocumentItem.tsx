@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import Button from "../style/buttons";
 
-const DocumentWrapper = styled.div``;
+const DocumentWrapper = styled.div`
+  width: 80vw;
+`;
 const DocuInfo = styled.div``;
 const FileName = styled.span``;
 const Date = styled.span`
@@ -30,48 +32,56 @@ interface IDocuModal {
 const DocumentItem = ({onDocuClicked}: IDocuModal) => {
   const people = ["갑", "을", "병", "정"];
 
-  const documentOnlyData = [
+  const documentsData = [
     {
-      id: 7,
-      docuName: "퍼그야 제발...",
-      hashFile: "d41d8cd98f00b204e9800998ecf8427e",
-      createdAt: "2022-09-07",
-      updatedAt: "2022-09-07",
-    },
-    {
-      id: 6,
-      docuName: "찐짜",
-      hashFile: "d41d8cd98f00b204e9800998ecf8427e",
-      createdAt: "2022-09-07",
-      updatedAt: "2022-09-07",
+      id: {},
+
+      // 문서 정보 (문서 양식, 문서 제목, 문서 내용)
+      docukind: "자유형식",
+      docuTitle: "2022년 김유 근로계약서",
+      docuContent: "<p>문서 테스트입니다</p>",
+
+      // 문서 파일 헤시값 A
+      hashFile: "13asdasc2ce8dh977182gds871nbhd19shxoi1hx1sab181",
+
+      // 계약자 갑, 을, 병, 정 정보
+      UserId1: 3,
+      UserId2: null,
+      UserId3: null,
+      UserId4: null,
     },
   ];
 
-  const documentsData = [
+  const signaturesData = [
     {
-      contractorPhone: "010-0000-1234",
-      isSigned: 0,
-      hashValue: "0",
-      imgUrl: null,
-      DocumentId: 3,
-      createdAt: "2022-09-07",
-      updatedAt: "2022-09-07",
+      id: 10,
+
+      DocumentId: 5,
+      UserId: 3,
+      contractorPhone: "010-8131-5224",
+
+      isSigned: 1,
+
+      hashValue: "qwicmwl1289dj28091dj7y81h2hd1kshjkcbn1askasckljas",
+      imgUrl: "12jildj12ijaw89adahscxlhckljq290cjaclkasjc2n",
     },
     {
-      contractorPhone: "010-8131-1234",
-      isSigned: 1,
-      hashValue: "ed5e0a8220a2c05bbaefaf4a77acd2c1",
-      imgUrl:
-        "2vkeMJ2CQK1AzTulSmB8L8lzazvVjsCOAvet7sEdnWbS1/BJO98RUnMC2whsGxhHlwquSvKpbTpyLIEDCwwvY5VAOe/A/Z14egEylbx+Dy2wbWAcjWfyG5OHhnH+2QsMA2TST6ULkNnXkgkMBNavD2+KU9p5ftSmWo6bWqCZG+kCZOpS0P++BNZ/qU4679GH9V68+jKiffXvPATGEhAgY0nrp2uBTXYcPt3ddQkscnICZJHLbtL7FDhVePzVJ7z3Se1cjQkIkMYWxHDmJ3BSgLgsO7+1NOLtBATIdl6OJvAQgVckuWntmVTCQ6EsQUCALGGVzZEAAQIHEBAgB0B1SgIECCxBQIAsYZXNkQABAgcQECAHQHVKAgQILEFAgCxhlc2RAAECBxAQIAdAdUoCBAgsQUCALGGVzZEAAQIHEBAgB0B1SgIECCxBQIAsYZXNkQABAgcQ8Dj3A6A6JQECBJYgMAyQSb+KwKMfllBu5kiAQE8CwwC5P8k5U01OgEwlr18CBAjUCfhK2zo3rQgQILB4gWGA3JHkwqlE7ECmktcvAQIE6gSGAfK+JO+oO83urQTI7obOQIAAgTEFhgFyWZJvj9n5sC8BMpW8fgkQILC9wEuTfHXQbNLX8Ek7395OCwIECCxa4ANJrhUgi64BkydAgECVwJ1JzhcgVXYaESBAYNEC9yY5V4AsugZMngABAlUC5YODZwmQKjuNCBAgsGiB8uiS4b3rSe9jT9r5osvA5AkQILC9gADZ3kwLAgQIEEjSzKPcy2rYgahJAgQIzEdAgMxnrYyUAAECTQk0810gdiBN1YXBECBA4JQCdyV5zOCI65O8Z0ozl7Cm1Nc3AQIENhdo6vKVHcjm",
+      id: 11,
+
       DocumentId: 5,
-      createdAt: "2022-09-07",
-      updatedAt: "2022-09-08",
+      UserId: null,
+      contractorPhone: "010-9999-9999",
+
+      isSigned: 0,
+
+      hashValue: null,
+      imgUrl: null,
     },
   ];
 
   return (
     <div>
-      {documentsData.map((documentData, index) => {
+      {signaturesData.map((documentData, index) => {
         return (
           <DocumentWrapper key={documentData.DocumentId}>
             <DocuInfo>
@@ -84,12 +94,10 @@ const DocumentItem = ({onDocuClicked}: IDocuModal) => {
               <ConfirmText>
                 {documentData.isSigned ? "인증완료" : "인증예정"}
               </ConfirmText>
-              <ModalButton
-                onClick={() => onDocuClicked(documentData.DocumentId)}
-              >
-                상세보기
-              </ModalButton>
             </IconWrapper>
+            <ModalButton onClick={() => onDocuClicked(documentData.DocumentId)}>
+              상세보기
+            </ModalButton>
           </DocumentWrapper>
         );
       })}

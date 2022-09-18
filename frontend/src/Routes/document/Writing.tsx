@@ -5,7 +5,7 @@ import {useRecoilState} from "recoil";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
-import {Wrapper} from "Components/style/document";
+import {Wrapper} from "Components/style/layout";
 import {isLoggedInState} from "atom/userAtom";
 import Tiptap from "Components/Document/tiptap";
 

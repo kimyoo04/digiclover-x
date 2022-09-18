@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  min-height: 94vh;
-  padding-top: 100px;
-  background-color: ${(props) => props.theme.bgColor};
-`;
-
 export const FormWrapper = styled.div`
   background-color: ${(props) => props.theme.bgWhiteTransColor1};
   border: 1px solid ${(props) => props.theme.bgWhiteColor};
