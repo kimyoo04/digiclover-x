@@ -10,6 +10,7 @@ declare module "styled-components" {
     bgBlackTransColor: string;
 
     textColor: string;
+    textWhiteColor: string;
     textAcentColor: string;
 
     btnColor: string;

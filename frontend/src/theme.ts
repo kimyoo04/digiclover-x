@@ -9,6 +9,7 @@ export const darkTheme: DefaultTheme = {
   bgBlackTransColor: " rgba(0, 0, 0, 0.05)",
 
   textColor: "white",
+  textWhiteColor: "black",
   textAcentColor: "teal",
 
   btnColor: "#c4d71f",
@@ -50,6 +51,7 @@ export const lightTheme: DefaultTheme = {
   bgBlackTransColor: " rgba(255, 255, 255, 0.1)",
 
   textColor: "black",
+  textWhiteColor: "white",
   textAcentColor: "blue",
 
   btnColor: "#c4d71f",
