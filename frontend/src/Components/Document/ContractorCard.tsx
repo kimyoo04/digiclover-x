@@ -1,11 +1,5 @@
+import {IContractor} from "atom/documentAtom";
 import styled from "styled-components";
-
-interface IContractor {
-  companyName: string;
-  name: string;
-  phone: string;
-  email: string;
-}
 
 const Card = styled.div`
   display: flex;
@@ -46,7 +40,7 @@ const ContractorCard = (contractor: IContractor) => {
       </InfoWrapper>
       <InfoWrapper>
         <Info>전화번호 :</Info>
-        <InfoText>{contractor.phone}</InfoText>
+        <InfoText>{contractor.contractorPhone}</InfoText>
       </InfoWrapper>
       <InfoWrapper>
         <Info>이메일 :</Info>

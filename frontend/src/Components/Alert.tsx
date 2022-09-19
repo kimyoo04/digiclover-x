@@ -24,19 +24,26 @@ const Overlay = styled(motion.div)`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
+  z-index: 10;
+`;
+const AlertWrapper = styled.div`
+  width: 100%;
+  position: absolute;
 `;
 
 const AlertItem = styled(motion.div)`
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 500px;
   height: 140px;
+  margin: 0 auto;
   margin-top: 100px;
   background-color: white;
   border-radius: 6px;
   overflow: hidden;
+  z-index: 11;
 `;
 
 const AlertBar = styled.div`
@@ -50,7 +57,7 @@ const AlertIcon = styled.i`
   color: ${(props) => (props.color ? props.color : "#222222")};
 `;
 
-const AlertWrapper = styled.div`
+const AlertInfo = styled.div`
   display: flex;
   flex-flow: column wrap;
 `;
@@ -124,26 +131,29 @@ const Alert = ({alertMessage, toggleAlert}: IAlert) => {
   }, []);
 
   return (
-    <Overlay
-      onClick={toggleAlert}
-      initial={{opacity: 0}}
-      animate={{opacity: 1}}
-      transition={{duration: 0.3}}
-    >
-      <AlertItem
-        initial={{opacity: 0, scale: 0.5}}
-        animate={{opacity: 1, scale: 1}}
+    <>
+      <Overlay
+        onClick={toggleAlert}
+        initial={{opacity: 0}}
+        animate={{opacity: 1}}
         transition={{duration: 0.3}}
-      >
-        {alertBar}
-        {alertIcon}
-        <AlertWrapper>
-          <AlertTitle>{alertMessage.alertType}</AlertTitle>
-          <AlertContent>{alertMessage.content}</AlertContent>
-        </AlertWrapper>
-        <CloseIcon className="ri-close-fill"></CloseIcon>
-      </AlertItem>
-    </Overlay>
+      ></Overlay>
+      <AlertWrapper>
+        <AlertItem
+          initial={{opacity: 0, scale: 0.5}}
+          animate={{opacity: 1, scale: 1}}
+          transition={{duration: 0.3}}
+        >
+          {alertBar}
+          {alertIcon}
+          <AlertInfo>
+            <AlertTitle>{alertMessage.alertType}</AlertTitle>
+            <AlertContent>{alertMessage.content}</AlertContent>
+          </AlertInfo>
+          <CloseIcon className="ri-close-fill"></CloseIcon>
+        </AlertItem>
+      </AlertWrapper>
+    </>
   );
 };
 

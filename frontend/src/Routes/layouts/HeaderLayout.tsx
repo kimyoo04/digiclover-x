@@ -1,4 +1,4 @@
-import {Outlet, NavLink} from "react-router-dom";
+import {Outlet, NavLink, useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useRecoilState} from "recoil";
 import {isAuthenticatedState} from "atom/userAtom";
@@ -49,10 +49,12 @@ const LogoutButton = styled(motion.span)`
 `;
 
 const HeaderLayout = () => {
+  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] =
     useRecoilState(isAuthenticatedState);
 
   function onlogOut() {
+    navigate(`/`);
     setIsAuthenticated(false);
   }
 

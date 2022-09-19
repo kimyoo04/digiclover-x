@@ -3,28 +3,19 @@ const DocumentsCtrl = require("../controllers/documents.controller.js");
 const SignaturesCtrl = require("../controllers/signatures.controller.js");
 const router = express.Router();
 
-// 유저별 전체 문서 조회
-router.route("/").get(DocumentsCtrl.apiGetDocuments);
-
-// 서명하지 않은 문서들 조회
-router.route("/notSigned").get(DocumentsCtrl.apiGetDocumentNotSigned);
-
-// 서명한 문서들 조회
-router.route("/Signed").get(DocumentsCtrl.apiGetDocumentSigned);
-
-// 유저별 특정 문서 조회
-router.route("/id/:id").get(DocumentsCtrl.apiGetDocumentById);
-
-// 특정 유저가 생성해서 계약을 진행한 특정 문서 조회, 생성, 수정, 삭제
 router
-  .route("/id/:id/user")
-  .post(DocumentsCtrl.apiPostOneDocument)
-  .put(DocumentsCtrl.apiUpdateOneDocument)
-  .delete(DocumentsCtrl.apiDeleteOneDocument);
+  .route("/")
+  .get(DocumentsCtrl.apiGetDocuments) // 유저별 전체 문서 조회
+  .post(DocumentsCtrl.apiPostOneDocument); // 문서 생성 + 요청자, 수신자 서명 생성
 
-// 문서를 서명했을 때 signature row 수정
+// 문서 id를 URL에 넣고, 세션쿠키의 유저 정보와 비교하기
 router
-  .route("/id/:id/signature/:signature_id")
-  .put(SignaturesCtrl.apiUpdateSignature);
+  .route("/:id")
+  .get(DocumentsCtrl.apiGetDocumentById) // 유저별 특정 문서 1개 조회 (+ 서명 튜플)
+  .delete(DocumentsCtrl.apiDeleteDocumentById); // 유저별 특정 문서 1개 삭제 (요청자(UserId1과 일치)인 경우에만)
+
+// 이메일 수신자가 문서를 서명했을 때 signature row 수정
+// 문서 id, 문서 hashFile을 URL에 넣고, 세션 쿠키의 유저 정보와 비교하기
+router.route("/:id/:hashFile/signning").put(SignaturesCtrl.apiUpdateSignature);
 
 module.exports = router;

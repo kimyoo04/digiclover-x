@@ -38,7 +38,7 @@ export const Input = styled.input`
 export interface IContractorForm {
   companyName: string;
   name: string;
-  phone: string;
+  contractorPhone: string;
   email: string;
   extraError?: string;
 }

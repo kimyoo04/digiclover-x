@@ -102,11 +102,11 @@ const Contractor = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="phone">Phone</Label>
-              <ErrorMessage>{errors?.phone?.message}</ErrorMessage>
+              <Label htmlFor="contractorPhone">Phone</Label>
+              <ErrorMessage>{errors?.contractorPhone?.message}</ErrorMessage>
             </Row>
             <Input
-              {...register("phone", {
+              {...register("contractorPhone", {
                 required: "Phone number is required",
                 pattern: {
                   value: /^\d{3}-\d{3,4}-\d{4}$/,
@@ -114,7 +114,7 @@ const Contractor = () => {
                 },
               })}
               placeholder="010-0000-0000"
-              name="phone"
+              name="contractorPhone"
               type="tel"
             />
           </Col>

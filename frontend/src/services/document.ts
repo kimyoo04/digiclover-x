@@ -1,24 +1,32 @@
+import {IDocuAll} from "atom/documentAtom";
 import http from "../http-common";
 
 class DocumentDataService {
-  // getAll(page = 0) {
-  //   return http.get(`restaurants?page=${page}`);
-  // }
-  // get(id) {
-  //   return http.get(`/restaurant?id=${id}`);
-  // }
+  getAllDocuments() {
+    // 인자 page = 0 넣기
+    return http.get(`/documents`);
+    // return http.get(`/documents?page=${page}`); // 페이지 구현하기
+  }
+  createOneDocument(data: IDocuAll) {
+    return http.post("/document", data);
+  }
+
+  getOneDocument(id: number) {
+    return http.get(`/documents/${id}`);
+  }
+
+  deleteOneDocument(id: number, userId: string) {
+    return http.delete(`/document/${id}`, {data: {userId: userId}});
+  }
+
+  updateSignature(imgUrl: string) {
+    return http.put("/documents/:id/signning", imgUrl);
+  }
+
   // find(query, by = "name", page = 0) {
   //   return http.get(`restaurants?${by}=${query}&page=${page}`);
   // }
-  // createReview(data) {
-  //   return http.post("/review-new", data);
-  // }
-  // updateReview(data) {
-  //   return http.put("/review-edit", data);
-  // }
-  // deleteReview(id, userId) {
-  //   return http.delete(`/review-delete?id=${id}`, {data: {user_id: userId}});
-  // }
+
   // getCuisines(id) {
   //   return http.get(`/cuisines`);
   // }

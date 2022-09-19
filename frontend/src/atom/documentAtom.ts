@@ -14,7 +14,7 @@ export const docuProcessState = atom<number>({
 export interface IContractor {
   companyName: string;
   name: string;
-  phone: string;
+  contractorPhone: string;
   email: string;
 }
 
