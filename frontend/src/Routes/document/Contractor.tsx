@@ -1,9 +1,7 @@
-import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-import {useRecoilState, useSetRecoilState} from "recoil";
-import {isLoggedInState} from "atom/userAtom";
+import {useSetRecoilState} from "recoil";
 import {contractorState, IContractor} from "atom/documentAtom";
 
 import styled from "styled-components";
@@ -33,24 +31,13 @@ const Contractor = () => {
   function prevClick() {
     navigate(-1);
   }
-  function goHome() {
-    navigate(`/`);
-  }
 
   // 1인 버전 끝난 후 수정할 것!
   function addContractor() {
     return null;
   }
 
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const setContractor = useSetRecoilState(contractorState);
-
-  // 로그인 분기 처리
-  useEffect(() => {
-    if (!isLoggedIn) {
-      goHome();
-    }
-  }, []);
 
   // 계약자 정보 받는 리액트-훅-폼
   const {

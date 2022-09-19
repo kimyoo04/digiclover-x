@@ -20,7 +20,6 @@ const Nav = styled.ul`
   font-size: 14px;
 
   background-color: ${(props) => props.theme.bgColor};
-  box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
   z-index: 100;
   & Link {
     font-style: none;

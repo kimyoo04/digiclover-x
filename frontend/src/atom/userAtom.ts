@@ -3,7 +3,7 @@ import {atom} from "recoil";
 //--------------------------------------------------------------------------------
 // 유저의 로그인 / 로그아웃 확인 및 특정 라우터 접근 제한 기능
 //--------------------------------------------------------------------------------
-export const isLoggedInState = atom<boolean>({
+export const isAuthenticatedState = atom<boolean>({
   key: "user",
   default: false,
 });

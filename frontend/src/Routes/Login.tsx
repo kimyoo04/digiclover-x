@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 import {useRecoilState} from "recoil";
-import {isLoggedInState} from "atom/userAtom";
+import {isAuthenticatedState} from "atom/userAtom";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -54,7 +54,8 @@ const Login = () => {
     navigate(`/`);
   }
 
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
+  const [isAuthenticated, setIsAuthenticated] =
+    useRecoilState(isAuthenticatedState);
 
   const {
     register,
@@ -69,11 +70,11 @@ const Login = () => {
     // 데이터베이스에 존재하는 유저인지 조회
     //
     // IsLoggedIn 값 false => true, home으로 이동
-    setIsLoggedIn(true);
+    setIsAuthenticated(true);
     navigate(`/`);
   };
 
-  return isLoggedIn ? (
+  return isAuthenticated ? (
     <Wrapper>
       <div>
         <GoHomeText>you are already logged in!</GoHomeText>

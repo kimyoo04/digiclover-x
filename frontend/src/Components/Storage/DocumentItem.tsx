@@ -1,3 +1,4 @@
+import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 import Button from "../style/buttons";
 
@@ -114,11 +115,16 @@ interface IDocumentData {
 }
 
 interface IDocuItem {
-  onDocuClicked: (docuId: number) => void;
   documentsData: IDocumentData[];
 }
 
-const DocumentItem = ({onDocuClicked, documentsData}: IDocuItem) => {
+const DocumentItem = ({documentsData}: IDocuItem) => {
+  const navigate = useNavigate();
+  function onDocuClicked(documentId: number) {
+    // 선택한 문서 아이디로 이동 (DocumentModal 컴포넌트)
+    navigate(`/storage/${documentId}`);
+  }
+
   return (
     <div>
       {documentsData.map(

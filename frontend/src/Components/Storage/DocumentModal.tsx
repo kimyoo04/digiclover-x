@@ -1,5 +1,5 @@
 import {AnimatePresence, motion} from "framer-motion";
-import {PathMatch, useMatch, useNavigate} from "react-router-dom";
+import {PathMatch, useMatch, useNavigate, useParams} from "react-router-dom";
 import styled from "styled-components";
 
 const Overlay = styled(motion.div)`
@@ -23,10 +23,40 @@ const Modal = styled(motion.div)`
   background-color: ${(props) => props.theme.bgWhiteColor};
 `;
 
+// props로 클릭한 문서의 정보 받아오기
 const DocumentModal = () => {
   const navigate = useNavigate();
+  const {documentId} = useParams(); // documentId를 활용해서 Signature 조회?
   const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
   const onOverlayClick = () => navigate("/storage");
+
+  // 아래 signature에서 받아올 데이터 형태
+  const signaturesData = [
+    {
+      id: 10,
+
+      DocumentId: 5,
+      UserId: 3,
+      contractorPhone: "010-8131-5224",
+
+      isSigned: 1,
+
+      hashValue: "qwicmwl1289dj28091dj7y81h2hd1kshjkcbn1askasckljas",
+      imgUrl: "12jildj12ijaw89adahscxlhckljq290cjaclkasjc2n",
+    },
+    {
+      id: 11,
+
+      DocumentId: 5,
+      UserId: null,
+      contractorPhone: "010-9999-9999",
+
+      isSigned: 0,
+
+      hashValue: null,
+      imgUrl: null,
+    },
+  ];
 
   return (
     <AnimatePresence>

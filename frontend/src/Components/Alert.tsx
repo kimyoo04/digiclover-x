@@ -6,10 +6,26 @@ import {useState, useEffect} from "react";
 // alertType - 알림의 종류, 제목, 아이콘, 색깔을 설정
 // content - 알림의 내용을 설정
 //--------------------------------------------------------------------------------
-interface IAlert {
+interface IAlertInfo {
   alertType: string;
   content: string;
 }
+
+interface IAlert {
+  alertMessage: IAlertInfo;
+  toggleAlert: () => void;
+}
+
+const Overlay = styled(motion.div)`
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+`;
 
 const AlertItem = styled(motion.div)`
   display: flex;
@@ -26,14 +42,12 @@ const AlertItem = styled(motion.div)`
 const AlertBar = styled.div`
   width: 6px;
   height: 100%;
-  background-color: ${(props) =>
-    props.color ? props.color : props.theme.grayscale2Color};
+  background-color: ${(props) => (props.color ? props.color : "#222222")};
 `;
 
 const AlertIcon = styled.i`
   font-size: 40px;
-  color: ${(props) =>
-    props.color ? props.color : props.theme.grayscale2Color};
+  color: ${(props) => (props.color ? props.color : "#222222")};
 `;
 
 const AlertWrapper = styled.div`
@@ -44,25 +58,23 @@ const AlertWrapper = styled.div`
 const AlertTitle = styled.span`
   font-size: 22px;
   font-weight: 700;
-  color: ${(props) =>
-    props.color ? props.color : props.theme.grayscale2Color};
+  color: ${(props) => (props.color ? props.color : "#222222")};
   margin-bottom: 10px;
 `;
 
 const AlertContent = styled.span`
   width: 300px;
   font-weight: 500;
-  color: ${(props) =>
-    props.color ? props.color : props.theme.grayscale2Color};
+  color: ${(props) => (props.color ? props.color : "#222222")};
 `;
 
 const CloseIcon = styled.i`
   font-size: 40px;
-  color: ${(props) => props.theme.grayscale2Color};
+  color: ${(props) => "#222222"};
   margin-right: 20px;
 `;
 
-const Alert = (alertMessage: IAlert) => {
+const Alert = ({alertMessage, toggleAlert}: IAlert) => {
   const [alertIcon, setAlertIcon] = useState(<div></div>);
   const [alertBar, setAlertBar] = useState(<div></div>);
 
@@ -112,19 +124,26 @@ const Alert = (alertMessage: IAlert) => {
   }, []);
 
   return (
-    <AlertItem
-      initial={{opacity: 0, scale: 0.5}}
-      animate={{opacity: 1, scale: 1}}
+    <Overlay
+      onClick={toggleAlert}
+      initial={{opacity: 0}}
+      animate={{opacity: 1}}
       transition={{duration: 0.3}}
     >
-      {alertBar}
-      {alertIcon}
-      <AlertWrapper>
-        <AlertTitle>{alertMessage.alertType}</AlertTitle>
-        <AlertContent>{alertMessage.content}</AlertContent>
-      </AlertWrapper>
-      <CloseIcon className="ri-close-fill"></CloseIcon>
-    </AlertItem>
+      <AlertItem
+        initial={{opacity: 0, scale: 0.5}}
+        animate={{opacity: 1, scale: 1}}
+        transition={{duration: 0.3}}
+      >
+        {alertBar}
+        {alertIcon}
+        <AlertWrapper>
+          <AlertTitle>{alertMessage.alertType}</AlertTitle>
+          <AlertContent>{alertMessage.content}</AlertContent>
+        </AlertWrapper>
+        <CloseIcon className="ri-close-fill"></CloseIcon>
+      </AlertItem>
+    </Overlay>
   );
 };
 

@@ -1,9 +1,3 @@
-import {useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-
-import {useRecoilState} from "recoil";
-import {isLoggedInState} from "atom/userAtom";
-
 import styled from "styled-components";
 import DocumentItem from "Components/Storage/DocumentItem";
 import DocumentModal from "Components/Storage/DocumentModal";
@@ -40,24 +34,6 @@ const DocumentHeader = styled.div`
 `;
 
 const Storage = () => {
-  const navigate = useNavigate();
-  function onDocuClicked(docuId: number) {
-    // 선택한 문서 아이디로 이동 (DocumentModal 컴포넌트)
-    navigate(`/storage/${docuId}`);
-  }
-  function goHome() {
-    navigate(`/`);
-  }
-
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-
-  // 로그인 분기 처리
-  useEffect(() => {
-    if (!isLoggedIn) {
-      goHome();
-    }
-  }, []);
-
   const documentsData = [
     {
       id: 5,
@@ -175,32 +151,6 @@ const Storage = () => {
     },
   ];
 
-  const signaturesData = [
-    {
-      id: 10,
-
-      DocumentId: 5,
-      UserId: 3,
-      contractorPhone: "010-8131-5224",
-
-      isSigned: 1,
-
-      hashValue: "qwicmwl1289dj28091dj7y81h2hd1kshjkcbn1askasckljas",
-      imgUrl: "12jildj12ijaw89adahscxlhckljq290cjaclkasjc2n",
-    },
-    {
-      id: 11,
-
-      DocumentId: 5,
-      UserId: null,
-      contractorPhone: "010-9999-9999",
-
-      isSigned: 0,
-
-      hashValue: null,
-      imgUrl: null,
-    },
-  ];
   return (
     <StorageWrapper>
       <DocumentWrapper>
@@ -217,10 +167,7 @@ const Storage = () => {
             <span>상세 기록</span>
           </div>
         </DocumentHeader>
-        <DocumentItem
-          onDocuClicked={onDocuClicked}
-          documentsData={documentsData}
-        ></DocumentItem>
+        <DocumentItem documentsData={documentsData}></DocumentItem>
       </DocumentWrapper>
       <DocumentModal></DocumentModal>
     </StorageWrapper>

@@ -6,7 +6,6 @@ import {useRecoilState} from "recoil";
 import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/layout";
-import {isLoggedInState} from "atom/userAtom";
 import Tiptap from "Components/Document/tiptap";
 
 const ButtonWrapper = styled.div`
@@ -25,18 +24,6 @@ const Writing = () => {
   function prevClick() {
     navigate(-1);
   }
-  function goHome() {
-    navigate(`/`);
-  }
-
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-
-  // 로그인 분기 처리
-  useEffect(() => {
-    if (!isLoggedIn) {
-      goHome();
-    }
-  }, []);
 
   return (
     <Wrapper>

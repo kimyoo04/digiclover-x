@@ -1,9 +1,7 @@
-import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-import {useRecoilState, useSetRecoilState} from "recoil";
-import {isLoggedInState} from "atom/userAtom";
+import {useSetRecoilState} from "recoil";
 import {docuKindState, IDocuKind} from "atom/documentAtom";
 
 import styled from "styled-components";
@@ -70,19 +68,8 @@ const Docukind = () => {
   function prevClick() {
     navigate(-1);
   }
-  function goHome() {
-    navigate(`/`);
-  }
 
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
   const setDocukind = useSetRecoilState(docuKindState);
-
-  // 로그인 분기 처리
-  useEffect(() => {
-    if (!isLoggedIn) {
-      goHome();
-    }
-  }, []);
 
   // 문서 종류를 선택하는 리액트-훅-폼
   const {

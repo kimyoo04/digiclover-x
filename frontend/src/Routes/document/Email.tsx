@@ -1,9 +1,7 @@
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {motion} from "framer-motion";
 
-import {useRecoilState, useRecoilValue} from "recoil";
-import {isLoggedInState} from "atom/userAtom";
+import {useRecoilValue} from "recoil";
 import {docuAllState, IContractor} from "atom/documentAtom";
 
 import styled from "styled-components";
@@ -39,17 +37,6 @@ const AgreeInput = styled.input`
   margin-left: 20px;
 `;
 
-const Overlay = styled(motion.div)`
-  position: absolute;
-  top: 0;
-  display: flex;
-  justify-content: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 100;
-`;
-
 const Email = () => {
   const navigate = useNavigate();
   function prevClick() {
@@ -66,28 +53,18 @@ const Email = () => {
       setAlert((prev) => !prev);
     }
   }
-  function goHome() {
-    navigate(`/`);
-  }
 
   const docuAll = useRecoilValue(docuAllState);
   console.log(docuAll);
-  const [isLoggedIn, setIsLoggedIn] = useRecoilState(isLoggedInState);
-
-  // 로그인 분기 처리
-  useEffect(() => {
-    if (!isLoggedIn) {
-      goHome();
-    }
-  }, []);
 
   const [isCheck, setIsCheck] = useState(false);
   const [alert, setAlert] = useState(false);
 
-  useEffect(() => {}, []);
-
   function toggleChecking() {
     setIsCheck((prev) => !prev);
+  }
+  function toggleAlert() {
+    setAlert((prev) => !prev);
   }
 
   const alertMessage = {
@@ -123,14 +100,7 @@ const Email = () => {
         </ButtonWrapper>
 
         {alert ? (
-          <Overlay
-            onClick={() => setAlert((prev) => !prev)}
-            initial={{opacity: 0}}
-            animate={{opacity: 1}}
-            transition={{duration: 0.3}}
-          >
-            <Alert {...alertMessage} />
-          </Overlay>
+          <Alert alertMessage={alertMessage} toggleAlert={toggleAlert} />
         ) : null}
       </Main>
     </Wrapper>
