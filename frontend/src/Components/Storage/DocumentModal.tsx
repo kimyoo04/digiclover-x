@@ -26,7 +26,7 @@ const Modal = styled(motion.div)`
 // props로 클릭한 문서의 정보 받아오기
 const DocumentModal = () => {
   const navigate = useNavigate();
-  const {documentId} = useParams(); // documentId를 활용해서 Signature 조회?
+  const {id} = useParams(); // documentId를 활용해서 Signature 조회?
   const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
   const onOverlayClick = () => navigate("/storage");
 

@@ -1,4 +1,6 @@
+import {FC} from "react";
 import {useNavigate} from "react-router-dom";
+import {IDocumentData, IDocumentsData} from "services/document";
 import styled from "styled-components";
 import Button from "../style/buttons";
 
@@ -94,31 +96,7 @@ const SignIcon = ({contractorId, people}: ISignIcon) => {
   );
 };
 
-interface IDocumentData {
-  id: number;
-
-  // 문서 정보 (문서 양식, 문서 제목, 문서 내용)
-  docukind: string;
-  docuTitle: string;
-  docuContent: string;
-
-  // 문서 파일 헤시값 A
-  hashFile: string;
-
-  // 계약자 갑, 을, 병, 정 정보
-  UserId1: number | null;
-  UserId2: number | null;
-  UserId3: number | null;
-  UserId4: number | null;
-
-  createdAt: string;
-}
-
-interface IDocuItem {
-  documentsData: IDocumentData[];
-}
-
-const DocumentItem = ({documentsData}: IDocuItem) => {
+const DocumentItem: FC<IDocumentsData> = ({documentsData}) => {
   const navigate = useNavigate();
   function onDocuClicked(documentId: number) {
     // 선택한 문서 아이디로 이동 (DocumentModal 컴포넌트)
@@ -127,7 +105,7 @@ const DocumentItem = ({documentsData}: IDocuItem) => {
 
   return (
     <div>
-      {documentsData.map(
+      {documentsData?.map(
         ({
           id,
           docuTitle,
