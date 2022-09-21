@@ -18,10 +18,10 @@ app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
 // 라우터
 //--------------------------------------------------------------------------------
 const documents = require("./routes/documents.route.js"),
-  users = require("./routes/users.route.js");
+  user = require("./routes/user.route.js");
 
 app.use("/documents", documents);
-app.use("/users", users);
+app.use("/user", user);
 
 //--------------------------------------------------------------------------------
 // 에러 처리 미들웨어

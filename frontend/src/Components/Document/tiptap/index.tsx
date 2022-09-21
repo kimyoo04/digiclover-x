@@ -76,7 +76,7 @@ const Tiptap = ({isEditable}: IIsEditable) => {
   });
 
   return (
-    <Paper>
+    <Paper id="capture">
       <MenuBar editor={editor} isEditable={isEditable} />
       <TitleForm isEditable={isEditable} />
       <EditorWrap>

@@ -39,9 +39,9 @@ app.use(flash());
 //--------------------------------------------------------------------------------
 // 테이블 삭제 순서 지킬 것!
 //--------------------------------------------------------------------------------
-// const Document = from "./models/document";
-// const User = from "./models/user";
-// const Signature = from "./models/signature";
+// const Document = require("./models/document");
+// const User = require("./models/user");
+// const Signature = require("./models/signature");
 // Signature.drop();
 // Document.drop();
 // User.drop();

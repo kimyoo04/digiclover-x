@@ -67,6 +67,16 @@ const Canvas = () => {
     });
 
     // fetch --- docuAll 변수를 이용해서 이 곳에 할 것!
+
+    const html2canvas = require("html2canvas");
+
+    let img;
+
+    html2canvas(document.querySelector("#capture")).then((canvas) => {
+      img = canvas.toDataURL("image/png", 1.0);
+    });
+
+    // 문서의 모든 데이터와 pdfFile post로 넘기기
     DocumentDataService.createOneDocument(docuAll);
 
     // 오류 처리는?
