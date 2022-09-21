@@ -34,7 +34,7 @@ const Signin = () => {
       );
     }
     console.log(data);
-    UserDataService.createUser(data);
+    UserDataService.createOneUser(data);
     navigate(`/login`);
   };
 

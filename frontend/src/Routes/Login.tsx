@@ -15,6 +15,7 @@ import {
   Input,
 } from "Components/style/auth";
 import {Col, Row} from "Components/style/layout";
+import UserDataService from "services/user";
 
 const HookForm = styled.form`
   margin-bottom: 30px;
@@ -68,7 +69,8 @@ const Login = () => {
 
   const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
-    //
+    UserDataService.getUserLocalLogIn(data);
+
     // IsLoggedIn 값 false => true, home으로 이동
     setIsAuthenticated(true);
     navigate(`/`);

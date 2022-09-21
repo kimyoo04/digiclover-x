@@ -26,25 +26,36 @@ export interface IDocumentsData {
 }
 
 const DocumentDataService = {
+  // get - 유저의 모든 문서들
+
   getAllDocuments(): Promise<IDocumentData[]> {
     // 인자 page = 0 넣기
     return http.get(`/documents`).then((res) => res.data);
-    // return http.get(`/documents?page=${page}`); // 페이지 구현하기
   },
+
+  // post - 1개 문서 생성
+
   createOneDocument(data: IDocuAll) {
     return http.post("/documents", {data});
   },
+
+  // get - 문서 1 개 조회 (+ 문서에 포함된 서명들)
 
   getOneDocument(id: number): Promise<IDocumentData> {
     return http.get(`/documents/${id}`).then((res) => res.data);
   },
 
+  // delete - 문서 삭제
+
   deleteOneDocument(id: number, userId: string) {
-    return http.delete(`/document/${id}`, {data: {userId: userId}});
+    // userId와 UserId1 컬럼 비교 후 삭제
+    return http.delete(`/document/${id}`, {data: userId});
   },
 
+  // put - 수신자 서명 후 값 수정
+
   updateSignature(imgUrl: string) {
-    return http.put("/documents/:id/signning", imgUrl);
+    return http.put("/documents/:id/signning", {imgUrl});
   },
 
   // find(query, by = "name", page = 0) {

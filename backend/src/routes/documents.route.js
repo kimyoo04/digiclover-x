@@ -9,6 +9,7 @@ router
   .post(DocumentsCtrl.apiPostOneDocument); // 문서 생성 + 요청자, 수신자 서명 생성
 
 // 문서 id를 URL에 넣고, 세션쿠키의 유저 정보와 비교하기
+
 router
   .route("/:id")
   .get(DocumentsCtrl.apiGetDocumentById) // 유저별 특정 문서 1개 조회 (+ 서명 튜플)
@@ -16,6 +17,7 @@ router
 
 // 이메일 수신자가 문서를 서명했을 때 signature row 수정
 // 문서 id, 문서 hashFile을 URL에 넣고, 세션 쿠키의 유저 정보와 비교하기
-router.route("/:id/:hashFile/signning").put(SignaturesCtrl.apiUpdateSignature);
+
+router.route("/:id/:hashFile/signning").put(SignaturesCtrl.apiUpdateSignature); // 유저의 서명 수정
 
 module.exports = router;

@@ -1,10 +1,35 @@
 import documentsDAO from "../dao/documentsDAO";
 
 module.exports = class DocumentsCtrl {
+  // Get - 모든 문서 조회
+
   static async apiGetDocuments(req, res, next) {
     let documentsData = await documentsDAO.getDocuments();
+
+    console.log("apiGetDocuments - success");
     res.json(documentsData);
   }
+
+  // Get - 문서 1 개 서명 n 개 조회
+
+  static async apiGetDocumentById(req, res, next) {
+    let {id} = req.params;
+
+    // 문서 1 개와 서명 n개 조회
+    let documentData = await documentsDAO.getDocumentById(id);
+    let signaturesData = await documentsDAO.getSignaturesById(id);
+
+    // 데이터 병합
+    let response = {
+      ...documentData,
+      ...signaturesData,
+    };
+
+    console.log("apiGetDocumentById - success");
+    res.json(response);
+  }
+
+  // Post - 문서생성
 
   static async apiPostOneDocument(req, res, next) {
     const crypto = require("crypto");
@@ -57,33 +82,28 @@ module.exports = class DocumentsCtrl {
     const hashFile = makeHashValueA(filePath);
     const hashValue = makeHashValueB(hashFile);
 
-    let response = documentsDAO.postOneDocument(
-      req.body.data, // docuAll 데이터
-      hashFile,
-      hashValue
-    );
-    console.log(response);
-    res.json(response); // {result: true} 전달
+    // 문서 생성
+    await documentsDAO
+      .postOneDocument(
+        req.body.data, // docuAll 데이터
+        hashFile,
+        hashValue
+      )
+      .catch((error) => next(error));
+
+    console.log("apiPostOneDocument - success");
+    return res.json({result: "Post success"});
   }
 
-  static async apiGetDocumentById(req, res, next) {
-    let {id} = req.params;
-    let documentData = await documentsDAO.getDocumentById(id);
-    let signaturesData = await documentsDAO.getSignaturesById(id);
-
-    let response = {
-      ...documentData,
-      ...signaturesData,
-    };
-    res.json(response);
-  }
+  // Delete - 문서삭제
 
   static async apiDeleteDocumentById(req, res, next) {
     let {id} = req.params;
 
     // 권한 확인 위한 userId 받고 where 문에 추가
-    let response = await documentsDAO.deleteOneDocument(id);
+    await documentsDAO.deleteOneDocument(id);
 
-    res.json(response); // {result: true} 전달
+    console.log("apiDeleteDocumentById - success");
+    return res.json({result: "Delete success"});
   }
 };

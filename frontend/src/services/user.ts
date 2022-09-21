@@ -1,22 +1,50 @@
-import {ISignInForm} from "Components/style/auth";
+import {ILogInForm, ISignInForm} from "Components/style/auth";
 import http from "../http-common";
 
 const UserDataService = {
-  // getAll(page = 0) {
-  //   return http.get(`restaurants?page=${page}`);
-  // }
-  getUserLocalLogIn() {
-    return http.get(`/user/login`);
+  // Post - 로컬 로그인
+
+  getUserLocalLogIn(data: ILogInForm) {
+    return http.post(`/user/login-local`, {data});
   },
+
+  // Get - 카카오 로그인 페이지 이동
+
+  getUserKakao() {
+    return http.get(`/kakao`);
+  },
+
+  // Get - 카카오 로그인 성공 후 로그인 진행
+
+  getUserKakaoCallback() {
+    return http.get(`/kakao/callback`);
+  },
+
+  // -------------------------------------------------------
+
+  // Post - 회원가입
+
+  createOneUser(data: ISignInForm) {
+    return http.post("/user/signin", {data});
+  },
+
+  // Get - 회원조회
+  // Delete - 회원탈퇴
+  // Update - 회원정보수정
+
   getOneUser(id: string) {
     return http.get(`/user/${id}`);
   },
-  // find(query, by = "name", page = 0) {
-  //   return http.get(`restaurants?${by}=${query}&page=${page}`);
-  // }
-  createUser(data: ISignInForm) {
-    return http.post("/user/signin", {data});
+  deleteOneUser(id: string) {
+    return http.delete(`/user/${id}`);
   },
+  updateOneUser(id: string) {
+    return http.put(`/user/${id}`);
+  },
+
+  // getAll(page = 0) {
+  //   return http.get(`restaurants?page=${page}`);
+  // }
   // updateReview(data) {
   //   return http.put("/review-edit", data);
   // }
