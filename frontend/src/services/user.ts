@@ -1,18 +1,22 @@
+import {ISignInForm} from "Components/style/auth";
 import http from "../http-common";
 
-class UserDataService {
+const UserDataService = {
   // getAll(page = 0) {
   //   return http.get(`restaurants?page=${page}`);
   // }
-  // get(id) {
-  //   return http.get(`/restaurant?id=${id}`);
-  // }
+  getUserLocalLogIn() {
+    return http.get(`/user/login`);
+  },
+  getOneUser(id: string) {
+    return http.get(`/user/${id}`);
+  },
   // find(query, by = "name", page = 0) {
   //   return http.get(`restaurants?${by}=${query}&page=${page}`);
   // }
-  // createReview(data) {
-  //   return http.post("/review-new", data);
-  // }
+  createUser(data: ISignInForm) {
+    return http.post("/user/signin", {data});
+  },
   // updateReview(data) {
   //   return http.put("/review-edit", data);
   // }
@@ -22,6 +26,6 @@ class UserDataService {
   // getCuisines(id) {
   //   return http.get(`/cuisines`);
   // }
-}
+};
 
-export default new UserDataService();
+export default UserDataService;

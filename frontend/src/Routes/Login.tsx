@@ -9,7 +9,7 @@ import Button from "Components/style/buttons";
 import {
   Wrapper,
   FormWrapper,
-  IForm,
+  ILogInForm,
   Label,
   ErrorMessage,
   Input,
@@ -62,11 +62,11 @@ const Login = () => {
     handleSubmit,
     formState: {errors},
     setError,
-  } = useForm<IForm>({
+  } = useForm<ILogInForm>({
     defaultValues: {},
   });
 
-  const onValid = (data: IForm) => {
+  const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
     //
     // IsLoggedIn 값 false => true, home으로 이동

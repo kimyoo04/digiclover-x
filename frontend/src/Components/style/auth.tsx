@@ -52,9 +52,15 @@ export const Input = styled.input`
   }
 `;
 
-export interface IForm {
+export interface ILogInForm {
   email: string;
-  firstName: string;
+  password: string;
+  extraError?: string;
+}
+
+export interface ISignInForm {
+  email: string;
+  company: string;
   name: string;
   phone: string;
   password: string;

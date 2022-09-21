@@ -1,10 +1,13 @@
 import {useForm} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+
+import UserDataService from "services/user";
 
 import Button from "Components/style/buttons";
 import {
   Wrapper,
   FormWrapper,
-  IForm,
+  ISignInForm,
   Label,
   ErrorMessage,
   Input,
@@ -12,16 +15,17 @@ import {
 import {Col, Row} from "Components/style/layout";
 
 const Signin = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: {errors},
     setError,
-  } = useForm<IForm>({
+  } = useForm<ISignInForm>({
     defaultValues: {},
   });
 
-  const onValid = (data: IForm) => {
+  const onValid = (data: ISignInForm) => {
     if (data.password !== data.passwordCheck) {
       setError(
         "passwordCheck",
@@ -29,6 +33,9 @@ const Signin = () => {
         {shouldFocus: true}
       );
     }
+    console.log(data);
+    UserDataService.createUser(data);
+    navigate(`/login`);
   };
 
   return (
@@ -49,12 +56,31 @@ const Signin = () => {
                   message: "Only emails allowed",
                 },
                 maxLength: {
-                  value: 30,
+                  value: 35,
                   message: "Your email is too long.",
                 },
               })}
               placeholder="Email"
               name="email"
+            />
+          </Col>
+
+          <Col>
+            <Row>
+              <Label htmlFor="company">Company</Label>
+              <ErrorMessage>{errors?.company?.message}</ErrorMessage>
+            </Row>
+            <Input
+              {...register("company", {
+                required: "company Name is required",
+                maxLength: {
+                  value: 35,
+                  message: "company Name is too long.",
+                },
+              })}
+              placeholder="company Name"
+              name="company"
+              type="text"
             />
           </Col>
 
