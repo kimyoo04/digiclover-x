@@ -32,7 +32,7 @@ const DocumentDataService = {
     // return http.get(`/documents?page=${page}`); // 페이지 구현하기
   },
   createOneDocument(data: IDocuAll) {
-    return http.post("/document", data);
+    return http.post("/documents", data);
   },
 
   getOneDocument(id: number): Promise<IDocumentData> {

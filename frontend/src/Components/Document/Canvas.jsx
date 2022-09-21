@@ -1,7 +1,8 @@
 import {useRef, useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
+import DocumentDataService from "services/document";
 
-import {useRecoilValue, useSetRecoilState} from "recoil";
+import {useRecoilState, useRecoilValue} from "recoil";
 import {
   contractorState,
   docuContentState,
@@ -50,7 +51,7 @@ const Canvas = () => {
   const {docuKind} = useRecoilValue(docuKindState);
   const {docuTitle} = useRecoilValue(docuTitleState);
   const {docuContent} = useRecoilValue(docuContentState);
-  const setDocuAll = useSetRecoilState(docuAllState);
+  const [docuAll, setDocuAll] = useRecoilState(docuAllState);
 
   let navigate = useNavigate();
   function prevClick() {
@@ -66,7 +67,9 @@ const Canvas = () => {
     });
 
     // fetch --- docuAll 변수를 이용해서 이 곳에 할 것!
+    DocumentDataService.createOneDocument(docuAll);
 
+    // 오류 처리는?
     navigate(`/document/email`);
   }
 

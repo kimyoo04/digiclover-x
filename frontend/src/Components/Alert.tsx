@@ -13,7 +13,7 @@ interface IAlertInfo {
 
 interface IAlert {
   alertMessage: IAlertInfo;
-  toggleAlert: () => void;
+  closeAlert: () => void;
 }
 
 const Overlay = styled(motion.div)`
@@ -79,9 +79,10 @@ const CloseIcon = styled.i`
   font-size: 40px;
   color: ${(props) => "#222222"};
   margin-right: 20px;
+  cursor: pointer;
 `;
 
-const Alert = ({alertMessage, toggleAlert}: IAlert) => {
+const Alert = ({alertMessage, closeAlert}: IAlert) => {
   const [alertIcon, setAlertIcon] = useState(<div></div>);
   const [alertBar, setAlertBar] = useState(<div></div>);
 
@@ -133,7 +134,7 @@ const Alert = ({alertMessage, toggleAlert}: IAlert) => {
   return (
     <>
       <Overlay
-        onClick={toggleAlert}
+        onClick={closeAlert}
         initial={{opacity: 0}}
         animate={{opacity: 1}}
         transition={{duration: 0.3}}
@@ -150,7 +151,7 @@ const Alert = ({alertMessage, toggleAlert}: IAlert) => {
             <AlertTitle>{alertMessage.alertType}</AlertTitle>
             <AlertContent>{alertMessage.content}</AlertContent>
           </AlertInfo>
-          <CloseIcon className="ri-close-fill"></CloseIcon>
+          <CloseIcon className="ri-close-fill" onClick={closeAlert}></CloseIcon>
         </AlertItem>
       </AlertWrapper>
     </>

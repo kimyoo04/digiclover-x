@@ -63,7 +63,7 @@ const Email = () => {
   function toggleChecking() {
     setIsCheck((prev) => !prev);
   }
-  function toggleAlert() {
+  function closeAlert() {
     setAlert((prev) => !prev);
   }
 
@@ -100,7 +100,7 @@ const Email = () => {
         </ButtonWrapper>
 
         {alert ? (
-          <Alert alertMessage={alertMessage} toggleAlert={toggleAlert} />
+          <Alert alertMessage={alertMessage} closeAlert={closeAlert} />
         ) : null}
       </Main>
     </Wrapper>

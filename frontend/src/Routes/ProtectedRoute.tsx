@@ -18,7 +18,7 @@ const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
     content: "로그인 이후 이용가능합니다.",
   };
 
-  function toggleAlert() {
+  function closeAlert() {
     setAlert((prev) => !prev);
   }
 
@@ -29,7 +29,7 @@ const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
     <>
       <Header />
       {alert ? (
-        <Alert alertMessage={alertMessage} toggleAlert={toggleAlert} />
+        <Alert alertMessage={alertMessage} closeAlert={closeAlert} />
       ) : null}
       <Login />
     </>
