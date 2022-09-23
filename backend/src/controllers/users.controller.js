@@ -5,12 +5,18 @@ module.exports = class UsersCtrl {
   // Get - 로컬 로그인
 
   static async apiGetLocalLogInUser(req, res, next) {
-    passport.authenticate("local", {
-      successRedirect: "/",
-      failureRedirect: "/login",
-      failureFlash: true,
-      successFlash: true,
-    });
+    passport.authenticate("local", (err, user, info) => {
+      if (err) console.error(err);
+      if (!user && info) {
+        res.status(401).json(info);
+      } else {
+        req.login(user, (err) => {
+          if (err) throw console.error(err);
+          console.log(req.user);
+          res.status(200).json(user);
+        });
+      }
+    })(req, res, next);
   }
 
   // Get - 카카오 로그인 페이지 이동
@@ -28,6 +34,33 @@ module.exports = class UsersCtrl {
       (req, res) => {
         res.json({result: "kakao-login success"});
       };
+  }
+
+  // Get - 구글 로그인
+
+  static async apiGetGoogleLogin(req, res, next) {
+    passport.authenticate("google", {scope: ["profile", "email"]});
+  }
+
+  // Get - 구글 로그인 콜백
+
+  static async apiGetGoogleLoginCallback(req, res, next) {
+    passport.authenticate("google", {
+      failureRedirect: "/",
+      session: false,
+    }),
+      function (req, res) {
+        var token = req.user.token;
+        res.redirect("http://localhost:3000?token=" + token);
+      };
+  }
+
+  // Post - 로그아웃
+
+  static async apiPostLogOut(req, res, next) {
+    req.logout();
+    req.session.destroy();
+    res.json({message: "Success Delete."});
   }
 
   //----------------------------------------------------

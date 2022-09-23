@@ -43,7 +43,7 @@ const GmailBtn = styled(Button)`
 
 const GoHomeText = styled.span`
   display: block;
-  color: white;
+  color: ${(props) => props.theme.textColor};
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;
@@ -71,9 +71,9 @@ const Login = () => {
     // 데이터베이스에 존재하는 유저인지 조회
     UserDataService.getUserLocalLogIn(data);
 
-    // IsLoggedIn 값 false => true, home으로 이동
+    // 세션 쿠키 유무 확인
     setIsAuthenticated(true);
-    navigate(`/`);
+    goHome();
   };
 
   return isAuthenticated ? (
@@ -133,8 +133,12 @@ const Login = () => {
         </HookForm>
         <ButtonWrapper>
           <SnsLogin>SNS Login</SnsLogin>
-          <KakaoBtn>Kakao Login</KakaoBtn>
-          <GmailBtn>Gmail Login</GmailBtn>
+          <KakaoBtn onClick={() => UserDataService.getUserKakao()}>
+            Kakao Login
+          </KakaoBtn>
+          <GmailBtn onClick={() => UserDataService.getUserGoogle()}>
+            Google Login
+          </GmailBtn>
         </ButtonWrapper>
       </FormWrapper>
     </Wrapper>

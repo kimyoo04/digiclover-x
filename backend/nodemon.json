@@ -1,4 +1,4 @@
 {
   "ignore": ["frontend/*"],
-  "exec": "babel-node src/index.js"
+  "exec": "babel-node src/server.js"
 }

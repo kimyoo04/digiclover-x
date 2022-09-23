@@ -4,20 +4,26 @@ import http from "../http-common";
 const UserDataService = {
   // Post - 로컬 로그인
 
-  getUserLocalLogIn(data: ILogInForm) {
-    return http.post(`/user/login-local`, {data});
+  getUserLocalLogIn({email, password}: ILogInForm) {
+    return http.post(`/user/local-login`, {email, password});
   },
 
   // Get - 카카오 로그인 페이지 이동
 
   getUserKakao() {
-    return http.get(`/kakao`);
+    return http.get(`/user/kakao`);
   },
 
-  // Get - 카카오 로그인 성공 후 로그인 진행
+  // Get - 카카오 로그인 페이지 이동
 
-  getUserKakaoCallback() {
-    return http.get(`/kakao/callback`);
+  getUserGoogle() {
+    return http.get(`/user/google`);
+  },
+
+  // Post - 로그아웃
+
+  getUserLogOut() {
+    return http.post(`user/logout`);
   },
 
   // -------------------------------------------------------

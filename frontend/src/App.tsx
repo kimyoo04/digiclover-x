@@ -30,6 +30,9 @@ import Email from "Routes/document/Email";
 function App() {
   const isDark = useRecoilValue(isDarkState);
   const isAuthenticated = useRecoilValue(isAuthenticatedState);
+  let sessionStorage = window.localStorage;
+  const cookie = sessionStorage.getItem("connect.sid");
+  console.log(cookie);
 
   return (
     <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>

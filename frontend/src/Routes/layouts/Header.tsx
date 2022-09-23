@@ -5,6 +5,7 @@ import {isAuthenticatedState} from "atom/userAtom";
 
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
+import UserDataService from "services/user";
 
 const Nav = styled.nav`
   position: fixed;
@@ -54,7 +55,7 @@ const Header = () => {
     useRecoilState(isAuthenticatedState);
 
   function onlogOut() {
-    navigate(`/`);
+    UserDataService.getUserLogOut();
     setIsAuthenticated(false);
   }
 
