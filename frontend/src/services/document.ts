@@ -25,6 +25,31 @@ export interface IDocumentsData {
   documentsData?: IDocumentData[];
 }
 
+export interface ISignatureData {
+  id: number;
+  DocumentId: number;
+  UserId: number | null;
+  contractorPhone: number;
+  hashValue: string | null;
+  imgUrl: string | null;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IModalData {
+  [key: number]: ISignatureData; // 정확히 맞는지 확인하기
+  id: number;
+  docukind: string;
+  docuTitle: string;
+  docuContent: string;
+  hashFile: string;
+  UserId1: number | null;
+  UserId2: number | null;
+  UserId3: number | null;
+  UserId4: number | null;
+  createdAt: string;
+}
+
 const DocumentDataService = {
   // get - 유저의 모든 문서들
 
@@ -41,7 +66,7 @@ const DocumentDataService = {
 
   // get - 문서 1 개 조회 (+ 문서에 포함된 서명들)
 
-  getOneDocument(id: number): Promise<IDocumentData> {
+  getOneDocument(id: string | undefined): Promise<IModalData> {
     return http.get(`/documents/${id}`).then((res) => res.data);
   },
 

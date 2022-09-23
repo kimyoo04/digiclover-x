@@ -1,6 +1,12 @@
+import {useQuery} from "@tanstack/react-query";
+import {AxiosError} from "axios";
+import Button from "Components/style/buttons";
+import {Text} from "Components/style/text";
 import {AnimatePresence, motion} from "framer-motion";
-import {PathMatch, useMatch, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import DocumentDataService, {IModalData} from "services/document";
 import styled from "styled-components";
+import ModalLogging from "./ModalLogging";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -23,47 +29,33 @@ const Modal = styled(motion.div)`
   background-color: ${(props) => props.theme.bgWhiteColor};
 `;
 
+const DateText = styled(Text)`
+  display: block;
+  color: ${(props) => props.theme.textWhiteColor};
+`;
+
+const HText = styled(Text)`
+  display: block;
+  color: ${(props) => props.theme.textWhiteColor};
+  font-weight: 700;
+`;
+
 // props로 클릭한 문서의 정보 받아오기
 const DocumentModal = () => {
   const navigate = useNavigate();
   const {id} = useParams(); // documentId를 활용해서 Signature 조회?
-  const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
-  const onOverlayClick = () => navigate("/storage");
 
   // 아래 signature에서 받아올 데이터 형태
-  const signaturesData = [
-    {
-      id: 10,
-
-      DocumentId: 5,
-      UserId: 3,
-      contractorPhone: "010-8131-5224",
-
-      isSigned: 1,
-
-      hashValue: "qwicmwl1289dj28091dj7y81h2hd1kshjkcbn1askasckljas",
-      imgUrl: "12jildj12ijaw89adahscxlhckljq290cjaclkasjc2n",
-    },
-    {
-      id: 11,
-
-      DocumentId: 5,
-      UserId: null,
-      contractorPhone: "010-9999-9999",
-
-      isSigned: 0,
-
-      hashValue: null,
-      imgUrl: null,
-    },
-  ];
-
+  const {data: modalData, isLoading: isModalDataLoading} = useQuery<IModalData>(
+    ["modalData"],
+    () => DocumentDataService.getOneDocument(id)
+  );
   return (
     <AnimatePresence>
-      {docuMatch ? (
+      {isModalDataLoading || modalData ? (
         <>
           <Overlay
-            onClick={onOverlayClick}
+            onClick={() => navigate("/storage")}
             exit={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{durationL: 0.2}}
@@ -72,7 +64,18 @@ const DocumentModal = () => {
             exit={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{durationL: 0.2}}
-          ></Modal>
+          >
+            <>
+              <Button>문서 보기</Button>
+              <HText>문서 생성일</HText>
+              <DateText>{modalData && modalData.createdAt}</DateText>
+              <DateText>1999.10.01</DateText>
+              {modalData &&
+                [0, 1, 2, 3].forEach((i) =>
+                  modalData[i] ? <ModalLogging user={modalData[i]} /> : null
+                )}
+            </>
+          </Modal>
         </>
       ) : null}
     </AnimatePresence>

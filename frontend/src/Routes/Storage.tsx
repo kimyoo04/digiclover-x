@@ -4,6 +4,7 @@ import DocumentModal from "Components/Storage/DocumentModal";
 import {Wrapper} from "Components/style/layout";
 import {useQuery} from "@tanstack/react-query";
 import DocumentDataService, {IDocumentData} from "services/document";
+import {PathMatch, useMatch} from "react-router-dom";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -34,9 +35,10 @@ const DocumentHeader = styled.div`
 `;
 
 const Storage = () => {
+  const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
   const {data: documentsData, isLoading: isDocumentsLoading} = useQuery<
     IDocumentData[]
-  >(["documents", "users"], DocumentDataService.getAllDocuments);
+  >(["documents"], DocumentDataService.getAllDocuments);
   // console.log(documentsData);
 
   return (
@@ -59,7 +61,7 @@ const Storage = () => {
           <DocumentItem documentsData={documentsData}></DocumentItem>
         )}
       </DocumentWrapper>
-      <DocumentModal></DocumentModal>
+      {docuMatch ? <DocumentModal></DocumentModal> : null}
     </StorageWrapper>
   );
 };
