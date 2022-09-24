@@ -1,5 +1,6 @@
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
+import AuthDataService from "services/auth";
 
 import {useRecoilState} from "recoil";
 import {isAuthenticatedState} from "atom/userAtom";
@@ -15,7 +16,6 @@ import {
   Input,
 } from "Components/style/auth";
 import {Col, Row} from "Components/style/layout";
-import UserDataService from "services/user";
 
 const HookForm = styled.form`
   margin-bottom: 30px;
@@ -35,10 +35,22 @@ const SnsLogin = styled.span`
 
 const KakaoBtn = styled(Button)`
   background-color: #fae100;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
 `;
 
-const GmailBtn = styled(Button)`
-  background-color: white;
+const GoogleBtn = styled(Button)`
+  background-color: ${(props) => props.theme.GoogleBtrColor};
+  color: ${(props) => props.theme.GoogleTextColor};
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+const GoogleImg = styled.img`
+  position: relative;
+  left: 8px;
 `;
 
 const GoHomeText = styled.span`
@@ -55,6 +67,14 @@ const Login = () => {
     navigate(`/`);
   }
 
+  const kakaoLogin = () => {
+    window.open("http://localhost:8001/auth/kakao", "_self");
+  };
+
+  const googleLogin = () => {
+    window.open("http://localhost:8001/auth/google", "_self");
+  };
+
   const [isAuthenticated, setIsAuthenticated] =
     useRecoilState(isAuthenticatedState);
 
@@ -69,7 +89,7 @@ const Login = () => {
 
   const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
-    UserDataService.getUserLocalLogIn(data);
+    AuthDataService.getUserLocalLogIn(data);
 
     // 세션 쿠키 유무 확인
     setIsAuthenticated(true);
@@ -133,12 +153,11 @@ const Login = () => {
         </HookForm>
         <ButtonWrapper>
           <SnsLogin>SNS Login</SnsLogin>
-          <KakaoBtn onClick={() => UserDataService.getUserKakao()}>
-            Kakao Login
-          </KakaoBtn>
-          <GmailBtn onClick={() => UserDataService.getUserGoogle()}>
-            Google Login
-          </GmailBtn>
+          <KakaoBtn onClick={kakaoLogin}>Sign in with Kakao</KakaoBtn>
+          <GoogleBtn onClick={googleLogin}>
+            <GoogleImg />
+            Sign in with Google
+          </GoogleBtn>
         </ButtonWrapper>
       </FormWrapper>
     </Wrapper>

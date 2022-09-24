@@ -9,7 +9,6 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const passport = require("passport");
-const passportConfig = require("./passport");
 const flash = require("connect-flash");
 const dotenv = require("dotenv");
 
@@ -18,9 +17,11 @@ app.use(morgan("dev")); // "combined"
 
 // public 폴더 정적파일 연결
 app.use(express.static(path.join(__dirname, "../client/public")));
-app.use(
-  cors({orgin: true, credentials: true, methods: ["GET", "POST", "OPTIONS"]})
-); //cors 오류 해결
+cors({
+  orgin: true,
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+}); //cors 오류 해결
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱
 app.set("port", process.env.PORT || 8001); // 개발, 배포 포트 적용
@@ -69,12 +70,12 @@ app.use(
     cookie: {
       httpOnly: true, // javascript로 cookie로 접근 방지
       secure: false, // https 프로토콜만 허락 여부
-      domain: "localhost:3000",
+      maxAge: 1000 * 60 * 60 * 24 * 7, // One Week
     },
     name: "connect.sid",
   })
 );
-passportConfig();
+require("./passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
@@ -84,9 +85,11 @@ app.use(flash());
 //--------------------------------------------------------------------------------
 const documents = require("./routes/documents.route.js");
 const user = require("./routes/user.route.js");
+const auth = require("./routes/auth.route.js");
 
 app.use("/documents", documents);
 app.use("/user", user);
+app.use("/auth", auth);
 
 //--------------------------------------------------------------------------------
 // 에러 처리 미들웨어

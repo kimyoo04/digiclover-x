@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const Button = styled(motion.button)`
   width: 100%;
-  height: 35px;
+  height: 40px;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;

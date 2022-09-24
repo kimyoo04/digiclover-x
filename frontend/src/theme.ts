@@ -13,6 +13,8 @@ export const darkTheme: DefaultTheme = {
   textAcentColor: "teal",
 
   btnColor: "#c4d71f",
+  GoogleBtrColor: "#FFFFFF",
+  GoogleTextColor: " rgba(0, 0, 0, 0.54)",
 
   grayscaleblackColor: "#000",
   grayscalewhiteColor: " #fff",
@@ -55,6 +57,8 @@ export const lightTheme: DefaultTheme = {
   textAcentColor: "blue",
 
   btnColor: "#c4d71f",
+  GoogleBtrColor: "#4285F4",
+  GoogleTextColor: "#FFFFFF",
 
   grayscaleblackColor: "#fff",
   grayscalewhiteColor: "#000",

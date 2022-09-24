@@ -17,5 +17,5 @@
     "jsx": "react-jsx",
     "baseUrl": "src" // 루트 폴더 url
   },
-  "include": ["src", "jsconfig.json"]
+  "include": ["src", "src/custom.d.ts"]
 }

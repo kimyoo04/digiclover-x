@@ -1,11 +1,11 @@
-import {NavLink, useNavigate} from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import {motion} from "framer-motion";
 import {useRecoilState} from "recoil";
 import {isAuthenticatedState} from "atom/userAtom";
 
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
-import UserDataService from "services/user";
+import AuthDataService from "services/auth";
 
 const Nav = styled.nav`
   position: fixed;
@@ -50,12 +50,11 @@ const LogoutButton = styled(motion.span)`
 `;
 
 const Header = () => {
-  const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] =
     useRecoilState(isAuthenticatedState);
 
   function onlogOut() {
-    UserDataService.getUserLogOut();
+    AuthDataService.getUserLogOut();
     setIsAuthenticated(false);
   }
 

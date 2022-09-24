@@ -14,6 +14,8 @@ declare module "styled-components" {
     textAcentColor: string;
 
     btnColor: string;
+    GoogleBtrColor: string;
+    GoogleTextColor: string;
 
     grayscaleblackColor: string;
     grayscalewhiteColor: string;
@@ -38,8 +40,8 @@ declare module "styled-components" {
     infoColor: string;
     darkVariantColor: string;
 
-    dangerColor: "#eb5757";
-    successColor: " #219653";
-    warningColor: "#f2c94c";
+    dangerColor: string;
+    successColor: string;
+    warningColor: string;
   }
 }

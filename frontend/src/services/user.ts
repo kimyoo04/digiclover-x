@@ -1,33 +1,7 @@
-import {ILogInForm, ISignInForm} from "Components/style/auth";
+import {ISignInForm} from "Components/style/auth";
 import http from "../http-common";
 
 const UserDataService = {
-  // Post - 로컬 로그인
-
-  getUserLocalLogIn({email, password}: ILogInForm) {
-    return http.post(`/user/local-login`, {email, password});
-  },
-
-  // Get - 카카오 로그인 페이지 이동
-
-  getUserKakao() {
-    return http.get(`/user/kakao`);
-  },
-
-  // Get - 카카오 로그인 페이지 이동
-
-  getUserGoogle() {
-    return http.get(`/user/google`);
-  },
-
-  // Post - 로그아웃
-
-  getUserLogOut() {
-    return http.post(`user/logout`);
-  },
-
-  // -------------------------------------------------------
-
   // Post - 회원가입
 
   createOneUser(data: ISignInForm) {
