@@ -17,7 +17,8 @@ const EditorButton = styled.button`
   color: gray;
   border-radius: 6px;
   border: none;
-  & i {
+  & i,
+  & span {
     font-size: 20px;
   }
   &.is-active {
@@ -34,6 +35,25 @@ const MenuBar = ({editor, isEditable}: IEditor) => {
 
   return isEditable ? (
     <MenuBarWrap>
+      {/* <EditorButton
+        onClick={() => editor.chain().focus().setFontSize(12)}
+        className={editor.isActive("fontSize") ? "is-active" : ""}
+      >
+        <span>10</span>
+      </EditorButton>
+      <EditorButton
+        onClick={() => editor.storage.setFontSize(12)}
+        className={editor.isActive("fontSize") ? "is-active" : ""}
+      >
+        <span>12</span>
+      </EditorButton>
+      <EditorButton
+        onClick={() => editor.storage.setFontSize(14)}
+        className={editor.isActive("fontSize") ? "is-active" : ""}
+      >
+        <span>14</span>
+      </EditorButton> */}
+
       <EditorButton
         onClick={() => editor.chain().focus().toggleBold().run()}
         className={editor.isActive("bold") ? "is-active" : ""}
@@ -82,19 +102,6 @@ const MenuBar = ({editor, isEditable}: IEditor) => {
       >
         <i className="ri-h-4"></i>
       </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({level: 5}).run()}
-        className={editor.isActive("heading", {level: 5}) ? "is-active" : ""}
-      >
-        <i className="ri-h-5"></i>
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({level: 6}).run()}
-        className={editor.isActive("heading", {level: 6}) ? "is-active" : ""}
-      >
-        <i className="ri-h-6"></i>
-      </EditorButton>
-
       <EditorButton
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={editor.isActive({textAlign: "left"}) ? "is-active" : ""}
