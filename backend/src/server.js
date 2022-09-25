@@ -18,7 +18,7 @@ app.use(morgan("dev")); // "combined"
 // public 폴더 정적파일 연결
 app.use(express.static(path.join(__dirname, "../client/public")));
 cors({
-  orgin: true,
+  origin: "http://localhost:3000",
   credentials: true,
   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 }); //cors 오류 해결

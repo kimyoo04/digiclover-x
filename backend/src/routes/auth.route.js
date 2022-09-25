@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AuthCtrl = require("../controllers/auth.controller.js");
-const {isNotLoggedIn, isLoggedIn} = require("./middlewares.js");
+const {isNotLoggedIn, isLoggedIn} = require("../utilities/middlewares.js");
 
 // Post - 로컬 로그인
 

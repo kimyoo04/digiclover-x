@@ -1,6 +1,6 @@
 const express = require("express");
 const UserCtrl = require("../controllers/users.controller.js");
-const {isNotLoggedIn, isLoggedIn} = require("./middlewares.js");
+const {isNotLoggedIn, isLoggedIn} = require("../utilities/middlewares");
 const router = express.Router();
 
 // Post - 회원가입

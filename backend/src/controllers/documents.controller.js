@@ -57,7 +57,7 @@ module.exports = class DocumentsCtrl {
     console.log(`filePath== ${filePath}`);
 
     // hashFile 만들기 (hashValue A)
-    function makeHashValueA(filePath) {
+    async function makeHashValueA(filePath) {
       const fs = require("fs");
 
       const input = fs.createReadStream(filePath);
@@ -71,7 +71,7 @@ module.exports = class DocumentsCtrl {
     }
 
     // hashValue 만들기 (hashValue B)
-    function makeHashValueB(hashFile) {
+    async function makeHashValueB(hashFile) {
       const nowDate = Date.now();
       if (hashFile) {
         hash.update(hashFile + nowDate);
@@ -79,8 +79,8 @@ module.exports = class DocumentsCtrl {
       return hash.copy().digest("hex");
     }
 
-    const hashFile = makeHashValueA(filePath);
-    const hashValue = makeHashValueB(hashFile);
+    const hashFile = await makeHashValueA(filePath);
+    const hashValue = await makeHashValueB(hashFile);
 
     // 문서 생성
     await documentsDAO
