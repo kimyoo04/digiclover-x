@@ -67,8 +67,8 @@ const Tiptap = ({isEditable}: IIsEditable) => {
       TextAlign.configure({
         types: ["paragraph"],
       }),
-      FontSize,
       TextStyle,
+      FontSize,
     ],
     content: isEditable ? selectDocukind() : docuContent,
     autofocus: true,

@@ -1,5 +1,6 @@
 import {Editor} from "@tiptap/react";
 import styled from "styled-components";
+import FontSizeDropDown from "./FontSizeDropDown";
 
 interface IEditor {
   editor: Editor | null;
@@ -17,6 +18,7 @@ const EditorButton = styled.button`
   color: gray;
   border-radius: 6px;
   border: none;
+  cursor: pointer;
   & i,
   & span {
     font-size: 20px;
@@ -28,31 +30,38 @@ const EditorButton = styled.button`
   }
 `;
 
+interface IFontSizeOption {
+  label: string;
+  value: string;
+}
+
 const MenuBar = ({editor, isEditable}: IEditor) => {
   if (!editor) {
     return null;
   }
 
+  const FontSizeOptions: IFontSizeOption[] = [
+    {
+      label: "16",
+      value: "16",
+    },
+    {
+      label: "20",
+      value: "20",
+    },
+    {
+      label: "24",
+      value: "24",
+    },
+    {
+      label: "28",
+      value: "28",
+    },
+  ];
+
   return isEditable ? (
     <MenuBarWrap>
-      {/* <EditorButton
-        onClick={() => editor.chain().focus().setFontSize(12)}
-        className={editor.isActive("fontSize") ? "is-active" : ""}
-      >
-        <span>10</span>
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.storage.setFontSize(12)}
-        className={editor.isActive("fontSize") ? "is-active" : ""}
-      >
-        <span>12</span>
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.storage.setFontSize(14)}
-        className={editor.isActive("fontSize") ? "is-active" : ""}
-      >
-        <span>14</span>
-      </EditorButton> */}
+      <FontSizeDropDown options={FontSizeOptions} editor={editor} />
 
       <EditorButton
         onClick={() => editor.chain().focus().toggleBold().run()}
@@ -78,30 +87,7 @@ const MenuBar = ({editor, isEditable}: IEditor) => {
       >
         <i className="ri-paragraph"></i>
       </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({level: 1}).run()}
-        className={editor.isActive("heading", {level: 1}) ? "is-active" : ""}
-      >
-        <i className="ri-h-1"></i>
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({level: 2}).run()}
-        className={editor.isActive("heading", {level: 2}) ? "is-active" : ""}
-      >
-        <i className="ri-h-2"></i>
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({level: 3}).run()}
-        className={editor.isActive("heading", {level: 3}) ? "is-active" : ""}
-      >
-        <i className="ri-h-3"></i>
-      </EditorButton>
-      <EditorButton
-        onClick={() => editor.chain().focus().toggleHeading({level: 4}).run()}
-        className={editor.isActive("heading", {level: 4}) ? "is-active" : ""}
-      >
-        <i className="ri-h-4"></i>
-      </EditorButton>
+
       <EditorButton
         onClick={() => editor.chain().focus().setTextAlign("left").run()}
         className={editor.isActive({textAlign: "left"}) ? "is-active" : ""}
