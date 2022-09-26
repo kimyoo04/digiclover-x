@@ -2,7 +2,7 @@ import "./tiptap.scss";
 import {useEditor, EditorContent} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
-import TextStyle from "@tiptap/extension-text-style";
+import FontFamily from "@tiptap/extension-font-family";
 
 import styled from "styled-components";
 import {
@@ -67,8 +67,8 @@ const Tiptap = ({isEditable}: IIsEditable) => {
       TextAlign.configure({
         types: ["paragraph"],
       }),
-      TextStyle,
       FontSize,
+      FontFamily,
     ],
     content: isEditable ? selectDocukind() : docuContent,
     autofocus: true,

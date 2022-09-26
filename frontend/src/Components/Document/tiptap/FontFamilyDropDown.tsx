@@ -3,7 +3,7 @@ import {Editor} from "@tiptap/react";
 import styled from "styled-components";
 import arrowIcon from "public/assets/img/arrow-down-s-line.svg";
 
-interface IFontSizeOption {
+interface IFontFamilyOption {
   label: string;
   value: string;
 }
@@ -34,17 +34,17 @@ const Select = styled.select`
 
   background-image: url(${arrowIcon});
   background-repeat: no-repeat;
-  background-position: calc(90%) center;
+  background-position: calc(95%) center;
   background-size: 24px;
 `;
 
 const Option = styled.option``;
 
-const FontSizeDropDown = ({
+const FontFamilyDropDown = ({
   options,
   editor,
 }: {
-  options: IFontSizeOption[];
+  options: IFontFamilyOption[];
   editor: Editor;
 }) => {
   const [selectedOption, setSelectedOption] = useState(options[0].value);
@@ -53,7 +53,7 @@ const FontSizeDropDown = ({
       <Select
         value={selectedOption}
         onChange={(e) => {
-          editor.commands.setFontSize(e.target.value);
+          editor.chain().focus().setFontFamily(e.target.value).run();
           setSelectedOption(e.target.value);
         }}
       >
@@ -67,4 +67,4 @@ const FontSizeDropDown = ({
   );
 };
 
-export default FontSizeDropDown;
+export default FontFamilyDropDown;

@@ -1,5 +1,6 @@
 import {Editor} from "@tiptap/react";
 import styled from "styled-components";
+import FontFamilyDropDown from "./FontFamilyDropDown";
 import FontSizeDropDown from "./FontSizeDropDown";
 
 interface IEditor {
@@ -34,6 +35,10 @@ interface IFontSizeOption {
   label: string;
   value: string;
 }
+interface IFontFamilyOption {
+  label: string;
+  value: string;
+}
 
 const MenuBar = ({editor, isEditable}: IEditor) => {
   if (!editor) {
@@ -42,25 +47,41 @@ const MenuBar = ({editor, isEditable}: IEditor) => {
 
   const FontSizeOptions: IFontSizeOption[] = [
     {
-      label: "16",
+      label: "16px",
       value: "16",
     },
     {
-      label: "20",
+      label: "20px",
       value: "20",
     },
     {
-      label: "24",
+      label: "24px",
       value: "24",
     },
     {
-      label: "28",
+      label: "28px",
       value: "28",
+    },
+  ];
+
+  const FontFamilyOptions: IFontFamilyOption[] = [
+    {
+      label: "Noto Sans",
+      value: "Noto Sans KR",
+    },
+    {
+      label: "Noto Serif",
+      value: "'Noto Serif KR', serif",
+    },
+    {
+      label: "Roboto",
+      value: "Roboto",
     },
   ];
 
   return isEditable ? (
     <MenuBarWrap>
+      <FontFamilyDropDown options={FontFamilyOptions} editor={editor} />
       <FontSizeDropDown options={FontSizeOptions} editor={editor} />
 
       <EditorButton
