@@ -19,6 +19,10 @@ const ButtonWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
+const WritingWrapper = styled(Wrapper)`
+  gap: 0;
+`;
+
 const Writing = () => {
   const navigate = useNavigate();
   function prevClick() {
@@ -26,7 +30,7 @@ const Writing = () => {
   }
 
   return (
-    <Wrapper>
+    <WritingWrapper>
       <Tiptap isEditable={true} />
       <ButtonWrapper>
         <Button
@@ -44,7 +48,7 @@ const Writing = () => {
           Next
         </Button>
       </ButtonWrapper>
-    </Wrapper>
+    </WritingWrapper>
   );
 };
 

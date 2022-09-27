@@ -19,17 +19,26 @@ import MenuBar from "./MenuBar";
 import TitleForm from "./TitleForm";
 import {FontSize} from "./FontSize";
 
+const WritingWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
 const Paper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   padding: 40px 20px;
-  margin: 0 10vw;
   width: 100%;
+  /* 추후 종단점 별 Text Editor 폭 수정 */
   max-width: 900px;
+  min-width: 900px;
   min-height: 1000px;
   border: 1px solid rgba(0, 0, 0, 0.2);
+  border-top: none;
 `;
 
 const EditorWrap = styled.div`
@@ -80,13 +89,17 @@ const Tiptap = ({isEditable}: IIsEditable) => {
   });
 
   return (
-    <Paper id="capture">
-      <MenuBar editor={editor} isEditable={isEditable} />
-      <TitleForm isEditable={isEditable} />
-      <EditorWrap>
-        <EditorContent editor={editor} />
-      </EditorWrap>
-    </Paper>
+    <>
+      <WritingWrapper>
+        <MenuBar editor={editor} isEditable={isEditable} />
+        <TitleForm isEditable={isEditable} />
+        <Paper id="capture" onClick={() => editor?.chain().focus()}>
+          <EditorWrap>
+            <EditorContent editor={editor} />
+          </EditorWrap>
+        </Paper>
+      </WritingWrapper>
+    </>
   );
 };
 
