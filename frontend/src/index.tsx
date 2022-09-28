@@ -1,9 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import {RecoilRoot} from "recoil";
 import App from "./App";
-import {createGlobalStyle} from "styled-components";
+
+import {RecoilRoot} from "recoil";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
+
+import {store} from "./app/store";
+import {Provider} from "react-redux";
+
+import {createGlobalStyle} from "styled-components";
 import "remixicon/fonts/remixicon.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -84,10 +89,12 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <RecoilRoot>
-      <QueryClientProvider client={client}>
-        <GlobalStyle />
-        <App />
-      </QueryClientProvider>
+      <Provider store={store}>
+        <QueryClientProvider client={client}>
+          <GlobalStyle />
+          <App />
+        </QueryClientProvider>
+      </Provider>
     </RecoilRoot>
   </React.StrictMode>
 );
