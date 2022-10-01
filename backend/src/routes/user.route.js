@@ -1,11 +1,7 @@
 const express = require("express");
 const UserCtrl = require("../controllers/users.controller.js");
-const {isNotLoggedIn, isLoggedIn} = require("../utilities/middlewares");
+const {isNotLoggedIn, isLoggedIn} = require("../util/authJWT");
 const router = express.Router();
-
-// Post - 회원가입
-
-router.route("/signin").post(isNotLoggedIn, UserCtrl.apiPostOneUser);
 
 // Get - 회원조회
 // Delete - 회원탈퇴

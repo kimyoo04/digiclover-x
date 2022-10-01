@@ -14,27 +14,6 @@ module.exports = class UsersCtrl {
     return res.json(response);
   }
 
-  // Post - 회원가입
-
-  static async apiPostOneUser(req, res, next) {
-    const bcrypt = require("bcrypt");
-    const {email, company, name, phone, password} = req.body.data;
-
-    // 비밀번호 헤시화
-    const hash = await bcrypt.hash(password, 12);
-
-    // 회원가입, DB 저장
-    let response = await usersDAO.postOneUser(
-      email,
-      company,
-      name,
-      phone,
-      hash
-    );
-
-    return res.json(response);
-  }
-
   // Delete - 회원탈퇴
 
   static async apiDeleteUserById(req, res, next) {

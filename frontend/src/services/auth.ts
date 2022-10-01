@@ -11,7 +11,7 @@ const AuthDataService = {
   // Post - 로그아웃
 
   getUserLogOut() {
-    return http.post(`auth/logout`);
+    return localStorage.removeItem("authToken");
   },
 };
 

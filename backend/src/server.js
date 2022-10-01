@@ -68,11 +68,11 @@ app.use(
     saveUninitialized: false, // 빈값 또한 저장
     secret: process.env.COOKIE_SECRET, // cookie 암호화 키
     cookie: {
-      httpOnly: true, // javascript로 cookie로 접근 방지
+      // httpOnly: true, // javascript로 cookie로 접근 방지
       secure: false, // https 프로토콜만 허락 여부
       maxAge: 1000 * 60 * 60 * 24 * 7, // One Week
     },
-    name: "connect.sid",
+    name: "authToken",
   })
 );
 require("./passport")(passport);
@@ -87,9 +87,9 @@ const documents = require("./routes/documents.route.js");
 const user = require("./routes/user.route.js");
 const auth = require("./routes/auth.route.js");
 
-app.use("/documents", documents);
-app.use("/user", user);
 app.use("/auth", auth);
+app.use("/user", user);
+app.use("/documents", documents);
 
 //--------------------------------------------------------------------------------
 // 에러 처리 미들웨어

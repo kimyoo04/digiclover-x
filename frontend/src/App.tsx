@@ -6,8 +6,6 @@ import {isAuthenticatedState} from "atom/userAtom";
 import {isDarkState} from "atom/themeAtom";
 
 import {ThemeProvider} from "styled-components";
-import HeaderLayout from "Routes/layouts/HeaderLayout";
-import Footer from "Routes/layouts/Footer";
 import DocumentModal from "Components/Storage/DocumentModal";
 import DocumentLayout from "Components/Document/Layout";
 import ToggleIsDark from "Components/ToggleIsDark";
@@ -27,9 +25,12 @@ import Writing from "Routes/document/Writing";
 import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
 
+import HeaderLayout from "Routes/layouts/HeaderLayout";
+import Footer from "Routes/layouts/Footer";
+
 function App() {
+  // 라이트모드, 다크모드
   const isDark = useRecoilValue(isDarkState);
-  const isAuthenticated = useRecoilValue(isAuthenticatedState);
 
   return (
     <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>
@@ -38,10 +39,7 @@ function App() {
           <Route
             path="/document"
             element={
-              <ProtectedRoute
-                isAuthenticated={isAuthenticated}
-                outlet={<DocumentLayout />}
-              ></ProtectedRoute>
+              <ProtectedRoute outlet={<DocumentLayout />}></ProtectedRoute>
             }
           >
             <Route index element={<DocumentStart />} />
@@ -55,23 +53,13 @@ function App() {
             <Route index element={<Home />}></Route>
             <Route
               path="/storage"
-              element={
-                <ProtectedRoute
-                  isAuthenticated={isAuthenticated}
-                  outlet={<Storage />}
-                ></ProtectedRoute>
-              }
+              element={<ProtectedRoute outlet={<Storage />}></ProtectedRoute>}
             >
               <Route path=":documentId" element={<DocumentModal />} />
             </Route>
             <Route
               path="/profile"
-              element={
-                <ProtectedRoute
-                  isAuthenticated={isAuthenticated}
-                  outlet={<Profile />}
-                ></ProtectedRoute>
-              }
+              element={<ProtectedRoute outlet={<Profile />}></ProtectedRoute>}
             ></Route>
             <Route path="/login" element={<Login />}></Route>
             <Route path="/signin" element={<Signin />}></Route>

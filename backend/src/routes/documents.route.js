@@ -1,7 +1,7 @@
 const express = require("express");
 const DocumentsCtrl = require("../controllers/documents.controller.js");
 const SignaturesCtrl = require("../controllers/signatures.controller.js");
-const {isLoggedIn} = require("../utilities/middlewares.js");
+const {isLoggedIn} = require("../util/authJWT.js");
 const router = express.Router();
 
 router

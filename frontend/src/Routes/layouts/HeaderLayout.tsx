@@ -6,6 +6,8 @@ import {isAuthenticatedState} from "atom/userAtom";
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
 
+import AuthDataService from "services/auth";
+
 const Nav = styled.nav`
   position: fixed;
   top: 0;
@@ -55,6 +57,7 @@ const HeaderLayout = () => {
 
   function onlogOut() {
     navigate(`/`);
+    AuthDataService.getUserLogOut();
     setIsAuthenticated(false);
   }
 

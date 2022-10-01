@@ -1,6 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import type {PayloadAction} from "@reduxjs/toolkit";
-import http from "http-common";
+import AuthDataService from "services/auth";
+import {ILogInForm} from "Components/style/auth";
 
 type User = {
   id: number;
@@ -26,10 +27,9 @@ const initialState: AuthState = {
 
 export const fetchAuth = createAsyncThunk(
   "auth/local-login",
-  async (email, password) => {
-    return http
-      .post(`/auth/local-login`, {email, password})
-      .then((response) => response.data.map((user: User) => user.id));
+  async ({email, password}: ILogInForm, thunkAPI) => {
+    const response = await AuthDataService.getUserLocalLogIn({email, password});
+    return response.data;
   }
 );
 

@@ -90,10 +90,6 @@ const Login = () => {
   const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
     AuthDataService.getUserLocalLogIn(data);
-
-    // 세션 쿠키 유무 확인
-    setIsAuthenticated(true);
-    goHome();
   };
 
   return isAuthenticated ? (
