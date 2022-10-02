@@ -57,7 +57,7 @@ const Header = () => {
 
   function onlogOut() {
     navigate(`/`);
-    AuthDataService.getUserLogOut();
+    AuthDataService.logout();
     setIsAuthenticated(false);
   }
 

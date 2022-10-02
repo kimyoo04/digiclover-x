@@ -28,7 +28,7 @@ const initialState: AuthState = {
 export const fetchAuth = createAsyncThunk(
   "auth/local-login",
   async ({email, password}: ILogInForm, thunkAPI) => {
-    const response = await AuthDataService.getUserLocalLogIn({email, password});
+    const response = await AuthDataService.login({email, password});
     return response.data;
   }
 );
@@ -36,7 +36,14 @@ export const fetchAuth = createAsyncThunk(
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    login(state) {
+      state.isAuthenticated = true;
+    },
+    logout(state) {
+      state.isAuthenticated = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchAuth.pending, (state) => {
       state.loading = true;
@@ -61,3 +68,4 @@ const authSlice = createSlice({
 });
 
 export default authSlice.reducer;
+export const authActions = authSlice.actions;

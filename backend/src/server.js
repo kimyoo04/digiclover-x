@@ -20,7 +20,6 @@ app.use(express.static(path.join(__dirname, "../client/public")));
 cors({
   origin: "http://localhost:3000",
   credentials: true,
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 }); //cors 오류 해결
 app.use(express.json()); // json 파싱
 app.use(express.urlencoded({extended: true})); // form 파싱
@@ -58,23 +57,22 @@ app.use(function (req, res, next) {
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
+  res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
 
-app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(
-  session({
-    resave: false, // 세션 강제 저장
-    saveUninitialized: false, // 빈값 또한 저장
-    secret: process.env.COOKIE_SECRET, // cookie 암호화 키
-    cookie: {
-      // httpOnly: true, // javascript로 cookie로 접근 방지
-      secure: false, // https 프로토콜만 허락 여부
-      maxAge: 1000 * 60 * 60 * 24 * 7, // One Week
-    },
-    name: "authToken",
+  cookieParser({
+    resave: false, // 강제 저장 설정
+    saveUninitialized: true, // 빈값 저장
+    // secret: process.env.COOKIE_SECRET, // 비밀키 적용
+    path: "/", // 도메인 내 전체에 쿠키 적용
+    httpOnly: true, // 자바스크립트 접근 제한 걸기
+    secure: false, // https 프로토콜 허용 유무
+    sameSite: "none", // lax로 설정하면 도메인이 다를 때 쿠키 저장 안됨
+    expires: new Date(Date.now() + 1000 * 30), // 30s
   })
-);
+); // process.env.COOKIE_SECRET
 require("./passport")(passport);
 app.use(passport.initialize());
 app.use(passport.session());

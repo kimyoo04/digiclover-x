@@ -7,6 +7,8 @@ import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
 
 import AuthDataService from "services/auth";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {authActions} from "features/auth/authSlice";
 
 const Nav = styled.nav`
   position: fixed;
@@ -51,14 +53,15 @@ const LogoutButton = styled(motion.span)`
 `;
 
 const HeaderLayout = () => {
+  const dispatch = useAppDispatch();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
-  const [isAuthenticated, setIsAuthenticated] =
-    useRecoilState(isAuthenticatedState);
 
   function onlogOut() {
     navigate(`/`);
-    AuthDataService.getUserLogOut();
-    setIsAuthenticated(false);
+    AuthDataService.logout()
+      .then(() => dispatch(authActions.logout()))
+      .then(() => navigate("/"));
   }
 
   return (

@@ -2,9 +2,6 @@ import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 import AuthDataService from "services/auth";
 
-import {useRecoilState} from "recoil";
-import {isAuthenticatedState} from "atom/userAtom";
-
 import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {
@@ -16,6 +13,8 @@ import {
   Input,
 } from "Components/style/auth";
 import {Col, Row} from "Components/style/layout";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {authActions} from "features/auth/authSlice";
 
 const HookForm = styled.form`
   margin-bottom: 30px;
@@ -62,7 +61,9 @@ const GoHomeText = styled.span`
 `;
 
 const Login = () => {
-  let navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const navigate = useNavigate();
   function goHome() {
     navigate(`/`);
   }
@@ -75,9 +76,6 @@ const Login = () => {
     window.open("http://localhost:8001/auth/google", "_self");
   };
 
-  const [isAuthenticated, setIsAuthenticated] =
-    useRecoilState(isAuthenticatedState);
-
   const {
     register,
     handleSubmit,
@@ -89,7 +87,9 @@ const Login = () => {
 
   const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
-    AuthDataService.getUserLocalLogIn(data);
+    AuthDataService.login(data)
+      .then(() => dispatch(authActions.login()))
+      .then(() => navigate("/"));
   };
 
   return isAuthenticated ? (
