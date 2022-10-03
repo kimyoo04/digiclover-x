@@ -1,14 +1,12 @@
+import {useEffect} from "react";
 import {Outlet, NavLink, useNavigate} from "react-router-dom";
 import {motion} from "framer-motion";
-import {useRecoilState} from "recoil";
-import {isAuthenticatedState} from "atom/userAtom";
 
 import styled from "styled-components";
 import logo from "public/assets/img/logo.png";
 
-import AuthDataService from "services/auth";
 import {useAppDispatch, useAppSelector} from "app/hook";
-import {authActions} from "features/auth/authSlice";
+import {fetchLogout, fetchRefresh} from "features/auth/authSlice";
 
 const Nav = styled.nav`
   position: fixed;
@@ -59,10 +57,19 @@ const HeaderLayout = () => {
 
   function onlogOut() {
     navigate(`/`);
-    AuthDataService.logout()
-      .then(() => dispatch(authActions.logout()))
-      .then(() => navigate("/"));
+    dispatch(fetchLogout());
   }
+
+  useEffect(() => {
+    dispatch(fetchRefresh());
+    if (isAuthenticated) {
+      // 페이지 방문 중인 동안 5분마다 토큰 refresh 하기
+      let interval = setInterval(() => {
+        dispatch(fetchRefresh());
+      }, 1000 * 60 * 5);
+      return () => clearInterval(interval);
+    }
+  }, []);
 
   return (
     <>

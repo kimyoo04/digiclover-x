@@ -1,4 +1,4 @@
-import {IDocuAll} from "atom/documentAtom";
+import {DocumentState} from "features/document/documentSlice";
 import http from "../http-common";
 
 export interface IDocumentData {
@@ -32,6 +32,7 @@ export interface ISignatureData {
   contractorPhone: number;
   hashValue: string | null;
   imgUrl: string | null;
+  isSigned: boolean;
   createdAt: string;
   updatedAt: string;
 }
@@ -50,55 +51,39 @@ export interface IModalData {
   createdAt: string;
 }
 
-const config = {
-  headers: {
-    Authorization: `Bearer ${localStorage.getItem("authToken")}`,
-  },
-};
-
 const DocumentDataService = {
   // get - 유저의 모든 문서들
 
-  getAllDocuments(): Promise<IDocumentData[]> {
+  getAllDocuments() {
     // 인자 page = 0 넣기
-    return http
-      .get(`/documents`, config)
-      .then((res) => res.data)
-      .catch((error) => localStorage.removeItem("authToken"));
+    return http.get(`/documents`).then((res) => res.data);
   },
 
   // post - 1개 문서 생성
 
-  createOneDocument(data: IDocuAll) {
-    return http
-      .post("/documents", {data}, config)
-      .catch((error) => localStorage.removeItem("authToken"));
+  createOneDocument(data: DocumentState) {
+    return http.post("/documents", {data});
   },
 
   // get - 문서 1 개 조회 (+ 문서에 포함된 서명들)
 
-  getOneDocument(id: string | undefined): Promise<IModalData> {
-    return http
-      .get(`/documents/${id}`, config)
-      .then((res) => res.data)
-      .catch((error) => localStorage.removeItem("authToken"));
+  getOneDocument(id: string | undefined) {
+    return http.get(`/documents/${id}`).then((res) => res.data);
   },
 
   // delete - 문서 삭제
 
   deleteOneDocument(id: number) {
     // userId와 UserId1 컬럼 비교 후 삭제
-    return http
-      .delete(`/document/${id}`, config)
-      .catch((error) => localStorage.removeItem("authToken"));
+    return http.delete(`/document/${id}`);
   },
 
   // put - 수신자 서명 후 값 수정
 
   updateSignature(imgUrl: string) {
-    return http
-      .put("/documents/:id/signning", {imgUrl}, config)
-      .catch((error) => localStorage.removeItem("authToken"));
+    return http.put("/documents/:id/signning", {imgUrl});
+
+    // .catch((error) => localStorage.removeItem("authToken"));
   },
 
   // find(query, by = "name", page = 0) {

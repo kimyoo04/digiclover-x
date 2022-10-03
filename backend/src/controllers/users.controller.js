@@ -10,8 +10,8 @@ module.exports = class UsersCtrl {
     // id 인수 함수 안에서 복호화 후 id 값을 검색한다고 가정
     const response = await usersDAO.getUserById(id);
 
-    console.log("apiGetUserbyId - success");
-    return res.json(response);
+    console.log("apiGetUserbyId - 성공");
+    return res.status(200).json({data: response});
   }
 
   // Delete - 회원탈퇴
@@ -22,8 +22,8 @@ module.exports = class UsersCtrl {
 
     await usersDAO.deleteUserById(id);
 
-    console.log("apiDeleteUserById - success");
-    return res.json({result: "success"});
+    console.log("apiDeleteUserById - 성공");
+    return res.status(200).json({data: {msg: "apiDeleteUserById 성공"}});
   }
 
   // Put - 회원정보수정
@@ -32,11 +32,16 @@ module.exports = class UsersCtrl {
     const {id} = req.params;
     // id 디시리얼라이즈 하기
 
+    // 쿠키와 아이디 검증
+    if (id !== req.id) {
+      return res.status(400).json({data: {msg: "apiPutUserById - 실패"}});
+    }
+
     const {email, company, name, phone} = req.body.data;
 
     await usersDAO.putUserById(id, email, company, name, phone);
 
-    console.log("apiPutUserById - success");
-    return res.json({result: "success"});
+    console.log("apiPutUserById - 성공");
+    return res.status(200).json({data: {msg: "apiPutUserById 성공"}});
   }
 };

@@ -1,7 +1,7 @@
-import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 
-import {useRecoilState} from "recoil";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -24,9 +24,12 @@ const WritingWrapper = styled(Wrapper)`
 `;
 
 const Writing = () => {
+  const dispatch = useAppDispatch();
+
   const navigate = useNavigate();
   function prevClick() {
-    navigate(-1);
+    navigate(-1); // 지우기
+    dispatch(documentActions.beforeWriting);
   }
 
   return (

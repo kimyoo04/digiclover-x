@@ -1,14 +1,15 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 
-import {useRecoilValue} from "recoil";
-import {docuAllState, IContractor} from "atom/documentAtom";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {documentActions, IContractor} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
 import {Wrapper} from "Components/style/layout";
 import ContractorCard from "Components/Document/ContractorCard";
 import Alert from "Components/Alert";
+import DocumentDataService from "services/document";
 
 const Main = styled.div`
   display: flex;
@@ -38,34 +39,33 @@ const AgreeInput = styled.input`
 `;
 
 const Email = () => {
+  const [isCheck, setIsCheck] = useState(false);
+  const [alert, setAlert] = useState(false);
+  const dispatch = useAppDispatch();
+  const document = useAppSelector((state) => state.document);
   const navigate = useNavigate();
-  function prevClick() {
-    navigate(-1);
-  }
-  function finishClick() {
+
+  const prevClick = () => navigate(-1); // 지우기 및 뒤로가기 기록 없애기 (미완)
+
+  const finishClick = async () => {
     // 동의 확인 경고창 - 동의 확인 후 /storage 로 navigate
     if (isCheck) {
-      // atom 데이터 저장
+      // 이곳에 이메일 전송 비동기 처리하기
 
-      // 모든 프로세스 종료 후 navigate
-      navigate(`/storage`);
+      // 문서 튜플 저장, 계약자별 서명 튜플 저장
+      await DocumentDataService.createOneDocument(document);
+
+      // documentSlice의 state 초기화
+      dispatch(documentActions.initialContractors);
+
+      navigate(`/storage`); // 이메일 전송 후
     } else {
       setAlert((prev) => !prev);
     }
-  }
+  };
 
-  const docuAll = useRecoilValue(docuAllState);
-  console.log(docuAll);
-
-  const [isCheck, setIsCheck] = useState(false);
-  const [alert, setAlert] = useState(false);
-
-  function toggleChecking() {
-    setIsCheck((prev) => !prev);
-  }
-  function closeAlert() {
-    setAlert((prev) => !prev);
-  }
+  const toggleChecking = () => setIsCheck((prev) => !prev);
+  const closeAlert = () => setAlert((prev) => !prev);
 
   const alertMessage = {
     alertType: "Warning",
@@ -75,7 +75,7 @@ const Email = () => {
   return (
     <Wrapper>
       <Main>
-        {docuAll.contractors.map((contractor: IContractor, index: number) => {
+        {document.contractors.map((contractor: IContractor, index: number) => {
           return <ContractorCard key={index} {...contractor} />;
         })}
         <AgreeLabel htmlFor="agree">

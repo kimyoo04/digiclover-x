@@ -1,10 +1,9 @@
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-import {useRecoilState} from "recoil";
-import {docuTitleState, IDocuTitle} from "atom/documentAtom";
-
 import styled from "styled-components";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {documentActions, IDocuTitle} from "features/document/documentSlice";
 
 const Form = styled.form`
   width: 100%;
@@ -38,8 +37,9 @@ interface IIsEditable {
 }
 
 const TitleForm = ({isEditable}: IIsEditable) => {
+  const dispatch = useAppDispatch();
+  const docuTitle = useAppSelector((state) => state.document.docuTitle);
   const navigate = useNavigate();
-  const [{docuTitle}, setDocuTitle] = useRecoilState(docuTitleState);
 
   const {register, handleSubmit} = useForm<IDocuTitle>({
     defaultValues: {},
@@ -48,9 +48,8 @@ const TitleForm = ({isEditable}: IIsEditable) => {
   const onValid = async (data: IDocuTitle) => {
     if (!data) {
     } else {
-      console.log(data);
-      // atom 데이터 저장
-      setDocuTitle(data);
+      console.log(data.docuTitle);
+      dispatch(documentActions.afterWriting(data.docuTitle));
       navigate(`/document/signning`);
     }
   };

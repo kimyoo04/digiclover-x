@@ -1,3 +1,4 @@
+import {DocuKind} from "features/document/documentSlice";
 import styled from "styled-components";
 
 export const FormWrapper = styled.div`
@@ -44,7 +45,7 @@ export interface IContractorForm {
 }
 
 export interface IDocuKindForm {
-  docuKind: "free" | "mou" | "labor" | "dept" | "";
+  docuKind: DocuKind;
   extraError?: string;
 }
 

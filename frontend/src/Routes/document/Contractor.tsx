@@ -1,8 +1,9 @@
+import {useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-import {useSetRecoilState} from "recoil";
-import {contractorState, IContractor} from "atom/documentAtom";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {documentActions, IContractor} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -27,9 +28,10 @@ const PlusIcon = styled.i`
   font-size: 20px;
 `;
 const Contractor = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   function prevClick() {
-    navigate(-1);
+    navigate(-1); // 지우기
   }
 
   // 1인 버전 끝난 후 수정할 것!
@@ -37,7 +39,10 @@ const Contractor = () => {
     return null;
   }
 
-  const setContractor = useSetRecoilState(contractorState);
+  // documentSlice의 state 초기화
+  useEffect(() => {
+    dispatch(documentActions.initialContractors);
+  }, []);
 
   // 계약자 정보 받는 리액트-훅-폼
   const {
@@ -57,9 +62,7 @@ const Contractor = () => {
         {shouldFocus: true}
       );
     } else {
-      console.log(data);
-      // atom 데이터 저장
-      setContractor([data]);
+      dispatch(documentActions.afterContractors([data]));
       navigate(`/document/docukind`);
     }
   };

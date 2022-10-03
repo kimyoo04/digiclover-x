@@ -2,12 +2,11 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {darkTheme, lightTheme} from "theme";
 
 import {useRecoilValue} from "recoil";
-import {isAuthenticatedState} from "atom/userAtom";
 import {isDarkState} from "atom/themeAtom";
 
 import {ThemeProvider} from "styled-components";
 import DocumentModal from "Components/Storage/DocumentModal";
-import DocumentLayout from "Components/Document/Layout";
+import DocumentLayout from "Components/Document/DocumentLayout";
 import ToggleIsDark from "Components/ToggleIsDark";
 
 import Home from "Routes/Home";
@@ -55,7 +54,7 @@ function App() {
               path="/storage"
               element={<ProtectedRoute outlet={<Storage />}></ProtectedRoute>}
             >
-              <Route path=":documentId" element={<DocumentModal />} />
+              <Route path=":id" element={<DocumentModal />} />
             </Route>
             <Route
               path="/profile"

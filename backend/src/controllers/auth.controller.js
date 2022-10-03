@@ -1,7 +1,9 @@
 import passport from "passport";
+import {generateJwtToken} from "../util/generateToken";
 const Users = require("../models/user");
 const bcrypt = require("bcrypt");
-const jwt = require("jsonwebtoken");
+
+export const tokenName = "authToken";
 
 module.exports = class AuthCtrl {
   //--------------------------------------------------------------------------------
@@ -58,22 +60,18 @@ module.exports = class AuthCtrl {
     }
 
     // jwt 생성
-    const token = jwt.sign({id: exUser.id}, process.env.JWT_SECRET_KEY, {
-      expiresIn: "35s",
-    });
-
-    console.log("Generated Token\n", token);
+    const token = generateJwtToken(exUser.id);
 
     // 쿠키 초기화
-    if (req.cookies[`${exUser.id}`]) {
-      req.cookies[`${exUser.id}`] = "";
+    if (req.cookies[tokenName]) {
+      req.cookies[tokenName] = "";
     }
 
     // 쿠키 생성 (name: 유저아이디, value: jwt) (옵션은 server에 설정 됨)
-    res.cookie(String(exUser.id), token);
+    res.cookie(tokenName, token);
 
     // 데이터 반환
-    return res.status(200).json({msg: "로그인 성공", token});
+    return res.status(200).json({data: {msg: "로그인 성공", token}});
   }
 
   //--------------------------------------------------------------------------------
@@ -118,26 +116,40 @@ module.exports = class AuthCtrl {
   // Get - 구글 로그인 콜백
   //--------------------------------------------------------------------------------
   static async apiGetGoogleLoginCallback(req, res, next) {
-    await passport.authenticate(
-      "google",
-      {session: false, failureRedirect: "http://localhost:3000/login"},
-      async (err, user) => {
-        res.cookie(String(), token);
-      }
-    )(req, res, next);
+    await passport.authenticate("google", {
+      failureRedirect: "http://localhost:3000/login",
+      session: false,
+    })(req, res, next);
   }
 
-  static async apiRedirectJWT(req, res, next) {
-    const token = req.user.token;
-    res.redirect("http://localhost:3000?token=" + token);
+  //--------------------------------------------------------------------------------
+  // jwt 쿠키 저장
+  //--------------------------------------------------------------------------------
+  static async apiSendJWT(req, res, next) {
+    res.cookie(tokenName, req.user.token);
+    res.redirect("http://localhost:3000");
   }
 
   //--------------------------------------------------------------------------------
   // Post - 로그아웃
   //--------------------------------------------------------------------------------
   static async apiPostLogout(req, res, next) {
-    res.clearCookie(`${req.id}`);
-    req.cookies[`${req.id}`] = "";
-    return res.status(200).json({msg: "로그아웃 성공"});
+    res.clearCookie(tokenName);
+    req.cookies[tokenName] = "";
+    return res.status(200).json({data: {msg: "로그아웃 성공"}});
+  }
+
+  //--------------------------------------------------------------------------------
+  // Get - 토큰 재발급 및 로그인 유지
+  //--------------------------------------------------------------------------------
+  static async apiGetRefreshToken(req, res, next) {
+    res.clearCookie(tokenName);
+    req.cookies[tokenName] = "";
+
+    const token = generateJwtToken(req.id);
+    console.log("Regenerated Token\n", token);
+
+    res.cookie(tokenName, token);
+    res.json({data: {msg: "Regenerated Token"}});
   }
 };

@@ -1,8 +1,8 @@
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
-import {useSetRecoilState} from "recoil";
-import {docuKindState, IDocuKind} from "atom/documentAtom";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {DocuKind, documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -65,11 +65,15 @@ const ButtonWrapper = styled.div`
 
 const Docukind = () => {
   const navigate = useNavigate();
-  function prevClick() {
-    navigate(-1);
-  }
 
-  const setDocukind = useSetRecoilState(docuKindState);
+  const dispatch = useAppDispatch();
+  const contractors = useAppSelector((state) => state.document.contractors);
+  console.log(contractors);
+
+  const prevClick = () => {
+    navigate(-1); // 지우기
+    dispatch(documentActions.beforeDocukind);
+  };
 
   // 문서 종류를 선택하는 리액트-훅-폼
   const {
@@ -82,14 +86,14 @@ const Docukind = () => {
   });
 
   // 선택 했을 때만 다음 단계 이동
-  const onValid = (data: IDocuKind) => {
-    if (!data.docuKind) {
+  const onValid = (data: {docuKind: DocuKind}) => {
+    if (!data) {
       setError("docuKind", {message: "Please click one of these."});
     } else {
       console.log(data);
       // atom 데이터 저장
-      setDocukind(data);
       navigate(`/document/writing`);
+      dispatch(documentActions.afterDocukind(data.docuKind));
     }
   };
 

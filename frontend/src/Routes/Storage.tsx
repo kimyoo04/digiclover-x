@@ -1,10 +1,9 @@
+import {PathMatch, useMatch} from "react-router-dom";
+
 import styled from "styled-components";
 import DocumentItem from "Components/Storage/DocumentItem";
 import DocumentModal from "Components/Storage/DocumentModal";
 import {Wrapper} from "Components/style/layout";
-import {useQuery} from "@tanstack/react-query";
-import DocumentDataService, {IDocumentData} from "services/document";
-import {PathMatch, useMatch} from "react-router-dom";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -36,10 +35,6 @@ const DocumentHeader = styled.div`
 
 const Storage = () => {
   const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
-  const {data: documentsData, isLoading: isDocumentsLoading} = useQuery<
-    IDocumentData[]
-  >(["documents"], DocumentDataService.getAllDocuments);
-  // console.log(documentsData);
 
   return (
     <StorageWrapper>
@@ -57,10 +52,9 @@ const Storage = () => {
             <span>상세 기록</span>
           </div>
         </DocumentHeader>
-        {isDocumentsLoading ? null : (
-          <DocumentItem documentsData={documentsData}></DocumentItem>
-        )}
+        <DocumentItem></DocumentItem>
       </DocumentWrapper>
+
       {docuMatch ? <DocumentModal></DocumentModal> : null}
     </StorageWrapper>
   );

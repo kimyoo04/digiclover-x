@@ -1,60 +1,105 @@
-import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
-import type {PayloadAction} from "@reduxjs/toolkit";
-import http from "http-common";
+import {createSlice} from "@reduxjs/toolkit";
 
-type Document = {
-  id: number;
-  company: string;
+export type DocuKind = "자유양식" | "MOU" | "근로계약서" | "차용증" | "";
+
+export interface IDocuTitle {
+  docuTitle: string;
+}
+
+export interface IContractor {
+  companyName: string;
   name: string;
-  phone: string;
+  contractorPhone: string;
   email: string;
-};
+}
 
 export interface DocumentState {
-  loading: boolean;
-  documents: Document[];
+  step: number;
+  contractors: IContractor[];
+  docuKind: DocuKind;
+  docuTitle: string;
+  docuContent: string;
+  imgUrl: string;
   error: string;
 }
 
 const initialState: DocumentState = {
-  loading: false,
-  documents: [],
+  step: 1,
+  contractors: [],
+  docuKind: "",
+  docuTitle: "",
+  docuContent: "",
+  imgUrl: "",
   error: "",
 };
-
-export const fetchDocuments = createAsyncThunk(
-  "document/fetchAllDocuments",
-  async () => {
-    return http
-      .get(`/documents`)
-      .then((response) =>
-        response.data.map((documents: Document) => documents.id)
-      );
-  }
-);
 
 const documentSlice = createSlice({
   name: "document",
   initialState,
-  reducers: {},
-  extraReducers: (builder) => {
-    builder.addCase(fetchDocuments.pending, (state) => {
-      state.loading = true;
-    });
-    builder.addCase(
-      fetchDocuments.fulfilled,
-      (state, action: PayloadAction<Document[]>) => {
-        state.loading = false;
-        state.documents = action.payload;
-        state.error = "";
-      }
-    );
-    builder.addCase(fetchDocuments.rejected, (state, action) => {
-      state.loading = false;
-      state.documents = [];
-      state.error = action.error.message || "Something went wrong";
-    });
+  reducers: {
+    // 문서 작성 시작 버튼 및 문서 작성 중간 초기화 버튼 기능
+    initialContractors(state) {
+      state.step = 1;
+      state.contractors = [];
+      state.docuKind = "";
+      state.docuTitle = "";
+      state.docuContent = "";
+      state.imgUrl = "";
+      state.error = "";
+    },
+
+    // contractor 로 돌아가기
+    afterContractors(state, action) {
+      state.step += 1;
+      state.contractors = action.payload;
+    },
+
+    // contractor 로 돌아가기
+    beforeDocukind(state) {
+      state.step = 1;
+    },
+
+    // 문서 종류 저장
+    afterDocukind(state, action) {
+      state.step += 1;
+      state.docuKind = action.payload;
+    },
+
+    // docukind 로 돌아가기
+    beforeWriting(state) {
+      state.step = 2;
+    },
+
+    // 문서 내용 저장
+    saveDocuContent(state, action) {
+      state.docuContent = action.payload;
+    },
+
+    // 문서 제목 저장
+    afterWriting(state, action) {
+      state.step += 1;
+      state.docuTitle = action.payload;
+    },
+
+    // writing 으로 돌아가기
+    beforeSignning(state) {
+      state.step = 3;
+    },
+
+    // 서명 후 DB 저장용 데이터 완성
+    afterSignning(state, action) {
+      state.step += 1;
+      state.imgUrl = action.payload;
+    },
+
+    // 서명 후 뒤로 돌아가기 X
+    // 이메일 전송 후 모든 값 초기화
+    afterEmail(state, action) {
+      state.step += 1;
+      state.imgUrl = action.payload;
+    },
   },
 });
 
+export const documentActions = documentSlice.actions;
 export default documentSlice.reducer;

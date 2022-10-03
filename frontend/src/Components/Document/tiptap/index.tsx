@@ -12,8 +12,8 @@ import {
   deptForm,
 } from "Components/Document/docukind";
 
-import {useRecoilState, useRecoilValue} from "recoil";
-import {docuContentState, docuKindState} from "atom/documentAtom";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {documentActions} from "features/document/documentSlice";
 
 import MenuBar from "./MenuBar";
 import TitleForm from "./TitleForm";
@@ -51,8 +51,9 @@ interface IIsEditable {
 }
 
 const Tiptap = ({isEditable}: IIsEditable) => {
-  const {docuKind} = useRecoilValue(docuKindState);
-  const [{docuContent}, setDocuContent] = useRecoilState(docuContentState);
+  const dispatch = useAppDispatch();
+  const docuKind = useAppSelector((state) => state.document.docuKind);
+  const docuContent = useAppSelector((state) => state.document.docuContent);
 
   // 앞 단계에서 선택한 문서양식에 따라서 에디터 출력 다르게 설정
   function selectDocukind() {
@@ -83,8 +84,7 @@ const Tiptap = ({isEditable}: IIsEditable) => {
     autofocus: true,
     editable: isEditable,
     onUpdate: ({editor}) => {
-      // atom 데이터 저장
-      setDocuContent({docuContent: editor.getHTML()});
+      dispatch(documentActions.saveDocuContent(editor.getHTML()));
     },
   });
 

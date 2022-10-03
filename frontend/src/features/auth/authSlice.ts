@@ -25,31 +25,37 @@ const initialState: AuthState = {
   error: "",
 };
 
-export const fetchAuth = createAsyncThunk(
+export const fetchLogin = createAsyncThunk(
   "auth/local-login",
-  async ({email, password}: ILogInForm, thunkAPI) => {
+  async ({email, password}: ILogInForm) => {
     const response = await AuthDataService.login({email, password});
     return response.data;
   }
 );
 
+export const fetchLogout = createAsyncThunk("auth/logout", async () => {
+  const response = await AuthDataService.logout();
+  return response.data;
+});
+
+export const fetchRefresh = createAsyncThunk("auth/refresh", async () => {
+  const response = await AuthDataService.refreshToken();
+  return response.data;
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {
-    login(state) {
-      state.isAuthenticated = true;
-    },
-    logout(state) {
-      state.isAuthenticated = false;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetchAuth.pending, (state) => {
+    //--------------------------------------------------------------------------------
+    // fetchLogin
+    //--------------------------------------------------------------------------------
+    builder.addCase(fetchLogin.pending, (state) => {
       state.loading = true;
     });
     builder.addCase(
-      fetchAuth.fulfilled,
+      fetchLogin.fulfilled,
       (state, action: PayloadAction<User>) => {
         state.loading = false;
         state.isAuthenticated = true;
@@ -57,15 +63,62 @@ const authSlice = createSlice({
         state.error = "";
       }
     );
-    builder.addCase(fetchAuth.rejected, (state, action) => {
+    builder.addCase(fetchLogin.rejected, (state, action) => {
       state.loading = false;
       state.isAuthenticated = false;
       state.user = {};
       state.error =
-        action.error.message || "Something went wrong, please check authSlice";
+        action.error.message || "Something went wrong, please check fetchlogin";
+    });
+
+    //--------------------------------------------------------------------------------
+    // fetchLogout
+    //--------------------------------------------------------------------------------
+    builder.addCase(fetchLogout.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      fetchLogout.fulfilled,
+      (state, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.isAuthenticated = false;
+        state.user = action.payload;
+        state.error = "";
+      }
+    );
+    builder.addCase(fetchLogout.rejected, (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = true;
+      state.user = {};
+      state.error =
+        action.error.message ||
+        "Something went wrong, please check fetchLogout";
+    });
+
+    //--------------------------------------------------------------------------------
+    // fetchRefresh
+    //--------------------------------------------------------------------------------
+    builder.addCase(fetchRefresh.pending, (state) => {
+      state.loading = true;
+    });
+    builder.addCase(
+      fetchRefresh.fulfilled,
+      (state, action: PayloadAction<User>) => {
+        state.loading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload;
+        state.error = "";
+      }
+    );
+    builder.addCase(fetchRefresh.rejected, (state, action) => {
+      state.loading = false;
+      state.isAuthenticated = false;
+      state.user = {};
+      state.error =
+        action.error.message ||
+        "Something went wrong, please check fetchRefresh";
     });
   },
 });
-
-export default authSlice.reducer;
 export const authActions = authSlice.actions;
+export default authSlice.reducer;

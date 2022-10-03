@@ -13,6 +13,14 @@ router
   .route("/local-login")
   .post(verifyIsNotToken, AuthCtrl.apiPostLocalLogInUser);
 
+// Post - 로그아웃
+
+router.route("/logout").post(AuthCtrl.apiPostLogout);
+
+// Get - 토큰 재발급 및 로그인 유지
+
+router.route("/refresh-token").get(verifyIsToken, AuthCtrl.apiGetRefreshToken);
+
 // Get - 카카오 로그인 페이지 이동
 // Get - 카카오 로그인 콜백
 
@@ -22,7 +30,7 @@ router
   .get(
     verifyIsNotToken,
     AuthCtrl.apiGetKakaoLogInCallback,
-    AuthCtrl.apiRedirectJWT
+    AuthCtrl.apiSendJWT
   );
 
 // Get - 구글 로그인
@@ -34,11 +42,7 @@ router
   .get(
     verifyIsNotToken,
     AuthCtrl.apiGetGoogleLoginCallback,
-    AuthCtrl.apiRedirectJWT
+    AuthCtrl.apiSendJWT
   );
-
-// Get - 로그아웃
-
-router.route("/logout").post(AuthCtrl.apiPostLogout);
 
 module.exports = router;

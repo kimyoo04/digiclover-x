@@ -2,14 +2,8 @@ import {useRef, useState, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import DocumentDataService from "services/document";
 
-import {useRecoilState, useRecoilValue} from "recoil";
-import {
-  contractorState,
-  docuContentState,
-  docuKindState,
-  docuAllState,
-  docuTitleState,
-} from "atom/documentAtom";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
@@ -47,41 +41,25 @@ const LabelButton = styled.label`
 `;
 
 const Canvas = () => {
-  const contractors = useRecoilValue(contractorState);
-  const {docuKind} = useRecoilValue(docuKindState);
-  const {docuTitle} = useRecoilValue(docuTitleState);
-  const {docuContent} = useRecoilValue(docuContentState);
-  const [docuAll, setDocuAll] = useRecoilState(docuAllState);
-
-  let navigate = useNavigate();
-  function prevClick() {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const prevClick = () => {
     navigate(-1);
-  }
-  function nextClick() {
-    // atom 데이터 저장
-    const imgUrl = canvasRef.current.toDataURL();
-    setDocuAll({
-      contractors,
-      docuInfo: {docuKind, docuTitle, docuContent},
-      imgUrl,
-    });
+  };
+  const nextClick = async () => {
+    // 서명한 imgUrl 저장
+    const imgUrl = await canvasRef.current.toDataURL();
+    dispatch(documentActions.afterSignning(imgUrl));
 
-    // fetch --- docuAll 변수를 이용해서 이 곳에 할 것!
+    // 문서 이미지 pdf화 (미완)
+    // const html2canvas = require("html2canvas");
+    // let img;
+    // html2canvas(document.querySelector("#capture")).then((canvas) => {
+    //   img = canvas.toDataURL("image/png", 1.0);
+    // });
 
-    const html2canvas = require("html2canvas");
-
-    let img;
-
-    html2canvas(document.querySelector("#capture")).then((canvas) => {
-      img = canvas.toDataURL("image/png", 1.0);
-    });
-
-    // 문서의 모든 데이터와 pdfFile post로 넘기기
-    DocumentDataService.createOneDocument(docuAll);
-
-    // 오류 처리는?
-    navigate(`/document/email`);
-  }
+    navigate(`/document/email`); // 지우기
+  };
 
   const [drawing, setDrawing] = useState(false);
   const ctxRef = useRef(null);

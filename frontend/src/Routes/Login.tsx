@@ -14,7 +14,7 @@ import {
 } from "Components/style/auth";
 import {Col, Row} from "Components/style/layout";
 import {useAppDispatch, useAppSelector} from "app/hook";
-import {authActions} from "features/auth/authSlice";
+import {fetchLogin} from "features/auth/authSlice";
 
 const HookForm = styled.form`
   margin-bottom: 30px;
@@ -87,9 +87,8 @@ const Login = () => {
 
   const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
-    AuthDataService.login(data)
-      .then(() => dispatch(authActions.login()))
-      .then(() => navigate("/"));
+    dispatch(fetchLogin(data));
+    navigate("/");
   };
 
   return isAuthenticated ? (

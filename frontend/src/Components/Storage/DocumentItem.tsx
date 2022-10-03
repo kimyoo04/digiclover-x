@@ -1,6 +1,10 @@
+import {useQuery} from "@tanstack/react-query";
 import {FC} from "react";
 import {useNavigate} from "react-router-dom";
-import {IDocumentData, IDocumentsData} from "services/document";
+import DocumentDataService, {
+  IDocumentData,
+  IDocumentsData,
+} from "services/document";
 import styled from "styled-components";
 import Button from "../style/buttons";
 
@@ -96,14 +100,18 @@ const SignIcon = ({contractorId, people}: ISignIcon) => {
   );
 };
 
-const DocumentItem: FC<IDocumentsData> = ({documentsData}) => {
+const DocumentItem: FC<IDocumentsData> = () => {
   const navigate = useNavigate();
   function onDocuClicked(documentId: number) {
     // 선택한 문서 아이디로 이동 (DocumentModal 컴포넌트)
     navigate(`/storage/${documentId}`);
   }
 
-  return (
+  const {data: documentsData, isLoading: isDocumentsDataLoading} = useQuery<
+    IDocumentData[]
+  >(["documentsData"], () => DocumentDataService.getAllDocuments());
+
+  return isDocumentsDataLoading ? null : (
     <div>
       {documentsData?.map(
         ({

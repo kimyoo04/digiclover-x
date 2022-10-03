@@ -3,6 +3,8 @@ import Alert from "Components/Alert";
 import Header from "Routes/layouts/Header";
 import Login from "./Login";
 
+import {useAppSelector} from "app/hook";
+
 interface IProtectedRouteProps {
   outlet: JSX.Element;
 }
@@ -10,6 +12,7 @@ interface IProtectedRouteProps {
 const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
   outlet,
 }: IProtectedRouteProps) => {
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const [alert, setAlert] = useState(true);
   const alertMessage = {
     alertType: "Warning",
@@ -20,9 +23,8 @@ const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
     setAlert((prev) => !prev);
   }
 
-  // 토큰 있는 경우 outlet 랜더
-  const token = localStorage.getItem("authToken");
-  if (token) {
+  // jwt 있는 경우 진입
+  if (isAuthenticated) {
     return outlet;
   }
 

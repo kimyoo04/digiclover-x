@@ -1,7 +1,14 @@
-import {FC} from "react";
 import {Text} from "Components/style/text";
 import {ISignatureData} from "services/document";
 import styled from "styled-components";
+
+const LogginWrapper = styled.div`
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-bottom: 20px;
+`;
 
 const DateText = styled(Text)`
   display: block;
@@ -11,21 +18,34 @@ const DateText = styled(Text)`
 const HText = styled(Text)`
   display: block;
   color: ${(props) => props.theme.textWhiteColor};
+  font-size: 18px;
   font-weight: 700;
 `;
 
 const SignatureImg = styled.img`
   width: 200px;
   height: 100px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 `;
 
 const ModalLogging = ({user}: {user: ISignatureData}) => {
   return (
-    <>
-      <HText>요청자 서명 날짜</HText>
-      <DateText>서명 날짜{user.updatedAt}</DateText>
-      <SignatureImg>{user.imgUrl}</SignatureImg>
-    </>
+    <LogginWrapper>
+      <HText>요청자 로그 기록</HText>
+
+      {user.isSigned ? (
+        <>
+          <HText>서명 이미지</HText>
+          <SignatureImg src={user.imgUrl || undefined} alt={`signature`} />
+          <HText>서명 일시</HText>
+          <DateText>{user.updatedAt}</DateText>
+        </>
+      ) : (
+        <>
+          <DateText>미완료</DateText>
+        </>
+      )}
+    </LogginWrapper>
   );
 };
 

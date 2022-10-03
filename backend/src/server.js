@@ -7,9 +7,7 @@ const path = require("path");
 const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-const session = require("express-session");
 const passport = require("passport");
-const flash = require("connect-flash");
 const dotenv = require("dotenv");
 
 dotenv.config();
@@ -55,7 +53,7 @@ app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000");
   res.header(
     "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
+    "Origin, X-Requested-With, Content-Type, Content-Language, Accept, Accept-Language,"
   );
   res.header("Access-Control-Allow-Credentials", "true");
   next();
@@ -75,8 +73,6 @@ app.use(
 ); // process.env.COOKIE_SECRET
 require("./passport")(passport);
 app.use(passport.initialize());
-app.use(passport.session());
-app.use(flash());
 
 //--------------------------------------------------------------------------------
 // 라우터

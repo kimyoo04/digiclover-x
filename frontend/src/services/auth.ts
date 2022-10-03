@@ -13,6 +13,12 @@ const AuthDataService = {
   logout() {
     return http.post(`/auth/logout`);
   },
+
+  // Get - 토큰 재발급 및 로그인 유지
+
+  refreshToken() {
+    return http.get(`/auth/refresh-token`);
+  },
 };
 
 export default AuthDataService;

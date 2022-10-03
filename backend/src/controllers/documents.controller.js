@@ -4,7 +4,8 @@ module.exports = class DocumentsCtrl {
   // Get - 모든 문서 조회
 
   static async apiGetDocuments(req, res, next) {
-    let documentsData = await documentsDAO.getDocuments();
+    console.log(req.id);
+    const documentsData = await documentsDAO.getDocuments(req.id);
 
     console.log("apiGetDocuments - success");
     res.json(documentsData);
@@ -13,14 +14,16 @@ module.exports = class DocumentsCtrl {
   // Get - 문서 1 개 서명 n 개 조회
 
   static async apiGetDocumentById(req, res, next) {
-    let {id} = req.params;
+    const {id} = req.params;
+    console.log("id", id);
 
     // 문서 1 개와 서명 n개 조회
-    let documentData = await documentsDAO.getDocumentById(id);
-    let signaturesData = await documentsDAO.getSignaturesById(id);
+    const documentData = await documentsDAO.getDocumentById(id);
+    const signaturesData = await documentsDAO.getSignaturesById(id);
+    console.log(documentData);
 
     // 데이터 병합
-    let response = {
+    const response = {
       ...documentData,
       ...signaturesData,
     };
@@ -38,7 +41,7 @@ module.exports = class DocumentsCtrl {
     // // pdf 파일 만들기
     // const {jsPDF} = require("jspdf");
     // const moment = require("moment");
-    // let doc = new jsPDF({
+    // const doc = new jsPDF({
     //   orientation: "p",
     //   unit: "mm",
     //   format: [210, 297],
@@ -84,15 +87,11 @@ module.exports = class DocumentsCtrl {
 
     // 문서 생성
     await documentsDAO
-      .postOneDocument(
-        req.body.data, // docuAll 데이터
-        hashFile,
-        hashValue
-      )
+      .postOneDocument(req.body.data, req.id, hashFile, hashValue)
       .catch((error) => next(error));
 
     console.log("apiPostOneDocument - success");
-    return res.json({result: "Post success"});
+    return res.json({msg: "apiPostOneDocument success"});
   }
 
   // Delete - 문서삭제
@@ -104,6 +103,6 @@ module.exports = class DocumentsCtrl {
     await documentsDAO.deleteOneDocument(id);
 
     console.log("apiDeleteDocumentById - success");
-    return res.json({result: "Delete success"});
+    return res.json({msg: "apiDeleteDocumentById success"});
   }
 };
