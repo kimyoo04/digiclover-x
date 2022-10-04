@@ -1,6 +1,6 @@
 import {useNavigate} from "react-router-dom";
 
-import {useAppDispatch, useAppSelector} from "app/hook";
+import {useAppDispatch} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";

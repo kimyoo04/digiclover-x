@@ -49,7 +49,7 @@ const TitleForm = ({isEditable}: IIsEditable) => {
     if (!data) {
     } else {
       console.log(data.docuTitle);
-      dispatch(documentActions.afterWriting(data.docuTitle));
+      dispatch(documentActions.afterWritingDocuTitle(data.docuTitle));
       navigate(`/document/signning`);
     }
   };

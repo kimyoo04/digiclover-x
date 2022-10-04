@@ -1,4 +1,4 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export type DocuKind = "자유양식" | "MOU" | "근로계약서" | "차용증" | "";
 
@@ -49,7 +49,7 @@ const documentSlice = createSlice({
     },
 
     // contractor 로 돌아가기
-    afterContractors(state, action) {
+    afterContractors(state, action: PayloadAction<IContractor[]>) {
       state.step += 1;
       state.contractors = action.payload;
     },
@@ -60,7 +60,7 @@ const documentSlice = createSlice({
     },
 
     // 문서 종류 저장
-    afterDocukind(state, action) {
+    afterDocukind(state, action: PayloadAction<DocuKind>) {
       state.step += 1;
       state.docuKind = action.payload;
     },
@@ -70,15 +70,15 @@ const documentSlice = createSlice({
       state.step = 2;
     },
 
-    // 문서 내용 저장
-    saveDocuContent(state, action) {
-      state.docuContent = action.payload;
-    },
-
     // 문서 제목 저장
-    afterWriting(state, action) {
+    afterWritingDocuTitle(state, action: PayloadAction<string>) {
       state.step += 1;
       state.docuTitle = action.payload;
+    },
+
+    // 문서 내용 저장
+    afterWritingDocuContent(state, action: PayloadAction<string>) {
+      state.docuContent = action.payload;
     },
 
     // writing 으로 돌아가기
@@ -87,14 +87,13 @@ const documentSlice = createSlice({
     },
 
     // 서명 후 DB 저장용 데이터 완성
-    afterSignning(state, action) {
+    afterSignning(state) {
       state.step += 1;
-      state.imgUrl = action.payload;
     },
 
     // 서명 후 뒤로 돌아가기 X
     // 이메일 전송 후 모든 값 초기화
-    afterEmail(state, action) {
+    afterEmail(state, action: PayloadAction<string>) {
       state.step += 1;
       state.imgUrl = action.payload;
     },
