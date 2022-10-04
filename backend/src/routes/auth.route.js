@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const AuthCtrl = require("../controllers/auth.controller.js");
-const {verifyIsNotToken, verifyIsToken} = require("../util/authJWT.js");
+const {verifyIsNotToken, refreshToken} = require("../util/authJWT.js");
 
 // Post - 회원가입
 
@@ -19,7 +19,7 @@ router.route("/logout").post(AuthCtrl.apiPostLogout);
 
 // Get - 토큰 재발급 및 로그인 유지
 
-router.route("/refresh-token").get(verifyIsToken, AuthCtrl.apiGetRefreshToken);
+router.route("/refresh-token").get(refreshToken, AuthCtrl.apiGetRefreshToken);
 
 // Get - 카카오 로그인 페이지 이동
 // Get - 카카오 로그인 콜백

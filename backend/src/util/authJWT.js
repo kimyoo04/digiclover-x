@@ -13,7 +13,7 @@ exports.verifyIsToken = (req, res, next) => {
     const token = cookies.split("=")[1];
     jwt.verify(String(token), process.env.JWT_SECRET_KEY, (err, user) => {
       if (err) {
-        res.clearCookie(`authorization`);
+        res.clearCookie(tokenName);
         return res.status(400).json({msg: "토큰 인증 실패로 로그아웃 됩니다."});
       }
 
@@ -47,34 +47,37 @@ exports.verifyIsNotToken = (req, res, next) => {
 //--------------------------------------------------------------------------------
 exports.refreshToken = (req, res, next) => {
   const cookies = req.headers.cookie;
-  const prevToken = cookies.split("=")[1];
-  if (!prevToken) {
+  if (cookies) {
+    // cookies 가 있는 경우
+
+    const prevToken = cookies.split("=")[1];
+
+    if (!prevToken) {
+      // prevToken이 없는 경우
+
+      res.clearCookie(tokenName);
+      req.cookies[tokenName] = "";
+      return res.status(400).json({msg: "토큰을 찾을 수 없습니다."});
+    } else {
+      // prevToken이 있는 경우
+
+      jwt.verify(String(prevToken), process.env.JWT_SECRET_KEY, (err, user) => {
+        if (err) {
+          res.clearCookie(tokenName);
+          req.cookies[tokenName] = "";
+          console.log(err);
+          return res.status(403).json({msg: "인증 실패."});
+        }
+
+        // 유저 아이디 저장
+        req.id = user.id;
+        next();
+      });
+    }
+  } else {
+    // cookies 가 없는 경우
     res.clearCookie(tokenName);
     req.cookies[tokenName] = "";
     return res.status(400).json({msg: "토큰을 찾을 수 없습니다."});
   }
-  jwt.verify(String(prevToken), process.env.JWT_SECRET_KEY, (err, user) => {
-    if (err) {
-      res.clearCookie(tokenName);
-      req.cookies[tokenName] = "";
-      console.log(err);
-      return res.status(403).json({msg: "인증 실패."});
-    }
-
-    const token = jwt.sign({id: user.id}, process.env.JWT_SECRET_KEY, {
-      expiresIn: "35s",
-    });
-    console.log("Regenerated Token\n", token);
-
-    res.cookie(String(user.id), token, {
-      path: "/",
-      expires: new Date(Date.now() + 1000 * 30), // 30 seconds
-      httpOnly: true,
-      sameSite: "lax",
-    });
-
-    // 유저 아이디 저장
-    req.id = user.id;
-    next();
-  });
 };

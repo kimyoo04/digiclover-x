@@ -29,7 +29,7 @@ const Writing = () => {
   const navigate = useNavigate();
   function prevClick() {
     navigate(-1); // 지우기
-    dispatch(documentActions.beforeWriting);
+    dispatch(documentActions.beforeWriting());
   }
 
   return (

@@ -72,7 +72,7 @@ const Docukind = () => {
 
   const prevClick = () => {
     navigate(-1); // 지우기
-    dispatch(documentActions.beforeDocukind);
+    dispatch(documentActions.beforeDocukind());
   };
 
   // 문서 종류를 선택하는 리액트-훅-폼

@@ -38,7 +38,6 @@
     "react-redux": "^8.0.4",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
-    "recoil": "^0.7.5",
     "redux-logger": "^3.0.6",
     "remixicon": "^2.5.0",
     "sass": "^1.54.9",

@@ -4,6 +4,7 @@ import {createLogger} from "redux-logger";
 import authReducer from "../features/auth/authSlice";
 import userReducer from "../features/user/userSlice";
 import documentReducer from "../features/document/documentSlice";
+import themeSlice from "features/theme/themeSlice";
 
 const logger = createLogger();
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     user: userReducer,
     auth: authReducer,
     document: documentReducer,
+    theme: themeSlice,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });

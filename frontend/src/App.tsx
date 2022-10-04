@@ -1,8 +1,4 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-import {darkTheme, lightTheme} from "theme";
-
-import {useRecoilValue} from "recoil";
-import {isDarkState} from "atom/themeAtom";
 
 import {ThemeProvider} from "styled-components";
 import DocumentModal from "Components/Storage/DocumentModal";
@@ -27,9 +23,12 @@ import Email from "Routes/document/Email";
 import HeaderLayout from "Routes/layouts/HeaderLayout";
 import Footer from "Routes/layouts/Footer";
 
+import {useAppSelector} from "app/hook";
+import {darkTheme, lightTheme} from "theme";
+
 function App() {
   // 라이트모드, 다크모드
-  const isDark = useRecoilValue(isDarkState);
+  const isDark = useAppSelector((state) => state.theme.isDark);
 
   return (
     <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>

@@ -2,7 +2,6 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 
-import {RecoilRoot} from "recoil";
 import {QueryClient, QueryClientProvider} from "@tanstack/react-query";
 
 import {store} from "./app/store";
@@ -87,14 +86,10 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <RecoilRoot>
-      <Provider store={store}>
-        <QueryClientProvider client={client}>
-          <GlobalStyle />
-          <App />
-        </QueryClientProvider>
-      </Provider>
-    </RecoilRoot>
-  </React.StrictMode>
+  <Provider store={store}>
+    <QueryClientProvider client={client}>
+      <GlobalStyle />
+      <App />
+    </QueryClientProvider>
+  </Provider>
 );

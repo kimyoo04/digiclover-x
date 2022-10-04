@@ -56,7 +56,7 @@ const Email = () => {
       await DocumentDataService.createOneDocument(document);
 
       // documentSlice의 state 초기화
-      dispatch(documentActions.initialContractors);
+      dispatch(documentActions.initialContractors());
 
       navigate(`/storage`); // 이메일 전송 후
     } else {

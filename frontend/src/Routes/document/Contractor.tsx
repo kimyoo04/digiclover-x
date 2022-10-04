@@ -41,7 +41,7 @@ const Contractor = () => {
 
   // documentSlice의 state 초기화
   useEffect(() => {
-    dispatch(documentActions.initialContractors);
+    dispatch(documentActions.initialContractors());
   }, []);
 
   // 계약자 정보 받는 리액트-훅-폼

@@ -1,4 +1,4 @@
-import {IContractor} from "atom/documentAtom";
+import {IContractor} from "features/document/documentSlice";
 import styled from "styled-components";
 
 const Card = styled.div`

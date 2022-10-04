@@ -1,7 +1,7 @@
-import {motion} from "framer-motion";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {toggleTheme} from "features/theme/themeSlice";
 
-import {useRecoilState} from "recoil";
-import {isDarkState} from "atom/themeAtom";
+import {motion} from "framer-motion";
 
 import styled from "styled-components";
 import Button from "./style/buttons";
@@ -26,11 +26,12 @@ const LightIcon = styled(motion.i)`
 `;
 
 const ToggleIsDark = () => {
-  const [isDark, setIsDark] = useRecoilState(isDarkState);
+  const isDark = useAppSelector((state) => state.theme.isDark);
+  const dispatch = useAppDispatch();
 
   return (
     <ToggleButton
-      onClick={() => setIsDark((prev) => !prev)}
+      onClick={() => dispatch(toggleTheme())}
       color={isDark ? "#233e4d" : "#fff"}
     >
       {isDark ? (
