@@ -7,6 +7,7 @@ import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/style/buttons";
+import {getNodeText} from "@testing-library/react";
 
 const CanvasItem = styled.canvas`
   background-color: white;
@@ -46,6 +47,9 @@ const Canvas = () => {
   const prevClick = () => {
     navigate(-1);
   };
+  const goEmail = async () => {
+    navigate(`/document/email`); // 지우기
+  };
   const nextClick = async () => {
     // 서명한 imgUrl 저장
     const imgUrl = await canvasRef.current.toDataURL();
@@ -57,8 +61,7 @@ const Canvas = () => {
     // html2canvas(document.querySelector("#capture")).then((canvas) => {
     //   img = canvas.toDataURL("image/png", 1.0);
     // });
-
-    navigate(`/document/email`); // 지우기
+    await goEmail();
   };
 
   const [drawing, setDrawing] = useState(false);

@@ -26,7 +26,7 @@ const DocumentStart = () => {
         <StartBtn
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}
-          onClick={() => dispatch(documentActions.initialContractors())}
+          onClick={() => dispatch(documentActions.initialDocumentData())}
         >
           문서 작성 시작
         </StartBtn>

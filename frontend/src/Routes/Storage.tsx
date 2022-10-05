@@ -62,6 +62,7 @@ const Storage = () => {
   const [isLastPage, setIsLastPage] = useState(false);
   const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
 
+  // 마지막 페이지 넘김 처리 함수
   const onSuccess = (data: IDocumentData[]) => {
     setIsLastPage(false);
     if (data.length === 0) {
@@ -76,9 +77,10 @@ const Storage = () => {
     refetch,
   } = useQuery<IDocumentData[]>(
     ["documentsData"],
-    () => DocumentDataService.getAllDocuments(10, pages),
+    () => DocumentDataService.getAllDocuments(4, pages),
     {
       keepPreviousData: true,
+      refetchOnWindowFocus: false,
       onSuccess,
     }
   );

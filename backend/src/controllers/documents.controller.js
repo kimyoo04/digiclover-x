@@ -4,8 +4,8 @@ module.exports = class DocumentsCtrl {
   // Get - 모든 문서 조회
 
   static async apiGetDocuments(req, res, next) {
-    const limit = parseInt(req.query._limit, 10);
-    const offset = parseInt((req.query._pages - 1) * limit, 10);
+    const limit = parseInt(req.query._limit);
+    const offset = parseInt((req.query._pages - 1) * limit);
 
     console.log(req.id);
     const documentsData = await documentsDAO.getDocumentsByPages(
@@ -25,10 +25,15 @@ module.exports = class DocumentsCtrl {
     const {id} = req.params;
     console.log("id", id);
 
-    // 문서 1 개와 서명 n개 조회
+    // 문서 1 개 조회
     const documentData = await documentsDAO.getDocumentById(id);
+    console.log("documentData - success");
+    // console.log(documentData);
+
+    // 서명 n개 조회
     const signaturesData = await documentsDAO.getSignaturesById(id);
-    console.log(documentData);
+    console.log("signaturesData - success");
+    // console.log(signaturesData);
 
     // 데이터 병합
     const response = {
@@ -36,7 +41,6 @@ module.exports = class DocumentsCtrl {
       ...signaturesData,
     };
 
-    console.log("apiGetDocumentById - success");
     res.json(response);
   }
 

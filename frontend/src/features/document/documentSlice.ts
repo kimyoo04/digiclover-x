@@ -38,7 +38,8 @@ const documentSlice = createSlice({
   initialState,
   reducers: {
     // 문서 작성 시작 버튼 및 문서 작성 중간 초기화 버튼 기능
-    initialContractors(state) {
+    // 이메일 전송 후 모든 값 초기화
+    initialDocumentData(state) {
       state.step = 1;
       state.contractors = [];
       state.docuKind = "";
@@ -87,13 +88,7 @@ const documentSlice = createSlice({
     },
 
     // 서명 후 DB 저장용 데이터 완성
-    afterSignning(state) {
-      state.step += 1;
-    },
-
-    // 서명 후 뒤로 돌아가기 X
-    // 이메일 전송 후 모든 값 초기화
-    afterEmail(state, action: PayloadAction<string>) {
+    afterSignning(state, action: PayloadAction<string>) {
       state.step += 1;
       state.imgUrl = action.payload;
     },
