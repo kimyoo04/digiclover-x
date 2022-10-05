@@ -31,7 +31,7 @@ function App() {
   const isDark = useAppSelector((state) => state.theme.isDark);
 
   return (
-    <ThemeProvider theme={!isDark ? darkTheme : lightTheme}>
+    <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <Router>
         <Routes>
           <Route

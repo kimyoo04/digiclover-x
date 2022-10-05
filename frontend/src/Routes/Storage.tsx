@@ -1,9 +1,13 @@
+import {useState, useEffect} from "react";
 import {PathMatch, useMatch} from "react-router-dom";
 
 import styled from "styled-components";
 import DocumentItem from "Components/Storage/DocumentItem";
 import DocumentModal from "Components/Storage/DocumentModal";
 import {Wrapper} from "Components/style/layout";
+import DocumentDataService, {IDocumentData} from "services/document";
+import {useQuery} from "react-query";
+import Button from "Components/style/buttons";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -32,9 +36,56 @@ const DocumentHeader = styled.div`
     color: ${(props) => props.theme.textColor};
   }
 `;
+const PagesButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & span {
+    font-size: 20px;
+    font-weight: 700;
+    color: ${(props) => props.theme.bgWhiteColor};
+  }
+`;
+
+const PagesButton = styled(Button)`
+  background-color: transparent;
+
+  & i {
+    font-size: 24px;
+    color: ${(props) => props.theme.bgWhiteColor};
+  }
+`;
 
 const Storage = () => {
+  const [pages, setPages] = useState(1);
+  const [isLastPage, setIsLastPage] = useState(false);
   const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
+
+  const onSuccess = (data: IDocumentData[]) => {
+    setIsLastPage(false);
+    if (data.length === 0) {
+      console.log("마지막 페이지입니다.");
+      setIsLastPage(true);
+    }
+  };
+
+  const {
+    data: documentsData,
+    isLoading: isDocumentsDataLoading,
+    refetch,
+  } = useQuery<IDocumentData[]>(
+    ["documentsData"],
+    () => DocumentDataService.getAllDocuments(10, pages),
+    {
+      keepPreviousData: true,
+      onSuccess,
+    }
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [pages]);
 
   return (
     <StorageWrapper>
@@ -52,7 +103,30 @@ const Storage = () => {
             <span>상세 기록</span>
           </div>
         </DocumentHeader>
-        <DocumentItem></DocumentItem>
+        {isDocumentsDataLoading ? null : documentsData ? (
+          <DocumentItem documentsData={documentsData}></DocumentItem>
+        ) : (
+          <span>마지막 페이지입니다.</span>
+        )}
+        <PagesButtonWrapper>
+          <PagesButton
+            onClick={() => {
+              setPages((page) => page - 1);
+            }}
+            disabled={pages === 1}
+          >
+            <i className="ri-arrow-left-s-line"></i>
+          </PagesButton>
+          <span>{pages}</span>
+          <PagesButton
+            onClick={() => {
+              setPages((page) => page + 1);
+            }}
+            disabled={!!isLastPage}
+          >
+            <i className="ri-arrow-right-s-line"></i>
+          </PagesButton>
+        </PagesButtonWrapper>
       </DocumentWrapper>
 
       {docuMatch ? <DocumentModal></DocumentModal> : null}

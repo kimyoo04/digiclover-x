@@ -1,4 +1,5 @@
-import {useQuery} from "@tanstack/react-query";
+import {useQuery} from "react-query";
+
 import Button from "Components/style/buttons";
 import {Text} from "Components/style/text";
 import {AnimatePresence, motion} from "framer-motion";

@@ -52,11 +52,13 @@ export interface IModalData {
 }
 
 const DocumentDataService = {
-  // get - 유저의 모든 문서들
+  // get - 유저의 모든 문서들 10개씩 보여주기
 
-  getAllDocuments() {
+  getAllDocuments(limitNum: number, pages: number) {
     // 인자 page = 0 넣기
-    return http.get(`/documents`).then((res) => res.data);
+    return http
+      .get(`/documents?_limit=${limitNum}&_pages=${pages}`)
+      .then((res) => res.data);
   },
 
   // post - 1개 문서 생성

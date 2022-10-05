@@ -4,10 +4,18 @@ module.exports = class DocumentsCtrl {
   // Get - 모든 문서 조회
 
   static async apiGetDocuments(req, res, next) {
-    console.log(req.id);
-    const documentsData = await documentsDAO.getDocuments(req.id);
+    const limit = parseInt(req.query._limit, 10);
+    const offset = parseInt((req.query._pages - 1) * limit, 10);
 
-    console.log("apiGetDocuments - success");
+    console.log(req.id);
+    const documentsData = await documentsDAO.getDocumentsByPages(
+      req.id,
+      limit,
+      offset
+    );
+
+    console.log(documentsData);
+    console.log("apiGetDocumentsByPages - success");
     res.json(documentsData);
   }
 

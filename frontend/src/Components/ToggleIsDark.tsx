@@ -32,18 +32,18 @@ const ToggleIsDark = () => {
   return (
     <ToggleButton
       onClick={() => dispatch(toggleTheme())}
-      color={isDark ? "#233e4d" : "#fff"}
+      color={!isDark ? "#233e4d" : "#fff"}
     >
-      {isDark ? (
+      {!isDark ? (
         <LightIcon
-          className="ri-sun-fill"
+          className="ri-moon-fill"
           exit={{opacity: 0}}
           animate={{opacity: 1}}
           transition={{duration: 0.01}}
         ></LightIcon>
       ) : (
         <DarkIcon
-          className="ri-moon-fill"
+          className="ri-sun-fill"
           exit={{opacity: 0}}
           animate={{opacity: 1}}
           transition={{duration: 0.01}}
