@@ -4,8 +4,8 @@ import {useAppDispatch} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
-import {Wrapper} from "Components/style/layout";
+import Button from "Components/Style/buttons";
+import {Wrapper} from "Components/layout";
 import Tiptap from "Components/Document/tiptap";
 
 const ButtonWrapper = styled.div`

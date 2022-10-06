@@ -1,4 +1,4 @@
-import {ISignInForm} from "Components/style/auth";
+import {ISignInForm} from "Components/Style/auth";
 import http from "../http-common";
 
 const UserDataService = {

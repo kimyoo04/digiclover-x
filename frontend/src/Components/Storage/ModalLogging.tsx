@@ -1,4 +1,4 @@
-import {Text} from "Components/style/text";
+import {Text} from "Components/Style/text";
 import {ISignatureData} from "services/document";
 import styled from "styled-components";
 

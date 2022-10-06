@@ -13,8 +13,8 @@ export const Label = styled.label`
   display: block;
   text-align: right;
   color: ${(props) => props.theme.secondaryMintColor};
-  font-size: 16px;
-  font-weight: 500;
+  font-size: 14px;
+  font-weight: 700;
   margin-bottom: 4px;
 `;
 

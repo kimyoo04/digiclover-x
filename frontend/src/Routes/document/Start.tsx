@@ -1,8 +1,8 @@
 import {Link} from "react-router-dom";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
-import {Wrapper} from "Components/style/layout";
+import Button from "Components/Style/buttons";
+import {Wrapper} from "Components/layout";
 import {useAppDispatch} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 

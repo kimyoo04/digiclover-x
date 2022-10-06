@@ -1,7 +1,7 @@
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import type {PayloadAction} from "@reduxjs/toolkit";
 import AuthDataService from "services/auth";
-import {ILogInForm} from "Components/style/auth";
+import {ILogInForm} from "Components/Style/auth";
 
 type User = {
   id: number;

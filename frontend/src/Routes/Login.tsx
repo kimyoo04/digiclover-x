@@ -3,7 +3,7 @@ import {useForm} from "react-hook-form";
 import AuthDataService from "services/auth";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
+import Button from "Components/Style/buttons";
 import {
   Wrapper,
   FormWrapper,
@@ -11,8 +11,8 @@ import {
   Label,
   ErrorMessage,
   Input,
-} from "Components/style/auth";
-import {Col, Row} from "Components/style/layout";
+} from "Components/Style/auth";
+import {Col, Row} from "Components/layout";
 import {useAppDispatch, useAppSelector} from "app/hook";
 import {fetchLogin} from "features/auth/authSlice";
 

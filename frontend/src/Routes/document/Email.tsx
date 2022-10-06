@@ -5,10 +5,10 @@ import {useAppDispatch, useAppSelector} from "app/hook";
 import {documentActions, IContractor} from "features/document/documentSlice";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
-import {Wrapper} from "Components/style/layout";
+import Button from "Components/Style/buttons";
+import {Wrapper} from "Components/layout";
 import ContractorCard from "Components/Document/ContractorCard";
-import Alert from "Components/Alert";
+import Alert from "Components/Util/Alert";
 import DocumentDataService from "services/document";
 
 const Main = styled.div`

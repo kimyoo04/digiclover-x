@@ -1,7 +1,7 @@
 import {useQuery} from "react-query";
 
-import Button from "Components/style/buttons";
-import {Text} from "Components/style/text";
+import Button from "Components/Style/buttons";
+import {Text} from "Components/Style/text";
 import {AnimatePresence, motion} from "framer-motion";
 import {useNavigate, useParams} from "react-router-dom";
 import DocumentDataService, {IModalData} from "services/document";

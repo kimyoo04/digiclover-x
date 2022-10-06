@@ -1,5 +1,5 @@
 import {useState} from "react";
-import Alert from "Components/Alert";
+import Alert from "Components/Util/Alert";
 import Header from "Routes/layouts/Header";
 import Login from "./Login";
 

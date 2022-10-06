@@ -1,4 +1,4 @@
-import {Wrapper} from "Components/style/layout";
+import {Wrapper} from "Components/layout";
 
 const Profile = () => {
   return <Wrapper></Wrapper>;

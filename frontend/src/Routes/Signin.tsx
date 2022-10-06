@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 
 import UserDataService from "services/user";
 
-import Button from "Components/style/buttons";
+import Button from "Components/Style/buttons";
 import {
   Wrapper,
   FormWrapper,
@@ -11,8 +11,8 @@ import {
   Label,
   ErrorMessage,
   Input,
-} from "Components/style/auth";
-import {Col, Row} from "Components/style/layout";
+} from "Components/Style/auth";
+import {Col, Row} from "Components/layout";
 
 const Signin = () => {
   const navigate = useNavigate();

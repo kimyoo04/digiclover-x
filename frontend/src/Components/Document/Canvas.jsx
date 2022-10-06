@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
+import Button from "Components/Style/buttons";
 import {getNodeText} from "@testing-library/react";
 
 const CanvasItem = styled.canvas`

@@ -4,7 +4,7 @@ import {toggleTheme} from "features/theme/themeSlice";
 import {motion} from "framer-motion";
 
 import styled from "styled-components";
-import Button from "./style/buttons";
+import Button from "../Style/buttons";
 
 const ToggleButton = styled(Button)`
   position: fixed;

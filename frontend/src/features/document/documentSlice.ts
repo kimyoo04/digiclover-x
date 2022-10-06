@@ -9,7 +9,6 @@ export interface IDocuTitle {
 export interface IContractor {
   companyName: string;
   name: string;
-  contractorPhone: string;
   email: string;
 }
 

@@ -4,10 +4,10 @@ import {PathMatch, useMatch} from "react-router-dom";
 import styled from "styled-components";
 import DocumentItem from "Components/Storage/DocumentItem";
 import DocumentModal from "Components/Storage/DocumentModal";
-import {Wrapper} from "Components/style/layout";
+import {Wrapper} from "Components/layout";
 import DocumentDataService, {IDocumentData} from "services/document";
 import {useQuery} from "react-query";
-import Button from "Components/style/buttons";
+import Button from "Components/Style/buttons";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;

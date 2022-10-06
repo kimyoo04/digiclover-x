@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {IDocumentData, IDocumentsData} from "services/document";
 
 import styled from "styled-components";
-import Button from "../style/buttons";
+import Button from "../Style/buttons";
 
 const DocumentWrapper = styled.div`
     display: flex;

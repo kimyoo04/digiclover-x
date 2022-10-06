@@ -5,15 +5,15 @@ import {useAppDispatch, useAppSelector} from "app/hook";
 import {DocuKind, documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
-import {Wrapper} from "Components/style/layout";
+import Button from "Components/Style/buttons";
+import {Wrapper} from "Components/layout";
 import {
   ErrorMessage,
   FormWrapper,
   IDocuKindForm,
   Input,
   Label,
-} from "Components/style/document";
+} from "Components/Document/document";
 
 const FormRadioWrapper = styled(FormWrapper)`
   width: 40vw;

@@ -39,10 +39,6 @@ const ContractorCard = (contractor: IContractor) => {
         <InfoText>{contractor.name}</InfoText>
       </InfoWrapper>
       <InfoWrapper>
-        <Info>전화번호 :</Info>
-        <InfoText>{contractor.contractorPhone}</InfoText>
-      </InfoWrapper>
-      <InfoWrapper>
         <Info>이메일 :</Info>
         <InfoText>{contractor.email}</InfoText>
       </InfoWrapper>

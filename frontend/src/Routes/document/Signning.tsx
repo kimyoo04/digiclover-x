@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {Wrapper} from "Components/style/layout";
+import {Wrapper} from "Components/layout";
 import Canvas from "Components/Document/Canvas";
 import Tiptap from "Components/Document/tiptap";
 

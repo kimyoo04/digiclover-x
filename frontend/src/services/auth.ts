@@ -1,4 +1,4 @@
-import {ILogInForm} from "Components/style/auth";
+import {ILogInForm} from "Components/Style/auth";
 import http from "../http-common";
 
 const AuthDataService = {
