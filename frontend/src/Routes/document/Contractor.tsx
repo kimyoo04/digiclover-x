@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useFieldArray, useForm} from "react-hook-form";
 
@@ -6,14 +6,9 @@ import {useAppDispatch} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
-import Button from "Components/style/buttons";
-import {
-  ErrorMessage,
-  FormWrapper,
-  Label,
-  Input,
-} from "Components/style/document";
-import {Row, Wrapper} from "Components/style/layout";
+import Button from "Components/Style/buttons";
+import {ErrorMessage, FormWrapper, Input} from "Components/Document/document";
+import {Row, Wrapper} from "Components/layout";
 
 const ContractorWrapper = styled.ul`
   background-color: ${(props) => props.theme.bgWhiteColor};
@@ -35,7 +30,7 @@ const InputHeader = styled.div`
   justify-content: space-between;
 
   & span {
-    color: ${(props) => props.theme.textAcentColor};
+    color: ${(props) => props.theme.textWhiteColor};
     font-weight: 700;
   }
 
@@ -46,7 +41,7 @@ const InputHeader = styled.div`
     & i {
       font-size: 20px;
       font-weight: 700;
-      color: ${(props) => "#222222"};
+      color: ${(props) => props.theme.textWhiteColor};
       cursor: pointer;
     }
   }
@@ -74,12 +69,25 @@ const ButtonWrapper = styled.div`
   margin-top: 20px;
 `;
 
+const ContractorInput = styled(Input)`
+  &::placeholder {
+    color: ${(props) => props.theme.primaryBlueColor};
+    font-size: 12px;
+  }
+`;
+
 const Contractor = () => {
+  // 버튼 4명까지 추가 되도록 설정
+  const [person, setPerson] = useState(0);
+  const personName = ["갑", "을", "병", "정"];
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  function prevClick() {
+
+  // 이전 페이지 이동 버튼
+  const prevClick = () => {
     navigate(-1); // 지우기
-  }
+  };
 
   // documentSlice의 state 초기화
   useEffect(() => {
@@ -96,15 +104,17 @@ const Contractor = () => {
     formState: {errors},
   } = useForm({
     defaultValues: {
-      contractor: [{companyName: "", name: "", contractorPhone: "", email: ""}],
+      contractor: [{companyName: "", name: "", email: ""}],
     },
   });
 
+  // contractor 추가 버튼 기능
   const {fields, append, remove} = useFieldArray({
     control,
     name: "contractor",
   });
 
+  // form의 submit 이후 기능
   const onValid = async (data: any) => {
     if (!data) {
     } else {
@@ -123,7 +133,7 @@ const Contractor = () => {
             return (
               <ContractorWrapper key={item.id}>
                 <InputHeader>
-                  <span>{index + 1}</span>
+                  <span>{personName[index]}</span>
                   <button type="button" onClick={() => remove(index)}>
                     <i className="ri-close-fill"></i>
                   </button>
@@ -131,12 +141,11 @@ const Contractor = () => {
 
                 <li>
                   <Row key={`Row${item.companyName}`}>
-                    <Label htmlFor="companyName">회사명</Label>
                     <ErrorMessage>
                       {errors.contractor?.[index]?.companyName?.message}
                     </ErrorMessage>
                   </Row>
-                  <Input
+                  <ContractorInput
                     {...register(`contractor.${index}.companyName`, {
                       required: "Company name is required",
                       maxLength: {
@@ -144,7 +153,7 @@ const Contractor = () => {
                         message: "Your Company name is too long.",
                       },
                     })}
-                    placeholder="Leli 주식회사"
+                    placeholder="회사명"
                     name={`contractor.${index}.companyName`}
                     type="text"
                   />
@@ -152,50 +161,27 @@ const Contractor = () => {
 
                 <li>
                   <Row key={`Row${item.name}`}>
-                    <Label htmlFor="name">Name</Label>
                     <ErrorMessage>
                       {errors.contractor?.[index]?.name?.message}
                     </ErrorMessage>
                   </Row>
-                  <Input
+                  <ContractorInput
                     {...register(`contractor.${index}.name`, {
                       required: "Name is required",
                     })}
-                    placeholder="홍길동"
+                    placeholder="성명"
                     name={`contractor.${index}.name`}
                     type="text"
                   />
                 </li>
 
                 <li>
-                  <Row key={`Row${item.contractorPhone}`}>
-                    <Label htmlFor="contractorPhone">Phone</Label>
-                    <ErrorMessage>
-                      {errors?.contractor?.[index]?.contractorPhone?.message}
-                    </ErrorMessage>
-                  </Row>
-                  <Input
-                    {...register(`contractor.${index}.contractorPhone`, {
-                      required: "Phone number is required",
-                      pattern: {
-                        value: /^\d{3}-\d{3,4}-\d{4}$/,
-                        message: "Only phone number allowed",
-                      },
-                    })}
-                    placeholder="010-0000-0000"
-                    name={`contractor.${index}.contractorPhone`}
-                    type="tel"
-                  />
-                </li>
-
-                <li>
                   <Row key={`Row${item.email}`}>
-                    <Label htmlFor="email">Email</Label>
                     <ErrorMessage>
                       {errors?.contractor?.[index]?.email?.message}
                     </ErrorMessage>
                   </Row>
-                  <Input
+                  <ContractorInput
                     {...register(`contractor.${index}.email`, {
                       required: "Email is required",
                       pattern: {
@@ -204,7 +190,7 @@ const Contractor = () => {
                         message: "Only emails allowed",
                       },
                     })}
-                    placeholder="korea@leli.xyz"
+                    placeholder="이메일"
                     name={`contractor.${index}.email`}
                     type="email"
                   />
@@ -224,10 +210,12 @@ const Contractor = () => {
                 append({
                   companyName: "",
                   name: "",
-                  contractorPhone: "",
                   email: "",
                 });
+
+                setPerson((person) => person + 1);
               }}
+              disabled={person === 3}
             >
               <i className="ri-add-line"></i>
             </PlusButton>
@@ -239,13 +227,12 @@ const Contractor = () => {
               name="reset"
               whileHover={{scale: 1.1}}
               transition={{duration: 0.05}}
-              onClick={() =>
+              onClick={() => {
                 reset({
-                  contractor: [
-                    {companyName: "", name: "", contractorPhone: "", email: ""},
-                  ],
-                })
-              }
+                  contractor: [{companyName: "", name: "", email: ""}],
+                });
+                setPerson(0);
+              }}
             >
               reset
             </ResetButton>
