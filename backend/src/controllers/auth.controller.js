@@ -1,4 +1,5 @@
 import passport from "passport";
+import authDAO from "../dao/authDAO";
 import {generateJwtToken} from "../util/generateToken";
 const Users = require("../models/user");
 const bcrypt = require("bcrypt");
@@ -9,7 +10,6 @@ module.exports = class AuthCtrl {
   //--------------------------------------------------------------------------------
   // Post - 회원가입
   //--------------------------------------------------------------------------------
-
   static async apiPostOneUser(req, res, next) {
     const {email, company, name, phone, password} = req.body.data;
 
@@ -17,13 +17,7 @@ module.exports = class AuthCtrl {
     const hash = await bcrypt.hash(password, 12);
 
     // 회원가입, DB 저장
-    let response = await usersDAO.postOneUser(
-      email,
-      company,
-      name,
-      phone,
-      hash
-    );
+    let response = await authDAO.postOneUser(email, company, name, phone, hash);
 
     return res.json(response);
   }

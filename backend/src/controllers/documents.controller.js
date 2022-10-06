@@ -1,8 +1,9 @@
 import documentsDAO from "../dao/documentsDAO";
 
 module.exports = class DocumentsCtrl {
+  //--------------------------------------------------------------------------------
   // Get - 모든 문서 조회
-
+  //--------------------------------------------------------------------------------
   static async apiGetDocuments(req, res, next) {
     const limit = parseInt(req.query._limit);
     const offset = parseInt((req.query._pages - 1) * limit);
@@ -19,8 +20,9 @@ module.exports = class DocumentsCtrl {
     res.json(documentsData);
   }
 
+  //--------------------------------------------------------------------------------
   // Get - 문서 1 개 서명 n 개 조회
-
+  //--------------------------------------------------------------------------------
   static async apiGetDocumentById(req, res, next) {
     const {id} = req.params;
     console.log("id", id);
@@ -44,8 +46,9 @@ module.exports = class DocumentsCtrl {
     res.json(response);
   }
 
+  //--------------------------------------------------------------------------------
   // Post - 문서생성
-
+  //--------------------------------------------------------------------------------
   static async apiPostOneDocument(req, res, next) {
     const crypto = require("crypto");
     const hash = crypto.createHash("md5");
@@ -106,8 +109,9 @@ module.exports = class DocumentsCtrl {
     return res.json({msg: "apiPostOneDocument success"});
   }
 
+  //--------------------------------------------------------------------------------
   // Delete - 문서삭제
-
+  //--------------------------------------------------------------------------------
   static async apiDeleteDocumentById(req, res, next) {
     let {id} = req.params;
 

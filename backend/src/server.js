@@ -56,6 +56,7 @@ app.use(function (req, res, next) {
     "Origin, X-Requested-With, Content-Type, Content-Language, Accept, Accept-Language,"
   );
   res.header("Access-Control-Allow-Credentials", "true");
+  res.header("Access-Control-Allow-Methods", ["GET", "PUT", "POST", "DELETE"]);
   next();
 });
 

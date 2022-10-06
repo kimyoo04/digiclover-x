@@ -28,6 +28,7 @@ const ContractorWrapper = styled.ul`
 const InputHeader = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   & span {
     color: ${(props) => props.theme.textWhiteColor};

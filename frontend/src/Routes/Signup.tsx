@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 
-import UserDataService from "services/user";
+import AuthDataService from "services/auth";
 
 import Button from "Components/Style/buttons";
 import {
@@ -14,7 +14,7 @@ import {
 } from "Components/Style/auth";
 import {Col, Row} from "Components/layout";
 
-const Signin = () => {
+const Signup = () => {
   const navigate = useNavigate();
   const {
     register,
@@ -34,7 +34,7 @@ const Signin = () => {
       );
     }
     console.log(data);
-    UserDataService.createOneUser(data);
+    AuthDataService.createOneUser(data);
     navigate(`/login`);
   };
 
@@ -62,6 +62,7 @@ const Signin = () => {
               })}
               placeholder="Email"
               name="email"
+              type="email"
             />
           </Col>
 
@@ -168,4 +169,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default Signup;

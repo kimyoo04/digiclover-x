@@ -1,25 +1,19 @@
-import {ISignInForm} from "Components/Style/auth";
+import {IUserForm} from "Routes/Profile";
 import http from "../http-common";
 
 const UserDataService = {
-  // Post - 회원가입
-
-  createOneUser(data: ISignInForm) {
-    return http.post("/user/signin", {data});
-  },
-
   // Get - 회원조회
   // Delete - 회원탈퇴
   // Update - 회원정보수정
 
-  getOneUser(id: string) {
-    return http.get(`/user/${id}`);
+  getOneUser() {
+    return http.get(`/user`).then((res) => res.data);
   },
-  deleteOneUser(id: string) {
-    return http.delete(`/user/${id}`);
+  deleteOneUser() {
+    return http.delete(`/user`);
   },
-  updateOneUser(id: string) {
-    return http.put(`/user/${id}`);
+  updateOneUser(data: IUserForm) {
+    return http.put(`/user`, {data});
   },
 
   // getAll(page = 0) {

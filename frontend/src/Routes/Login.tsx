@@ -1,6 +1,5 @@
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
-import AuthDataService from "services/auth";
 
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
@@ -80,7 +79,6 @@ const Login = () => {
     register,
     handleSubmit,
     formState: {errors},
-    setError,
   } = useForm<ILogInForm>({
     defaultValues: {},
   });

@@ -9,7 +9,7 @@ import Home from "Routes/Home";
 import Storage from "Routes/Storage";
 import Profile from "Routes/Profile";
 import Login from "Routes/Login";
-import Signin from "Routes/Signin";
+import Signup from "Routes/Signup";
 import NoMatch from "Routes/NoMatch";
 import ProtectedRoute from "Routes/ProtectedRoute";
 
@@ -60,7 +60,7 @@ function App() {
               element={<ProtectedRoute outlet={<Profile />}></ProtectedRoute>}
             ></Route>
             <Route path="/login" element={<Login />}></Route>
-            <Route path="/signin" element={<Signin />}></Route>
+            <Route path="/signin" element={<Signup />}></Route>
             <Route path="*" element={<NoMatch />} />
           </Route>
         </Routes>

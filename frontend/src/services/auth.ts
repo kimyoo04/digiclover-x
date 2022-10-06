@@ -1,7 +1,14 @@
+import {ISignInForm} from "Components/Style/auth";
 import {ILogInForm} from "Components/Style/auth";
 import http from "../http-common";
 
 const AuthDataService = {
+  // Post - 회원가입
+
+  createOneUser(data: ISignInForm) {
+    return http.post("/auth/signin", {data});
+  },
+
   // Post - 로컬 로그인
 
   login({email, password}: ILogInForm) {
