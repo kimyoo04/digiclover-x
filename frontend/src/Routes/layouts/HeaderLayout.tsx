@@ -7,19 +7,23 @@ import logo from "public/assets/img/logo.png";
 
 import {useAppDispatch, useAppSelector} from "app/hook";
 import {fetchLogout, fetchRefresh} from "features/auth/authSlice";
+import {breakpoints} from "Components/Util/breakPoints";
 
 const Nav = styled.nav`
   position: fixed;
   top: 0;
+
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+
   width: 100%;
-  color: white;
-  font-size: 14px;
   padding: 20px 30px;
   background-color: ${(props) => props.theme.bgColor};
+
+  color: white;
+
   z-index: 100;
   & Link {
     font-style: none;
@@ -36,7 +40,14 @@ const Link = styled(NavLink)`
   color: ${(props) => props.theme.textColor};
   font-weight: 600;
   line-height: 20px;
-  font-size: 18px;
+
+  ${breakpoints("font-size", "rem", [
+    {400: 1.0},
+    {600: 1.2},
+    {800: 1.4},
+    {1200: 1.6},
+  ])};
+
   &.active {
     color: ${(props) => props.theme.primaryBlueColor};
   }

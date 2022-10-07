@@ -6,19 +6,31 @@ import logo from "public/assets/img/logo.png";
 
 import {useAppDispatch, useAppSelector} from "app/hook";
 import {fetchLogout} from "features/auth/authSlice";
+import {breakpoints} from "Components/Util/breakPoints";
 
 const Nav = styled.nav`
   position: fixed;
   top: 0;
+
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
   align-items: center;
+
   width: 100%;
-  color: white;
-  font-size: 14px;
   padding: 20px 30px;
   background-color: ${(props) => props.theme.bgColor};
+
+  ${breakpoints("font-size", "rem", [
+    {1200: 2.2},
+    {800: 2.0},
+    {600: 1.8},
+    {450: 1.6},
+  ])};
+
+  color: white;
+  font-size: 14px;
+
   z-index: 100;
   & Link {
     font-style: none;
