@@ -1,20 +1,23 @@
+import {NavLink} from "react-router-dom";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
   background-color: ${(props) => props.theme.bgColor};
+
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+
   width: 100vw;
-  height: 94vh;
-  padding-top: 100px;
+  height: 100vh;
 `;
 
 export const FormWrapper = styled.div`
-  border: 1px solid rgba(199, 199, 199, 0.4);
-  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid ${(props) => props.theme.bgWhiteTransColor2};
+  background-color: ${(props) => props.theme.bgWhiteTransColor1};
   border-radius: 3%;
-  padding: 50px;
+  padding: 3rem;
 `;
 
 export const Label = styled.label`
@@ -28,28 +31,63 @@ export const Label = styled.label`
 
 export const ErrorMessage = styled.span`
   display: block;
-  font-size: 12px;
+  font-size: 1.2rem;
   margin-bottom: 4px;
   color: ${(props) => props.theme.dangerColor};
 `;
 
 export const Input = styled.input`
-  width: 300px;
+  width: 70vw;
+  max-width: 250px;
   height: 40px;
   border-radius: 6px;
-  font-size: 14px;
+  font-size: 1.4rem;
   transition: 0.1s;
   color: black;
   border: none;
   padding-left: 10px;
 
   &::placeholder {
-    color: rgba(0, 0, 0, 0.2);
+    color: ${(props) => props.theme.primaryBlueColor};
+    font-size: 1.2rem;
   }
 
   &:focus {
     outline: 1px solid ${(props) => props.theme.grayscale4Color};
   }
+`;
+
+export const Link = styled(NavLink)`
+  color: ${(props) => props.theme.textColor};
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+
+  &.active {
+    color: ${(props) => props.theme.primaryBlueColor};
+  }
+
+  & i {
+    font-size: 2rem;
+    margin-right: 0.6rem;
+  }
+`;
+export const LinkDropDown = styled(Link)`
+  &:hover {
+    background-color: ${(props) => props.theme.bgBlackTransColor};
+  }
+`;
+
+export const AuthWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 60px;
 `;
 
 export interface ILogInForm {

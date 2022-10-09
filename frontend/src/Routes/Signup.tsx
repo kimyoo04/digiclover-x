@@ -11,8 +11,9 @@ import {
   Label,
   ErrorMessage,
   Input,
-} from "Components/Style/auth";
+} from "Components/Auth/auth";
 import {Col, Row} from "Components/layout";
+import AuthHeader from "Components/Auth/AuthHeader";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -40,11 +41,11 @@ const Signup = () => {
 
   return (
     <Wrapper>
+      <AuthHeader />
       <FormWrapper>
         <form onSubmit={handleSubmit(onValid)}>
           <Col>
             <Row>
-              <Label htmlFor="email">Email</Label>
               <ErrorMessage>{errors?.email?.message}</ErrorMessage>
             </Row>
             <Input
@@ -68,7 +69,6 @@ const Signup = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="company">Company</Label>
               <ErrorMessage>{errors?.company?.message}</ErrorMessage>
             </Row>
             <Input
@@ -87,7 +87,6 @@ const Signup = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="name">Name</Label>
               <ErrorMessage>{errors?.name?.message}</ErrorMessage>
             </Row>
             <Input
@@ -106,7 +105,6 @@ const Signup = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="phone">Phone</Label>
               <ErrorMessage>{errors?.phone?.message}</ErrorMessage>
             </Row>
             <Input
@@ -125,7 +123,6 @@ const Signup = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="password">Password</Label>
               <ErrorMessage>{errors?.password?.message}</ErrorMessage>
             </Row>
             <Input

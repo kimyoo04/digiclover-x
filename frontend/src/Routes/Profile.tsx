@@ -1,5 +1,5 @@
 import {Col, Row, Wrapper} from "Components/layout";
-import {ErrorMessage, Input, Label} from "Components/Style/auth";
+import {ErrorMessage, Input, Label} from "Components/Auth/auth";
 import {useState} from "react";
 import {useForm} from "react-hook-form";
 

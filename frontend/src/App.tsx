@@ -20,7 +20,7 @@ import Writing from "Routes/document/Writing";
 import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
 
-import HeaderLayout from "Routes/layouts/HeaderLayout";
+import HeaderLayout from "Components/Header/HeaderLayout";
 import Footer from "Routes/layouts/Footer";
 
 import {useAppSelector} from "app/hook";
@@ -40,7 +40,6 @@ function App() {
               <ProtectedRoute outlet={<DocumentLayout />}></ProtectedRoute>
             }
           >
-            <Route index element={<DocumentStart />} />
             <Route path="contractor" element={<Contractor />} />
             <Route path="docukind" element={<Docukind />} />
             <Route path="writing" element={<Writing />} />
@@ -49,6 +48,7 @@ function App() {
           </Route>
           <Route path="/" element={<HeaderLayout />}>
             <Route index element={<Home />}></Route>
+            <Route path="/document/start" element={<DocumentStart />} />
             <Route
               path="/storage"
               element={<ProtectedRoute outlet={<Storage />}></ProtectedRoute>}
@@ -59,10 +59,10 @@ function App() {
               path="/profile"
               element={<ProtectedRoute outlet={<Profile />}></ProtectedRoute>}
             ></Route>
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signin" element={<Signup />}></Route>
-            <Route path="*" element={<NoMatch />} />
           </Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signin" element={<Signup />}></Route>
+          <Route path="*" element={<NoMatch />} />
         </Routes>
         <ToggleIsDark />
         <Footer />

@@ -1,5 +1,5 @@
-import {ISignInForm} from "Components/Style/auth";
-import {ILogInForm} from "Components/Style/auth";
+import {ISignInForm} from "Components/Auth/auth";
+import {ILogInForm} from "Components/Auth/auth";
 import http from "../http-common";
 
 const AuthDataService = {

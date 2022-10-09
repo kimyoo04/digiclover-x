@@ -10,10 +10,11 @@ import {
   Label,
   ErrorMessage,
   Input,
-} from "Components/Style/auth";
+} from "Components/Auth/auth";
 import {Col, Row} from "Components/layout";
 import {useAppDispatch, useAppSelector} from "app/hook";
 import {fetchLogin} from "features/auth/authSlice";
+import AuthHeader from "Components/Auth/AuthHeader";
 
 const HookForm = styled.form`
   margin-bottom: 30px;
@@ -98,11 +99,11 @@ const Login = () => {
     </Wrapper>
   ) : (
     <Wrapper>
+      <AuthHeader />
       <FormWrapper>
         <HookForm onSubmit={handleSubmit(onValid)}>
           <Col>
             <Row>
-              <Label htmlFor="email">Email</Label>
               <ErrorMessage>{errors?.email?.message}</ErrorMessage>
             </Row>
             <Input
@@ -123,7 +124,6 @@ const Login = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="password">Password</Label>
               <ErrorMessage>{errors?.password?.message}</ErrorMessage>
             </Row>
             <Input

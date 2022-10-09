@@ -32,8 +32,8 @@ time, mark, audio, video {
   margin: 0;
   padding: 0;
   border: 0;
-  font-size: 62.5%;
-  font: inherit;
+  font-size: 1.6rem;
+  font-family: 'Noto Sans KR', sans-serif;
   vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -45,9 +45,7 @@ footer, header, hgroup, main, menu, nav, section {
 *[hidden] {
     display: none;
 }
-body {
-  line-height: 1;
-}
+
 menu, ol, ul {
   list-style: none;
 }
@@ -69,8 +67,6 @@ table {
 body, button, input{
   color: black;
   font-weight: 300;
-  font-family: 'Noto Sans KR', sans-serif;
-  line-height: 1.2;
 }
 a {
   text-decoration:none;
