@@ -1,6 +1,5 @@
 import {LinkDropDown} from "Components/Auth/auth";
 import {motion} from "framer-motion";
-import {opacity} from "html2canvas/dist/types/css/property-descriptors/opacity";
 import {useState} from "react";
 import styled from "styled-components";
 
@@ -29,6 +28,10 @@ const MenuIcon = styled(motion.i)`
   color: ${(props) => props.theme.textColor};
   font-size: 1.8rem;
   font-weight: 700;
+
+  &.active {
+    color: ${(props) => props.theme.primaryBlueColor};
+  }
 `;
 
 const Overlay = styled.div`
@@ -48,8 +51,8 @@ const DropDown = () => {
   return (
     <>
       <MenuIcon
+        className={isView ? "ri-menu-2-line active" : "ri-menu-2-line"}
         whileHover={{scale: 1.1}}
-        className="ri-menu-2-line"
         onClick={() => setIsView((prev) => !prev)}
       ></MenuIcon>
       {isView ? (

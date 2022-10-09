@@ -6,6 +6,7 @@ import {useForm} from "react-hook-form";
 import {useQuery} from "react-query";
 import UserDataService from "services/user";
 import styled from "styled-components";
+import ToggleIsDark from "Components/Util/ToggleIsDark";
 
 export interface IUserForm {
   company: string;
@@ -26,20 +27,31 @@ const Header = styled.div`
   & span {
     color: ${(props) => props.theme.textColor};
     font-weight: 700;
-    font-size: 20px;
+    font-size: 1.8rem;
   }
 
   & button {
+    display: flex;
+    align-items: center;
+
     background-color: transparent;
     border: none;
 
     font-size: 26px;
-    color: ${(props) => props.theme.bgWhiteTransColor2};
+    color: ${(props) => props.theme.bgWhiteColor};
+
+    & i {
+      font-size: 2.2rem;
+    }
 
     &.readOnly {
-      color: white;
+      color: ${(props) => props.theme.bgWhiteTransColor2};
     }
   }
+`;
+
+const InputLabel = styled(Label)`
+  font-size: 1.4rem;
 `;
 
 const SaveButton = styled(Input)`
@@ -97,7 +109,7 @@ const Profile = () => {
     <Wrapper>
       <ProfileWrapper>
         <Header>
-          <span>프로필 정보</span>
+          <span>프로필 정보 및 수정</span>
           {readOnly ? (
             <button
               className="readOnly"
@@ -115,7 +127,7 @@ const Profile = () => {
         <form id="docuTitleForm" onSubmit={handleSubmit(onValid)}>
           <Col>
             <Row>
-              <Label htmlFor="company">Company</Label>
+              <InputLabel htmlFor="company">Company</InputLabel>
               <ErrorMessage>{errors?.company?.message}</ErrorMessage>
             </Row>
             <Input
@@ -135,7 +147,7 @@ const Profile = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="email">Email</Label>
+              <InputLabel htmlFor="email">Email</InputLabel>
               <ErrorMessage>{errors?.email?.message}</ErrorMessage>
             </Row>
             <Input
@@ -160,7 +172,7 @@ const Profile = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="phone">Phone</Label>
+              <InputLabel htmlFor="phone">Phone</InputLabel>
               <ErrorMessage>{errors?.phone?.message}</ErrorMessage>
             </Row>
             <Input
@@ -180,7 +192,7 @@ const Profile = () => {
 
           <Col>
             <Row>
-              <Label htmlFor="name">Name</Label>
+              <InputLabel htmlFor="name">Name</InputLabel>
               <ErrorMessage>{errors?.name?.message}</ErrorMessage>
             </Row>
             <Input
@@ -203,6 +215,7 @@ const Profile = () => {
           <SaveButton form="docuTitleForm" type="submit" value="프로필 저장" />
         ) : null}
       </ProfileWrapper>
+      <ToggleIsDark />
     </Wrapper>
   );
 };

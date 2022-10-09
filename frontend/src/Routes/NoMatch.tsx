@@ -16,7 +16,7 @@ const NoMatch = () => {
   }
   return (
     <Wrapper>
-      <Label>존재하지 않는 URL 입니다!</Label>
+      <Label>존재하지 않는 페이지입니다!</Label>
       <HomeButton onClick={goHome}>홈으로 이동</HomeButton>
     </Wrapper>
   );

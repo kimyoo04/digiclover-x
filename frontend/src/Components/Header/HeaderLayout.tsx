@@ -64,20 +64,21 @@ const SmallNav = styled.div`
 const MenuWrapper = styled.div``;
 
 const Logo = styled.img`
-  width: 190px;
-  height: 40px;
+  width: 16.5rem;
+  height: 3.2rem;
+  margin-right: 0.2rem;
 `;
 
 const LogoShort = styled.img`
-  width: 42px;
-  height: 42px;
+  width: 3.2rem;
+  height: 3.2rem;
 `;
 
 export const AuthWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 20px;
+  gap: 0.8rem;
 
   & span {
     color: ${(props) => props.theme.textColor};
@@ -130,7 +131,9 @@ const HeaderLayout = () => {
                 </Link>
               </AuthWrapper>
               <AuthWrapper>
-                <Link to="/profile">내 정보</Link>
+                <Link to="/profile">
+                  <i className="ri-settings-2-line"></i>
+                </Link>
                 <span onClick={onlogOut}>로그아웃</span>
               </AuthWrapper>
             </>
@@ -162,7 +165,9 @@ const HeaderLayout = () => {
                 </Link>
               </AuthWrapper>
               <AuthWrapper>
-                <Link to="/profile">내 정보</Link>
+                <Link to="/profile">
+                  <i className="ri-settings-2-line"></i>
+                </Link>
                 <span onClick={onlogOut}>로그아웃</span>
               </AuthWrapper>
             </>

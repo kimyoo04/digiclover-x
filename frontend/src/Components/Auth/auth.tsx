@@ -59,9 +59,7 @@ export const Input = styled.input`
 
 export const Link = styled(NavLink)`
   color: ${(props) => props.theme.textColor};
-  font-size: 1.6rem;
   font-weight: 500;
-  line-height: 20px;
   white-space: nowrap;
 
   display: flex;

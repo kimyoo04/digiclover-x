@@ -21,7 +21,7 @@ import Signning from "Routes/document/Signning";
 import Email from "Routes/document/Email";
 
 import HeaderLayout from "Components/Header/HeaderLayout";
-import Footer from "Routes/layouts/Footer";
+import Footer from "Components/Footer";
 
 import {useAppSelector} from "app/hook";
 import {darkTheme, lightTheme} from "theme";
@@ -64,7 +64,6 @@ function App() {
           <Route path="/signin" element={<Signup />}></Route>
           <Route path="*" element={<NoMatch />} />
         </Routes>
-        <ToggleIsDark />
         <Footer />
       </Router>
     </ThemeProvider>

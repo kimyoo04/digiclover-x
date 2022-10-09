@@ -21,7 +21,7 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 20px;
-  min-height: 94vh;
+  min-height: 100vh;
   padding-top: 100px;
   background-color: ${(props) => props.theme.bgColor};
 `;
