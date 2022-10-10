@@ -7,7 +7,7 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 0.8rem;
+  gap: 1rem;
 
   width: 100vw;
   margin-top: -0.1rem;
@@ -37,11 +37,21 @@ const LogoWrapper = styled.div`
   }
 `;
 
-const InfoWrap = styled.div`
+const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
   ${breakpoints("align-items", "", [{200: "center"}, {800: "flex-start"}])}
   gap: 0.2rem;
+`;
+const SNSWrapper = styled.div`
+  display: flex;
+  ${breakpoints("align-items", "", [{200: "center"}, {800: "flex-start"}])}
+  gap: 1rem;
+
+  i {
+    color: ${(props) => props.theme.textColor};
+    font-size: 2.4rem;
+  }
 `;
 
 const PersonInfo = styled.span`
@@ -65,11 +75,18 @@ const Footer = () => {
         <span>|</span>
         <span>LeLi</span>
       </LogoWrapper>
-      <InfoWrap>
+      <InfoWrapper>
         <PersonInfo>대표자 : 임혜수 | 정보관리 책임자 : 이상문</PersonInfo>
         <BusinessNumber>법인사업자등록번호 : 882-81-01394</BusinessNumber>
         <PhoneNumber>대표자번호 : 010-0000-1111</PhoneNumber>
-      </InfoWrap>
+      </InfoWrapper>
+      <SNSWrapper>
+        <i className="ri-medium-fill"></i>
+        <i className="ri-linkedin-box-fill"></i>
+        <i className="ri-facebook-fill"></i>
+        <i className="ri-instagram-fill"></i>
+        <i className="ri-twitter-fill"></i>
+      </SNSWrapper>
       <div>
         <CopyRight>Copyright © {nowYear} LeLi. All Rights Reserved</CopyRight>
       </div>
