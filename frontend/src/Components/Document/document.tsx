@@ -1,12 +1,15 @@
 import {DocuKind} from "features/document/documentSlice";
+import {motion} from "framer-motion";
 import styled from "styled-components";
 
-export const FormWrapper = styled.div`
+export const FormWrapper = styled(motion.div)`
+  width: 80vw;
+  padding: 3rem;
+  max-width: 40rem;
+
   background-color: ${(props) => props.theme.bgWhiteTransColor1};
   border: 1px solid ${(props) => props.theme.bgWhiteColor};
   border-radius: 12px;
-  padding: 50px;
-  margin-bottom: 20px;
 `;
 
 export const Label = styled.label`
@@ -26,14 +29,22 @@ export const ErrorMessage = styled.span`
 `;
 
 export const Input = styled.input`
-  width: 300px;
+  width: 100%;
   height: 40px;
-  border-radius: 6px;
-  font-size: 14px;
-  transition: 0.1s;
-  color: black;
-  border: none;
   padding-left: 10px;
+
+  border: none;
+  border-radius: 6px;
+
+  color: black;
+  font-size: 14px;
+
+  transition: 0.1s;
+
+  &::placeholder {
+    color: ${(props) => props.theme.primaryBlueColor};
+    font-size: 1.2rem;
+  }
 `;
 
 export interface IContractorForm {

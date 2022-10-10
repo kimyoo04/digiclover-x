@@ -91,6 +91,21 @@ const documentSlice = createSlice({
       state.step += 1;
       state.imgUrl = action.payload;
     },
+    // writing 으로 돌아가기
+    beforeSignaturePlacing(state) {
+      state.step = 4;
+    },
+
+    // 서명한 png 파일 x, y 좌표 얻기
+    afterSignaturePlacing(state) {
+      state.step += 1;
+      //  구현 필요-----------------------------------------------------------------
+    },
+
+    // signning 으로 돌아가기
+    beforeEmail(state) {
+      state.step = 5;
+    },
   },
 });
 

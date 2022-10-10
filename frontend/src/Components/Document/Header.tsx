@@ -1,7 +1,7 @@
-import {PathMatch, useMatch} from "react-router-dom";
 import {motion} from "framer-motion";
-
 import styled from "styled-components";
+
+import {useAppSelector} from "app/hook";
 
 const Nav = styled.ul`
   position: fixed;
@@ -35,72 +35,162 @@ const Item = styled.li`
   color: ${(props) => props.theme.textColor};
 `;
 
-const UnactiveLink = styled.span`
-  font-weight: 700;
-  line-height: 20px;
-  font-size: 18px;
+const StepWrapper = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & span {
+    font-size: 1.4rem;
+    font-weight: 700;
+  }
+
+  & span.unfinished {
+    color: ${(props) => props.theme.grayscale3Color};
+  }
+  & span.active {
+    color: ${(props) => props.theme.primaryBlueColor};
+  }
+  & span.finished {
+    ${(props) => props.theme.textColor};
+  }
 `;
 
-const ActiveLink = styled(motion(UnactiveLink))`
-  color: ${(props) => props.theme.primaryBlueColor};
+const UnfinishedStep = styled(motion.div)`
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 50%;
+  background-color: ${(props) => props.theme.grayscale4Color};
+  border: 2px solid ${(props) => props.theme.grayscale3Color};
 `;
 
-const ArrowIcon = styled(motion.i)`
-  font-size: 24px;
-  color: ${(props) => props.theme.textColor};
+const FinishedStep = styled(UnfinishedStep)`
+  background-color: ${(props) => props.theme.primaryBlueColor};
+  border: none;
+`;
+
+const OngoingStep = styled(UnfinishedStep)`
+  border: 2px solid ${(props) => props.theme.primaryBlueColor};
+  background-color: white;
 `;
 
 const DocumentHeader = () => {
-  const contractorMatch: PathMatch<string> | null = useMatch(
-    "/document/contractor"
-  );
-  const docuselectMatch: PathMatch<string> | null = useMatch(
-    "/document/docuselect"
-  );
-  const writeMatch: PathMatch<string> | null = useMatch("/document/write");
-  const signningMatch: PathMatch<string> | null =
-    useMatch("/document/signning");
-  const emailMatch: PathMatch<string> | null = useMatch("/document/email");
+  const documentStep = useAppSelector((state) => state.document.step);
 
   return (
     <Nav>
       <Item>
-        {contractorMatch ? (
-          <ActiveLink>계약자 정보 입력</ActiveLink>
+        {documentStep === 1 ? (
+          <StepWrapper>
+            <OngoingStep />
+            <span className="active">계약자 입력</span>
+          </StepWrapper>
+        ) : documentStep > 1 ? (
+          <StepWrapper>
+            <FinishedStep />
+            <span className="finished">계약자 입력</span>
+          </StepWrapper>
         ) : (
-          <UnactiveLink>계약자 정보 입력</UnactiveLink>
+          <StepWrapper>
+            <UnfinishedStep />
+            <span className="unfinished">계약자 입력</span>
+          </StepWrapper>
         )}
       </Item>
-      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
+
       <Item>
-        {docuselectMatch ? (
-          <ActiveLink>문서 선택</ActiveLink>
+        {documentStep === 2 ? (
+          <StepWrapper>
+            <OngoingStep />
+            <span className="active">문서 선택</span>
+          </StepWrapper>
+        ) : documentStep > 2 ? (
+          <StepWrapper>
+            <FinishedStep />
+            <span className="finished">문서 선택</span>
+          </StepWrapper>
         ) : (
-          <UnactiveLink>문서 선택</UnactiveLink>
+          <StepWrapper>
+            <UnfinishedStep />
+            <span className="unfinished">문서 선택</span>
+          </StepWrapper>
         )}
       </Item>
-      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
+
       <Item>
-        {writeMatch ? (
-          <ActiveLink>문서 작성</ActiveLink>
+        {documentStep === 3 ? (
+          <StepWrapper>
+            <OngoingStep />
+            <span className="active">문서 작성</span>
+          </StepWrapper>
+        ) : documentStep > 3 ? (
+          <StepWrapper>
+            <FinishedStep />
+            <span className="finished">문서 작성</span>
+          </StepWrapper>
         ) : (
-          <UnactiveLink>문서 작성</UnactiveLink>
+          <StepWrapper>
+            <UnfinishedStep />
+            <span className="unfinished">문서 작성</span>
+          </StepWrapper>
         )}
       </Item>
-      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
+
       <Item>
-        {signningMatch ? (
-          <ActiveLink>서명</ActiveLink>
+        {documentStep === 4 ? (
+          <StepWrapper>
+            <OngoingStep />
+            <span className="active">서명</span>
+          </StepWrapper>
+        ) : documentStep > 4 ? (
+          <StepWrapper>
+            <FinishedStep />
+            <span className="finished">서명</span>
+          </StepWrapper>
         ) : (
-          <UnactiveLink>서명</UnactiveLink>
+          <StepWrapper>
+            <UnfinishedStep />
+            <span className="unfinished">서명</span>
+          </StepWrapper>
         )}
       </Item>
-      <ArrowIcon className="ri-arrow-right-s-fill"></ArrowIcon>
+
       <Item>
-        {emailMatch ? (
-          <ActiveLink>이메일 전송</ActiveLink>
+        {documentStep === 5 ? (
+          <StepWrapper>
+            <OngoingStep />
+            <span className="active">서명 위치 설정</span>
+          </StepWrapper>
+        ) : documentStep > 5 ? (
+          <StepWrapper>
+            <FinishedStep />
+            <span className="finished">서명 위치 설정</span>
+          </StepWrapper>
         ) : (
-          <UnactiveLink>이메일 전송</UnactiveLink>
+          <StepWrapper>
+            <UnfinishedStep />
+            <span className="unfinished">서명 위치 설정</span>
+          </StepWrapper>
+        )}
+      </Item>
+
+      <Item>
+        {documentStep === 6 ? (
+          <StepWrapper>
+            <OngoingStep />
+            <span className="active">이메일 전송</span>
+          </StepWrapper>
+        ) : documentStep > 6 ? (
+          <StepWrapper>
+            <FinishedStep />
+            <span className="finished">이메일 전송</span>
+          </StepWrapper>
+        ) : (
+          <StepWrapper>
+            <UnfinishedStep />
+            <span className="unfinished">이메일 전송</span>
+          </StepWrapper>
         )}
       </Item>
     </Nav>
