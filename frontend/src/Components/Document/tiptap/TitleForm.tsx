@@ -1,4 +1,3 @@
-import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 import styled from "styled-components";
@@ -39,7 +38,6 @@ interface IIsEditable {
 const TitleForm = ({isEditable}: IIsEditable) => {
   const dispatch = useAppDispatch();
   const docuTitle = useAppSelector((state) => state.document.docuTitle);
-  const navigate = useNavigate();
 
   const {register, handleSubmit} = useForm<IDocuTitle>({
     defaultValues: {},
@@ -50,7 +48,6 @@ const TitleForm = ({isEditable}: IIsEditable) => {
     } else {
       console.log(data.docuTitle);
       dispatch(documentActions.afterWritingDocuTitle(data.docuTitle));
-      navigate(`/document/signning`);
     }
   };
 

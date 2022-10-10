@@ -159,7 +159,7 @@ const Signup = () => {
           </Col>
 
           <ErrorMessage>{errors?.extraError?.message}</ErrorMessage>
-          <Button>Signin</Button>
+          <Button>Signup</Button>
         </form>
       </FormWrapper>
     </Wrapper>

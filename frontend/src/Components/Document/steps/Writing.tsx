@@ -1,11 +1,8 @@
-import {useNavigate} from "react-router-dom";
-
 import {useAppDispatch} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
-import {Wrapper} from "Components/layout";
 import Tiptap from "Components/Document/tiptap";
 
 const ButtonWrapper = styled.div`
@@ -19,21 +16,15 @@ const ButtonWrapper = styled.div`
   margin-bottom: 20px;
 `;
 
-const WritingWrapper = styled(Wrapper)`
-  gap: 0;
-`;
-
 const Writing = () => {
   const dispatch = useAppDispatch();
 
-  const navigate = useNavigate();
   function prevClick() {
-    navigate(-1); // 지우기
     dispatch(documentActions.beforeWriting());
   }
 
   return (
-    <WritingWrapper>
+    <>
       <Tiptap isEditable={true} />
       <ButtonWrapper>
         <Button
@@ -51,7 +42,7 @@ const Writing = () => {
           Next
         </Button>
       </ButtonWrapper>
-    </WritingWrapper>
+    </>
   );
 };
 

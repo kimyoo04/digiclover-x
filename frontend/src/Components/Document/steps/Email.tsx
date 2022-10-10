@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 
 import {useAppDispatch, useAppSelector} from "app/hook";
@@ -6,7 +6,6 @@ import {documentActions, IContractor} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
-import {Wrapper} from "Components/layout";
 import ContractorCard from "Components/Document/ContractorCard";
 import Alert from "Components/Util/Alert";
 import DocumentDataService from "services/document";
@@ -45,8 +44,7 @@ const Email = () => {
   const document = useAppSelector((state) => state.document);
   const navigate = useNavigate();
 
-  const prevClick = () => navigate(-1); // 지우기 및 뒤로가기 기록 없애기 (미완)
-
+  const prevClick = () => dispatch(documentActions.beforeEmail());
   const finishClick = async () => {
     // 동의 확인 경고창 - 동의 확인 후 /storage 로 navigate
     if (isCheck) {
@@ -58,9 +56,9 @@ const Email = () => {
       // documentSlice의 state 초기화
       dispatch(documentActions.initialDocumentData());
 
-      navigate(`/storage`); // 이메일 전송 후
+      navigate(`/storage`, {replace: true}); // 이메일 전송 후 뒤로가기 방지
     } else {
-      setAlert((prev) => !prev);
+      setAlert((prev) => !prev); // 동의 후 이메일 전송 알림
     }
   };
 
@@ -73,37 +71,35 @@ const Email = () => {
   };
 
   return (
-    <Wrapper>
-      <Main>
-        {document.contractors.map((contractor: IContractor, index: number) => {
-          return <ContractorCard key={index} {...contractor} />;
-        })}
-        <AgreeLabel htmlFor="agree">
-          이메일 전송 및 개인정보 이용 동의
-          <AgreeInput id="agree" type="checkbox" onChange={toggleChecking} />
-        </AgreeLabel>
-        <ButtonWrapper>
-          <Button
-            onClick={prevClick}
-            whileHover={{scale: 1.1}}
-            transition={{duration: 0.05}}
-          >
-            Prev
-          </Button>
-          <Button
-            onClick={finishClick}
-            whileHover={{scale: 1.1}}
-            transition={{duration: 0.05}}
-          >
-            Finish
-          </Button>
-        </ButtonWrapper>
+    <Main>
+      {document.contractors.map((contractor: IContractor, index: number) => {
+        return <ContractorCard key={index} {...contractor} />;
+      })}
+      <AgreeLabel htmlFor="agree">
+        이메일 전송 및 개인정보 이용 동의
+        <AgreeInput id="agree" type="checkbox" onChange={toggleChecking} />
+      </AgreeLabel>
+      <ButtonWrapper>
+        <Button
+          onClick={prevClick}
+          whileHover={{scale: 1.1}}
+          transition={{duration: 0.05}}
+        >
+          Prev
+        </Button>
+        <Button
+          onClick={finishClick}
+          whileHover={{scale: 1.1}}
+          transition={{duration: 0.05}}
+        >
+          Finish
+        </Button>
+      </ButtonWrapper>
 
-        {alert ? (
-          <Alert alertMessage={alertMessage} closeAlert={closeAlert} />
-        ) : null}
-      </Main>
-    </Wrapper>
+      {alert ? (
+        <Alert alertMessage={alertMessage} closeAlert={closeAlert} />
+      ) : null}
+    </Main>
   );
 };
 

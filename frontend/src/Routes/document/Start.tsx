@@ -22,7 +22,7 @@ const DocumentStart = () => {
   return (
     <Wrapper>
       <Text>문서작성을 시작하시겠습니까?</Text>
-      <Link to={{pathname: `/document/contractor`}}>
+      <Link to={{pathname: `/document`}}>
         <StartBtn
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}

@@ -6,7 +6,6 @@ import {DocuKind, documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
-import {Wrapper} from "Components/layout";
 import {
   ErrorMessage,
   FormWrapper,
@@ -15,9 +14,7 @@ import {
   Label,
 } from "Components/Document/document";
 
-const FormRadioWrapper = styled(FormWrapper)`
-  width: 40vw;
-`;
+const FormRadioWrapper = styled(FormWrapper)``;
 
 const Form = styled.form`
   display: grid;
@@ -32,13 +29,17 @@ const RadioLabel = styled(Label)`
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 100%;
   height: 100px;
+  margin: 0;
+
   background-color: white;
   border-radius: 6px;
+
   font-size: 22px;
   font-weight: 700;
-  margin: 0;
+
   cursor: pointer;
 `;
 
@@ -71,7 +72,6 @@ const Docukind = () => {
   console.log(contractors);
 
   const prevClick = () => {
-    navigate(-1); // 지우기
     dispatch(documentActions.beforeDocukind());
   };
 
@@ -92,13 +92,12 @@ const Docukind = () => {
     } else {
       console.log(data);
       // atom 데이터 저장
-      navigate(`/document/writing`);
       dispatch(documentActions.afterDocukind(data.docuKind));
     }
   };
 
   return (
-    <Wrapper>
+    <>
       <FormRadioWrapper>
         <Form id="docuKindForm" onSubmit={handleSubmit(onValid)}>
           <RadioLabel htmlFor="free-form">
@@ -120,6 +119,7 @@ const Docukind = () => {
             />
             <Span>MOU</Span>
           </RadioLabel>
+
           <RadioLabel htmlFor="labor-contract">
             <RadioInput
               {...register("docuKind")}
@@ -129,6 +129,7 @@ const Docukind = () => {
             />
             <Span>근로계약서</Span>
           </RadioLabel>
+
           <RadioLabel htmlFor="dept-ack">
             <RadioInput
               {...register("docuKind")}
@@ -139,6 +140,7 @@ const Docukind = () => {
             <Span>차용증</Span>
           </RadioLabel>
         </Form>
+
         <ButtonWrapper>
           <Button
             onClick={prevClick}
@@ -157,7 +159,7 @@ const Docukind = () => {
         </ButtonWrapper>
       </FormRadioWrapper>
       <ErrorMessage>{errors?.docuKind?.message}</ErrorMessage>
-    </Wrapper>
+    </>
   );
 };
 
