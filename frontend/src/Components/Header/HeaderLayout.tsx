@@ -8,8 +8,9 @@ import logoShort from "public/assets/img/logo-short.png";
 import {useAppDispatch, useAppSelector} from "app/hook";
 import {fetchLogout, fetchRefresh} from "features/auth/authSlice";
 import {Link} from "Components/Auth/auth";
-import DropDown from "./DropDown";
+import DropDownMenu from "./DropDownMenu";
 import {useCheckMobile} from "hooks/useWindowDimensions";
+import DropDownAlarm from "./DropDownAlarm";
 
 const Nav = styled.nav`
   position: fixed;
@@ -61,17 +62,22 @@ const SmallNav = styled.div`
   }
 `;
 
-const MenuWrapper = styled.div``;
+const MenuWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.4rem;
+`;
 
 const Logo = styled.img`
-  width: 16.5rem;
-  height: 3.2rem;
+  width: 16.4rem;
+  height: 3.4rem;
   margin-right: 0.2rem;
 `;
 
 const LogoShort = styled.img`
-  width: 3.2rem;
-  height: 3.2rem;
+  width: 3.4rem;
+  height: 3.4rem;
 `;
 
 export const AuthWrapper = styled.div`
@@ -80,14 +86,33 @@ export const AuthWrapper = styled.div`
   align-items: center;
   gap: 0.8rem;
 
-  & span {
+  & i {
     color: ${(props) => props.theme.textColor};
-    font-weight: 600;
-    line-height: 20px;
-    cursor: pointer;
-    white-space: nowrap;
+    font-size: 2rem;
   }
 `;
+
+const LogOutButton = styled.span`
+  display: block;
+  padding: 0.4rem 1.2rem;
+
+  border-radius: 1.6rem;
+  background: linear-gradient(
+    90deg,
+    rgba(33, 236, 145, 1) 0%,
+    rgba(46, 163, 229, 1) 100%
+  );
+
+  color: ${(props) => props.theme.textColor};
+  font-size: 1.4rem;
+  font-weight: 600;
+  line-height: 20px;
+
+  cursor: pointer;
+  white-space: nowrap;
+`;
+
+const LogInButton = styled(LogOutButton)``;
 
 const HeaderLayout = () => {
   // 620px 이하 사이즈 체크 기능
@@ -122,19 +147,17 @@ const HeaderLayout = () => {
         <SmallNav>
           {isAuthenticated ? (
             <>
-              <MenuWrapper>
-                <DropDown />
-              </MenuWrapper>
-              <AuthWrapper>
+              <div>
+                <DropDownMenu />
+              </div>
+              <div>
                 <Link to="/">
                   <LogoShort src={logoShort} />
                 </Link>
-              </AuthWrapper>
+              </div>
               <AuthWrapper>
-                <Link to="/profile">
-                  <i className="ri-settings-2-line"></i>
-                </Link>
-                <span onClick={onlogOut}>로그아웃</span>
+                <DropDownAlarm />
+                <LogOutButton onClick={onlogOut}>로그아웃</LogOutButton>
               </AuthWrapper>
             </>
           ) : (
@@ -142,9 +165,11 @@ const HeaderLayout = () => {
               <Link to="/">
                 <Logo src={logo} />
               </Link>
+
               <AuthWrapper>
-                <Link to="/login">로그인</Link>
-                <Link to="/signin">회원가입</Link>
+                <Link to="/login">
+                  <LogInButton>로그인</LogInButton>
+                </Link>
               </AuthWrapper>
             </>
           )}
@@ -153,22 +178,24 @@ const HeaderLayout = () => {
         <Nav>
           {isAuthenticated ? (
             <>
-              <AuthWrapper>
+              <MenuWrapper>
                 <Link to="/">
                   <Logo src={logo} />
                 </Link>
                 <Link to="/document/start">
-                  <i className="ri-edit-2-fill"></i> 문서 작성
+                  <i className="ri-edit-2-line"></i> 문서 작성
                 </Link>
                 <Link to="/storage">
                   <i className="ri-suitcase-line"></i>문서 보관함
                 </Link>
-              </AuthWrapper>
-              <AuthWrapper>
                 <Link to="/profile">
-                  <i className="ri-settings-2-line"></i>
+                  <i className="ri-settings-2-line"></i>회원정보
                 </Link>
-                <span onClick={onlogOut}>로그아웃</span>
+              </MenuWrapper>
+
+              <AuthWrapper>
+                <DropDownAlarm />
+                <LogOutButton onClick={onlogOut}>로그아웃</LogOutButton>
               </AuthWrapper>
             </>
           ) : (
@@ -178,9 +205,11 @@ const HeaderLayout = () => {
                   <Logo src={logo} />
                 </Link>
               </div>
+
               <AuthWrapper>
-                <Link to="/login">로그인</Link>
-                <Link to="/signin">회원가입</Link>
+                <Link to="/login">
+                  <LogInButton>로그인</LogInButton>
+                </Link>
               </AuthWrapper>
             </>
           )}

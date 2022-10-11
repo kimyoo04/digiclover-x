@@ -115,11 +115,11 @@ const Profile = () => {
               className="readOnly"
               onClick={() => setReadOnly((prev) => !prev)}
             >
-              <i className="ri-edit-2-line"></i>
+              <i className="ri-edit-2-fill"></i>
             </button>
           ) : (
             <button onClick={() => setReadOnly((prev) => !prev)}>
-              <i className="ri-edit-2-line"></i>
+              <i className="ri-edit-2-fill"></i>
             </button>
           )}
         </Header>
