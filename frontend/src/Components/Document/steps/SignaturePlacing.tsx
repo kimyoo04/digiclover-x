@@ -12,7 +12,7 @@ const ButtonWrapper = styled.div`
   gap: 20px;
   width: 100%;
   max-width: 900px;
-  margin-bottom: 20px;
+  margin-top: 20px;
 `;
 const SignaturePlacing = () => {
   const dispatch = useAppDispatch();

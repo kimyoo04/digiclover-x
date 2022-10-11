@@ -12,7 +12,7 @@ const ButtonWrapper = styled.div`
   gap: 20px;
   width: 100%;
   max-width: 900px;
-  margin-bottom: 20px;
+  margin-top: 2rem;
 `;
 
 const Writing = () => {
@@ -23,7 +23,7 @@ const Writing = () => {
   }
 
   return (
-    <div>
+    <>
       <Tiptap isEditable={true} />
       <ButtonWrapper>
         <Button
@@ -41,7 +41,7 @@ const Writing = () => {
           Next
         </Button>
       </ButtonWrapper>
-    </div>
+    </>
   );
 };
 

@@ -9,9 +9,8 @@ interface IEditor {
 }
 
 const Background = styled.div`
-  position: fixed;
+  position: sticky;
   top: 0;
-
   display: flex;
   flex-direction: column;
   justify-content: flex-end;

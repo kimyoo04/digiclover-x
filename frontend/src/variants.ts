@@ -40,13 +40,12 @@ export const slide = (isBack: boolean) => {
       x: 0,
       opacity: 1,
       transition: {
-        duration: 1,
+        duration: 0.6,
       },
     },
     exit: {
-      x: isBack ? "100vw" : "-100vw",
       opacity: 0,
-      transition: {duration: 1},
+      transition: {duration: 0.1},
     },
   };
 };

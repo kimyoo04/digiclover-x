@@ -42,6 +42,7 @@ const documentSlice = createSlice({
     // 이메일 전송 후 모든 값 초기화
     initialDocumentData(state) {
       state.step = 1;
+      state.isBack = false;
       state.contractors = [];
       state.docuKind = "";
       state.docuTitle = "";

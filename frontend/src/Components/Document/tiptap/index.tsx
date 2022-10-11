@@ -24,7 +24,6 @@ const WritingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
 `;
 
 const Paper = styled.div`
@@ -98,17 +97,15 @@ const Tiptap = ({isEditable}: IIsEditable) => {
   });
 
   return (
-    <>
-      <WritingWrapper>
-        <MenuBar editor={editor} isEditable={isEditable} />
-        <TitleForm isEditable={isEditable} />
-        <Paper id="capture" onClick={() => editor?.chain().focus()}>
-          <EditorWrap>
-            <EditorContent editor={editor} />
-          </EditorWrap>
-        </Paper>
-      </WritingWrapper>
-    </>
+    <WritingWrapper>
+      <MenuBar editor={editor} isEditable={isEditable} />
+      <TitleForm isEditable={isEditable} />
+      <Paper id="capture" onClick={() => editor?.chain().focus()}>
+        <EditorWrap>
+          <EditorContent editor={editor} />
+        </EditorWrap>
+      </Paper>
+    </WritingWrapper>
   );
 };
 

@@ -31,12 +31,8 @@ function App() {
         <Routes>
           <Route
             path="/document"
-            element={
-              <ProtectedRoute outlet={<DocumentLayout />}></ProtectedRoute>
-            }
-          >
-            <Route index element={<Document />} />
-          </Route>
+            element={<ProtectedRoute outlet={<Document />}></ProtectedRoute>}
+          />
           <Route path="/" element={<HeaderLayout />}>
             <Route index element={<Home />}></Route>
             <Route path="/document/start" element={<DocumentStart />} />

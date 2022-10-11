@@ -1,4 +1,3 @@
-import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 
 import {useAppDispatch, useAppSelector} from "app/hook";
@@ -45,6 +44,7 @@ const RadioLabel = styled(Label)`
 
 const Span = styled.span`
   transition: 0.2s;
+  white-space: nowrap;
 `;
 
 const RadioInput = styled(Input)`
@@ -65,8 +65,6 @@ const ButtonWrapper = styled.div`
 `;
 
 const Docukind = () => {
-  const navigate = useNavigate();
-
   const dispatch = useAppDispatch();
   const contractors = useAppSelector((state) => state.document.contractors);
   console.log(contractors);

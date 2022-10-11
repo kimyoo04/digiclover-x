@@ -36,6 +36,8 @@ const AlarmIcon = styled(motion.i)`
   color: ${(props) => props.theme.textColor};
   font-size: 2rem;
 
+  margin-right: 0.6rem;
+
   &.active {
     color: ${(props) => props.theme.primaryBlueColor};
   }

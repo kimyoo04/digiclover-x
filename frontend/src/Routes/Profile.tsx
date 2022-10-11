@@ -109,7 +109,7 @@ const Profile = () => {
     <Wrapper>
       <ProfileWrapper>
         <Header>
-          <span>프로필 정보 및 수정</span>
+          <span>회원정보</span>
           {readOnly ? (
             <button
               className="readOnly"

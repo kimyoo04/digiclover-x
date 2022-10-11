@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useFieldArray, useForm} from "react-hook-form";
 
-import {useAppDispatch} from "app/hook";
+import {useAppDispatch, useAppSelector} from "app/hook";
 import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
@@ -80,6 +80,8 @@ const Contractor = () => {
   const personName = ["갑", "을", "병", "정"];
 
   const dispatch = useAppDispatch();
+  const isBack = useAppSelector((state) => state.document.isBack);
+
   const navigate = useNavigate();
 
   // 이전 페이지 이동 버튼
@@ -89,7 +91,7 @@ const Contractor = () => {
 
   // documentSlice의 state 초기화
   useEffect(() => {
-    dispatch(documentActions.initialDocumentData());
+    if (isBack === false) dispatch(documentActions.initialDocumentData());
   }, []);
 
   // 계약자 정보 받는 리액트-훅-폼
