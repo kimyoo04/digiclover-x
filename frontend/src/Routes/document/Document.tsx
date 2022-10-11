@@ -1,61 +1,120 @@
 import {useAppSelector} from "app/hook";
+import {AnimatePresence, motion} from "framer-motion";
 
-import {Wrapper} from "Components/layout";
-
+import styled from "styled-components";
 import Contractor from "../../Components/Document/steps/Contractor";
 import Docukind from "Components/Document/steps/Docukind";
 import Writing from "Components/Document/steps/Writing";
 import Signning from "Components/Document/steps/Signning";
 import SignaturePlacing from "Components/Document/steps/SignaturePlacing";
 import Email from "Components/Document/steps/Email";
+import {slide} from "variants";
 
-const Document = () => {
-  const documentStep = useAppSelector((state) => state.document.step);
-  switch (documentStep) {
+const DocuWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding-top: 10rem;
+  background-color: ${(props) => props.theme.bgColor};
+`;
+
+const FormWrapper = styled(motion.div)`
+  position: absolute;
+`;
+
+const DocumentsStep = ({index}: {index: number}) => {
+  const isBack = useAppSelector((state) => state.document.isBack);
+
+  switch (index) {
     case 1:
       return (
-        <Wrapper>
+        <FormWrapper
+          variants={slide(isBack)}
+          initial="invisible"
+          animate="visible"
+          exit="exit"
+        >
           <Contractor />
-        </Wrapper>
+        </FormWrapper>
       );
 
     case 2:
       return (
-        <Wrapper>
+        <FormWrapper
+          variants={slide(isBack)}
+          initial="invisible"
+          animate="visible"
+          exit="exit"
+        >
           <Docukind />
-        </Wrapper>
+        </FormWrapper>
       );
 
     case 3:
       return (
-        <Wrapper>
+        <FormWrapper
+          variants={slide(isBack)}
+          initial="invisible"
+          animate="visible"
+          exit="exit"
+        >
           <Writing />
-        </Wrapper>
+        </FormWrapper>
       );
 
     case 4:
       return (
-        <Wrapper>
+        <FormWrapper
+          variants={slide(isBack)}
+          initial="invisible"
+          animate="visible"
+          exit="exit"
+        >
           <Signning />
-        </Wrapper>
+        </FormWrapper>
       );
 
     case 5:
       return (
-        <Wrapper>
+        <FormWrapper
+          variants={slide(isBack)}
+          initial="invisible"
+          animate="visible"
+          exit="exit"
+        >
           <SignaturePlacing />
-        </Wrapper>
+        </FormWrapper>
       );
 
     case 6:
       return (
-        <Wrapper>
+        <FormWrapper
+          variants={slide(isBack)}
+          initial="invisible"
+          animate="visible"
+          exit="exit"
+        >
           <Email />
-        </Wrapper>
+        </FormWrapper>
       );
     default:
-      return <Wrapper></Wrapper>;
+      return <div></div>;
   }
+};
+
+const Document = () => {
+  const documentStep = useAppSelector((state) => state.document.step);
+  return (
+    <DocuWrapper>
+      <AnimatePresence>
+        {[1, 2, 3, 4, 5, 6].map((i) =>
+          i === documentStep ? <DocumentsStep index={i} key={i} /> : null
+        )}
+      </AnimatePresence>
+    </DocuWrapper>
+  );
 };
 
 export default Document;

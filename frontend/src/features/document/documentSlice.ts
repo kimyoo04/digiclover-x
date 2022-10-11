@@ -14,6 +14,7 @@ export interface IContractor {
 
 export interface DocumentState {
   step: number;
+  isBack: boolean;
   contractors: IContractor[];
   docuKind: DocuKind;
   docuTitle: string;
@@ -24,6 +25,7 @@ export interface DocumentState {
 
 const initialState: DocumentState = {
   step: 1,
+  isBack: false,
   contractors: [],
   docuKind: "",
   docuTitle: "",
@@ -48,63 +50,70 @@ const documentSlice = createSlice({
       state.error = "";
     },
 
-    // contractor 로 돌아가기
+    // contractor 저장
     afterContractors(state, action: PayloadAction<IContractor[]>) {
       state.step += 1;
+      state.isBack = false;
       state.contractors = action.payload;
     },
 
     // contractor 로 돌아가기
     beforeDocukind(state) {
       state.step = 1;
+      state.isBack = true;
     },
-
     // 문서 종류 저장
     afterDocukind(state, action: PayloadAction<DocuKind>) {
       state.step += 1;
+      state.isBack = false;
       state.docuKind = action.payload;
     },
 
     // docukind 로 돌아가기
     beforeWriting(state) {
       state.step = 2;
+      state.isBack = true;
     },
-
     // 문서 제목 저장
     afterWritingDocuTitle(state, action: PayloadAction<string>) {
       state.step += 1;
+      state.isBack = false;
       state.docuTitle = action.payload;
     },
-
     // 문서 내용 저장
     afterWritingDocuContent(state, action: PayloadAction<string>) {
+      state.isBack = false;
       state.docuContent = action.payload;
     },
 
     // writing 으로 돌아가기
     beforeSignning(state) {
       state.step = 3;
+      state.isBack = true;
     },
-
     // 서명 후 DB 저장용 데이터 완성
     afterSignning(state, action: PayloadAction<string>) {
       state.step += 1;
+      state.isBack = false;
       state.imgUrl = action.payload;
     },
-    // writing 으로 돌아가기
+
+    // signning 으로 돌아가기
     beforeSignaturePlacing(state) {
       state.step = 4;
+      state.isBack = true;
     },
-
     // 서명한 png 파일 x, y 좌표 얻기
     afterSignaturePlacing(state) {
       state.step += 1;
+      state.isBack = false;
       //  구현 필요-----------------------------------------------------------------
     },
 
     // signning 으로 돌아가기
     beforeEmail(state) {
       state.step = 5;
+      state.isBack = true;
     },
   },
 });

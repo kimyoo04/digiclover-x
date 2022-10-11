@@ -12,7 +12,6 @@ const ButtonWrapper = styled.div`
   gap: 20px;
   width: 100%;
   max-width: 900px;
-  margin: 0 10vw;
   margin-bottom: 20px;
 `;
 const SignaturePlacing = () => {
@@ -24,7 +23,7 @@ const SignaturePlacing = () => {
     dispatch(documentActions.afterSignaturePlacing());
 
   return (
-    <>
+    <div>
       <Tiptap isEditable={false} />
       <ButtonWrapper>
         <Button
@@ -42,7 +41,7 @@ const SignaturePlacing = () => {
           Finish
         </Button>
       </ButtonWrapper>
-    </>
+    </div>
   );
 };
 

@@ -5,11 +5,12 @@ import {documentActions} from "features/document/documentSlice";
 
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
+import {motion} from "framer-motion";
 
 const CanvasItem = styled.canvas`
   background-color: white;
-  border-radius: 20px;
   box-shadow: $box-shadow-2;
+  border-radius: 20px;
   margin-bottom: 20px;
 `;
 
@@ -18,6 +19,7 @@ const ButtonWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   gap: 20px;
+
   width: 100%;
   margin-bottom: 20px;
 `;
@@ -26,15 +28,39 @@ const LabelButton = styled.label`
   display: flex;
   justify-content: center;
   align-items: center;
+
   width: 100%;
   height: 35px;
-  border-radius: 6px;
+
+  color: black;
   font-size: 14px;
   font-weight: 600;
-  transition: 0.1s;
-  color: black;
+
   background-color: ${(props) => props.theme.primaryGreenColor};
+  border-radius: 6px;
   border: none;
+
+  transition: 0.1s;
+  cursor: pointer;
+`;
+
+const DivButton = styled(motion.a)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  height: 40px;
+
+  background-color: ${(props) => props.theme.primaryGreenColor};
+  border-radius: 6px;
+  border: none;
+
+  color: black;
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: 0.1s;
   cursor: pointer;
 `;
 
@@ -193,13 +219,13 @@ const Canvas = () => {
       </ButtonWrapper>
 
       <ButtonWrapper>
-        <Button
+        <DivButton
           onClick={prevClick}
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}
         >
           Prev
-        </Button>
+        </DivButton>
         <Button
           onClick={nextClick}
           whileHover={{scale: 1.1}}

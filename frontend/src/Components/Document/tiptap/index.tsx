@@ -58,7 +58,7 @@ const Tiptap = ({isEditable}: IIsEditable) => {
 
   // 문서 내용을 수정 안했을 때에도 저장되는 기능
   useEffect(() => {
-    if (isEditable) {
+    if (isEditable && docuContent === "") {
       dispatch(documentActions.afterWritingDocuContent(selectDocukind()));
     }
   }, []);
