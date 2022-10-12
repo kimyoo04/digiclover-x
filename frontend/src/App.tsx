@@ -10,19 +10,20 @@ import Login from "Routes/Login";
 import Signup from "Routes/Signup";
 import NoMatch from "Routes/NoMatch";
 import ProtectedRoute from "Routes/ProtectedRoute";
-
 import DocumentStart from "Routes/document/Start";
 
-import HeaderLayout from "Components/Header/HeaderLayout";
+import HeaderAuth from "Components/Header/HeaderAuth";
 import Footer from "Components/Footer";
 
 import {useAppSelector} from "app/hook";
 import {darkTheme, lightTheme} from "theme";
 import Document from "Routes/document/Document";
+import HeaderNoAuth from "Components/Header/HeaderNoAuth";
 
 function App() {
   // 라이트모드, 다크모드
   const isDark = useAppSelector((state) => state.theme.isDark);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
@@ -32,7 +33,10 @@ function App() {
             path="/document"
             element={<ProtectedRoute outlet={<Document />}></ProtectedRoute>}
           />
-          <Route path="/" element={<HeaderLayout />}>
+          <Route
+            path="/"
+            element={isAuthenticated ? <HeaderAuth /> : <HeaderNoAuth />}
+          >
             <Route index element={<Home />}></Route>
             <Route path="/document/start" element={<DocumentStart />} />
             <Route

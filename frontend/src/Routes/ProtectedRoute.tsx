@@ -1,5 +1,5 @@
 import Alert from "Components/Util/Alert";
-import HeaderLayout from "Components/Header/HeaderLayout";
+import HeaderLayout from "Components/Header/HeaderNoAuth";
 import Login from "./Login";
 
 import {useAppDispatch, useAppSelector} from "app/hook";

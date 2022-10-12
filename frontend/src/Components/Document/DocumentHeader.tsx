@@ -2,6 +2,8 @@ import {motion} from "framer-motion";
 import styled from "styled-components";
 
 import {useAppSelector} from "app/hook";
+import {useNavigate} from "react-router-dom";
+import PreventUnload from "Components/Util/PreventUnload";
 
 const ProgressBar = styled.ul`
   position: sticky;
@@ -12,14 +14,14 @@ const ProgressBar = styled.ul`
   align-items: flex-start;
 
   width: 100%;
-  padding: 2rem 20vw 0 20vw;
+  padding: 2rem 20vw 6rem 20vw;
   height: 6vh;
 
   color: white;
   font-size: 14px;
 
   background-color: ${(props) => props.theme.bgColor};
-  z-index: 100;
+  z-index: 20;
   & Link {
     font-style: none;
   }
@@ -72,6 +74,15 @@ const DocumentHeader = () => {
   const documentStep = useAppSelector(
     (state: {document: {step: number}}) => state.document.step
   );
+
+  const navigate = useNavigate();
+
+  window.onpopstate = () => {
+    navigate("/");
+  };
+
+  // 새로고침, 나가기 1차 방지
+  PreventUnload();
 
   return (
     <ProgressBar>
