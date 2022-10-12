@@ -64,6 +64,17 @@ const SaveButton = styled(Input)`
 const Profile = () => {
   const [readOnly, setReadOnly] = useState(true);
 
+  // getOneUser 후 input에 회원정보 입력해주는 콜백
+  const onSuccess = (userData: IUserForm) => {
+    reset({
+      company: userData.company,
+      email: userData.email,
+      phone: userData.phone,
+      name: userData.name,
+    });
+    return userData;
+  };
+
   // 로그인 유저 정보 fetch
   // 현재 수정해서 PUT 요청 완료 후 새로고침 해야만 제대로 받아온다.
   const {
@@ -72,20 +83,15 @@ const Profile = () => {
     refetch,
   } = useQuery(["info", "user"], () => UserDataService.getOneUser(), {
     refetchOnWindowFocus: false,
+    onSuccess,
   });
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: {errors},
-  } = useForm<IUserForm>({
-    defaultValues: {
-      company: userData?.company,
-      email: userData?.email,
-      phone: userData?.phone,
-      name: userData?.name,
-    },
-  });
+  } = useForm<IUserForm>();
 
   // 1. 버튼을 수정으로 바꾼다.
   // 2. PUT 요청을 보낸다.
@@ -95,10 +101,10 @@ const Profile = () => {
 
     // 유저 정보 수정했을 경우만 PUT 요청 수행
     if (
-      userData.company !== data.company ||
-      userData.email !== data.email ||
-      userData.phone !== data.phone ||
-      userData.name !== data.name
+      userData?.company !== data.company ||
+      userData?.email !== data.email ||
+      userData?.phone !== data.phone ||
+      userData?.name !== data.name
     ) {
       await UserDataService.updateOneUser(data);
       await refetch();
