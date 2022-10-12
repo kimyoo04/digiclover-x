@@ -10,12 +10,14 @@ import SignaturePlacing from "Components/Document/steps/SignaturePlacing";
 import Email from "Components/Document/steps/Email";
 import {slide} from "variants";
 import DocumentHeader from "Components/Document/DocumentHeader";
+import Alert from "Components/Util/Alert";
 
 const DocuWrapper = styled.div`
   position: relative;
 
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 
   min-height: 100vh;
   background-color: ${(props) => props.theme.bgColor};
@@ -41,6 +43,11 @@ const DocumentsStep = ({index}: {index: number}) => {
           initial="invisible"
           animate="visible"
           exit="exit"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
           <Contractor />
         </StepWrapper>
@@ -53,6 +60,11 @@ const DocumentsStep = ({index}: {index: number}) => {
           initial="invisible"
           animate="visible"
           exit="exit"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
           <Docukind />
         </StepWrapper>
@@ -77,6 +89,11 @@ const DocumentsStep = ({index}: {index: number}) => {
           initial="invisible"
           animate="visible"
           exit="exit"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
           <Signning />
         </StepWrapper>
@@ -101,6 +118,11 @@ const DocumentsStep = ({index}: {index: number}) => {
           initial="invisible"
           animate="visible"
           exit="exit"
+          style={{
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+          }}
         >
           <Email />
         </StepWrapper>
@@ -112,17 +134,13 @@ const DocumentsStep = ({index}: {index: number}) => {
 
 const Document = () => {
   const documentStep = useAppSelector((state) => state.document.step);
+  const isAlert = useAppSelector((state) => state.alert.isAlert);
+
   return (
     <>
       <DocumentHeader />
-
-      <DocuWrapper
-        style={
-          documentStep !== 3 && documentStep !== 5
-            ? {alignItems: "center"}
-            : {alignItems: "flex-start"}
-        }
-      >
+      {isAlert ? <Alert /> : null}
+      <DocuWrapper>
         <Animation>
           {[1, 2, 3, 4, 5, 6].map((i) =>
             i === documentStep ? <DocumentsStep index={i} key={i} /> : null

@@ -19,7 +19,7 @@ const Overlay = styled(motion.div)`
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  z-index: 10;
+  z-index: 100;
 `;
 const AlertWrapper = styled.div`
   width: 100%;
@@ -38,7 +38,7 @@ const AlertItem = styled(motion.div)`
   background-color: white;
   border-radius: 6px;
   overflow: hidden;
-  z-index: 11;
+  z-index: 101;
 `;
 
 const AlertBar = styled.div`

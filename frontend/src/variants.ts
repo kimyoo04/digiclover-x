@@ -33,11 +33,9 @@ export const pageVariants = {
 export const slide = (isBack: boolean) => {
   return {
     invisible: {
-      x: isBack ? "-100vw" : "100vw",
       opacity: 0,
     },
     visible: {
-      x: 0,
       opacity: 1,
       transition: {
         duration: 0.6,

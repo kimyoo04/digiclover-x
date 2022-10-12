@@ -40,7 +40,6 @@ const AgreeInput = styled.input`
 
 const Email = () => {
   const [isCheck, setIsCheck] = useState(false);
-  const isAlert = useAppSelector((state) => state.alert.isAlert);
   const dispatch = useAppDispatch();
   const document = useAppSelector((state) => state.document);
   const navigate = useNavigate();
@@ -95,8 +94,6 @@ const Email = () => {
           Finish
         </Button>
       </ButtonWrapper>
-
-      {isAlert ? <Alert /> : null}
     </Main>
   );
 };
