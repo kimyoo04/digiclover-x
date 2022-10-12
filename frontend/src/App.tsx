@@ -2,7 +2,6 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 
 import {ThemeProvider} from "styled-components";
 import DocumentModal from "Components/Storage/DocumentModal";
-import DocumentLayout from "Components/Document/DocumentLayout";
 
 import Home from "Routes/Home";
 import Storage from "Routes/Storage";

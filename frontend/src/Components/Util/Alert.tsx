@@ -1,24 +1,19 @@
 import styled from "styled-components";
 import {motion} from "framer-motion";
 import {useState, useEffect} from "react";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {alertActions} from "features/alert/alertSlice";
 
 //--------------------------------------------------------------------------------
+// isAlert - 알림 활성 / 알림 비활성
 // alertType - 알림의 종류, 제목, 아이콘, 색깔을 설정
 // content - 알림의 내용을 설정
 //--------------------------------------------------------------------------------
-interface IAlertInfo {
-  alertType: string;
-  content: string;
-}
-
-interface IAlert {
-  alertMessage: IAlertInfo;
-  closeAlert: () => void;
-}
 
 const Overlay = styled(motion.div)`
   position: absolute;
   top: 0;
+
   display: flex;
   justify-content: center;
   width: 100vw;
@@ -82,13 +77,16 @@ const CloseIcon = styled.i`
   cursor: pointer;
 `;
 
-const Alert = ({alertMessage, closeAlert}: IAlert) => {
+const Alert = () => {
+  const dispatch = useAppDispatch();
+  const {alertType, content} = useAppSelector((state) => state.alert);
+
   const [alertIcon, setAlertIcon] = useState(<div></div>);
   const [alertBar, setAlertBar] = useState(<div></div>);
 
   // message.alertType 별 분기 처리 및 컴포넌트 할당
   useEffect(() => {
-    switch (alertMessage.alertType) {
+    switch (alertType) {
       case "Success":
         setAlertIcon(
           <AlertIcon
@@ -134,7 +132,7 @@ const Alert = ({alertMessage, closeAlert}: IAlert) => {
   return (
     <>
       <Overlay
-        onClick={closeAlert}
+        onClick={() => dispatch(alertActions.alertClose())}
         initial={{opacity: 0}}
         animate={{opacity: 1}}
         transition={{duration: 0.3}}
@@ -148,10 +146,13 @@ const Alert = ({alertMessage, closeAlert}: IAlert) => {
           {alertBar}
           {alertIcon}
           <AlertInfo>
-            <AlertTitle>{alertMessage.alertType}</AlertTitle>
-            <AlertContent>{alertMessage.content}</AlertContent>
+            <AlertTitle>{alertType}</AlertTitle>
+            <AlertContent>{content}</AlertContent>
           </AlertInfo>
-          <CloseIcon className="ri-close-fill" onClick={closeAlert}></CloseIcon>
+          <CloseIcon
+            className="ri-close-fill"
+            onClick={() => dispatch(alertActions.alertClose())}
+          ></CloseIcon>
         </AlertItem>
       </AlertWrapper>
     </>

@@ -27,7 +27,7 @@ export function useCheckMobile() {
   const [width, height] = useWindowDimensions();
 
   useEffect(() => {
-    if (width <= 650) {
+    if (width <= 690) {
       setIsMobile(true);
     } else {
       setIsMobile(false);

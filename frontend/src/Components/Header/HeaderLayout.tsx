@@ -27,7 +27,7 @@ const Nav = styled.nav`
 
   color: white;
 
-  z-index: 100;
+  z-index: 2;
 `;
 
 const SmallNav = styled.div`

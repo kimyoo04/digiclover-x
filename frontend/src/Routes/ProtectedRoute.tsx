@@ -1,9 +1,10 @@
-import {useState} from "react";
 import Alert from "Components/Util/Alert";
-import Header from "Components/Header/Header";
+import HeaderLayout from "Components/Header/HeaderLayout";
 import Login from "./Login";
 
-import {useAppSelector} from "app/hook";
+import {useAppDispatch, useAppSelector} from "app/hook";
+import {alertActions} from "features/alert/alertSlice";
+import {useState} from "react";
 
 interface IProtectedRouteProps {
   outlet: JSX.Element;
@@ -12,32 +13,38 @@ interface IProtectedRouteProps {
 const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
   outlet,
 }: IProtectedRouteProps) => {
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-  const [alert, setAlert] = useState(true);
-  const alertMessage = {
-    alertType: "Warning",
-    content: "로그인 이후 이용 가능합니다.",
-  };
+  const [isFirst, setIsFirst] = useState(true);
 
-  function closeAlert() {
-    setAlert((prev) => !prev);
-  }
+  const dispatch = useAppDispatch();
+  const isAlert = useAppSelector((state) => state.alert.isAlert);
+  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   // jwt 있는 경우 진입
   if (isAuthenticated) {
     return outlet;
-  }
+  } else {
+    // jwt 없는 경우 로그인 컴포넌트 노출
 
-  // 토큰 없는 경우 로그인과 경고 알림 랜더
-  return (
-    <>
-      <Header />
-      {alert ? (
-        <Alert alertMessage={alertMessage} closeAlert={closeAlert} />
-      ) : null}
-      <Login />
-    </>
-  );
+    if (isFirst) {
+      // 알림 활성화
+      dispatch(
+        alertActions.alert({
+          alertType: "Warning",
+          content: "로그인 이후 이용 가능합니다.",
+        })
+      );
+      setIsFirst(false);
+    }
+
+    // 토큰 없는 경우 로그인과 경고 알림 랜더
+    return (
+      <>
+        <HeaderLayout />
+        {isAlert ? <Alert /> : null}
+        <Login />
+      </>
+    );
+  }
 };
 
 export default ProtectedRoute;

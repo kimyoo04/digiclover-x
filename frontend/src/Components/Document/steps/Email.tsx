@@ -9,6 +9,7 @@ import Button from "Components/Style/buttons";
 import ContractorCard from "Components/Document/ContractorCard";
 import Alert from "Components/Util/Alert";
 import DocumentDataService from "services/document";
+import {alertActions} from "features/alert/alertSlice";
 
 const Main = styled.div`
   display: flex;
@@ -39,7 +40,7 @@ const AgreeInput = styled.input`
 
 const Email = () => {
   const [isCheck, setIsCheck] = useState(false);
-  const [alert, setAlert] = useState(false);
+  const isAlert = useAppSelector((state) => state.alert.isAlert);
   const dispatch = useAppDispatch();
   const document = useAppSelector((state) => state.document);
   const navigate = useNavigate();
@@ -58,17 +59,16 @@ const Email = () => {
 
       navigate(`/storage`, {replace: true}); // 이메일 전송 후 뒤로가기 방지
     } else {
-      setAlert((prev) => !prev); // 동의 후 이메일 전송 알림
+      dispatch(
+        alertActions.alert({
+          alertType: "Warning",
+          content: "이메일 전송 및 개인정보 이용 동의를 체크해 주세요.",
+        })
+      );
     }
   };
 
   const toggleChecking = () => setIsCheck((prev) => !prev);
-  const closeAlert = () => setAlert((prev) => !prev);
-
-  const alertMessage = {
-    alertType: "Warning",
-    content: "이메일 전송 및 개인정보 이용 동의를 체크해 주세요.",
-  };
 
   return (
     <Main>
@@ -96,9 +96,7 @@ const Email = () => {
         </Button>
       </ButtonWrapper>
 
-      {alert ? (
-        <Alert alertMessage={alertMessage} closeAlert={closeAlert} />
-      ) : null}
+      {isAlert ? <Alert /> : null}
     </Main>
   );
 };

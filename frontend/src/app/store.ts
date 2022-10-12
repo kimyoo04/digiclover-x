@@ -5,6 +5,7 @@ import authReducer from "../features/auth/authSlice";
 import userReducer from "../features/user/userSlice";
 import documentReducer from "../features/document/documentSlice";
 import themeSlice from "features/theme/themeSlice";
+import alertReducer from "../features/alert/alertSlice";
 
 const logger = createLogger();
 
@@ -14,6 +15,7 @@ export const store = configureStore({
     auth: authReducer,
     document: documentReducer,
     theme: themeSlice,
+    alert: alertReducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
 });
