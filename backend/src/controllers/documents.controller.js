@@ -4,16 +4,14 @@ module.exports = class DocumentsCtrl {
   //--------------------------------------------------------------------------------
   // Get - 모든 문서 조회
   //--------------------------------------------------------------------------------
-  static async apiGetDocuments(req, res, next) {
+  static async apiGetDocumentsByPages(req, res, next) {
     const limit = parseInt(req.query._limit);
     const offset = parseInt((req.query._pages - 1) * limit);
 
     console.log(req.id);
-    const documentsData = await documentsDAO.getDocumentsByPages(
-      req.id,
-      limit,
-      offset
-    );
+    const documentsData = await documentsDAO
+      .getDocumentsByPages(req.id, limit, offset)
+      .catch((err) => console.error("getDocumentsByPages ==> ", err));
 
     console.log(documentsData);
     console.log("apiGetDocumentsByPages - success");
@@ -25,15 +23,22 @@ module.exports = class DocumentsCtrl {
   //--------------------------------------------------------------------------------
   static async apiGetDocumentById(req, res, next) {
     const {id} = req.params;
+
     console.log("id", id);
 
     // 문서 1 개 조회
-    const documentData = await documentsDAO.getDocumentById(id);
+    const documentData = await documentsDAO
+      .getDocumentById(id)
+      .catch((err) => console.error("getDocumentById ==> ", err));
+
     console.log("documentData - success");
     // console.log(documentData);
 
     // 서명 n개 조회
-    const signaturesData = await documentsDAO.getSignaturesById(id);
+    const signaturesData = await documentsDAO
+      .getSignaturesById(id)
+      .catch((err) => console.error("getSignaturesById ==> ", err));
+
     console.log("signaturesData - success");
     // console.log(signaturesData);
 
@@ -97,13 +102,17 @@ module.exports = class DocumentsCtrl {
       return hash.copy().digest("hex");
     }
 
-    const hashFile = await makeHashValueA(filePath);
-    const hashValue = await makeHashValueB(hashFile);
+    const hashFile = await makeHashValueA(filePath).catch((err) =>
+      console.error("makeHashValueA ==> ", err)
+    );
+    const hashValue = await makeHashValueB(hashFile).catch((err) =>
+      console.error("makeHashValueB ==> ", err)
+    );
 
     // 문서 생성
     await documentsDAO
       .postOneDocument(req.body.data, req.id, hashFile, hashValue)
-      .catch((error) => next(error));
+      .catch((err) => console.error("postOneDocument ==> ", err));
 
     console.log("apiPostOneDocument - success");
     return res.json({msg: "apiPostOneDocument success"});
@@ -116,7 +125,9 @@ module.exports = class DocumentsCtrl {
     let {id} = req.params;
 
     // 권한 확인 위한 userId 받고 where 문에 추가
-    await documentsDAO.deleteOneDocument(id);
+    await documentsDAO
+      .deleteOneDocument(id)
+      .catch((err) => console.error("deleteOneDocument ==> ", err));
 
     console.log("apiDeleteDocumentById - success");
     return res.json({msg: "apiDeleteDocumentById success"});

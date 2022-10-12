@@ -6,7 +6,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(verifyIsToken, DocumentsCtrl.apiGetDocuments) // 유저별 전체 문서 조회
+  .get(verifyIsToken, DocumentsCtrl.apiGetDocumentsByPages) // 유저별 페이지별 문서 조회
   .post(verifyIsToken, DocumentsCtrl.apiPostOneDocument); // 문서 생성 + 요청자, 수신자 서명 생성
 
 // 문서 id를 URL에 넣고, 세션쿠키의 유저 정보와 비교하기
