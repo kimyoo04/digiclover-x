@@ -6,6 +6,7 @@ import {documentActions} from "features/document/documentSlice";
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
 import {motion} from "framer-motion";
+import {alertActions} from "features/alert/alertSlice";
 
 const CanvasItem = styled.canvas`
   background-color: white;
@@ -71,18 +72,30 @@ const Canvas = () => {
   };
 
   const nextClick = async () => {
-    // 서명한 imgUrl 저장
-    const imgUrl = await canvasRef.current.toDataURL();
-    dispatch(documentActions.afterSignning(imgUrl));
+    if (isDrawn) {
+      // 서명한 imgUrl 저장
+      const imgUrl = await canvasRef.current.toDataURL();
+      dispatch(documentActions.afterSignning(imgUrl));
 
-    // 문서 이미지 pdf화 (미완)
-    // const html2canvas = require("html2canvas");
-    // let img;
-    // html2canvas(document.querySelector("#capture")).then((canvas) => {
-    //   img = canvas.toDataURL("image/png", 1.0);
-    // });
+      // 문서 이미지 pdf화 (미완)
+      // const html2canvas = require("html2canvas");
+      // let img;
+      // html2canvas(document.querySelector("#capture")).then((canvas) => {
+      //   img = canvas.toDataURL("image/png", 1.0);
+      // });
+    } else {
+      dispatch(
+        alertActions.alert({
+          alertType: "Infomation",
+          content: "서명을 해주세요.",
+        })
+      );
+    }
   };
 
+  // 서명 했는지 안했는지 체크
+  const [isDrawn, setIsDrawn] = useState(false);
+  // 그리는 중인지 체크
   const [drawing, setDrawing] = useState(false);
   const ctxRef = useRef(null);
   const canvasRef = useRef(null);
@@ -111,6 +124,7 @@ const Canvas = () => {
     ctxRef.current.beginPath();
     ctxRef.current.moveTo(offsetX, offsetY);
     setDrawing(true);
+    setIsDrawn(true);
   };
   const stopDraw = () => {
     ctxRef.current.closePath();
@@ -129,13 +143,18 @@ const Canvas = () => {
       canvasRef.current.width,
       canvasRef.current.height
     );
+
+    // 서명을 하지 않은 상태 저장
+    setIsDrawn(false);
   };
   const onSaveClick = () => {
-    const url = canvasRef.current.toDataURL();
-    const a = document.createElement("a"); // a 태그 임시 생성
-    a.href = url; // href 어트리뷰트에 url 할당
-    a.download = "myDrawing.png"; // 다운로드시 기본 파일명 설정
-    a.click(); // a 테그 자동 클릭
+    if (isDrawn) {
+      const url = canvasRef.current.toDataURL();
+      const a = document.createElement("a"); // a 태그 임시 생성
+      a.href = url; // href 어트리뷰트에 url 할당
+      a.download = "myDrawing.png"; // 다운로드시 기본 파일명 설정
+      a.click(); // a 테그 자동 클릭
+    }
   };
   const onFileChange = (event) => {
     const file = event.target.files[0];

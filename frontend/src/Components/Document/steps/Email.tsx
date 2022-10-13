@@ -7,7 +7,6 @@ import {documentActions, IContractor} from "features/document/documentSlice";
 import styled from "styled-components";
 import Button from "Components/Style/buttons";
 import ContractorCard from "Components/Document/ContractorCard";
-import Alert from "Components/Util/Alert";
 import DocumentDataService from "services/document";
 import {alertActions} from "features/alert/alertSlice";
 
@@ -60,7 +59,7 @@ const Email = () => {
     } else {
       dispatch(
         alertActions.alert({
-          alertType: "Warning",
+          alertType: "Infomation",
           content: "이메일 전송 및 개인정보 이용 동의를 체크해 주세요.",
         })
       );
