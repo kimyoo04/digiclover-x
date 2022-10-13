@@ -24,9 +24,40 @@ export const pageVariants = {
   },
   in: {
     opacity: 1,
+    transition: {
+      type: "tween",
+      duration: 0.6,
+    },
   },
   out: {
     opacity: 0,
+    transition: {
+      type: "tween",
+      duration: 0.2,
+    },
+  },
+};
+
+export const smallPageVariants = {
+  initial: {
+    opacity: 0,
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  },
+  in: {
+    opacity: 1,
+    transition: {
+      type: "tween",
+      duration: 0.6,
+    },
+  },
+  out: {
+    opacity: 0,
+    transition: {
+      type: "tween",
+      duration: 0.2,
+    },
   },
 };
 

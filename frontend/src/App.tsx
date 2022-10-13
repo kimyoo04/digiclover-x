@@ -19,6 +19,7 @@ import {useAppSelector} from "app/hook";
 import {darkTheme, lightTheme} from "theme";
 import Document from "Routes/document/Document";
 import HeaderNoAuth from "Components/Header/HeaderNoAuth";
+import ScrollToTop from "Components/Util/ScrollToTop";
 
 function App() {
   // 라이트모드, 다크모드
@@ -28,6 +29,7 @@ function App() {
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <Router>
+        <ScrollToTop />
         <Routes>
           <Route
             path="/document"
