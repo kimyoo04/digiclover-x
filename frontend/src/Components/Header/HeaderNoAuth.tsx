@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector} from "@app/hook";
 import {useCheckMobile} from "@hooks/useWindowDimensions";
 import {fetchRefresh} from "@features/auth/authSlice";
 // components
-import {Link} from "@components/Auth/auth";
+import {Link} from "@components/Auth/authStyle";
 import {
   AuthWrapper,
   LogInButton,
@@ -45,8 +45,8 @@ const HeaderNoAuth = () => {
           </Link>
 
           <AuthWrapper>
-            <Link to="/login">
-              <LogInButton>로그인</LogInButton>
+            <Link to="/signin">
+              <LogInButton>Signin</LogInButton>
             </Link>
           </AuthWrapper>
         </SmallNav>
@@ -59,8 +59,8 @@ const HeaderNoAuth = () => {
           </div>
 
           <AuthWrapper>
-            <Link to="/login">
-              <LogInButton>로그인</LogInButton>
+            <Link to="/signin">
+              <LogInButton>Signin</LogInButton>
             </Link>
           </AuthWrapper>
         </Nav>

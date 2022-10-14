@@ -7,7 +7,7 @@ import styled from "styled-components";
 import UserDataService from "@services/user";
 // components
 import {Col, Row, Wrapper} from "@components/layout";
-import {ErrorMessage, Input, Label} from "@components/Auth/auth";
+import {ErrorMessage, Input, Label} from "@components/Auth/authStyle";
 import ToggleIsDark from "@components/Util/ToggleIsDark";
 
 export interface IUserForm {

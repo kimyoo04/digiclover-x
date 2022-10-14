@@ -34,7 +34,9 @@
       "@routes": ["src/routes"],
       "@routes/*": ["src/routes/*"],
       "@services": ["./src/services"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@firebase": ["./src/firebase"],
+      "@firebase/*": ["./src/firebase/*"]
     }
   },
   "include": ["./src", "./custom.d.ts"],

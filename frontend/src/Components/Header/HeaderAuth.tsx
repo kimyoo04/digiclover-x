@@ -9,7 +9,7 @@ import {useAppDispatch, useAppSelector} from "@app/hook";
 import {fetchLogout, fetchRefresh} from "@features/auth/authSlice";
 import {useCheckMobile} from "@hooks/useWindowDimensions";
 // components
-import {Link} from "@components/Auth/auth";
+import {Link} from "@components/Auth/authStyle";
 import DropDownMenu from "@components/Header/DropDownMenu";
 import DropDownAlarm from "@components/Header/DropDownAlarm";
 import {

@@ -3,7 +3,7 @@ import styled from "styled-components";
 // public
 import logo from "@public/assets/img/logo.png";
 // auth
-import {AuthWrapper, Link} from "./auth";
+import {AuthWrapper, Link} from "./authStyle";
 // components
 import {Text} from "@components/Style/text";
 
@@ -20,9 +20,9 @@ const AuthHeader = () => {
         <Logo src={logo} />
       </Link>
       <AuthWrapper>
-        <Link to="/login">로그인</Link>
+        <Link to="/signin">Signin</Link>
         <Text>|</Text>
-        <Link to="/signin">회원가입</Link>
+        <Link to="/signup">Signup</Link>
       </AuthWrapper>
     </>
   );

@@ -4,7 +4,7 @@ import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {alertActions} from "@features/alert/alertSlice";
 // routes
-import Login from "@routes/Login";
+import Login from "@routes/Signin";
 // components
 import Alert from "@components/Util/Alert";
 import HeaderLayout from "@components/Header/HeaderNoAuth";
@@ -18,9 +18,10 @@ const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
 }: IProtectedRouteProps) => {
   const [isFirst, setIsFirst] = useState(true);
 
-  const dispatch = useAppDispatch();
   const isAlert = useAppSelector((state) => state.alert.isAlert);
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useAppDispatch();
+  // const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   // jwt 있는 경우 진입
   if (isAuthenticated) {

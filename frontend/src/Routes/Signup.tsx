@@ -11,7 +11,7 @@ import {
   ISignInForm,
   ErrorMessage,
   Input,
-} from "@components/Auth/auth";
+} from "@components/Auth/authStyle";
 import {Col, Row} from "@components/layout";
 import AuthHeader from "@components/Auth/AuthHeader";
 
@@ -35,7 +35,12 @@ const Signup = () => {
       );
     }
     console.log(data);
-    AuthDataService.createOneUser(data);
+    // AuthDataService.createOneUser(data);
+
+    // -------------------------------------------
+
+    // -------------------------------------------
+
     navigate(`/login`);
   };
 

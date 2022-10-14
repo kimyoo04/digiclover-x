@@ -8,7 +8,7 @@ import {darkTheme, lightTheme} from "@constants/theme";
 // home route
 import Home from "@routes/Home";
 // auth route
-import Login from "@routes/Login";
+import Login from "@routes/Signin";
 import Signup from "@routes/Signup";
 // document route
 import DocumentStart from "@routes/document/Start";
@@ -59,8 +59,8 @@ function App() {
               element={<ProtectedRoute outlet={<Profile />}></ProtectedRoute>}
             ></Route>
           </Route>
-          <Route path="/login" element={<Login />}></Route>
-          <Route path="/signin" element={<Signup />}></Route>
+          <Route path="/signin" element={<Login />}></Route>
+          <Route path="/signup" element={<Signup />}></Route>
           <Route path="*" element={<NoMatch />} />
         </Routes>
         <Footer />

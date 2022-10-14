@@ -17,7 +17,9 @@
       "@routes": ["./src/Routes"],
       "@routes/*": ["./src/Routes/*"],
       "@services": ["./src/services"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@firebase": ["./src/firebase"],
+      "@firebase/*": ["./src/firebase/*"]
     }
   }
 }

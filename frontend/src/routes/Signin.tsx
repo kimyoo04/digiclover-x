@@ -13,7 +13,7 @@ import {
   ILogInForm,
   ErrorMessage,
   Input,
-} from "@components/Auth/auth";
+} from "@components/Auth/authStyle";
 import {Col, Row} from "@components/layout";
 import AuthHeader from "@components/Auth/AuthHeader";
 
@@ -61,17 +61,17 @@ const GoHomeText = styled.span`
   margin-bottom: 20px;
 `;
 
-const Login = () => {
-  const dispatch = useAppDispatch();
+const Signin = () => {
+  // const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
   function goHome() {
     navigate(`/`);
   }
 
-  const kakaoLogin = () => {
-    window.open("http://localhost:8001/auth/kakao", "_self");
-  };
+  // const kakaoLogin = () => {
+  //   window.open("http://localhost:8001/auth/kakao", "_self");
+  // };
 
   const googleLogin = () => {
     window.open("http://localhost:8001/auth/google", "_self");
@@ -87,7 +87,12 @@ const Login = () => {
 
   const onValid = (data: ILogInForm) => {
     // 데이터베이스에 존재하는 유저인지 조회
-    dispatch(fetchLogin(data));
+    // dispatch(fetchLogin(data));
+
+    // -------------------------------------------
+
+    // -------------------------------------------
+
     navigate("/");
   };
 
@@ -143,11 +148,9 @@ const Login = () => {
           </Col>
 
           <ErrorMessage>{errors?.extraError?.message}</ErrorMessage>
-          <Button>Login</Button>
+          <Button>Sign in</Button>
         </HookForm>
         <ButtonWrapper>
-          <SnsLogin>SNS Login</SnsLogin>
-          <KakaoBtn onClick={kakaoLogin}>Sign in with Kakao</KakaoBtn>
           <GoogleBtn onClick={googleLogin}>
             <GoogleImg />
             Sign in with Google
@@ -158,4 +161,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signin;

@@ -1,8 +1,8 @@
 // constants
 import http from "@constants/http-common";
 // components
-import {ISignInForm} from "@components/Auth/auth";
-import {ILogInForm} from "@components/Auth/auth";
+import {ISignInForm} from "@components/Auth/authStyle";
+import {ILogInForm} from "@components/Auth/authStyle";
 
 const AuthDataService = {
   // Post - 회원가입

@@ -4,7 +4,7 @@ import type {PayloadAction} from "@reduxjs/toolkit";
 // services
 import AuthDataService from "@services/auth";
 // components
-import {ILogInForm} from "@components/Auth/auth";
+import {ILogInForm} from "@components/Auth/authStyle";
 
 type User = {
   id: number;
