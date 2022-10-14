@@ -11,6 +11,7 @@ module.exports = override(
     "@public": path.resolve(__dirname, "src", "public"),
     "@routes": path.resolve(__dirname, "src", "routes"),
     "@services": path.resolve(__dirname, "src", "services"),
+    "@util": path.resolve(__dirname, "src", "util"),
   })
 );
 

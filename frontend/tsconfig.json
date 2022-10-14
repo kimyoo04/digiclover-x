@@ -34,7 +34,9 @@
       "@routes": ["src/routes"],
       "@routes/*": ["src/routes/*"],
       "@services": ["./src/services"],
-      "@services/*": ["./src/services/*"]
+      "@services/*": ["./src/services/*"],
+      "@util": ["./src/util"],
+      "@util/*": ["./src/util/*"]
     }
   },
   "include": ["./src", "./custom.d.ts"],

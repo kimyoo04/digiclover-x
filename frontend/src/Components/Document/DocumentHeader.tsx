@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
-import PreventUnload from "@components/Util/PreventUnload";
+import PreventUnload from "@util/PreventUnload";
 
 const ProgressBar = styled.ul`
   position: sticky;

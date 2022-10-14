@@ -1,5 +1,5 @@
 // routes
-import {IUserForm} from "src/routes/Profile";
+import {IUserForm} from "@routes/Profile";
 // constants
 import http from "@constants/http-common";
 
