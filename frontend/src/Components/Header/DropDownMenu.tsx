@@ -1,7 +1,9 @@
-import {LinkDropDown} from "Components/Auth/auth";
-import {motion} from "framer-motion";
+// modules
 import {useState} from "react";
+import {motion} from "framer-motion";
 import styled from "styled-components";
+// components
+import {LinkDropDown} from "@components/Auth/auth";
 
 const DropDownWrapper = styled(motion.ul)`
   position: fixed;

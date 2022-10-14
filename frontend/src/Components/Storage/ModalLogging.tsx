@@ -1,6 +1,9 @@
-import {Text} from "Components/Style/text";
-import {ISignatureData} from "services/document";
+// modules
 import styled from "styled-components";
+// services
+import {ISignatureData} from "@services/document";
+// components
+import {Text} from "@components/Style/text";
 
 const LogginWrapper = styled.div`
   display: flex;

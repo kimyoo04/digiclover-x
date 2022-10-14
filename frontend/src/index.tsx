@@ -1,14 +1,14 @@
-import React from "react";
+// modules
 import ReactDOM from "react-dom/client";
-import App from "./App";
-
 import {QueryClient, QueryClientProvider} from "react-query";
 import {ReactQueryDevtools} from "react-query/devtools";
-
-import {store} from "./app/store";
-import {Provider} from "react-redux";
-
 import {createGlobalStyle} from "styled-components";
+import {Provider} from "react-redux";
+// App
+import App from "./App";
+// redux-toolkit
+import {store} from "@app/store";
+// icons
 import "remixicon/fonts/remixicon.css";
 
 const GlobalStyle = createGlobalStyle`
@@ -78,7 +78,6 @@ div {
 `;
 
 const client = new QueryClient();
-
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );

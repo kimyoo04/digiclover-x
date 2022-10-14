@@ -1,12 +1,14 @@
-import {Col, Row, Wrapper} from "Components/layout";
-import {ErrorMessage, Input, Label} from "Components/Auth/auth";
+// modules
 import {useState} from "react";
 import {useForm} from "react-hook-form";
-
 import {useQuery} from "react-query";
-import UserDataService from "services/user";
 import styled from "styled-components";
-import ToggleIsDark from "Components/Util/ToggleIsDark";
+// services
+import UserDataService from "@services/user";
+// components
+import {Col, Row, Wrapper} from "@components/layout";
+import {ErrorMessage, Input, Label} from "@components/Auth/auth";
+import ToggleIsDark from "@components/Util/ToggleIsDark";
 
 export interface IUserForm {
   company: string;

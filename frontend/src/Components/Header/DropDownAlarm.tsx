@@ -1,5 +1,6 @@
-import {motion} from "framer-motion";
+// modules
 import {useState} from "react";
+import {motion} from "framer-motion";
 import styled from "styled-components";
 
 const DropDownWrapper = styled(motion.ul)`

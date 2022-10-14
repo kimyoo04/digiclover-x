@@ -1,13 +1,15 @@
+// modules
 import {useState, useEffect} from "react";
 import {PathMatch, useMatch} from "react-router-dom";
-
 import styled from "styled-components";
-import DocumentItem from "Components/Storage/DocumentItem";
-import DocumentModal from "Components/Storage/DocumentModal";
-import {Wrapper} from "Components/layout";
-import DocumentDataService, {IDocumentData} from "services/document";
 import {useQuery} from "react-query";
-import Button from "Components/Style/buttons";
+// services
+import DocumentDataService, {IDocumentData} from "@services/document";
+// components
+import DocumentItem from "@components/Storage/DocumentItem";
+import DocumentModal from "@components/Storage/DocumentModal";
+import {Wrapper} from "@components/layout";
+import Button from "@components/Style/buttons";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;

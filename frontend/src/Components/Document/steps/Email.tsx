@@ -1,14 +1,16 @@
+// modules
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {documentActions, IContractor} from "features/document/documentSlice";
-
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
-import ContractorCard from "Components/Document/ContractorCard";
-import DocumentDataService from "services/document";
-import {alertActions} from "features/alert/alertSlice";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {documentActions, IContractor} from "@features/document/documentSlice";
+import {alertActions} from "@features/alert/alertSlice";
+// service
+import DocumentDataService from "@services/document";
+// components
+import Button from "@components/Style/buttons";
+import ContractorCard from "@components/Document/ContractorCard";
 
 const Main = styled.div`
   display: flex;

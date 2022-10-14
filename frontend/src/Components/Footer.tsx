@@ -1,6 +1,9 @@
+// modules
 import styled from "styled-components";
-import {breakpoints} from "./Util/breakPoints";
-import logo from "public/assets/img/logo.png";
+// public
+import logo from "@public/assets/img/logo.png";
+// components
+import {breakpoints} from "@components/Util/breakPoints";
 
 const Wrapper = styled.div`
   display: flex;

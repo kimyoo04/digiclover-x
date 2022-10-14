@@ -1,5 +1,7 @@
+// modules
 import styled from "styled-components";
-import Canvas from "Components/Document/Canvas";
+// components
+import Canvas from "@components/Document/Canvas";
 
 const FormWrapper = styled.div``;
 

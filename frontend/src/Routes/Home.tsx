@@ -1,4 +1,5 @@
-import {Wrapper} from "Components/layout";
+// components
+import {Wrapper} from "@components/layout";
 
 const Home = () => {
   return <Wrapper></Wrapper>;

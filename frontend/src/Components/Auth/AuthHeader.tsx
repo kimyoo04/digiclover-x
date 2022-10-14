@@ -1,7 +1,11 @@
+// modules
 import styled from "styled-components";
-import {Text} from "Components/Style/text";
-import logo from "public/assets/img/logo.png";
+// public
+import logo from "@public/assets/img/logo.png";
+// auth
 import {AuthWrapper, Link} from "./auth";
+// components
+import {Text} from "@components/Style/text";
 
 const Logo = styled.img`
   width: 190px;

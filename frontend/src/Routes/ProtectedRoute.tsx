@@ -1,10 +1,13 @@
-import Alert from "Components/Util/Alert";
-import HeaderLayout from "Components/Header/HeaderNoAuth";
-import Login from "./Login";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {alertActions} from "features/alert/alertSlice";
+// modules
 import {useState} from "react";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {alertActions} from "@features/alert/alertSlice";
+// routes
+import Login from "@routes/Login";
+// components
+import Alert from "@components/Util/Alert";
+import HeaderLayout from "@components/Header/HeaderNoAuth";
 
 interface IProtectedRouteProps {
   outlet: JSX.Element;

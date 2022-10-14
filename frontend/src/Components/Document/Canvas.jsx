@@ -1,12 +1,13 @@
+// modules
 import {useRef, useState, useEffect} from "react";
-
-import {useAppDispatch} from "app/hook";
-import {documentActions} from "features/document/documentSlice";
-
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
 import {motion} from "framer-motion";
-import {alertActions} from "features/alert/alertSlice";
+// redux-toolkit
+import {useAppDispatch} from "@app/hook";
+import {documentActions} from "@features/document/documentSlice";
+import {alertActions} from "@features/alert/alertSlice";
+// components
+import Button from "@components/Style/buttons";
 
 const CanvasItem = styled.canvas`
   background-color: white;

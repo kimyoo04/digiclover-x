@@ -1,17 +1,18 @@
+// modules
 import {useForm} from "react-hook-form";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {DocuKind, documentActions} from "features/document/documentSlice";
-
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {DocuKind, documentActions} from "@features/document/documentSlice";
+// components
+import Button from "@components/Style/buttons";
 import {
   ErrorMessage,
   FormWrapper,
   IDocuKindForm,
   Input,
   Label,
-} from "Components/Document/document";
+} from "@components/Document/document";
 
 const FormRadioWrapper = styled(FormWrapper)``;
 

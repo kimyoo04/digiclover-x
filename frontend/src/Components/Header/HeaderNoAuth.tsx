@@ -1,13 +1,21 @@
+// modules
 import {useEffect} from "react";
 import {Outlet} from "react-router-dom";
-
-import logo from "public/assets/img/logo.png";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {fetchRefresh} from "features/auth/authSlice";
-import {Link} from "Components/Auth/auth";
-import {useCheckMobile} from "hooks/useWindowDimensions";
-import {AuthWrapper, LogInButton, Logo, Nav, SmallNav} from "./HeaderStyles";
+// public
+import logo from "@public/assets/img/logo.png";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {useCheckMobile} from "@hooks/useWindowDimensions";
+import {fetchRefresh} from "@features/auth/authSlice";
+// components
+import {Link} from "@components/Auth/auth";
+import {
+  AuthWrapper,
+  LogInButton,
+  Logo,
+  Nav,
+  SmallNav,
+} from "@components/Header/HeaderStyles";
 
 const HeaderNoAuth = () => {
   // 620px 이하 사이즈 체크 기능

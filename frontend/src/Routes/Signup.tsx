@@ -1,19 +1,19 @@
+// modules
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-
-import AuthDataService from "services/auth";
-
-import Button from "Components/Style/buttons";
+// services
+import AuthDataService from "@services/auth";
+// components
+import Button from "@components/Style/buttons";
 import {
   Wrapper,
   FormWrapper,
   ISignInForm,
-  Label,
   ErrorMessage,
   Input,
-} from "Components/Auth/auth";
-import {Col, Row} from "Components/layout";
-import AuthHeader from "Components/Auth/AuthHeader";
+} from "@components/Auth/auth";
+import {Col, Row} from "@components/layout";
+import AuthHeader from "@components/Auth/AuthHeader";
 
 const Signup = () => {
   const navigate = useNavigate();

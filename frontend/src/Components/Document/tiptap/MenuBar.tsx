@@ -1,5 +1,7 @@
+// modules
 import {Editor} from "@tiptap/react";
 import styled from "styled-components";
+// tiptap components
 import FontFamilyDropDown from "./FontFamilyDropDown";
 import FontSizeDropDown from "./FontSizeDropDown";
 

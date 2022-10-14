@@ -1,9 +1,11 @@
-import Tiptap from "Components/Document/tiptap";
-
+// modules
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
-import {documentActions} from "features/document/documentSlice";
-import {useAppDispatch} from "app/hook";
+// redux-toolkit
+import {documentActions} from "@features/document/documentSlice";
+import {useAppDispatch} from "@app/hook";
+// components
+import Tiptap from "@components/Document/tiptap";
+import Button from "@components/Style/buttons";
 
 const ButtonWrapper = styled.div`
   display: flex;

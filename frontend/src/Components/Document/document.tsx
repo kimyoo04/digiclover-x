@@ -1,6 +1,8 @@
-import {DocuKind} from "features/document/documentSlice";
+// modules
 import {motion} from "framer-motion";
 import styled from "styled-components";
+// redux-toolkit
+import {DocuKind} from "@features/document/documentSlice";
 
 export const FormWrapper = styled(motion.div)`
   width: 80vw;

@@ -1,24 +1,25 @@
-import "./tiptap.scss";
+// modules
+import {useEffect} from "react";
+import styled from "styled-components";
 import {useEditor, EditorContent} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import FontFamily from "@tiptap/extension-font-family";
-
-import styled from "styled-components";
+import "./tiptap.scss";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {documentActions} from "@features/document/documentSlice";
+// components
 import {
   freeForm,
   mouForm,
   laborForm,
   deptForm,
-} from "Components/Document/docukind";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {documentActions} from "features/document/documentSlice";
-
+} from "@components/Document/docukind";
+// tiptap components
 import MenuBar from "./MenuBar";
 import TitleForm from "./TitleForm";
 import {FontSize} from "./FontSize";
-import {useEffect} from "react";
 
 const WritingWrapper = styled.div`
   display: flex;

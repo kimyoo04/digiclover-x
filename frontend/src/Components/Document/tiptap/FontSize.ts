@@ -1,3 +1,4 @@
+// modules
 import TextStyle from "@tiptap/extension-text-style";
 
 declare module "@tiptap/core" {

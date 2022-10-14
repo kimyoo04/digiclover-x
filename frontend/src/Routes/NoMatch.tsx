@@ -1,9 +1,10 @@
+// modules
 import {useNavigate} from "react-router-dom";
-
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
-import {Label} from "Components/Document/document";
-import {Wrapper} from "Components/layout";
+// components
+import Button from "@components/Style/buttons";
+import {Label} from "@components/Document/document";
+import {Wrapper} from "@components/layout";
 
 const HomeButton = styled(Button)`
   width: 200px;

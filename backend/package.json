@@ -37,13 +37,16 @@
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",
     "sequelize": "^6.21.0",
+    "set-value": "^4.1.0",
+    "to": "^0.2.9",
+    "update": "^0.7.4",
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
     "@babel/core": "^7.19.0",
     "@babel/node": "^7.18.10",
     "@babel/preset-env": "^7.19.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.20"
   },
   "scripts": {
     "dev": "nodemon",

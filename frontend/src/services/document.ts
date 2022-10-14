@@ -1,5 +1,7 @@
-import {DocumentState} from "features/document/documentSlice";
-import http from "../http-common";
+// constants
+import http from "@constants/http-common";
+// features
+import {DocumentState} from "@features/document/documentSlice";
 
 export interface IDocumentData {
   id: number;

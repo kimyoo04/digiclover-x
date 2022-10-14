@@ -1,7 +1,9 @@
+// modules
 import {useState} from "react";
 import {Editor} from "@tiptap/react";
 import styled from "styled-components";
-import arrowIcon from "public/assets/img/arrow-down-s-line.svg";
+// public
+import arrowIcon from "@public/assets/img/arrow-down-s-line.svg";
 
 interface IFontSizeOption {
   label: string;

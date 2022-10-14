@@ -1,10 +1,12 @@
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {toggleTheme} from "features/theme/themeSlice";
-
+// modules
 import {motion} from "framer-motion";
-
 import styled from "styled-components";
-import Button from "../Style/buttons";
+// app
+import {useAppDispatch, useAppSelector} from "@app/hook";
+// features
+import {toggleTheme} from "@features/theme/themeSlice";
+// components
+import Button from "@components/Style/buttons";
 
 const ToggleButton = styled(Button)`
   position: fixed;

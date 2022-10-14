@@ -1,16 +1,19 @@
-import {useAppSelector} from "app/hook";
+// modules
 import {motion} from "framer-motion";
-
 import styled from "styled-components";
-import Contractor from "../../Components/Document/steps/Contractor";
-import Docukind from "Components/Document/steps/Docukind";
-import Writing from "Components/Document/steps/Writing";
-import Signning from "Components/Document/steps/Signning";
-import SignaturePlacing from "Components/Document/steps/SignaturePlacing";
-import Email from "Components/Document/steps/Email";
-import {pageVariants, smallPageVariants} from "variants";
-import DocumentHeader from "Components/Document/DocumentHeader";
-import Alert from "Components/Util/Alert";
+// redux-toolkit
+import {useAppSelector} from "@app/hook";
+// constants
+import {pageVariants, smallPageVariants} from "@constants/variants";
+// components
+import Contractor from "@components/Document/steps/Contractor";
+import Docukind from "@components/Document/steps/Docukind";
+import Writing from "@components/Document/steps/Writing";
+import Signning from "@components/Document/steps/Signning";
+import SignaturePlacing from "@components/Document/steps/SignaturePlacing";
+import Email from "@components/Document/steps/Email";
+import DocumentHeader from "@components/Document/DocumentHeader";
+import Alert from "@components/Util/Alert";
 
 const DocuWrapper = styled.div`
   position: relative;
@@ -29,8 +32,6 @@ const StepWrapper = styled(motion.div)`
 `;
 
 const DocumentsStep = ({index}: {index: number}) => {
-  const isBack = useAppSelector((state) => state.document.isBack);
-
   switch (index) {
     case 1:
       window.scrollTo(0, 0);

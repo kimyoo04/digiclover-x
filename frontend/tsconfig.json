@@ -1,4 +1,5 @@
 {
+  "extends": "./tsconfig.paths.json",
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
@@ -15,7 +16,27 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "baseUrl": "src" // 루트 폴더 url
+    "rootDir": ".",
+    "baseUrl": "./", // 루트 폴더 url
+    "paths": {
+      "@app": ["./src/app/"],
+      "@app/*": ["./src/app/*"],
+      "@components": ["./src/components"],
+      "@components/*": ["./src/components/*"],
+      "@constants": ["./src/constants"],
+      "@constants/*": ["./src/constants/*"],
+      "@features": ["./src/features"],
+      "@features/*": ["./src/features/*"],
+      "@hooks": ["./src/hooks"],
+      "@hooks/*": ["./src/hooks/*"],
+      "@public": ["./src/public"],
+      "@public/*": ["./src/public/*"],
+      "@routes": ["src/routes"],
+      "@routes/*": ["src/routes/*"],
+      "@services": ["./src/services"],
+      "@services/*": ["./src/services/*"]
+    }
   },
-  "include": ["src", "src/custom.d.ts"]
+  "include": ["./src", "./custom.d.ts"],
+  "exclude": ["node_modules"]
 }

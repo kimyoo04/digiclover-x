@@ -1,5 +1,7 @@
-import {IUserForm} from "Routes/Profile";
-import http from "../http-common";
+// routes
+import {IUserForm} from "src/routes/Profile";
+// constants
+import http from "@constants/http-common";
 
 const UserDataService = {
   // Get - 회원조회

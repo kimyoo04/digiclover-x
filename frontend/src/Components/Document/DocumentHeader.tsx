@@ -1,9 +1,10 @@
+// modules
 import {motion} from "framer-motion";
 import styled from "styled-components";
-
-import {useAppSelector} from "app/hook";
 import {useNavigate} from "react-router-dom";
-import PreventUnload from "Components/Util/PreventUnload";
+// redux-toolkit
+import {useAppSelector} from "@app/hook";
+import PreventUnload from "@components/Util/PreventUnload";
 
 const ProgressBar = styled.ul`
   position: sticky;

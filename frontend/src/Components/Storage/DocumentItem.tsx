@@ -1,10 +1,10 @@
-import {FC} from "react";
+// modules
 import {useNavigate} from "react-router-dom";
-
-import {IDocumentData, IDocumentsData} from "services/document";
-
 import styled from "styled-components";
-import Button from "../Style/buttons";
+// services
+import {IDocumentData, IDocumentsData} from "@services/document";
+// components
+import Button from "@components/Style/buttons";
 
 const DocumentWrapper = styled.div`
     display: flex;

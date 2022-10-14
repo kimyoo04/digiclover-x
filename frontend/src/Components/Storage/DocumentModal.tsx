@@ -1,12 +1,14 @@
+// modules
 import {useQuery} from "react-query";
-
-import Button from "Components/Style/buttons";
-import {Text} from "Components/Style/text";
-import {AnimatePresence, motion} from "framer-motion";
 import {useNavigate, useParams} from "react-router-dom";
-import DocumentDataService, {IModalData} from "services/document";
+import {AnimatePresence, motion} from "framer-motion";
 import styled from "styled-components";
-import ModalLogging from "./ModalLogging";
+// services
+import DocumentDataService, {IModalData} from "@services/document";
+// components
+import Button from "@components/Style/buttons";
+import {Text} from "@components/Style/text";
+import ModalLogging from "@components/Storage/ModalLogging";
 
 const Overlay = styled(motion.div)`
   position: fixed;

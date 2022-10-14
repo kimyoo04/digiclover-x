@@ -1,15 +1,17 @@
+// modules
 import {useEffect} from "react";
 import {Outlet, useNavigate} from "react-router-dom";
-
-import logo from "public/assets/img/logo.png";
-import logoShort from "public/assets/img/logo-short.png";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {fetchLogout, fetchRefresh} from "features/auth/authSlice";
-import {Link} from "Components/Auth/auth";
-import DropDownMenu from "./DropDownMenu";
-import {useCheckMobile} from "hooks/useWindowDimensions";
-import DropDownAlarm from "./DropDownAlarm";
+// public
+import logo from "@public/assets/img/logo.png";
+import logoShort from "@public/assets/img/logo-short.png";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {fetchLogout, fetchRefresh} from "@features/auth/authSlice";
+import {useCheckMobile} from "@hooks/useWindowDimensions";
+// components
+import {Link} from "@components/Auth/auth";
+import DropDownMenu from "@components/Header/DropDownMenu";
+import DropDownAlarm from "@components/Header/DropDownAlarm";
 import {
   AuthWrapper,
   Logo,

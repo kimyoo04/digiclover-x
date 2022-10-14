@@ -1,8 +1,10 @@
+// modules
+import {useState, useEffect} from "react";
 import styled from "styled-components";
 import {motion} from "framer-motion";
-import {useState, useEffect} from "react";
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {alertActions} from "features/alert/alertSlice";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {alertActions} from "@features/alert/alertSlice";
 
 //--------------------------------------------------------------------------------
 // isAlert - 알림 활성 / 알림 비활성

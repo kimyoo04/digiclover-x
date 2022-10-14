@@ -1,25 +1,32 @@
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
-
 import {ThemeProvider} from "styled-components";
-import DocumentModal from "Components/Storage/DocumentModal";
+// redux-toolkit
+import {useAppSelector} from "./app/hook";
+// constants
+import {darkTheme, lightTheme} from "@constants/theme";
 
-import Home from "Routes/Home";
-import Storage from "Routes/Storage";
-import Profile from "Routes/Profile";
-import Login from "Routes/Login";
-import Signup from "Routes/Signup";
-import NoMatch from "Routes/NoMatch";
-import ProtectedRoute from "Routes/ProtectedRoute";
-import DocumentStart from "Routes/document/Start";
+// home route
+import Home from "@routes/Home";
+// auth route
+import Login from "@routes/Login";
+import Signup from "@routes/Signup";
+// document route
+import DocumentStart from "@routes/document/Start";
+import Document from "@routes/document/Document";
+// storage route
+import Storage from "@routes/Storage";
+import DocumentModal from "@components/Storage/DocumentModal";
+// profile route
+import Profile from "@routes/Profile";
+// etc route
+import NoMatch from "@routes/NoMatch";
+import ProtectedRoute from "@routes/ProtectedRoute";
 
-import HeaderAuth from "Components/Header/HeaderAuth";
-import Footer from "Components/Footer";
-
-import {useAppSelector} from "app/hook";
-import {darkTheme, lightTheme} from "theme";
-import Document from "Routes/document/Document";
-import HeaderNoAuth from "Components/Header/HeaderNoAuth";
-import ScrollToTop from "Components/Util/ScrollToTop";
+// components
+import HeaderAuth from "@components/Header/HeaderAuth";
+import HeaderNoAuth from "@components/Header/HeaderNoAuth";
+import Footer from "@components/Footer";
+import ScrollToTop from "@components/Util/ScrollToTop";
 
 function App() {
   // 라이트모드, 다크모드

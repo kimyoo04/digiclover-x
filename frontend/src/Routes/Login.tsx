@@ -1,20 +1,21 @@
+// modules
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
-
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {fetchLogin} from "@features/auth/authSlice";
+// components
+import Button from "@components/Style/buttons";
 import {
   Wrapper,
   FormWrapper,
   ILogInForm,
-  Label,
   ErrorMessage,
   Input,
-} from "Components/Auth/auth";
-import {Col, Row} from "Components/layout";
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {fetchLogin} from "features/auth/authSlice";
-import AuthHeader from "Components/Auth/AuthHeader";
+} from "@components/Auth/auth";
+import {Col, Row} from "@components/layout";
+import AuthHeader from "@components/Auth/AuthHeader";
 
 const HookForm = styled.form`
   margin-bottom: 30px;

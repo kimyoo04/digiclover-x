@@ -1,14 +1,15 @@
+// modules
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useFieldArray, useForm} from "react-hook-form";
-
-import {useAppDispatch, useAppSelector} from "app/hook";
-import {documentActions} from "features/document/documentSlice";
-
 import styled from "styled-components";
-import Button from "Components/Style/buttons";
-import {ErrorMessage, FormWrapper, Input} from "Components/Document/document";
-import {Row} from "Components/layout";
+// redux-toolkit
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {documentActions} from "@features/document/documentSlice";
+// components
+import Button from "@components/Style/buttons";
+import {ErrorMessage, FormWrapper, Input} from "@components/Document/document";
+import {Row} from "@components/layout";
 
 const ContractorWrapper = styled.ul`
   background-color: ${(props) => props.theme.bgWhiteColor};

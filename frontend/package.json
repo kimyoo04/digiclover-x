@@ -2,6 +2,12 @@
   "name": "frontend",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
+  },
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
     "@tanstack/react-query": "^4.2.1",
@@ -13,16 +19,6 @@
     "@tiptap/extension-text-style": "^2.0.0-beta.196",
     "@tiptap/react": "^2.0.0-beta.115",
     "@tiptap/starter-kit": "^2.0.0-beta.192",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.58",
-    "@types/react": "^18.0.18",
-    "@types/react-dom": "^18.0.6",
-    "@types/react-helmet": "^6.1.5",
-    "@types/react-query": "^1.2.9",
-    "@types/react-redux": "^7.1.24",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/redux-logger": "^3.0.9",
-    "@types/styled-components": "^5.1.26",
     "axios": "^0.27.2",
     "babel-plugin-macros": "^3.1.0",
     "framer-motion": "^7.2.0",
@@ -46,11 +42,19 @@
     "typescript": "^4.8.2",
     "web-vitals": "^2.1.4"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "devDependencies": {
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.58",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-helmet": "^6.1.5",
+    "@types/react-query": "^1.2.9",
+    "@types/react-redux": "^7.1.24",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/redux-logger": "^3.0.9",
+    "@types/styled-components": "^5.1.26",
+    "react-app-rewired": "^2.2.1",
+    "customize-cra": "^1.0.0"
   },
   "eslintConfig": {
     "extends": [

@@ -1,6 +1,8 @@
+// redux-toolkit
 import {createSlice, createAsyncThunk} from "@reduxjs/toolkit";
 import type {PayloadAction} from "@reduxjs/toolkit";
-import http from "http-common";
+// constants
+import http from "@constants/http-common";
 
 type User = {
   id: number;

@@ -1,20 +1,21 @@
+// redux-toolkit
 import {configureStore} from "@reduxjs/toolkit";
-import {createLogger} from "redux-logger";
+// features
+import authReducer from "@features/auth/authSlice";
+import userReducer from "@features/user/userSlice";
+import documentReducer from "@features/document/documentSlice";
+import themeReducer from "@features/theme/themeSlice";
+import alertReducer from "@features/alert/alertSlice";
 
-import authReducer from "../features/auth/authSlice";
-import userReducer from "../features/user/userSlice";
-import documentReducer from "../features/document/documentSlice";
-import themeSlice from "features/theme/themeSlice";
-import alertReducer from "../features/alert/alertSlice";
-
-const logger = createLogger();
+// import {createLogger} from "redux-logger";
+// const logger = createLogger();
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
     auth: authReducer,
     document: documentReducer,
-    theme: themeSlice,
+    theme: themeReducer,
     alert: alertReducer,
   },
   // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
