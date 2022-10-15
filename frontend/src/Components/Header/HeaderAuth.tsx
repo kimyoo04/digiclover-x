@@ -31,7 +31,7 @@ const HeaderAuth = () => {
   // 로그아웃 기능
   function onlogOut() {
     signOut(authService);
-    navigate(`/`);
+    navigate(`/signin`);
   }
 
   return (

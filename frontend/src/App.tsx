@@ -1,12 +1,9 @@
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useNavigate,
-} from "react-router-dom";
+import {useEffect} from "react";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {ThemeProvider} from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "./app/hook";
+import {authActions} from "@features/auth/authSlice";
 // constants
 import {darkTheme, lightTheme} from "@constants/theme";
 
@@ -32,9 +29,10 @@ import HeaderAuth from "@components/Header/HeaderAuth";
 import HeaderNoAuth from "@components/Header/HeaderNoAuth";
 import Footer from "@components/Footer";
 import ScrollToTop from "@components/Util/ScrollToTop";
-import {useEffect} from "react";
-import {getAuth, onAuthStateChanged} from "firebase/auth";
-import {authActions} from "@features/auth/authSlice";
+
+// firebase
+import {onAuthStateChanged} from "firebase/auth";
+import {authService} from "./fbase";
 
 function App() {
   // 라이트모드, 다크모드
@@ -42,17 +40,18 @@ function App() {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
 
   const dispatch = useAppDispatch();
-  const auth = getAuth();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(authService, (user) => {
       if (user) {
         dispatch(authActions.signin());
+        console.log("authActions signin");
       } else {
-        dispatch(authActions.singout());
+        dispatch(authActions.signout());
+        console.log("authActions signout");
       }
     });
-  }, [auth]);
+  }, [authService]);
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>

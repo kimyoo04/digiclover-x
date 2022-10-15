@@ -2,7 +2,8 @@
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 // redux-toolkit
-import {useAppSelector} from "@app/hook";
+import {useAppDispatch, useAppSelector} from "@app/hook";
+import {authActions} from "@features/auth/authSlice";
 // components
 import {
   Wrapper,
@@ -24,32 +25,26 @@ import {
 } from "./SigninStyle";
 // firebase
 import {
-  getAuth,
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import {authService} from "src/fbase";
 
 const Signin = () => {
-  // const dispatch = useAppDispatch();
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   function goHome() {
     navigate(`/`);
   }
 
-  // const kakaoLogin = () => {
-  //   window.open("http://localhost:8001/auth/kakao", "_self");
-  // };
-
   const googleLogin = () => {
-    // window.open("http://localhost:8001/auth/google", "_self");
-
     // -------------------------------------------
     const provider = new GoogleAuthProvider();
-    const auth = getAuth();
 
-    signInWithPopup(auth, provider)
+    // Google Signed in
+    signInWithPopup(authService, provider)
       .then((result) => {
         // This gives you a Google Access Token. You can use it to access the Google API.
         const credential = GoogleAuthProvider.credentialFromResult(result);
@@ -58,6 +53,7 @@ const Signin = () => {
         const user = result.user;
         navigate("/");
         console.log("Google Signin \n", user);
+        dispatch(authActions.signin());
       })
       .catch((error) => {
         // Handle Errors here.
@@ -68,8 +64,8 @@ const Signin = () => {
         // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
         // ...
+        console.log(errorCode, errorMessage, email, credential);
       });
-
     // -------------------------------------------
   };
 
@@ -82,22 +78,22 @@ const Signin = () => {
   });
 
   const onValid = (data: ILogInForm) => {
-    // 데이터베이스에 존재하는 유저인지 조회
-    // dispatch(fetchLogin(data));
-
     // -------------------------------------------
     const {email, password} = data;
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
+
+    // Signed in
+    signInWithEmailAndPassword(authService, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         // ...
         console.log("Signin \n", user);
+        dispatch(authActions.signin());
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        console.log(errorCode, errorMessage);
       });
     // -------------------------------------------
 

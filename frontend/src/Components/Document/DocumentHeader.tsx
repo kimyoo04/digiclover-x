@@ -96,17 +96,17 @@ const DocumentHeader = () => {
         "이메일 전송",
       ].map((title, index) =>
         documentStep === index + 1 ? (
-          <StepWrapper>
+          <StepWrapper key={index}>
             <OngoingCircle />
             <span className="active">{title}</span>
           </StepWrapper>
         ) : documentStep > index + 1 ? (
-          <StepWrapper>
+          <StepWrapper key={index}>
             <FinishedCircle />
             <span className="finished">{title}</span>
           </StepWrapper>
         ) : (
-          <StepWrapper>
+          <StepWrapper key={index}>
             <UnfinishedCircle />
             <span className="unfinished">{title}</span>
           </StepWrapper>

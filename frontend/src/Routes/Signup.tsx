@@ -1,8 +1,6 @@
 // modules
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
-// services
-import AuthDataService from "@services/auth";
 // components
 import Button from "@components/Style/buttons";
 import {
@@ -14,7 +12,9 @@ import {
 } from "@components/Auth/authStyle";
 import {Col, Row} from "@components/layout";
 import AuthHeader from "@components/Auth/AuthHeader";
-import {createUserWithEmailAndPassword, getAuth} from "firebase/auth";
+// firebase
+import {createUserWithEmailAndPassword} from "firebase/auth";
+import {authService} from "src/fbase";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -39,12 +39,11 @@ const Signup = () => {
     // AuthDataService.createOneUser(data);
 
     // -------------------------------------------
-    const auth = getAuth();
     const {email, password} = data;
 
-    createUserWithEmailAndPassword(auth, email, password)
+    // Signed Up
+    createUserWithEmailAndPassword(authService, email, password)
       .then((userCredential) => {
-        // Signed in
         const user = userCredential.user;
         console.log("Signup \n", user);
         navigate("/");
@@ -52,7 +51,8 @@ const Signup = () => {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        // ..
+
+        console.log(errorCode, errorMessage);
       });
     // -------------------------------------------
 
