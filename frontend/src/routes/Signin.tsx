@@ -53,7 +53,13 @@ const Signin = () => {
         const user = result.user;
         navigate("/");
         console.log("Google Signin \n", user);
-        dispatch(authActions.signin());
+        dispatch(
+          authActions.signin({
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+          })
+        );
       })
       .catch((error) => {
         // Handle Errors here.
@@ -88,7 +94,13 @@ const Signin = () => {
         const user = userCredential.user;
         // ...
         console.log("Signin \n", user);
-        dispatch(authActions.signin());
+        dispatch(
+          authActions.signin({
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+          })
+        );
       })
       .catch((error) => {
         const errorCode = error.code;

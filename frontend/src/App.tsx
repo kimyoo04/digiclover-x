@@ -44,7 +44,13 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
-        dispatch(authActions.signin());
+        dispatch(
+          authActions.signin({
+            id: user.uid,
+            email: user.email,
+            name: user.displayName,
+          })
+        );
         console.log("authActions signin");
       } else {
         dispatch(authActions.signout());

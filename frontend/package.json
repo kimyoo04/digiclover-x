@@ -22,6 +22,7 @@
     "@tiptap/starter-kit": "^2.0.0-beta.192",
     "axios": "^0.27.2",
     "babel-plugin-macros": "^3.1.0",
+    "crypto": "^1.0.1",
     "firebase": "^9.12.1",
     "framer-motion": "^7.2.0",
     "gh-pages": "^4.0.0",
@@ -63,6 +64,10 @@
       "react-app",
       "react-app/jest"
     ]
+  },
+  "browser": {
+    "crypto": false,
+    "fs": false
   },
   "browserslist": {
     "production": [

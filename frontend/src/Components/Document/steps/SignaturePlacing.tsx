@@ -40,7 +40,7 @@ const SignaturePlacing = () => {
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}
         >
-          Finish
+          Next
         </Button>
       </ButtonWrapper>
     </div>

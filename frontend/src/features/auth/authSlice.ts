@@ -2,17 +2,15 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 type User = {
-  id: number;
-  company: string;
-  name: string;
-  phone: string;
-  email: string;
+  id?: string;
+  name?: string;
+  email?: string;
 };
 
 export interface AuthState {
   loading: boolean;
   isAuthenticated: boolean;
-  user: User | object;
+  user: User;
   error: string;
 }
 
@@ -27,11 +25,13 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    signin(state) {
+    signin(state, action) {
       state.isAuthenticated = true;
+      state.user = action.payload;
     },
     signout(state) {
       state.isAuthenticated = false;
+      state.user = {};
     },
   },
 });

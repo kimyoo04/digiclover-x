@@ -7,10 +7,17 @@ import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions, IContractor} from "@features/document/documentSlice";
 import {alertActions} from "@features/alert/alertSlice";
 // service
-import DocumentDataService from "@services/document";
+import DocumentDataService, {
+  IDocumentData,
+  ISignatureData,
+} from "@services/document";
 // components
 import Button from "@components/Style/buttons";
 import ContractorCard from "@components/Document/ContractorCard";
+import {dbService} from "src/fbase";
+import {addDoc, collection, CollectionReference} from "firebase/firestore";
+import {addData} from "src/firebaseCRUD";
+import {PostOneDocument} from "src/controllers/documents.controller";
 
 const Main = styled.div`
   display: flex;
@@ -43,6 +50,7 @@ const Email = () => {
   const [isCheck, setIsCheck] = useState(false);
   const dispatch = useAppDispatch();
   const document = useAppSelector((state) => state.document);
+  const user = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
   const prevClick = () => dispatch(documentActions.beforeEmail());
@@ -52,7 +60,12 @@ const Email = () => {
       // 이곳에 이메일 전송 비동기 처리하기
 
       // 문서 튜플 저장, 계약자별 서명 튜플 저장
-      await DocumentDataService.createOneDocument(document);
+      // await DocumentDataService.createOneDocument(document);
+      //--------------------------------------------------------------
+      await PostOneDocument(user.id, document).catch((err) =>
+        console.error(err)
+      );
+      //--------------------------------------------------------------
 
       // documentSlice의 state 초기화
       dispatch(documentActions.initialDocumentData());
