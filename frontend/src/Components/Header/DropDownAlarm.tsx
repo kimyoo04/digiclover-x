@@ -83,8 +83,8 @@ const DropDownAlarm = () => {
         animate={!isView ? "closed" : "open"}
         variants={variants}
       >
-        {alarms.map((alarm) => (
-          <li>
+        {alarms.map((alarm, index) => (
+          <li key={index}>
             <h1>{alarm.title}</h1>
             <span>{alarm.content}</span>
           </li>

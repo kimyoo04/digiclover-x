@@ -21,8 +21,8 @@
     "paths": {
       "@app": ["./src/app/"],
       "@app/*": ["./src/app/*"],
-      "@components": ["./src/components"],
-      "@components/*": ["./src/components/*"],
+      "@components": ["src/components"],
+      "@components/*": ["src/components/*"],
       "@constants": ["./src/constants"],
       "@constants/*": ["./src/constants/*"],
       "@features": ["./src/features"],
@@ -34,9 +34,7 @@
       "@routes": ["src/routes"],
       "@routes/*": ["src/routes/*"],
       "@services": ["./src/services"],
-      "@services/*": ["./src/services/*"],
-      "@firebase": ["./src/firebase"],
-      "@firebase/*": ["./src/firebase/*"]
+      "@services/*": ["./src/services/*"]
     }
   },
   "include": ["./src", "./custom.d.ts"],

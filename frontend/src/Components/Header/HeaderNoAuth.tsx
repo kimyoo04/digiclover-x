@@ -6,7 +6,6 @@ import logo from "@public/assets/img/logo.png";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {useCheckMobile} from "@hooks/useWindowDimensions";
-import {fetchRefresh} from "@features/auth/authSlice";
 // components
 import {Link} from "@components/Auth/authStyle";
 import {
@@ -23,18 +22,6 @@ const HeaderNoAuth = () => {
 
   // 로그인 상태 유지 기능
   const dispatch = useAppDispatch();
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-
-  // 페이지 방문 중인 동안 5분마다 토큰 refresh 하기
-  useEffect(() => {
-    dispatch(fetchRefresh());
-    if (isAuthenticated) {
-      let interval = setInterval(() => {
-        dispatch(fetchRefresh());
-      }, 1000 * 60 * 5);
-      return () => clearInterval(interval);
-    }
-  }, []);
 
   return (
     <>
