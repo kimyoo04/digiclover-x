@@ -13,7 +13,7 @@ import {
 import {Col, Row} from "@components/layout";
 import AuthHeader from "@components/Auth/AuthHeader";
 // firebase
-import {createUserWithEmailAndPassword} from "firebase/auth";
+import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {authService} from "src/fbase";
 
 const Signup = () => {
@@ -39,13 +39,18 @@ const Signup = () => {
     // AuthDataService.createOneUser(data);
 
     // -------------------------------------------
-    const {email, password} = data;
+    const {company, name, email, password, phone} = data;
 
     // Signed Up
     createUserWithEmailAndPassword(authService, email, password)
       .then((userCredential) => {
+        // 유저 정보
         const user = userCredential.user;
+        // displayName 저장
+        updateProfile(user, {displayName: name});
+
         console.log("Signup \n", user);
+        console.log("phonenumber");
         navigate("/");
       })
       .catch((error) => {
@@ -53,10 +58,9 @@ const Signup = () => {
         const errorMessage = error.message;
 
         console.log(errorCode, errorMessage);
+        navigate("/signin");
       });
     // -------------------------------------------
-
-    navigate(`/login`);
   };
 
   return (
