@@ -17,7 +17,7 @@ import DocumentStart from "@routes/document/Start";
 import Document from "@routes/document/Document";
 // storage route
 import Storage from "@routes/Storage";
-import DocumentModal from "@components/Storage/DocumentModal";
+import DocumentModal from "@components/Storage/Modal/DocumentModal";
 // profile route
 import Profile from "@routes/Profile";
 // etc route

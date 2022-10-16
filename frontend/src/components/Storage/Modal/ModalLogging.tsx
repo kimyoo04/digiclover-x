@@ -34,7 +34,7 @@ const SignatureImg = styled.img`
 const ModalLogging = ({user}: {user: ISignatureData}) => {
   return (
     <LogginWrapper>
-      <HText>요청자 로그 기록</HText>
+      <HText>----------------------</HText>
 
       {user.isSigned ? (
         <>

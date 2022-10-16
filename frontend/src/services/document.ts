@@ -4,7 +4,7 @@ import http from "@constants/http-common";
 import {DocumentState} from "@features/document/documentSlice";
 
 export interface IDocumentData {
-  id: number;
+  id: string;
 
   // 문서 정보 (문서 양식, 문서 제목, 문서 내용)
   docukind: string;
@@ -15,10 +15,10 @@ export interface IDocumentData {
   hashFile: string;
 
   // 계약자 갑, 을, 병, 정 정보
-  UserId1: number | null;
-  UserId2: number | null;
-  UserId3: number | null;
-  UserId4: number | null;
+  UserId1: string | null;
+  UserId2: string | null;
+  UserId3: string | null;
+  UserId4: string | null;
 
   createdAt: string;
 }
@@ -28,7 +28,7 @@ export interface IDocumentsData {
 }
 
 export interface ISignatureData {
-  id: number;
+  id: string;
   DocumentId: number;
   UserId: number | null;
   contractorPhone: number;
@@ -39,18 +39,8 @@ export interface ISignatureData {
   updatedAt: string;
 }
 
-export interface IModalData {
+export interface ISignatureData {
   [key: number]: ISignatureData; // 정확히 맞는지 확인하기
-  id: number;
-  docukind: string;
-  docuTitle: string;
-  docuContent: string;
-  hashFile: string;
-  UserId1: number | null;
-  UserId2: number | null;
-  UserId3: number | null;
-  UserId4: number | null;
-  createdAt: string;
 }
 
 const DocumentDataService = {

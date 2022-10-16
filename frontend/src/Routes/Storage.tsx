@@ -4,15 +4,22 @@ import {PathMatch, useMatch} from "react-router-dom";
 import styled from "styled-components";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
-// services
-import DocumentDataService, {IDocumentData} from "@services/document";
 // components
 import DocumentItem from "@components/Storage/DocumentItem";
-import DocumentModal from "@components/Storage/DocumentModal";
+import DocumentModal from "@components/Storage/Modal/DocumentModal";
 import {Wrapper} from "@components/layout";
-// firebase
 import Page from "@components/Storage/Page";
-import {getQueryData} from "src/firebaseCRUD";
+// firebase
+import {
+  collection,
+  documentId,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
+import {dbService} from "src/fbase";
+import {IDocumentData} from "@services/document";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -48,18 +55,49 @@ const Storage = () => {
   // const [isLastPage, setIsLastPage] = useState(false);
 
   // firebase
-  const [documents, setDocuments] = useState(null);
-  const [signatures, setSignatures] = useState(null);
+  const [documents, setDocuments] = useState<IDocumentData[] | null>(null);
   const user = useAppSelector((state) => state.auth.user);
 
-  // 실시간 데이터
   useEffect(() => {
     if (user) {
-      getQueryData(user.id, setDocuments, "documents");
-      getQueryData(user.id, setSignatures, "signatures");
+      // 1----------------------------------------------------
+      const getDocumentsArr = async () => {
+        let documentsIdArr: string[] = [];
+
+        // 유저 아이디와 일치하는 서명 찾기
+        const signautesQuery = query(
+          collection(dbService, "signatures"),
+          where("UserId", "==", user.id)
+        );
+
+        // 서명에서 DocumentId만 추출 후 배열 생성
+        const signautesQuerySnapshot = await getDocs(signautesQuery);
+        signautesQuerySnapshot.forEach((doc) => {
+          documentsIdArr.push(doc.data().DocumentId);
+        });
+
+        // DocumentId로 이루어진 배열로 쿼리 생성
+        const documentsQuery = query(
+          collection(dbService, "documents"),
+          where(documentId(), "in", documentsIdArr)
+        );
+
+        // DocumentId로 이루어진 배열로 쿼리 생성
+        onSnapshot(documentsQuery, (snapshot) => {
+          const documentsArr: any = snapshot.docs.map((document) => ({
+            id: document.id,
+            ...document.data(),
+          }));
+          setDocuments(documentsArr);
+        });
+      };
+
+      // 함수 호출
+      getDocumentsArr().catch((error) => console.log(error));
     }
   }, []);
 
+  console.log(documents);
   return (
     <StorageWrapper>
       <DocumentWrapper>
@@ -74,7 +112,7 @@ const Storage = () => {
             <span>상세 기록</span>
           </div>
         </DocumentHeader>
-        {documents && signatures ? (
+        {documents ? (
           <DocumentItem documentsData={documents}></DocumentItem>
         ) : (
           <span>마지막 페이지입니다.</span>

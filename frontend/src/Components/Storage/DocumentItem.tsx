@@ -5,6 +5,9 @@ import styled from "styled-components";
 import {IDocumentData, IDocumentsData} from "@services/document";
 // components
 import Button from "@components/Style/buttons";
+import {useAppSelector} from "@app/hook";
+import {dbService} from "src/fbase";
+import {deleteDoc, doc} from "firebase/firestore";
 
 const DocumentWrapper = styled.div`
     display: flex;
@@ -67,43 +70,71 @@ const SignWrapper = styled.div`
     padding: 10px 10px 10px 0;
   `;
 
+const ActionWrapper = styled.div``;
+
 const ModalButton = styled(Button)`
   width: 80px;
   height: 40px;
-  margin: 10px;
+  margin: 0.2rem;
+`;
+const DeleteButton = styled(Button)`
+  width: 80px;
+  height: 40px;
+  margin: 0.2rem;
 `;
 
 interface ISignIcon {
-  contractorId: number | null;
+  userId: string | null;
   people: string;
 }
 
-const SignIcon = ({contractorId, people}: ISignIcon) => {
-  return (
-    <>
-      {contractorId !== null ? (
-        contractorId !== 0 ? (
-          <SignnedIcon>
-            <ConfirmPerson>{people}</ConfirmPerson>
-            <ConfirmText>완료</ConfirmText>
-          </SignnedIcon>
-        ) : (
-          <UnsignnedIcon>
-            <ConfirmPerson>{people}</ConfirmPerson>
-            <ConfirmText>예정</ConfirmText>
-          </UnsignnedIcon>
-        )
-      ) : null}
-    </>
-  );
+const SignIcon = ({userId, people}: ISignIcon) => {
+  switch (userId) {
+    case null:
+      return null;
+    case "0":
+      return (
+        <UnsignnedIcon>
+          <ConfirmPerson>{people}</ConfirmPerson>
+          <ConfirmText>예정</ConfirmText>
+        </UnsignnedIcon>
+      );
+    case "-1":
+      return (
+        <UnsignnedIcon>
+          <ConfirmPerson>{people}</ConfirmPerson>
+          <ConfirmText>거절</ConfirmText>
+        </UnsignnedIcon>
+      );
+    default:
+      return (
+        <SignnedIcon>
+          <ConfirmPerson>{people}</ConfirmPerson>
+          <ConfirmText>완료</ConfirmText>
+        </SignnedIcon>
+      );
+  }
 };
 
 const DocumentItem = ({documentsData}: IDocumentsData) => {
   const navigate = useNavigate();
-  function onDocuClicked(documentId: number) {
+  const onDocuClicked = (documentId: string) => {
     // 선택한 문서 아이디로 이동 (DocumentModal 컴포넌트)
     navigate(`/storage/${documentId}`);
-  }
+  };
+  const onDeleteAlert = async (documentId: string) => {
+    if (
+      window.confirm(
+        "정말로 문서를 삭제하시겠습니까? 삭제되면 복구되지 않습니다."
+      ) === true
+    ) {
+      const documentRef = doc(dbService, "documents", documentId);
+      await deleteDoc(documentRef);
+    } else {
+    }
+  };
+
+  const user = useAppSelector((state) => state.auth.user);
 
   return (
     <div>
@@ -119,29 +150,36 @@ const DocumentItem = ({documentsData}: IDocumentsData) => {
           UserId4,
         }: IDocumentData) => {
           const people = ["갑", "을", "병", "정"];
-          const contractors = [UserId1, UserId2, UserId3, UserId4];
+          const userIds = [UserId1, UserId2, UserId3, UserId4];
 
           return (
             <DocumentWrapper key={id}>
               <DocuInfo>
-                <FileName>{docuTitle}</FileName>
-                <Date>{createdAt}</Date>
-                <Hash>{hashFile.slice(0, 50)}...</Hash>
+                <FileName>{`${docuTitle}.PDF`}</FileName>
+                {/* <Hash>{hashFile.slice(0, 50)}...</Hash> */}
               </DocuInfo>
+
               <SignWrapper>
-                {contractors.map((contractor, index) => {
+                {userIds.map((userId, index) => {
                   return (
                     <SignIcon
-                      contractorId={contractor}
+                      userId={userId}
                       people={people[index]}
                       key={index}
                     />
                   );
                 })}
               </SignWrapper>
-              <ModalButton onClick={() => onDocuClicked(id)}>
-                상세보기
-              </ModalButton>
+              <ActionWrapper>
+                <ModalButton onClick={() => onDocuClicked(id)}>
+                  상세보기
+                </ModalButton>
+                {user.id === UserId1 ? (
+                  <DeleteButton onClick={() => onDeleteAlert(id)}>
+                    문서 삭제
+                  </DeleteButton>
+                ) : null}
+              </ActionWrapper>
             </DocumentWrapper>
           );
         }

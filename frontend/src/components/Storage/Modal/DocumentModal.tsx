@@ -1,14 +1,18 @@
 // modules
-import {useQuery} from "react-query";
 import {useNavigate, useParams} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
 import styled from "styled-components";
 // services
-import DocumentDataService, {IModalData} from "@services/document";
+import {ISignatureData} from "@services/document";
 // components
 import Button from "@components/Style/buttons";
 import {Text} from "@components/Style/text";
-import ModalLogging from "@components/Storage/ModalLogging";
+import ModalLogging from "@components/Storage/Modal/ModalLogging";
+import {useEffect, useState} from "react";
+import {collection, onSnapshot, query, where} from "firebase/firestore";
+import {dbService} from "src/fbase";
+import {IUser} from "@features/auth/authSlice";
+import {getAuth} from "firebase/auth";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -73,20 +77,45 @@ const HText = styled(Text)`
 
 // props로 클릭한 문서의 정보 받아오기
 const DocumentModal = () => {
+  const [signaturesData, setSignaturesData] = useState<ISignatureData[] | null>(
+    null
+  );
+  const [usersData, setUsersData] = useState<IUser[] | null>(null);
   const navigate = useNavigate();
   let {id} = useParams();
-  console.log("id", id);
-  // 아래 signature에서 받아올 데이터 형태
-  const {data: modalData, isLoading: isModalDataLoading} = useQuery<IModalData>(
-    ["modalData"],
-    () => DocumentDataService.getOneDocument(id)
-  );
+  console.log("DocumentId", id);
 
-  console.log(modalData);
+  useEffect(() => {
+    const getSignaturesData = async () => {
+      // DocumentId로 이루어진 배열로 쿼리 생성
+      if (id) {
+        const q = query(
+          collection(dbService, "signatures"),
+          where("DocumentId", "==", id)
+        );
+        // DocumentId로 이루어진 배열로 쿼리 생성
+        onSnapshot(q, (snapshot) => {
+          const dataArr: any = snapshot.docs.map((document) => ({
+            id: document.id,
+            ...document.data(),
+          }));
+          setSignaturesData(dataArr);
+        });
+      }
+    };
+    const getUsersData = async () => {};
+
+    // 함수 호출
+    getSignaturesData().catch((error) => console.log(error));
+    getUsersData().catch((error) => console.log(error));
+  }, []);
+
+  console.log(signaturesData);
+  console.log(usersData);
 
   return (
     <AnimatePresence>
-      {isModalDataLoading || modalData ? (
+      {signaturesData ? (
         <>
           <Overlay
             onClick={() => navigate("/storage")}
@@ -102,21 +131,21 @@ const DocumentModal = () => {
             <>
               <DocumentWrapper>
                 <InfoWrapper>
-                  <HText>문서 제목</HText>
+                  {/* <HText>문서 제목</HText>
                   <InfoText>{modalData && modalData.docuTitle}</InfoText>
                   <HText>문서 생성일</HText>
-                  <InfoText>{modalData && modalData.createdAt}</InfoText>
+                  <InfoText>{modalData && modalData.createdAt}</InfoText> */}
                 </InfoWrapper>
                 <ButtonWrapper>
                   <DocuButton>문서 보기</DocuButton>
                 </ButtonWrapper>
               </DocumentWrapper>
 
-              {modalData &&
+              {signaturesData &&
                 [0, 1, 2, 3].map(
                   (index) =>
-                    modalData[index] && (
-                      <ModalLogging key={index} user={modalData[index]} />
+                    signaturesData[index] && (
+                      <ModalLogging key={index} user={signaturesData[index]} />
                     )
                 )}
             </>
