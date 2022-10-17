@@ -1,3 +1,9 @@
+# firebase
+firebase.json
+build/
+.firebaserc
+.firebase/
+
 # auth
 **/passport/
 
