@@ -14,7 +14,8 @@ import {Col, Row} from "@components/layout";
 import AuthHeader from "@components/Auth/AuthHeader";
 // firebase
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
-import {authService} from "src/fbase";
+import {authService, dbService} from "src/fbase";
+import {addDoc, collection, getDocs, where} from "firebase/firestore";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -41,13 +42,25 @@ const Signup = () => {
     // -------------------------------------------
     const {company, name, email, password, phone} = data;
 
-    // Signed Up
+    // Sign Up
     createUserWithEmailAndPassword(authService, email, password)
-      .then((userCredential) => {
+      .then(async (userCredential) => {
         // 유저 정보
         const user = userCredential.user;
         // displayName 저장
-        updateProfile(user, {displayName: name});
+        await updateProfile(user, {displayName: name});
+
+        // users docuement 생성
+        const creatUser = async () => {
+          await addDoc(collection(dbService, "users"), {
+            uid: user.uid,
+            company,
+            name,
+            email,
+            phone,
+          });
+        };
+        creatUser().catch((error) => console.log(error));
 
         console.log("Signup \n", user);
         console.log("phonenumber");

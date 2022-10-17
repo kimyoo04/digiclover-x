@@ -9,13 +9,13 @@ type initUser = {
 
 export interface AuthState {
   loading: boolean;
+  provider: string;
   isAuthenticated: boolean;
   user: initUser;
   error: string;
 }
 
 export interface IUser {
-  id: string;
   company: string;
   name: string;
   email: string;
@@ -24,6 +24,7 @@ export interface IUser {
 
 const initialState: AuthState = {
   loading: false,
+  provider: "local",
   isAuthenticated: false,
   user: {},
   error: "",

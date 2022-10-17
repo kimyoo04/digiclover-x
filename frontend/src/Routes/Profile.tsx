@@ -1,14 +1,24 @@
 // modules
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
-import {useQuery} from "react-query";
 import styled from "styled-components";
-// services
-import UserDataService from "@services/user";
 // components
 import {Col, Row, Wrapper} from "@components/layout";
 import {ErrorMessage, Input, Label} from "@components/Auth/authStyle";
 import ToggleIsDark from "@components/Util/ToggleIsDark";
+// firebase
+import {
+  collection,
+  doc,
+  documentId,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
+import {dbService} from "src/fbase";
+import {useAppSelector} from "@app/hook";
+import {IUser} from "@features/auth/authSlice";
 
 export interface IUserForm {
   company: string;
@@ -65,28 +75,36 @@ const SaveButton = styled(Input)`
 
 const Profile = () => {
   const [readOnly, setReadOnly] = useState(true);
-
-  // getOneUser 후 input에 회원정보 입력해주는 콜백
-  const onSuccess = (userData: IUserForm) => {
-    reset({
-      company: userData.company,
-      email: userData.email,
-      phone: userData.phone,
-      name: userData.name,
-    });
-    return userData;
-  };
-
-  // 로그인 유저 정보 fetch
-  // 현재 수정해서 PUT 요청 완료 후 새로고침 해야만 제대로 받아온다.
-  const {
-    data: userData,
-    isLoading: isUserDataLoading,
-    refetch,
-  } = useQuery(["info", "user"], () => UserDataService.getOneUser(), {
-    refetchOnWindowFocus: false,
-    onSuccess,
+  const [isLoading, setisLoading] = useState(true);
+  const [userData, setUserData] = useState<IUser>({
+    company: "",
+    name: "",
+    email: "",
+    phone: "",
   });
+  const user = useAppSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    // get userDoc
+    const getUser = async () => {
+      const userQuery = await query(
+        collection(dbService, "users"),
+        where("uid", "==", user.id)
+      );
+      const querySnapshot = await getDocs(userQuery);
+      const data: any = querySnapshot.docs[0].data();
+
+      if (data) {
+        // 폼에 입력
+        setUserData(data);
+        // 폼에 입력
+        reset(data);
+        setisLoading(false);
+      } else {
+      }
+    };
+    getUser().catch((error) => console.log(error));
+  }, []);
 
   const {
     register,
@@ -95,25 +113,40 @@ const Profile = () => {
     formState: {errors},
   } = useForm<IUserForm>();
 
-  // 1. 버튼을 수정으로 바꾼다.
-  // 2. PUT 요청을 보낸다.
-  // 3. useQuery를 refetch 한다.
-  const onValid = async (data: IUserForm) => {
+  // 1. 회원 정보 저장 클릭
+  // 2. updateUser 수행
+  // 3. 다시 getUser 수행
+  // 4. reset 함수 실행
+  const onValid = async ({company, email, phone, name}: IUserForm) => {
     setReadOnly((prev) => !prev);
 
     // 유저 정보 수정했을 경우만 PUT 요청 수행
     if (
-      userData?.company !== data.company ||
-      userData?.email !== data.email ||
-      userData?.phone !== data.phone ||
-      userData?.name !== data.name
+      userData?.company !== company ||
+      userData?.email !== email ||
+      userData?.phone !== phone ||
+      userData?.name !== name
     ) {
-      await UserDataService.updateOneUser(data);
-      await refetch();
+      // update userDoc
+      const updateUser = async () => {
+        if (user.id) {
+          const userQuery = await query(
+            collection(dbService, "users"),
+            where("uid", "==", user.id)
+          );
+          const querySnapshot = await getDocs(userQuery);
+          const [userDocId]: any = querySnapshot.docs.map((doc) => {
+            return doc.id;
+          });
+          const userDocRef = doc(dbService, "users", userDocId);
+          await updateDoc(userDocRef, {company, email, phone, name});
+        }
+      };
+      updateUser();
     }
   };
 
-  return isUserDataLoading ? null : (
+  return isLoading ? null : (
     <Wrapper>
       <ProfileWrapper>
         <Header>

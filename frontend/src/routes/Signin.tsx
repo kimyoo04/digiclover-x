@@ -29,7 +29,8 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import {authService} from "src/fbase";
+import {authService, dbService} from "src/fbase";
+import {addDoc, collection} from "firebase/firestore";
 
 const Signin = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
@@ -51,7 +52,19 @@ const Signin = () => {
         const token = credential?.accessToken;
         // The signed-in user info.
         const user = result.user;
-        navigate("/");
+
+        // users docuement 생성
+        const creatUser = async () => {
+          await addDoc(collection(dbService, "users"), {
+            uid: user.uid,
+            email: user.email,
+            name: user.displayName,
+          });
+        };
+        creatUser();
+
+        // 회원 정보 추가 입력 강요
+        navigate("/profile");
         console.log("Google Signin \n", user);
         dispatch(
           authActions.signin({
