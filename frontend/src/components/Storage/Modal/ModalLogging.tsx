@@ -1,9 +1,8 @@
 // modules
 import styled from "styled-components";
-// services
-import {ISignatureData} from "@services/document";
 // components
 import {Text} from "@components/Style/text";
+import moment from "moment";
 
 const LogginWrapper = styled.div`
   display: flex;
@@ -11,6 +10,29 @@ const LogginWrapper = styled.div`
   justify-content: flex-start;
   gap: 10px;
   margin-bottom: 20px;
+`;
+
+const UserInfoWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+  }
+
+  & div:first-child {
+    align-items: flex-start;
+
+    font-weight: 500;
+  }
+
+  & div:first-child {
+    align-items: flex-start;
+  }
 `;
 
 const DateText = styled(Text)`
@@ -31,17 +53,72 @@ const SignatureImg = styled.img`
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 `;
 
-const ModalLogging = ({user}: {user: ISignatureData}) => {
+interface IMergedDataArr {
+  id: string;
+  DocumentId: string;
+
+  isSigned: boolean;
+  hashValue: string;
+  imgUrl: string;
+
+  createdAt?: number;
+  updatedAt?: number;
+
+  UserId: string;
+  uid: string;
+  company: string;
+  email: string;
+  phone: string;
+  name: string;
+}
+
+const ModalLogging = ({data}: {data: IMergedDataArr}) => {
   return (
     <LogginWrapper>
-      <HText>----------------------</HText>
+      <UserInfoWrapper>
+        <div>
+          <span>Company :</span>
+          <span>Email :</span>
+          <span>Phone :</span>
+          <span>Name :</span>
+        </div>
+        <div>
+          <span>{data.company}</span>
+          <span>{data.email}</span>
+          <span>{data.phone}</span>
+          <span>{data.name}</span>
+        </div>
+      </UserInfoWrapper>
 
-      {user.isSigned ? (
+      {data.isSigned ? (
         <>
+          {/* 서명 일시 */}
+          {/* updatedAt이 없는 경우 요청자의 createdAt이 서명 일시임 */}
+          {data.updatedAt ? (
+            // 수신자
+            <>
+              <HText>수신자 서명 일시</HText>
+              <DateText>
+                {moment.utc(data.updatedAt).format("YYYY-MM-DD LT")}
+              </DateText>
+              <HText>요청 일시</HText>
+              <DateText>
+                {moment.utc(data.createdAt).format("YYYY-MM-DD LT")}
+              </DateText>
+            </>
+          ) : (
+            // 요청자
+            <>
+              <HText>요청자 서명 일시</HText>
+              <DateText>
+                {moment.utc(data.createdAt).format("YYYY-MM-DD LT")}
+              </DateText>
+            </>
+          )}
+
+          {/* 서명 이미지 */}
           <HText>서명 이미지</HText>
-          <SignatureImg src={user.imgUrl || undefined} alt={`signature`} />
-          <HText>서명 일시</HText>
-          <DateText>{user.updatedAt}</DateText>
+          <SignatureImg src={data.imgUrl || undefined} alt={`signature`} />
         </>
       ) : (
         <>

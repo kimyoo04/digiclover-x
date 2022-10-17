@@ -64,15 +64,8 @@ const Signin = () => {
         creatUser();
 
         // 회원 정보 추가 입력 강요
-        navigate("/profile");
+        navigate("/");
         console.log("Google Signin \n", user);
-        dispatch(
-          authActions.signin({
-            uid: user.uid,
-            email: user.email,
-            name: user.displayName,
-          })
-        );
       })
       .catch((error) => {
         // Handle Errors here.
@@ -107,13 +100,6 @@ const Signin = () => {
         const user = userCredential.user;
         // ...
         console.log("Signin \n", user);
-        dispatch(
-          authActions.signin({
-            uid: user.uid,
-            email: user.email,
-            name: user.displayName,
-          })
-        );
       })
       .catch((error) => {
         const errorCode = error.code;

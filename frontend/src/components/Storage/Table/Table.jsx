@@ -1,63 +1,24 @@
 // modules
 import React, {useMemo} from "react";
 import {useTable} from "react-table";
-import styled from "styled-components";
-import Button from "@components/Style/buttons";
 // firebase
 import {deleteDoc, doc} from "firebase/firestore";
 import {dbService} from "src/fbase";
 // table
 import {COLUMNS} from "./columns";
 import {useNavigate} from "react-router-dom";
-import {Table} from "./TableStyle";
-
-const ActionWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.2rem;
-`;
-
-const CheckboxWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const DeleteButton = styled(Button)`
-  height: 40px;
-`;
-
-const ModalButton = styled(Button)`
-  height: 40px;
-`;
-
-const StatusIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${(props) => props.color};
-  border-radius: 6px;
-
-  width: 100%;
-  height: 40px;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  color: black;
-
-  transition: 0.1s;
-  border: none;
-`;
+// style
+import {
+  ActionWrapper,
+  CheckboxWrapper,
+  DeleteButton,
+  ModalButton,
+  StatusIcon,
+  Table,
+} from "./TableStyle";
 
 const BasicTable = ({documents}) => {
   const navigate = useNavigate();
-  const onDocuClicked = (documentId) => {
-    navigate(`/storage/${documentId}`);
-  };
 
   const onDeleteAlert = async (documentId) => {
     if (
@@ -85,7 +46,9 @@ const BasicTable = ({documents}) => {
         Cell: ({row}) => {
           return (
             <ActionWrapper>
-              <ModalButton onClick={() => onDocuClicked(row.values.id)}>
+              <ModalButton
+                onClick={() => navigate(`/storage/${row.values.id}`)}
+              >
                 <i className="ri-file-list-2-line"></i>
               </ModalButton>
               <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
@@ -183,7 +146,6 @@ const BasicTable = ({documents}) => {
       {/* 테이블 컬럼 뷰 토글 */}
       <CheckboxWrapper>
         {allColumns.map((column) => {
-          // id column checkbox hide
           if (
             column.Header === "Status" ||
             column.Header === "Title" ||
@@ -195,15 +157,15 @@ const BasicTable = ({documents}) => {
               <div key={column.id}>
                 <label>
                   <input type="checkbox" {...column.getToggleHiddenProps()} />{" "}
-                  {column.Header}
+                  <span>{column.Header}</span>
                 </label>
               </div>
             );
           } else {
+            // id column checkbox hide
             return null;
           }
         })}
-        <br />
       </CheckboxWrapper>
 
       {/* 테이블 */}

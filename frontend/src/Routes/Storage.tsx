@@ -80,7 +80,7 @@ const Storage = () => {
       {/* table */}
       {documents ? <BasicTable documents={documents} /> : null}
       {/* modal */}
-      {docuMatch ? <DocumentModal></DocumentModal> : null}
+      {docuMatch ? <DocumentModal /> : null}
     </StorageWrapper>
   );
 };

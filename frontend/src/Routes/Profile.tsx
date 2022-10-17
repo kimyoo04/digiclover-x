@@ -81,13 +81,14 @@ const Profile = () => {
     name: "",
     email: "",
     phone: "",
+    uid: "",
   });
   const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
     // get userDoc
     const getUser = async () => {
-      const userQuery = await query(
+      const userQuery = query(
         collection(dbService, "users"),
         where("uid", "==", user.id)
       );

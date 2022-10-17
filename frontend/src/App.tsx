@@ -57,7 +57,7 @@ function App() {
         console.log("authActions signout");
       }
     });
-  }, [authService]);
+  }, []);
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>

@@ -1,18 +1,28 @@
 // modules
+import {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import {AnimatePresence, motion} from "framer-motion";
 import styled from "styled-components";
+import * as _ from "lodash";
 // services
 import {ISignatureData} from "@services/document";
+// redux-toolkit
+import {useAppSelector} from "@app/hook";
+import {IUser} from "@features/auth/authSlice";
 // components
 import Button from "@components/Style/buttons";
 import {Text} from "@components/Style/text";
 import ModalLogging from "@components/Storage/Modal/ModalLogging";
-import {useEffect, useState} from "react";
-import {collection, onSnapshot, query, where} from "firebase/firestore";
+// firebase
+import {
+  collection,
+  documentId,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import {dbService} from "src/fbase";
-import {IUser} from "@features/auth/authSlice";
-import {getAuth} from "firebase/auth";
 
 const Overlay = styled(motion.div)`
   position: fixed;
@@ -44,23 +54,6 @@ const DocumentWrapper = styled.div`
   gap: 40px;
   margin-bottom: 40px;
 `;
-const InfoWrapper = styled.div`
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: space-between;
-  gap: 10px;
-  width: 100%;
-`;
-
-const InfoText = styled(Text)`
-  display: block;
-  color: ${(props) => props.theme.textWhiteColor};
-`;
-
-const ButtonWrapper = styled.div`
-  width: 100%;
-  padding: 6px 0 6px 40px;
-`;
 
 const DocuButton = styled(Button)`
   width: 100%;
@@ -68,84 +61,137 @@ const DocuButton = styled(Button)`
   font-size: 18px;
 `;
 
-const HText = styled(Text)`
-  display: block;
-  font-size: 18px;
-  color: ${(props) => props.theme.textWhiteColor};
-  font-weight: 700;
-`;
+interface IMergedDataArr {
+  DocumentId: string;
+  UserId: string;
+  createdAt: number;
+  hashValue: string;
+  id: string;
+  imgUrl: string;
+  isSigned: boolean;
+  updatedAt?: number;
+}
 
 // props로 클릭한 문서의 정보 받아오기
 const DocumentModal = () => {
-  const [signaturesData, setSignaturesData] = useState<ISignatureData[] | null>(
-    null
-  );
-  const [usersData, setUsersData] = useState<IUser[] | null>(null);
   const navigate = useNavigate();
+  const user = useAppSelector((state) => state.auth.user);
+
+  // get signatures, users data
+  const [signaturesData, setSignaturesData] = useState<ISignatureData[]>([]);
+  const [usersData, setUsersData] = useState<IUser[]>([]);
   let {id} = useParams();
-  console.log("DocumentId", id);
 
   useEffect(() => {
-    const getSignaturesData = async () => {
-      // DocumentId로 이루어진 배열로 쿼리 생성
-      if (id) {
-        const q = query(
-          collection(dbService, "signatures"),
-          where("DocumentId", "==", id)
-        );
-        // DocumentId로 이루어진 배열로 쿼리 생성
-        onSnapshot(q, (snapshot) => {
-          const dataArr: any = snapshot.docs.map((document) => ({
-            id: document.id,
-            ...document.data(),
-          }));
-          setSignaturesData(dataArr);
-        });
-      }
-    };
-    const getUsersData = async () => {};
+    if (user) {
+      const getAllData = async () => {
+        if (id) {
+          //----------------------------------------------------------------
+          // useParams로 얻은 DocumentId로 signatures doc 쿼리 생성
+          const SignautesNUsersQuery = query(
+            collection(dbService, "signatures"),
+            where("DocumentId", "==", id)
+          );
+          //----------------------------------------------------------------
+          // signatures doc data 생성 + UserId만 추출한 배열 생성
+          let UserIdsArr: string[] = [];
+          onSnapshot(SignautesNUsersQuery, (snapshot) => {
+            const signaturesArr: any = snapshot.docs.map((document) => {
+              return {
+                id: document.id,
+                ...document.data(),
+              };
+            });
+            setSignaturesData(signaturesArr);
+          });
 
-    // 함수 호출
-    getSignaturesData().catch((error) => console.log(error));
-    getUsersData().catch((error) => console.log(error));
+          // 서명에서 DocumentId만 추출 후 배열 생성
+          const signautesQuerySnapshot = await getDocs(SignautesNUsersQuery);
+          signautesQuerySnapshot.forEach((doc) => {
+            UserIdsArr.push(doc.data().UserId);
+          });
+
+          // console.log("UserIdsArr \n", UserIdsArr);
+
+          //----------------------------------------------------------------
+          // UserIds를 통해 users doc 쿼리 생성
+          const userQuery = query(
+            collection(dbService, "users"),
+            where("uid", "in", UserIdsArr)
+          );
+
+          //----------------------------------------------------------------
+          // users doc data 생성
+          onSnapshot(userQuery, (snapshot) => {
+            const usersArr: any = snapshot.docs.map((document) => ({
+              id: document.id,
+              ...document.data(),
+            }));
+            setUsersData(usersArr);
+          });
+          //----------------------------------------------------------------
+        }
+      };
+
+      getAllData().catch((error) => console.log(error));
+    }
   }, []);
 
-  console.log(signaturesData);
-  console.log(usersData);
+  console.log("signaturesData", signaturesData);
+  console.log("usersArr", usersData);
+
+  // 데이터 전처리
+  const getMergedData = (
+    usersData: IUser[],
+    signaturesData: ISignatureData[]
+  ) => {
+    const mergedData = [];
+
+    for (let oneUser of usersData) {
+      // Userid를 기준으로 signature doc 를 찾기
+      const findSignature = _.find(signaturesData, {
+        UserId: oneUser.uid,
+      });
+
+      // id는 signature doc의 id 저장됨
+      const data: any = _.merge(oneUser, findSignature);
+
+      if (data) {
+        mergedData.push(data);
+      }
+    }
+    return mergedData;
+  };
+
+  const mergedDataArr = getMergedData(usersData, signaturesData);
+  console.log("mergedDataArr", mergedDataArr);
 
   return (
     <AnimatePresence>
-      {signaturesData ? (
+      {signaturesData && usersData ? (
         <>
           <Overlay
             onClick={() => navigate("/storage")}
             exit={{opacity: 0}}
             animate={{opacity: 1}}
-            transition={{durationL: 0.2}}
+            transition={{duration: 0.2}}
           />
           <Modal
             exit={{opacity: 0}}
             animate={{opacity: 1}}
-            transition={{durationL: 0.2}}
+            transition={{duration: 0.2}}
           >
             <>
               <DocumentWrapper>
-                <InfoWrapper>
-                  {/* <HText>문서 제목</HText>
-                  <InfoText>{modalData && modalData.docuTitle}</InfoText>
-                  <HText>문서 생성일</HText>
-                  <InfoText>{modalData && modalData.createdAt}</InfoText> */}
-                </InfoWrapper>
-                <ButtonWrapper>
-                  <DocuButton>문서 보기</DocuButton>
-                </ButtonWrapper>
+                <DocuButton>문서 보기</DocuButton>
               </DocumentWrapper>
 
               {signaturesData &&
+                mergedDataArr &&
                 [0, 1, 2, 3].map(
                   (index) =>
-                    signaturesData[index] && (
-                      <ModalLogging key={index} user={signaturesData[index]} />
+                    mergedDataArr[index] && (
+                      <ModalLogging key={index} data={mergedDataArr[index]} />
                     )
                 )}
             </>

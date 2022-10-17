@@ -21,7 +21,7 @@ const AddDocumentAndSignatures = async (
   // 필요한 데이터 변수에 할당
   const contractorsNum = contractors.length;
   const UsersId = [null, null, null, null];
-  const createdAt = Date.now();
+  const createdAt = Date.now() + 9 * 60 * 60 * 1000;
 
   console.log("contractors \n", contractors);
   console.log("docuKind \n", docuKind);
@@ -70,7 +70,7 @@ const AddDocumentAndSignatures = async (
     isSigned: true,
     hashValue: "0", // 임시
     imgUrl,
-    createdAt,
+    createdAt, // 요청자만 createdAt 없고 updatedAt 있음
   };
 
   addData("signatures", signatureObj).catch((error) =>

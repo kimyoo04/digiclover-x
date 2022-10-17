@@ -7,6 +7,7 @@ type initUser = {
   name?: string;
   email?: string;
   phone?: string;
+  uid?: string;
 };
 
 export interface AuthState {
@@ -22,13 +23,14 @@ export interface IUser {
   name: string;
   email: string;
   phone: string;
+  uid: string;
 }
 
 const initialState: AuthState = {
   loading: false,
   provider: "local",
   isAuthenticated: false,
-  user: {},
+  user: {id: "", company: "", name: "", email: "", phone: "", uid: ""},
   error: "",
 };
 
