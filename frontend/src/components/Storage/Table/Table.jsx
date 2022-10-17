@@ -8,9 +8,8 @@ import {deleteDoc, doc} from "firebase/firestore";
 import {dbService} from "src/fbase";
 // table
 import {COLUMNS} from "./columns";
-import "./table.css";
 import {useNavigate} from "react-router-dom";
-import {Checkbox} from "./checkbox";
+import {Table} from "./TableStyle";
 
 const ActionWrapper = styled.div`
   display: flex;
@@ -46,7 +45,7 @@ const StatusIcon = styled.div`
   height: 40px;
 
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
 
   color: black;
 
@@ -208,7 +207,7 @@ const BasicTable = ({documents}) => {
       </CheckboxWrapper>
 
       {/* 테이블 */}
-      <table {...getTableProps()}>
+      <Table {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -232,7 +231,7 @@ const BasicTable = ({documents}) => {
             );
           })}
         </tbody>
-      </table>
+      </Table>
     </>
   );
 };

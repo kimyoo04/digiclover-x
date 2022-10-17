@@ -23,8 +23,8 @@ import {dbService} from "src/fbase";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
-  padding-right: 2rem;
-  padding-left: 4rem;
+  padding-right: 3rem;
+  padding-left: 3rem;
 `;
 
 const Storage = () => {
