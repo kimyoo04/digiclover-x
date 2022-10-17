@@ -3,8 +3,10 @@ import {createSlice} from "@reduxjs/toolkit";
 
 type initUser = {
   id?: string;
+  company?: string;
   name?: string;
   email?: string;
+  phone?: string;
 };
 
 export interface AuthState {

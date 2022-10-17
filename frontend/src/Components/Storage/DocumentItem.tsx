@@ -149,7 +149,6 @@ const DocumentItem = ({documentsData}: IDocumentsData) => {
           UserId3,
           UserId4,
         }: IDocumentData) => {
-          const people = ["갑", "을", "병", "정"];
           const userIds = [UserId1, UserId2, UserId3, UserId4];
 
           return (
@@ -164,7 +163,7 @@ const DocumentItem = ({documentsData}: IDocumentsData) => {
                   return (
                     <SignIcon
                       userId={userId}
-                      people={people[index]}
+                      people={["갑", "을", "병", "정"][index]}
                       key={index}
                     />
                   );

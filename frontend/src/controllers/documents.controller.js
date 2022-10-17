@@ -21,7 +21,7 @@ const AddDocumentAndSignatures = async (
   // 필요한 데이터 변수에 할당
   const contractorsNum = contractors.length;
   const UsersId = [null, null, null, null];
-  const createdAt = serverTimestamp();
+  const createdAt = Date.now();
 
   console.log("contractors \n", contractors);
   console.log("docuKind \n", docuKind);

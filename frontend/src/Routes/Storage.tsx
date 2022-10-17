@@ -4,11 +4,12 @@ import {PathMatch, useMatch} from "react-router-dom";
 import styled from "styled-components";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
+// services
+import {IDocumentData} from "@services/document";
 // components
-import DocumentItem from "@components/Storage/DocumentItem";
 import DocumentModal from "@components/Storage/Modal/DocumentModal";
+import BasicTable from "@components/Storage/Table/Table";
 import {Wrapper} from "@components/layout";
-import Page from "@components/Storage/Page";
 // firebase
 import {
   collection,
@@ -19,34 +20,11 @@ import {
   where,
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
-import {IDocumentData} from "@services/document";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
-`;
-
-const DocumentWrapper = styled.div`
-  width: 100vw;
-  padding: 20px;
-`;
-
-const DocumentHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding: 0 20px 20px 20px;
-
-  & div {
-    width: 80px;
-    display: flex;
-    justify-content: center;
-    margin: 0 10px;
-  }
-  /* 가운데 */
-  & div:nth-child(2) {
-  }
-  & div span {
-    color: ${(props) => props.theme.textColor};
-  }
+  padding-right: 2rem;
+  padding-left: 4rem;
 `;
 
 const Storage = () => {
@@ -97,29 +75,11 @@ const Storage = () => {
     }
   }, []);
 
-  console.log(documents);
   return (
     <StorageWrapper>
-      <DocumentWrapper>
-        <DocumentHeader>
-          <div>
-            <span>문서 정보</span>
-          </div>
-          <div>
-            <span>서명 현황</span>
-          </div>
-          <div>
-            <span>상세 기록</span>
-          </div>
-        </DocumentHeader>
-        {documents ? (
-          <DocumentItem documentsData={documents}></DocumentItem>
-        ) : (
-          <span>마지막 페이지입니다.</span>
-        )}
-        <Page />
-      </DocumentWrapper>
-
+      {/* table */}
+      {documents ? <BasicTable documents={documents} /> : null}
+      {/* modal */}
       {docuMatch ? <DocumentModal></DocumentModal> : null}
     </StorageWrapper>
   );

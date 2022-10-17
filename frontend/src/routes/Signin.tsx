@@ -68,7 +68,7 @@ const Signin = () => {
         console.log("Google Signin \n", user);
         dispatch(
           authActions.signin({
-            id: user.uid,
+            uid: user.uid,
             email: user.email,
             name: user.displayName,
           })
@@ -109,7 +109,7 @@ const Signin = () => {
         console.log("Signin \n", user);
         dispatch(
           authActions.signin({
-            id: user.uid,
+            uid: user.uid,
             email: user.email,
             name: user.displayName,
           })
