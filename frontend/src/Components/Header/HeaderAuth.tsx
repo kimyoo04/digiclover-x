@@ -21,6 +21,7 @@ import {
 // firebase
 import {signOut} from "firebase/auth";
 import {authService} from "src/fbase";
+import {appear} from "@constants/variants";
 
 const HeaderAuth = () => {
   const navigate = useNavigate();
@@ -37,12 +38,12 @@ const HeaderAuth = () => {
   return (
     <>
       {isMobile ? (
-        <SmallNav>
+        <SmallNav variants={appear} initial="initial" animate="in" exit="out">
           <div>
             <DropDownMenu />
           </div>
           <div>
-            <Link to="/">
+            <Link to="/home">
               <LogoShort src={logoShort} />
             </Link>
           </div>
@@ -52,9 +53,9 @@ const HeaderAuth = () => {
           </AuthWrapper>
         </SmallNav>
       ) : (
-        <Nav>
+        <Nav variants={appear} initial="initial" animate="in" exit="out">
           <MenuWrapper>
-            <Link to="/">
+            <Link to="/home">
               <Logo src={logo} />
             </Link>
             <Link to="/document/start">

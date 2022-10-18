@@ -61,20 +61,31 @@ export const smallPageVariants = {
   },
 };
 
-export const slide = (isBack: boolean) => {
-  return {
-    invisible: {
-      opacity: 0,
-    },
-    visible: {
-      opacity: 1,
-      transition: {
-        duration: 0.6,
-      },
-    },
-    exit: {
-      opacity: 0,
-      transition: {duration: 0.1},
-    },
-  };
+export const spin = {
+  initial: {
+    opacity: 0,
+    rotate: 0,
+  },
+  in: {
+    opacity: 1,
+    rotate: 360,
+    transition: {ease: "linear", duration: 0.6, repeat: Infinity},
+  },
+  out: {
+    opacity: 0,
+  },
+};
+
+export const appear = {
+  initial: {
+    opacity: 0,
+    rotate: 0,
+  },
+  in: {
+    opacity: 1,
+    transition: {duration: 0.3},
+  },
+  out: {
+    opacity: 0,
+  },
 };

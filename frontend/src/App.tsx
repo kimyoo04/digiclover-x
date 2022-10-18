@@ -1,4 +1,4 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import {ThemeProvider} from "styled-components";
 // redux-toolkit
@@ -22,25 +22,29 @@ import DocumentModal from "@components/Storage/Modal/DocumentModal";
 import Profile from "@routes/Profile";
 // etc route
 import NoMatch from "@routes/NoMatch";
-import ProtectedRoute from "@routes/ProtectedRoute";
 
 // components
 import HeaderAuth from "@components/Header/HeaderAuth";
 import HeaderNoAuth from "@components/Header/HeaderNoAuth";
 import Footer from "@components/Footer";
 import ScrollToTop from "@components/Util/ScrollToTop";
+import AuthenticatedRoute from "@components/Auth/AuthenticatedRoute";
+import UnauthenticatedRoute from "@components/Auth/UnauthenticatedRoute";
 
 // firebase
 import {onAuthStateChanged} from "firebase/auth";
 import {authService} from "./fbase";
 
 function App() {
-  // 라이트모드, 다크모드
-  const isDark = useAppSelector((state) => state.theme.isDark);
-  const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-
   const dispatch = useAppDispatch();
 
+  // authencation persistence
+  const [user, setUser] = useState<boolean | undefined>(undefined);
+
+  // theme dark and light
+  const isDark = useAppSelector((state) => state.theme.isDark);
+
+  // authencation check
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
@@ -52,42 +56,40 @@ function App() {
           })
         );
         console.log("authActions signin");
+        setUser(true);
       } else {
         dispatch(authActions.signout());
         console.log("authActions signout");
+        setUser(false);
       }
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
       <Router>
         <ScrollToTop />
         <Routes>
-          <Route
-            path="/document"
-            element={<ProtectedRoute outlet={<Document />}></ProtectedRoute>}
-          />
-          <Route
-            path="/"
-            element={isAuthenticated ? <HeaderAuth /> : <HeaderNoAuth />}
-          >
-            <Route index element={<Home />}></Route>
-            <Route path="/document/start" element={<DocumentStart />} />
-            <Route
-              path="/storage"
-              element={<ProtectedRoute outlet={<Storage />}></ProtectedRoute>}
-            >
-              <Route path=":id" element={<DocumentModal />} />
+          <Route element={<AuthenticatedRoute user={user} />}>
+            <Route element={<HeaderAuth />}>
+              <Route path="/home" element={<Home />} />
+              <Route path="/document/start" element={<DocumentStart />} />
+              <Route path="/document" element={<Document />} />
+              <Route path="/storage" element={<Storage />}>
+                <Route path=":id" element={<DocumentModal />} />
+              </Route>
+              <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route
-              path="/profile"
-              element={<ProtectedRoute outlet={<Profile />}></ProtectedRoute>}
-            ></Route>
           </Route>
-          <Route path="/signin" element={<Login />}></Route>
-          <Route path="/signup" element={<Signup />}></Route>
-          <Route path="*" element={<NoMatch />} />
+
+          <Route element={<UnauthenticatedRoute user={user} />}>
+            <Route element={<HeaderNoAuth />}>
+              <Route path="/" element={<Home />} />
+              <Route path="*" element={<NoMatch />} />
+            </Route>
+            <Route path="/signin" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+          </Route>
         </Routes>
         <Footer />
       </Router>

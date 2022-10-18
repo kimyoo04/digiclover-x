@@ -1,7 +1,8 @@
 // modules
+import {motion} from "framer-motion";
 import styled from "styled-components";
 
-export const Nav = styled.nav`
+export const Nav = styled(motion.nav)`
   position: fixed;
   top: 0;
 
@@ -19,7 +20,7 @@ export const Nav = styled.nav`
   z-index: 2;
 `;
 
-export const SmallNav = styled.div`
+export const SmallNav = styled(motion.nav)`
   position: fixed;
   top: 0;
 

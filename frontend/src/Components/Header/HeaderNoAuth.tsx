@@ -1,10 +1,8 @@
 // modules
-import {useEffect} from "react";
 import {Outlet} from "react-router-dom";
 // public
 import logo from "@public/assets/img/logo.png";
 // redux-toolkit
-import {useAppDispatch, useAppSelector} from "@app/hook";
 import {useCheckMobile} from "@hooks/useWindowDimensions";
 // components
 import {Link} from "@components/Auth/authStyle";
@@ -15,18 +13,17 @@ import {
   Nav,
   SmallNav,
 } from "@components/Header/HeaderStyles";
+// constants
+import {appear} from "@constants/variants";
 
 const HeaderNoAuth = () => {
   // 620px 이하 사이즈 체크 기능
   const isMobile = useCheckMobile();
 
-  // 로그인 상태 유지 기능
-  const dispatch = useAppDispatch();
-
   return (
     <>
       {isMobile ? (
-        <SmallNav>
+        <SmallNav variants={appear} initial="initial" animate="in" exit="out">
           <Link to="/">
             <Logo src={logo} />
           </Link>
@@ -38,7 +35,7 @@ const HeaderNoAuth = () => {
           </AuthWrapper>
         </SmallNav>
       ) : (
-        <Nav>
+        <Nav variants={appear} initial="initial" animate="in" exit="out">
           <div>
             <Link to="/">
               <Logo src={logo} />

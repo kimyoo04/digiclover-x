@@ -10,7 +10,6 @@ import ToggleIsDark from "@components/Util/ToggleIsDark";
 import {
   collection,
   doc,
-  documentId,
   getDocs,
   query,
   updateDoc,
@@ -75,7 +74,6 @@ const SaveButton = styled(Input)`
 
 const Profile = () => {
   const [readOnly, setReadOnly] = useState(true);
-  const [isLoading, setisLoading] = useState(true);
   const [userData, setUserData] = useState<IUser>({
     company: "",
     name: "",
@@ -100,8 +98,6 @@ const Profile = () => {
         setUserData(data);
         // 폼에 입력
         reset(data);
-        setisLoading(false);
-      } else {
       }
     };
     getUser().catch((error) => console.log(error));
@@ -147,7 +143,7 @@ const Profile = () => {
     }
   };
 
-  return isLoading ? null : (
+  return (
     <Wrapper>
       <ProfileWrapper>
         <Header>
