@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
-import {authActions} from "@features/auth/authSlice";
 // components
 import {
   Wrapper,
@@ -22,6 +21,7 @@ import {
   GoogleBtn,
   GoogleImg,
   HookForm,
+  SignupLink,
 } from "./SigninStyle";
 // firebase
 import {
@@ -34,7 +34,6 @@ import {addDoc, collection} from "firebase/firestore";
 
 const Signin = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   function goHome() {
     navigate(`/`);
@@ -122,7 +121,9 @@ const Signin = () => {
     <Wrapper>
       <AuthHeader />
       <FormWrapper>
+        {/* 이메일 비밀번호 로그인 */}
         <HookForm onSubmit={handleSubmit(onValid)}>
+          {/* 이메일 */}
           <Col>
             <Row>
               <ErrorMessage>{errors?.email?.message}</ErrorMessage>
@@ -143,6 +144,7 @@ const Signin = () => {
             />
           </Col>
 
+          {/* 비밀번호 */}
           <Col>
             <Row>
               <ErrorMessage>{errors?.password?.message}</ErrorMessage>
@@ -165,6 +167,13 @@ const Signin = () => {
           <ErrorMessage>{errors?.extraError?.message}</ErrorMessage>
           <Button>Sign in</Button>
         </HookForm>
+
+        {/* 회원가입 링크 */}
+        <SignupLink to="/signup">
+          <span>회원가입하기</span>
+        </SignupLink>
+
+        {/* Oauth 로그인*/}
         <ButtonWrapper>
           <GoogleBtn onClick={googleLogin}>
             <GoogleImg />

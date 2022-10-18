@@ -98,7 +98,7 @@ const Signup = () => {
                   message: "Your email is too long.",
                 },
               })}
-              placeholder="Email"
+              placeholder="Email *"
               name="email"
               type="email"
             />
@@ -116,7 +116,7 @@ const Signup = () => {
                   message: "company Name is too long.",
                 },
               })}
-              placeholder="company Name"
+              placeholder="company Name *"
               name="company"
               type="text"
             />
@@ -134,7 +134,7 @@ const Signup = () => {
                   message: "Your name is too long.",
                 },
               })}
-              placeholder="Name"
+              placeholder="Name *"
               name="name"
               type="text"
             />
@@ -152,7 +152,7 @@ const Signup = () => {
                   message: "Only phone number allowed",
                 },
               })}
-              placeholder="Phone"
+              placeholder="Phone *"
               name="phone"
               type="tel"
             />
@@ -174,7 +174,7 @@ const Signup = () => {
                   message: "Your password have to be shorter than 17.",
                 },
               })}
-              placeholder="Password"
+              placeholder="Password *"
               name="password"
               type="password"
             />
@@ -190,7 +190,7 @@ const Signup = () => {
                 required: "Checking password is required",
               })}
               placeholder="Password Check"
-              name="passwordCheck"
+              name="passwordCheck *"
               type="password"
             />
           </Col>

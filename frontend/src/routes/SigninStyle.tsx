@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import Button from "@components/Style/buttons";
+import {Link} from "react-router-dom";
 
-export const HookForm = styled.form`
-  margin-bottom: 30px;
-`;
+export const HookForm = styled.form``;
 
 export const ButtonWrapper = styled.div`
+  width: 100%;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -25,6 +26,8 @@ export const KakaoBtn = styled(Button)`
 `;
 
 export const GoogleBtn = styled(Button)`
+  width: 100%;
+
   background-color: ${(props) => props.theme.GoogleBtrColor};
   color: ${(props) => props.theme.GoogleTextColor};
   font-family: "Roboto", sans-serif;
@@ -43,4 +46,16 @@ export const GoHomeText = styled.span`
   font-size: 20px;
   font-weight: 700;
   margin-bottom: 20px;
+`;
+
+export const SignupLink = styled(Link)`
+  display: flex;
+  flex-direction: center;
+  align-items: center;
+
+  & span {
+    color: ${(props) => props.theme.grayscale4Color};
+    font-size: 1.4rem;
+    font-weight: 300;
+  }
 `;

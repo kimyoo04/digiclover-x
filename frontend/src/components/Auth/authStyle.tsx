@@ -15,6 +15,12 @@ export const Wrapper = styled.div`
 `;
 
 export const FormWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+
   border: 1px solid ${(props) => props.theme.bgWhiteTransColor2};
   background-color: ${(props) => props.theme.bgWhiteTransColor1};
   border-radius: 3%;
