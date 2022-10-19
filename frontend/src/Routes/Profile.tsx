@@ -171,15 +171,12 @@ const Profile = () => {
             <Input
               {...register("company", {
                 required: "company Name is required",
-                maxLength: {
-                  value: 35,
-                  message: "company Name is too long.",
-                },
               })}
-              placeholder="company Name"
+              placeholder="* company Name"
               name="company"
               type="text"
               readOnly={readOnly}
+              maxLength={35}
             />
           </Col>
 
@@ -196,15 +193,12 @@ const Profile = () => {
                     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
                   message: "Only emails allowed",
                 },
-                maxLength: {
-                  value: 35,
-                  message: "Your email is too long.",
-                },
               })}
-              placeholder="Email"
+              placeholder="* Email"
               name="email"
               type="email"
               readOnly={readOnly}
+              maxLength={35}
             />
           </Col>
 
@@ -215,16 +209,33 @@ const Profile = () => {
             </Row>
             <Input
               {...register("phone", {
+                onChange: (e) => {
+                  if (e.target.value.length === 10) {
+                    reset({
+                      phone: e.target.value.replace(
+                        /(\d{3})(\d{3})(\d{4})/,
+                        "$1-$2-$3"
+                      ),
+                    });
+                  }
+                  if (e.target.value.length === 13) {
+                    reset({
+                      phone: e.target.value
+                        .replace(/-/g, "")
+                        .replace(/(\d{3})(\d{4})(\d{4})/, "$1-$2-$3"),
+                    });
+                  }
+                },
                 required: "Phone number is required",
                 pattern: {
                   value: /^\d{3}-\d{3,4}-\d{4}$/,
                   message: "Only phone number allowed",
                 },
               })}
-              placeholder="Phone"
+              placeholder="* Phone (000-0000-0000)"
               name="phone"
               type="tel"
-              readOnly={readOnly}
+              maxLength={13}
             />
           </Col>
 
@@ -236,15 +247,12 @@ const Profile = () => {
             <Input
               {...register("name", {
                 required: "Name is required",
-                maxLength: {
-                  value: 20,
-                  message: "Your name is too long.",
-                },
               })}
-              placeholder="Name"
+              placeholder="* Name"
               name="name"
               type="text"
               readOnly={readOnly}
+              maxLength={25}
             />
           </Col>
         </form>
