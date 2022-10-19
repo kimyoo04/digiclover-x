@@ -5,7 +5,7 @@ import {ReactQueryDevtools} from "react-query/devtools";
 import {createGlobalStyle} from "styled-components";
 import {Provider} from "react-redux";
 // App
-import App from "./App";
+import App from "src/App";
 // redux-toolkit
 import {store} from "@app/store";
 // icons

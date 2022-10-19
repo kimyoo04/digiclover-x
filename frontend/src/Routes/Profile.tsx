@@ -6,6 +6,8 @@ import styled from "styled-components";
 import {Col, Row, Wrapper} from "@components/layout";
 import {ErrorMessage, Input, Label} from "@components/Auth/authStyle";
 import ToggleIsDark from "@components/Util/ToggleIsDark";
+// types
+import {IUser, IUserForm} from "@constants/types/user";
 // firebase
 import {
   collection,
@@ -17,14 +19,6 @@ import {
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
 import {useAppSelector} from "@app/hook";
-import {IUser} from "@features/auth/authSlice";
-
-export interface IUserForm {
-  company: string;
-  email: string;
-  phone: string;
-  name: string;
-}
 
 const ProfileWrapper = styled.div``;
 
@@ -83,26 +77,6 @@ const Profile = () => {
   });
   const user = useAppSelector((state) => state.auth.user);
 
-  useEffect(() => {
-    // get userDoc
-    const getUser = async () => {
-      const userQuery = query(
-        collection(dbService, "users"),
-        where("uid", "==", user.id)
-      );
-      const querySnapshot = await getDocs(userQuery);
-      const data: any = querySnapshot.docs[0].data();
-
-      if (data) {
-        // 폼에 입력
-        setUserData(data);
-        // 폼에 입력
-        reset(data);
-      }
-    };
-    getUser().catch((error) => console.log(error));
-  }, []);
-
   const {
     register,
     handleSubmit,
@@ -142,6 +116,27 @@ const Profile = () => {
       updateUser();
     }
   };
+
+  // 로그인한 유저의 정보 input에 reset
+  useEffect(() => {
+    // get userDoc
+    const getUser = async () => {
+      const userQuery = query(
+        collection(dbService, "users"),
+        where("uid", "==", user.id)
+      );
+      const querySnapshot = await getDocs(userQuery);
+      const data: any = querySnapshot.docs[0].data();
+
+      if (data) {
+        // 폼에 입력
+        setUserData(data);
+        // 폼에 입력
+        reset(data);
+      }
+    };
+    getUser().catch((error) => console.log(error));
+  }, [reset, user.id]);
 
   return (
     <Wrapper>

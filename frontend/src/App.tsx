@@ -4,23 +4,16 @@ import {ThemeProvider} from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "./app/hook";
 import {authActions} from "@features/auth/authSlice";
-// constants
-import {darkTheme, lightTheme} from "@constants/theme";
 
-// home route
+// routes
 import Home from "@routes/Home";
-// auth route
 import Login from "@routes/Signin";
 import Signup from "@routes/Signup";
-// document route
 import DocumentStart from "@routes/document/Start";
 import Document from "@routes/document/Document";
-// storage route
 import Storage from "@routes/Storage";
 import DocumentModal from "@components/Storage/Modal/DocumentModal";
-// profile route
 import Profile from "@routes/Profile";
-// etc route
 import NoMatch from "@routes/NoMatch";
 
 // components
@@ -30,10 +23,12 @@ import Footer from "@components/Footer";
 import ScrollToTop from "@components/Util/ScrollToTop";
 import AuthenticatedRoute from "@components/Auth/AuthenticatedRoute";
 import UnauthenticatedRoute from "@components/Auth/UnauthenticatedRoute";
+// styles
+import {darkTheme, lightTheme} from "@constants/styles/theme";
 
 // firebase
 import {onAuthStateChanged} from "firebase/auth";
-import {authService} from "./fbase";
+import {authService} from "src/fbase";
 
 function App() {
   const dispatch = useAppDispatch();

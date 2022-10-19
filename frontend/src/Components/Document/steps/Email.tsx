@@ -4,20 +4,15 @@ import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
-import {documentActions, IContractor} from "@features/document/documentSlice";
+import {documentActions} from "@features/document/documentSlice";
 import {alertActions} from "@features/alert/alertSlice";
-// service
-import DocumentDataService, {
-  IDocumentData,
-  ISignatureData,
-} from "@services/document";
+// types
+import {IContractor} from "@constants/types/document";
 // components
 import Button from "@components/Style/buttons";
 import ContractorCard from "@components/Document/ContractorCard";
-import {dbService} from "src/fbase";
-import {addDoc, collection, CollectionReference} from "firebase/firestore";
-import {addData} from "src/firebaseCRUD";
-import {PostOneDocument} from "src/controllers/documents.controller";
+// controllers
+import {PostOneDocument} from "@controllers/documents.controller";
 
 const Main = styled.div`
   display: flex;

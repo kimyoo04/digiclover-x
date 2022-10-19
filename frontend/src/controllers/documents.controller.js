@@ -1,4 +1,4 @@
-import {collection, doc, serverTimestamp, setDoc} from "firebase/firestore";
+import {collection, doc, setDoc} from "firebase/firestore";
 import {dbService} from "src/fbase";
 import {addData} from "src/firebaseCRUD";
 

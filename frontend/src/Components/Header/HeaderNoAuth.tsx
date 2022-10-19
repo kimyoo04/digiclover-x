@@ -13,8 +13,8 @@ import {
   Nav,
   SmallNav,
 } from "@components/Header/HeaderStyles";
-// constants
-import {appear} from "@constants/variants";
+// styles
+import {appear} from "@constants/styles/variants";
 
 const HeaderNoAuth = () => {
   // 620px 이하 사이즈 체크 기능

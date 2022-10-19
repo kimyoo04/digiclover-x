@@ -5,7 +5,7 @@ import styled from "styled-components";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
 // services
-import {IDocumentData} from "@services/document";
+import {IDocumentData} from "@constants/types/document";
 // components
 import DocumentModal from "@components/Storage/Modal/DocumentModal";
 import StorageTable from "@components/Storage/Table/Table";

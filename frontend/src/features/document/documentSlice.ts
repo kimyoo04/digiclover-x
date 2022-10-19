@@ -1,28 +1,7 @@
 // redux-toolkit
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-
-export type DocuKind = "자유양식" | "MOU" | "근로계약서" | "차용증" | "";
-
-export interface IDocuTitle {
-  docuTitle: string;
-}
-
-export interface IContractor {
-  companyName: string;
-  name: string;
-  email: string;
-}
-
-export interface DocumentState {
-  step: number;
-  isBack: boolean;
-  contractors: IContractor[];
-  docuKind: DocuKind;
-  docuTitle: string;
-  docuContent: string;
-  imgUrl: string;
-  error: string;
-}
+// types
+import {DocuKind, DocumentState, IContractor} from "@constants/types/document";
 
 const initialState: DocumentState = {
   step: 1,

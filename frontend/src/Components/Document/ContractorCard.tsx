@@ -1,7 +1,7 @@
 // modules
 import styled from "styled-components";
-// redux-toolkit
-import {IContractor} from "@features/document/documentSlice";
+// types
+import {IContractor} from "@constants/types/document";
 
 const Card = styled.div`
   display: flex;

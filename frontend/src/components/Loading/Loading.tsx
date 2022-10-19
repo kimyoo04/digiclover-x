@@ -5,7 +5,8 @@ import {motion} from "framer-motion";
 import {Wrapper} from "@components/layout";
 // img
 import logoShort from "@public/assets/img/logo-short.png";
-import {spin} from "@constants/variants";
+// styles
+import {spin} from "@constants/styles/variants";
 
 const Spinner = styled(motion.img)`
   width: 3.4rem;

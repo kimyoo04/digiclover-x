@@ -5,18 +5,17 @@ import {AnimatePresence, motion} from "framer-motion";
 import styled from "styled-components";
 import * as _ from "lodash";
 // services
-import {ISignatureData} from "@services/document";
+import {ISignatureData} from "@constants/types/document";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
-import {IUser} from "@features/auth/authSlice";
+// types
+import {IUser} from "@constants/types/user";
 // components
 import Button from "@components/Style/buttons";
-import {Text} from "@components/Style/text";
 import ModalLogging from "@components/Storage/Modal/ModalLogging";
 // firebase
 import {
   collection,
-  documentId,
   getDocs,
   onSnapshot,
   query,
@@ -60,17 +59,6 @@ const DocuButton = styled(Button)`
   height: 100%;
   font-size: 18px;
 `;
-
-interface IMergedDataArr {
-  DocumentId: string;
-  UserId: string;
-  createdAt: number;
-  hashValue: string;
-  id: string;
-  imgUrl: string;
-  isSigned: boolean;
-  updatedAt?: number;
-}
 
 // props로 클릭한 문서의 정보 받아오기
 const DocumentModal = () => {
@@ -135,7 +123,7 @@ const DocumentModal = () => {
 
       getAllData().catch((error) => console.log(error));
     }
-  }, []);
+  }, [user, id]);
 
   console.log("signaturesData", signaturesData);
   console.log("usersArr", usersData);

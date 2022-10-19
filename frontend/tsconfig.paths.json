@@ -8,6 +8,8 @@
       "@components/*": ["./src/components/*"],
       "@constants": ["./src/constants"],
       "@constants/*": ["./src/constants/*"],
+      "@controllers": ["./src/controllers"],
+      "@controllers/*": ["./src/controllers/*"],
       "@features": ["./src/features"],
       "@features/*": ["./src/features/*"],
       "@hooks": ["./src/hooks"],

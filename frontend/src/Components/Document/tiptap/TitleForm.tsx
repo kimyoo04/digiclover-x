@@ -3,7 +3,9 @@ import {useForm} from "react-hook-form";
 import styled from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
-import {documentActions, IDocuTitle} from "@features/document/documentSlice";
+import {documentActions} from "@features/document/documentSlice";
+// types
+import {IDocuTitle} from "@constants/types/document";
 
 const Form = styled.form`
   width: 100%;

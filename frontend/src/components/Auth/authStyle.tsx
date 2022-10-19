@@ -94,19 +94,3 @@ export const AuthWrapper = styled.div`
   gap: 40px;
   margin-bottom: 60px;
 `;
-
-export interface ILogInForm {
-  email: string;
-  password: string;
-  extraError?: string;
-}
-
-export interface ISignInForm {
-  email: string;
-  company: string;
-  name: string;
-  phone: string;
-  password: string;
-  passwordCheck: string;
-  extraError?: string;
-}

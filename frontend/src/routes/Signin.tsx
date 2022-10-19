@@ -7,7 +7,6 @@ import {useAppSelector} from "@app/hook";
 import {
   Wrapper,
   FormWrapper,
-  ILogInForm,
   ErrorMessage,
   Input,
 } from "@components/Auth/authStyle";
@@ -23,6 +22,8 @@ import {
   HookForm,
   SignupLink,
 } from "./SigninStyle";
+// types
+import {ILogInForm} from "@constants/types/auth";
 // firebase
 import {
   signInWithEmailAndPassword,

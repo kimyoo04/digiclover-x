@@ -6,6 +6,7 @@ module.exports = override(
     "@app": path.resolve(__dirname, "src", "app"),
     "@components": path.resolve(__dirname, "src", "components"),
     "@constants": path.resolve(__dirname, "src", "constants"),
+    "@controllers": path.resolve(__dirname, "src", "controllers"),
     "@features": path.resolve(__dirname, "src", "features"),
     "@hooks": path.resolve(__dirname, "src", "hooks"),
     "@public": path.resolve(__dirname, "src", "public"),
@@ -13,20 +14,3 @@ module.exports = override(
     "@services": path.resolve(__dirname, "src", "services"),
   })
 );
-
-// "@app": ["./src/app/"],
-// "@app/*": ["./src/app/*"],
-// "@components": ["./src/components"],
-// "@components/*": ["./src/components/*"],
-// "@constants": ["./src/constants"],
-// "@constants/*": ["./src/constants/*"],
-// "@features": ["./src/features"],
-// "@features/*": ["./src/features/*"],
-// "@hooks": ["./src/hooks"],
-// "@hooks/*": ["./src/hooks/*"],
-// "@public": ["./src/public"],
-// "@public/*": ["./src/public/*"],
-// "@Routes": ["./src/Routes"],
-// "@Routes/*": ["./src/Routes/*"],
-// "@services": ["./src/services"],
-// "@services/*": ["./src/services/*"]

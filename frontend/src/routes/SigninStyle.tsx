@@ -1,6 +1,8 @@
-import styled from "styled-components";
-import Button from "@components/Style/buttons";
+// modules
 import {Link} from "react-router-dom";
+import styled from "styled-components";
+// components
+import Button from "@components/Style/buttons";
 
 export const HookForm = styled.form``;
 

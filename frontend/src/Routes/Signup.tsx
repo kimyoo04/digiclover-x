@@ -6,16 +6,17 @@ import Button from "@components/Style/buttons";
 import {
   Wrapper,
   FormWrapper,
-  ISignInForm,
   ErrorMessage,
   Input,
 } from "@components/Auth/authStyle";
 import {Col, Row} from "@components/layout";
 import AuthHeader from "@components/Auth/AuthHeader";
+// types
+import {ISignInForm} from "@constants/types/auth";
 // firebase
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
-import {authService, dbService} from "src/fbase";
 import {addDoc, collection} from "firebase/firestore";
+import {authService, dbService} from "src/fbase";
 
 const Signup = () => {
   const navigate = useNavigate();

@@ -1,4 +1,4 @@
-import {IDocumentData} from "@services/document";
+import {IDocumentData} from "@constants/types/document";
 import {User} from "firebase/auth";
 // firebase
 import {
@@ -12,8 +12,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import {dbService} from "./fbase";
-// import {deleteObject} from "firebase/storage";
+import {dbService} from "src/fbase";
 
 // --------------------------------------------------------------------
 // Get data

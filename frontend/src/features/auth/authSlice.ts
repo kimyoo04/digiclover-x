@@ -1,30 +1,6 @@
 // redux-toolkit
 import {createSlice} from "@reduxjs/toolkit";
-
-type initUser = {
-  id?: string;
-  company?: string;
-  name?: string;
-  email?: string;
-  phone?: string;
-  uid?: string;
-};
-
-export interface AuthState {
-  loading: boolean;
-  provider: string;
-  isAuthenticated: boolean;
-  user: initUser;
-  error: string;
-}
-
-export interface IUser {
-  company: string;
-  name: string;
-  email: string;
-  phone: string;
-  uid: string;
-}
+import {AuthState} from "@constants/types/user";
 
 const initialState: AuthState = {
   loading: false,

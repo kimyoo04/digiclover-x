@@ -18,10 +18,11 @@ import {
   Nav,
   SmallNav,
 } from "./HeaderStyles";
+// styles
+import {appear} from "@constants/styles/variants";
 // firebase
 import {signOut} from "firebase/auth";
 import {authService} from "src/fbase";
-import {appear} from "@constants/variants";
 
 const HeaderAuth = () => {
   const navigate = useNavigate();
