@@ -1,4 +1,5 @@
 import {IDocumentData} from "@services/document";
+import {User} from "firebase/auth";
 // firebase
 import {
   addDoc,
@@ -6,6 +7,7 @@ import {
   CollectionReference,
   deleteDoc,
   doc,
+  getDocs,
   onSnapshot,
   query,
   where,
@@ -46,7 +48,7 @@ export const addData = async (tableName: string, dataObj: object) => {
 };
 
 // --------------------------------------------------------------------
-// Delete one Data (기본값 - documents)
+// Delete one document document (기본값 - documents)
 // --------------------------------------------------------------------
 export const onDeleteData = async (
   tableName: string = "documents",
@@ -68,5 +70,28 @@ export const onDeleteData = async (
     }
   } catch (error) {
     window.alert("삭제하는 데 실패했습니다!");
+  }
+};
+
+// --------------------------------------------------------------------
+// add one Oauth User document
+// --------------------------------------------------------------------
+export const addUserDoc = async (user: User) => {
+  const userQuery = query(
+    collection(dbService, "users"),
+    where("uid", "==", user.uid)
+  );
+  const querySnapshot = await getDocs(userQuery);
+
+  // user doc 에 정보가 존재하지 않으면 (구글로그인 첫 방문일 경우)
+  if (querySnapshot.docs.length === 0) {
+    // user doc 생성
+    console.log("google user doc 생성");
+    await addDoc(collection(dbService, "users"), {
+      uid: user.uid,
+      email: user.email,
+      name: user.displayName,
+      createdAt: Date.now() + 9 * 60 * 60 * 1000,
+    });
   }
 };

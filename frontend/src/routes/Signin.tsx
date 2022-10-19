@@ -2,7 +2,7 @@
 import {useNavigate} from "react-router-dom";
 import {useForm} from "react-hook-form";
 // redux-toolkit
-import {useAppDispatch, useAppSelector} from "@app/hook";
+import {useAppSelector} from "@app/hook";
 // components
 import {
   Wrapper,
@@ -26,11 +26,10 @@ import {
 // firebase
 import {
   signInWithEmailAndPassword,
-  signInWithPopup,
   GoogleAuthProvider,
+  signInWithRedirect,
 } from "firebase/auth";
-import {authService, dbService} from "src/fbase";
-import {addDoc, collection} from "firebase/firestore";
+import {authService} from "src/fbase";
 
 const Signin = () => {
   const isAuthenticated = useAppSelector((state) => state.auth.isAuthenticated);
@@ -41,42 +40,9 @@ const Signin = () => {
 
   const googleLogin = () => {
     // -------------------------------------------
-    const provider = new GoogleAuthProvider();
-
     // Google Signed in
-    signInWithPopup(authService, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential?.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-
-        // users docuement 생성
-        const creatUser = async () => {
-          await addDoc(collection(dbService, "users"), {
-            uid: user.uid,
-            email: user.email,
-            name: user.displayName,
-          });
-        };
-        creatUser();
-
-        // 회원 정보 추가 입력 강요
-        navigate("/");
-        console.log("Google Signin \n", user);
-      })
-      .catch((error) => {
-        // Handle Errors here.
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // The email of the user's account used.
-        const email = error.customData.email;
-        // The AuthCredential type that was used.
-        const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
-        console.log(errorCode, errorMessage, email, credential);
-      });
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(authService, provider);
     // -------------------------------------------
   };
 

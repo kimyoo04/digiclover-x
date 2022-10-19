@@ -46,6 +46,8 @@ const AlarmIcon = styled(motion.i)`
 
 const Overlay = styled.div`
   position: fixed;
+  top: 0;
+  left: 0;
 
   width: 100vw;
   height: 100vh;
@@ -68,6 +70,7 @@ const DropDownAlarm = () => {
 
   return (
     <>
+      {/* 알람 아이콘 */}
       <AlarmIcon
         className={
           isView ? "ri-notification-4-line active" : "ri-notification-4-line"
@@ -75,9 +78,12 @@ const DropDownAlarm = () => {
         whileHover={{scale: 1.1}}
         onClick={() => setIsView((prev) => !prev)}
       ></AlarmIcon>
+
+      {/* 오버레이 */}
       {isView ? (
         <Overlay onClick={() => setIsView((prev) => !prev)}></Overlay>
       ) : null}
+      {/* 드롭다운 메뉴 */}
       <DropDownWrapper
         initial={{opacity: 0}}
         animate={!isView ? "closed" : "open"}

@@ -127,7 +127,7 @@ const Profile = () => {
       // update userDoc
       const updateUser = async () => {
         if (user.id) {
-          const userQuery = await query(
+          const userQuery = query(
             collection(dbService, "users"),
             where("uid", "==", user.id)
           );

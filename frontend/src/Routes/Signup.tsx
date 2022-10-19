@@ -15,7 +15,7 @@ import AuthHeader from "@components/Auth/AuthHeader";
 // firebase
 import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
 import {authService, dbService} from "src/fbase";
-import {addDoc, collection, getDocs, where} from "firebase/firestore";
+import {addDoc, collection} from "firebase/firestore";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -35,45 +35,43 @@ const Signup = () => {
         {message: "Password are not the same"},
         {shouldFocus: true}
       );
+    } else {
+      // -------------------------------------------
+      const {company, name, email, password, phone} = data;
+
+      // Sign Up (local)
+      createUserWithEmailAndPassword(authService, email, password)
+        .then(async (userCredential) => {
+          // 유저 정보
+          const user = userCredential.user;
+          // displayName 저장
+          await updateProfile(user, {displayName: name});
+
+          // users docuement 생성
+          const creatUser = async () => {
+            await addDoc(collection(dbService, "users"), {
+              uid: user.uid,
+              company,
+              name,
+              email,
+              phone,
+              createdAt: Date.now() + 9 * 60 * 60 * 1000,
+            });
+          };
+          creatUser().catch((error) => console.log(error));
+
+          console.log("Signup \n", user);
+          navigate("/");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+
+          console.log(errorCode, errorMessage);
+          navigate("/signin");
+        });
+      // -------------------------------------------
     }
-    console.log(data);
-    // AuthDataService.createOneUser(data);
-
-    // -------------------------------------------
-    const {company, name, email, password, phone} = data;
-
-    // Sign Up
-    createUserWithEmailAndPassword(authService, email, password)
-      .then(async (userCredential) => {
-        // 유저 정보
-        const user = userCredential.user;
-        // displayName 저장
-        await updateProfile(user, {displayName: name});
-
-        // users docuement 생성
-        const creatUser = async () => {
-          await addDoc(collection(dbService, "users"), {
-            uid: user.uid,
-            company,
-            name,
-            email,
-            phone,
-          });
-        };
-        creatUser().catch((error) => console.log(error));
-
-        console.log("Signup \n", user);
-        console.log("phonenumber");
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-
-        console.log(errorCode, errorMessage);
-        navigate("/signin");
-      });
-    // -------------------------------------------
   };
 
   return (
@@ -174,7 +172,7 @@ const Signup = () => {
                   message: "Your password have to be shorter than 17.",
                 },
               })}
-              placeholder="Password *"
+              placeholder="Password * (longer than 5)"
               name="password"
               type="password"
             />
@@ -189,8 +187,8 @@ const Signup = () => {
               {...register("passwordCheck", {
                 required: "Checking password is required",
               })}
-              placeholder="Password Check"
-              name="passwordCheck *"
+              placeholder="Password Check *"
+              name="passwordCheck"
               type="password"
             />
           </Col>

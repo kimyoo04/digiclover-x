@@ -63,17 +63,13 @@ export const smallPageVariants = {
 
 export const spin = {
   initial: {
-    opacity: 0,
     rotate: 0,
   },
   in: {
-    opacity: 1,
     rotate: 360,
     transition: {ease: "linear", duration: 0.6, repeat: Infinity},
   },
-  out: {
-    opacity: 0,
-  },
+  out: {},
 };
 
 export const appear = {

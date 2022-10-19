@@ -44,10 +44,11 @@ function App() {
   // theme dark and light
   const isDark = useAppSelector((state) => state.theme.isDark);
 
-  // authencation check
+  // authencation check + add User doc first time
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
+        // store 에 유저 정보 저장
         dispatch(
           authActions.signin({
             id: user.uid,
@@ -56,6 +57,8 @@ function App() {
           })
         );
         console.log("authActions signin");
+
+        // 로그인 유지를 위한 setUser state
         setUser(true);
       } else {
         dispatch(authActions.signout());

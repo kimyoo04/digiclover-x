@@ -1,5 +1,5 @@
 // modules
-import React, {useMemo} from "react";
+import {useMemo} from "react";
 import {useTable} from "react-table";
 // firebase
 import {deleteDoc, doc} from "firebase/firestore";
@@ -17,7 +17,7 @@ import {
   Table,
 } from "./TableStyle";
 
-const BasicTable = ({documents}) => {
+const StorageTable = ({documents}) => {
   const navigate = useNavigate();
 
   const onDeleteAlert = async (documentId) => {
@@ -198,4 +198,4 @@ const BasicTable = ({documents}) => {
   );
 };
 
-export default BasicTable;
+export default StorageTable;
