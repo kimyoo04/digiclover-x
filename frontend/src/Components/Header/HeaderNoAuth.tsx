@@ -15,6 +15,7 @@ import {
 } from "@components/Header/HeaderStyles";
 // styles
 import {appear} from "@constants/styles/variants";
+import Footer from "@components/Footer";
 
 const HeaderNoAuth = () => {
   // 620px 이하 사이즈 체크 기능
@@ -50,6 +51,7 @@ const HeaderNoAuth = () => {
         </Nav>
       )}
       <Outlet />
+      <Footer />
     </>
   );
 };

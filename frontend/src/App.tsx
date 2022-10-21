@@ -72,12 +72,12 @@ function App() {
             <Route element={<HeaderAuth />}>
               <Route path="/home" element={<Home />} />
               <Route path="/document/start" element={<DocumentStart />} />
-              <Route path="/document" element={<Document />} />
               <Route path="/storage" element={<Storage />}>
                 <Route path=":id" element={<DocumentModal />} />
               </Route>
               <Route path="/profile" element={<Profile />} />
             </Route>
+            <Route path="/document" element={<Document />} />
           </Route>
 
           <Route element={<UnauthenticatedRoute user={user} />}>
@@ -89,7 +89,6 @@ function App() {
             <Route path="/signup" element={<Signup />} />
           </Route>
         </Routes>
-        <Footer />
       </Router>
     </ThemeProvider>
   );

@@ -7,7 +7,6 @@ import {useAppSelector} from "@app/hook";
 import PreventUnload from "@components/Util/PreventUnload";
 
 const ProgressBar = styled.ul`
-  position: sticky;
   top: 0;
 
   display: flex;

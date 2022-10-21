@@ -23,6 +23,7 @@ import {appear} from "@constants/styles/variants";
 // firebase
 import {signOut} from "firebase/auth";
 import {authService} from "src/fbase";
+import Footer from "@components/Footer";
 
 const HeaderAuth = () => {
   const navigate = useNavigate();
@@ -77,6 +78,7 @@ const HeaderAuth = () => {
         </Nav>
       )}
       <Outlet />
+      <Footer />
     </>
   );
 };

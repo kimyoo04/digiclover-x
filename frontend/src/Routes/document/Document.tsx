@@ -7,16 +7,18 @@ import DocumentsStep from "@components/Document/steps";
 import DocumentHeader from "@components/Document/DocumentHeader";
 import Alert from "@components/Util/Alert";
 
-const DocuWrapper = styled.div`
+const DocuWrapper = styled.div.attrs((props: {index: number}) => ({
+  index: props.index,
+}))`
   position: relative;
 
   display: flex;
   justify-content: center;
   align-items: flex-start;
 
-  min-height: 100vh;
+  min-height: 94vh;
   background-color: ${(props) => props.theme.bgColor};
-  overflow: auto;
+  overflow: ${(props) => (props.index === 4 ? "none" : "auto")};
 `;
 
 const Document = () => {
@@ -27,11 +29,14 @@ const Document = () => {
     <>
       <DocumentHeader />
       {isAlert ? <Alert /> : null}
-      <DocuWrapper>
-        {[1, 2, 3, 4, 5, 6].map((i) =>
-          i === documentStep ? <DocumentsStep index={i} key={i} /> : null
-        )}
-      </DocuWrapper>
+
+      {[1, 2, 3, 4, 5, 6].map((i) =>
+        i === documentStep ? (
+          <DocuWrapper index={i}>
+            <DocumentsStep index={i} key={i} />
+          </DocuWrapper>
+        ) : null
+      )}
     </>
   );
 };
