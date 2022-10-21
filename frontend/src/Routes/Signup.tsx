@@ -14,7 +14,11 @@ import AuthHeader from "@components/Auth/AuthHeader";
 // types
 import {ISignInForm} from "@constants/types/auth";
 // firebase
-import {createUserWithEmailAndPassword, updateProfile} from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  updateProfile,
+} from "firebase/auth";
 import {addDoc, collection} from "firebase/firestore";
 import {authService, dbService} from "src/fbase";
 
@@ -57,13 +61,17 @@ const Signup = () => {
               name,
               email,
               phone,
+              providerId: user.providerData[0].providerId,
               createdAt: Date.now() + 9 * 60 * 60 * 1000,
             });
           };
           creatUser().catch((error) => console.log(error));
 
-          console.log("Signup \n", user);
-          navigate("/");
+          // 인증 이메일 전송
+          sendEmailVerification(user).then(() => {
+            navigate("/");
+            alert("회원가입 인증 이메일을 보냈습니다.");
+          });
         })
         .catch((error) => {
           const errorCode = error.code;

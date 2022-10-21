@@ -56,25 +56,28 @@ const Signin = () => {
   });
 
   const onValid = (data: ILogInForm) => {
-    // -------------------------------------------
     const {email, password} = data;
 
+    // -------------------------------------------
     // Signed in
     signInWithEmailAndPassword(authService, email, password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         // ...
-        console.log("Signin \n", user);
+        if (user.emailVerified) {
+          navigate("/");
+        } else {
+          navigate("/signin");
+          throw new Error("이메일 인증을 하지 않았습니다.");
+        }
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
+        console.log(error.message, errorCode, errorMessage);
       });
     // -------------------------------------------
-
-    navigate("/");
   };
 
   return isAuthenticated ? (

@@ -43,6 +43,11 @@ function App() {
   useEffect(() => {
     onAuthStateChanged(authService, (user) => {
       if (user) {
+        // 이메일 인증 유무 확인
+        if (!user.emailVerified) {
+          throw new Error("이메일 인증을 하지 않았습니다.");
+        }
+
         // store 에 유저 정보 저장
         dispatch(
           authActions.signin({
@@ -52,6 +57,7 @@ function App() {
           })
         );
         console.log("authActions signin");
+        console.log("user \n", user);
 
         // 로그인 유지를 위한 setUser state
         setUser(true);

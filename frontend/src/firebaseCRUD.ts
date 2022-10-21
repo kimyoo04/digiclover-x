@@ -73,7 +73,7 @@ export const onDeleteData = async (
 };
 
 // --------------------------------------------------------------------
-// add one Oauth User document
+// Add one Oauth User document
 // --------------------------------------------------------------------
 export const addUserDoc = async (user: User) => {
   const userQuery = query(
@@ -90,6 +90,7 @@ export const addUserDoc = async (user: User) => {
       uid: user.uid,
       email: user.email,
       name: user.displayName,
+      providerId: user.providerData[0].providerId,
       createdAt: Date.now() + 9 * 60 * 60 * 1000,
     });
   }

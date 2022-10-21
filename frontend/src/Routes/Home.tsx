@@ -13,7 +13,6 @@ const Home = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential?.accessToken;
         const user = result.user;
-
         if (token && user) {
           // oauth user doc 생성 함수 호출
           addUserDoc(user).catch((error) => console.error(error));
