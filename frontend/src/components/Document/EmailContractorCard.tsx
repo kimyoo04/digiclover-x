@@ -29,7 +29,7 @@ const InfoText = styled.span`
   font-weight: 400;
 `;
 
-const ContractorCard = (contractor: IContractor) => {
+const EmailContractorCard = (contractor: IContractor) => {
   return (
     <Card>
       <InfoWrapper>
@@ -48,4 +48,4 @@ const ContractorCard = (contractor: IContractor) => {
   );
 };
 
-export default ContractorCard;
+export default EmailContractorCard;

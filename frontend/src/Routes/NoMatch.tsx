@@ -3,7 +3,7 @@ import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 // components
 import Button from "@components/Style/buttons";
-import {Label} from "@components/Document/document";
+import {Label} from "@components/Document/documentStyles";
 import {Wrapper} from "@components/layout";
 
 const HomeButton = styled(Button)`

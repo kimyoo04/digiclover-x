@@ -10,7 +10,7 @@ import {alertActions} from "@features/alert/alertSlice";
 import {IContractor} from "@constants/types/document";
 // components
 import Button from "@components/Style/buttons";
-import ContractorCard from "@components/Document/ContractorCard";
+import EmailContractorCard from "@components/Document/EmailContractorCard";
 // controllers
 import {PostOneDocument} from "@controllers/documents.controller";
 
@@ -81,7 +81,7 @@ const Email = () => {
   return (
     <Main>
       {document.contractors.map((contractor: IContractor, index: number) => {
-        return <ContractorCard key={index} {...contractor} />;
+        return <EmailContractorCard key={index} {...contractor} />;
       })}
       <AgreeLabel htmlFor="agree">
         이메일 전송 및 개인정보 이용 동의

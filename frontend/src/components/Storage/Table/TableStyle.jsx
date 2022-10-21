@@ -8,39 +8,39 @@ export const Table = styled.table`
 
   & td,
   th {
-    border: 1px solid #ddd;
-    padding: 8px;
+    font-size: 1.4rem;
+    border-bottom: 1px solid ${(props) => props.theme.grayscale3Color};
+    padding: 0.8rem;
   }
 
-  & tr:nth-child(even) {
-    background-color: ${(props) => props.theme.secondaryLightBlueColor};
-    color: ${(props) => props.theme.textBlackColor};
-  }
-  & tr:nth-child(odd) {
-    background-color: ${(props) => props.theme.secondaryLightMintColor};
-    color: ${(props) => props.theme.textBlackColor};
+  & tr {
+    background-color: ${(props) => props.theme.bgColor};
+    color: ${(props) => props.theme.textColor};
   }
 
   & tr:hover {
-    background-color: #dce5e9;
+    background-color: ${(props) => props.theme.bgWhiteTransColor1};
   }
 
   & th,
   tfoot td {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: center;
+    text-align: left;
     background-color: ${(props) => props.theme.grayscale4Color};
     color: ${(props) => props.theme.textWhiteColor};
   }
-`;
 
-export const ActionWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1rem;
-  padding: 0.2rem;
+  /* 중앙 정렬할 필드 */
+  & th:first-child,
+  & th:nth-child(2),
+  & th:last-child,
+  & tr td:first-child,
+  & tr td:nth-child(2),
+  & tr td:last-child {
+    padding: 0;
+    text-align: center;
+  }
 `;
 
 export const CheckboxWrapper = styled.div`
@@ -59,32 +59,4 @@ export const CheckboxWrapper = styled.div`
       margin-left: 2rem;
     }
   }
-`;
-
-export const DeleteButton = styled(Button)`
-  height: 40px;
-`;
-
-export const ModalButton = styled(Button)`
-  height: 40px;
-`;
-
-export const StatusIcon = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background-color: ${(props) => props.color};
-  border-radius: 6px;
-
-  width: 100%;
-  height: 40px;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  color: black;
-
-  transition: 0.1s;
-  border: none;
 `;

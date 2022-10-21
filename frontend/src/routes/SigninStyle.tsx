@@ -15,33 +15,6 @@ export const ButtonWrapper = styled.div`
   gap: 10px;
 `;
 
-export const SnsLogin = styled.span`
-  color: ${(props) => props.theme.textColor};
-  font-size: 14px;
-`;
-
-export const KakaoBtn = styled(Button)`
-  background-color: #fae100;
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-`;
-
-export const GoogleBtn = styled(Button)`
-  width: 100%;
-
-  background-color: ${(props) => props.theme.GoogleBtrColor};
-  color: ${(props) => props.theme.GoogleTextColor};
-  font-family: "Roboto", sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-`;
-
-export const GoogleImg = styled.img`
-  position: relative;
-  left: 8px;
-`;
-
 export const GoHomeText = styled.span`
   display: block;
   color: ${(props) => props.theme.textColor};
@@ -60,4 +33,54 @@ export const SignupLink = styled(Link)`
     font-size: 1.4rem;
     font-weight: 300;
   }
+`;
+
+// ------------------------------------------------------------
+// Oauth Components
+
+export const SnsLogin = styled.span`
+  color: ${(props) => props.theme.textColor};
+  font-size: 14px;
+`;
+
+export const GoogleBtn = styled(Button)`
+  width: 100%;
+
+  background-color: ${(props) => props.theme.GoogleBtrColor};
+  color: ${(props) => props.theme.GoogleTextColor};
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const GoogleImg = styled.img`
+  position: relative;
+  left: 8px;
+`;
+export const FacebookBtn = styled(Button)`
+  width: 100%;
+
+  background-color: #4267b2;
+  color: ${(props) => props.theme.textColor};
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const FacebookImg = styled.img`
+  position: relative;
+  left: 8px;
+`;
+
+export const KakaoBtn = styled(Button)`
+  background-color: #fae100;
+  color: ${(props) => props.theme.textColor};
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+`;
+
+export const KakaoImg = styled.img`
+  position: relative;
+  left: 8px;
 `;

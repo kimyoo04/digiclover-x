@@ -8,7 +8,28 @@ export const COLUMNS = [
     disableSortBy: true,
     show: false,
   },
-
+  {
+    Header: "Signed",
+    accessor: ({
+      UserId1,
+      UserId2,
+      UserId3,
+      UserId4,
+    }: {
+      [key: string]: string | null;
+    }) => {
+      const users = [UserId1, UserId2, UserId3, UserId4];
+      let contractorsNum = 0;
+      let signedContractorsNum = 0;
+      for (let user of users) {
+        if (user !== null) {
+          contractorsNum += 1;
+          if (user !== "0") signedContractorsNum += 1;
+        }
+      }
+      return `${signedContractorsNum} / ${contractorsNum}`;
+    },
+  },
   {
     Header: "UserId1",
     accessor: "UserId1",

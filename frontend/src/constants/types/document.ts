@@ -44,12 +44,6 @@ export interface IDocuTitle {
   docuTitle: string;
 }
 
-export interface IContractor {
-  companyName: string;
-  name: string;
-  email: string;
-}
-
 export interface DocumentState {
   step: number;
   isBack: boolean;
@@ -67,6 +61,12 @@ export interface IContractorForm {
   contractorPhone: string;
   email: string;
   extraError?: string;
+}
+
+export interface IContractor {
+  companyName: string;
+  name: string;
+  email: string;
 }
 
 export interface IDocuKindForm {

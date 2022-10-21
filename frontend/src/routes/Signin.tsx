@@ -16,10 +16,14 @@ import Button from "@components/Style/buttons";
 // style
 import {
   ButtonWrapper,
+  FacebookBtn,
+  FacebookImg,
   GoHomeText,
   GoogleBtn,
   GoogleImg,
   HookForm,
+  KakaoBtn,
+  KakaoImg,
   SignupLink,
 } from "./SigninStyle";
 // types
@@ -29,6 +33,8 @@ import {
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithRedirect,
+  FacebookAuthProvider,
+  OAuthProvider,
 } from "firebase/auth";
 import {authService} from "src/fbase";
 
@@ -39,13 +45,23 @@ const Signin = () => {
     navigate(`/`);
   }
 
+  // -------------------------------------------
   const googleLogin = () => {
-    // -------------------------------------------
     // Google Signed in
     const provider = new GoogleAuthProvider();
     signInWithRedirect(authService, provider);
-    // -------------------------------------------
   };
+  const facebookLogin = () => {
+    // Google Signed in
+    const provider = new FacebookAuthProvider();
+    signInWithRedirect(authService, provider);
+  };
+  const kakaoLogin = () => {
+    // Google Signed in
+    const provider = new OAuthProvider("oidc.kakao");
+    signInWithRedirect(authService, provider);
+  };
+  // -------------------------------------------
 
   const {
     register,
@@ -64,7 +80,8 @@ const Signin = () => {
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        // ...
+
+        // 이메일 인증 유무 확인
         if (user.emailVerified) {
           navigate("/");
         } else {
@@ -149,6 +166,14 @@ const Signin = () => {
             <GoogleImg />
             Sign in with Google
           </GoogleBtn>
+          {/* <FacebookBtn onClick={facebookLogin}>
+            <FacebookImg />
+            Sign in with Facebook
+          </FacebookBtn>
+          <KakaoBtn onClick={kakaoLogin}>
+            <KakaoImg />
+            Sign in with Kakao
+          </KakaoBtn> */}
         </ButtonWrapper>
       </FormWrapper>
     </Wrapper>

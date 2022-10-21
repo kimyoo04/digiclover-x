@@ -8,7 +8,11 @@ import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
 // components
 import Button from "@components/Style/buttons";
-import {ErrorMessage, FormWrapper, Input} from "@components/Document/document";
+import {
+  ErrorMessage,
+  FormWrapper,
+  Input,
+} from "@components/Document/documentStyles";
 import {Row} from "@components/layout";
 
 const ContractorWrapper = styled.ul`

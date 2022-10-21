@@ -11,7 +11,7 @@ import {
   FormWrapper,
   Input,
   Label,
-} from "@components/Document/document";
+} from "@components/Document/documentStyles";
 // types
 import {DocuKind, IDocuKindForm} from "@constants/types/document";
 
