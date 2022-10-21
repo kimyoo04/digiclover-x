@@ -86,6 +86,7 @@ const Signin = () => {
           navigate("/");
         } else {
           navigate("/signin");
+          alert("이메일 안증이 필요합니다. 이메일 보관함을 확인하세요.");
           throw new Error("이메일 인증을 하지 않았습니다.");
         }
       })
