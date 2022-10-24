@@ -89,6 +89,7 @@ const Storage = () => {
       ) : (
         <Text>전자 문서를 생성해 주세요!</Text>
       )}
+
       {/* modal */}
       {docuMatch ? <DocumentModal /> : null}
     </StorageWrapper>

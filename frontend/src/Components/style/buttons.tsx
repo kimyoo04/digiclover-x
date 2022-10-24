@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 const Button = styled(motion.button)`
   width: 100%;
-  height: 40px;
+  height: 4rem;
   border-radius: 6px;
   font-size: 14px;
   font-weight: 600;

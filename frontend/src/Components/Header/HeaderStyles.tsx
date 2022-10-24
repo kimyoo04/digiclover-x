@@ -13,7 +13,7 @@ export const Nav = styled(motion.nav)`
 
   width: 100%;
   padding: 20px 30px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: transparent;
 
   color: white;
 
@@ -29,7 +29,7 @@ export const SmallNav = styled(motion.nav)`
 
   width: 100%;
   padding: 20px 30px;
-  background-color: ${(props) => props.theme.bgColor};
+  background-color: transparent;
 
   color: white;
 

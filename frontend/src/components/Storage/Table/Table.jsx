@@ -1,18 +1,26 @@
 // modules
 import {useMemo} from "react";
-import {useTable} from "react-table";
+import {useTable, useFlexLayout, useResizeColumns} from "react-table";
 // table
-import {COLUMNS} from "./columns";
+import {COLUMNS} from "./config/columns";
 // style
 import {CheckboxWrapper, Table} from "./TableStyle";
-import statusHooks from "./StatusHooks";
-import actionsHook from "./ActionsHooks";
+import statusHooks from "./hooks/StatusHooks";
+import actionsHook from "./hooks/ActionsHooks";
 
 const StorageTable = ({documents}) => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => {
     return documents;
   }, []);
+  const defaultColumn = useMemo(
+    () => ({
+      minWidth: 60,
+      width: 100,
+      maxWidth: Number.MAX_SAFE_INTEGER,
+    }),
+    []
+  );
 
   const {
     getTableProps,
@@ -25,13 +33,16 @@ const StorageTable = ({documents}) => {
     {
       columns,
       data,
+      defaultColumn,
       initialState: {
         pageIndex: 0,
         hiddenColumns: ["id", "UserId1", "UserId2", "UserId3", "UserId4"],
       },
     },
     statusHooks,
-    actionsHook
+    actionsHook,
+    useFlexLayout,
+    useResizeColumns
   );
 
   return (
@@ -64,8 +75,23 @@ const StorageTable = ({documents}) => {
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
-              {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>{column.render("Header")}</th>
+              {headerGroup.headers.map((column, index) => (
+                <th {...column.getHeaderProps()}>
+                  {/* column header text */}
+                  {column.render("Header")}
+
+                  {/* column width controller */}
+                  {column.canResize &&
+                  index !== headerGroup.headers.length - 1 ? (
+                    <div
+                      {...column.getResizerProps()}
+                      className={`resizer ${
+                        column.isResizing ? "isResizing" : ""
+                      }`}
+                      onClick={(event) => event.stopPropagation()}
+                    />
+                  ) : null}
+                </th>
               ))}
             </tr>
           ))}

@@ -4,7 +4,6 @@ const StatusWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0.2rem;
 `;
 
 const Status = styled.div`
@@ -14,12 +13,12 @@ const Status = styled.div`
 
   background-color: ${(props) => props.color};
   border-radius: 6px;
+  border: none;
 
   width: 5rem;
   height: 3.4rem;
 
   transition: 0.1s;
-  border: none;
 
   & span {
     color: black;

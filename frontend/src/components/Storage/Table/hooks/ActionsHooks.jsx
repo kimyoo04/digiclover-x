@@ -12,14 +12,17 @@ const ActionWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 1rem;
-  padding: 0.2rem;
 `;
 
 const DeleteButton = styled(Button)`
+  width: auto;
+  min-width: 4rem;
   height: 3.4rem;
 `;
 
 const ModalButton = styled(Button)`
+  width: auto;
+  min-width: 4rem;
   height: 3.4rem;
 
   & i {
