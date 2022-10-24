@@ -1,3 +1,4 @@
+import {breakpoints} from "@components/Util/breakPoints";
 import styled from "styled-components";
 
 export const Table = styled.table`
@@ -7,18 +8,20 @@ export const Table = styled.table`
   th,
   td,
   tfoot {
+    display: flex;
+    align-items: center;
     font-size: 1.4rem;
+    ${breakpoints("font-size", "rem", [{300: 1.2}, {600: 1.4}])}
     color: ${(props) => props.theme.textColor};
     padding: 0.8rem;
+    vertical-align: middle;
+    border-bottom: 1px solid ${(props) => props.theme.grayscale5Color};
   }
 
   th {
-    border-bottom: 1px solid ${(props) => props.theme.grayscale5Color};
   }
 
   td {
-    border-bottom: 1px solid ${(props) => props.theme.grayscale5Color};
-    justify-content: space-between;
   }
 
   & tr {
@@ -42,7 +45,7 @@ export const Table = styled.table`
   & tr td:nth-child(2),
   & tr td:last-child {
     padding: auto;
-    text-align: center;
+    justify-content: center;
   }
 
   /* column resize class */

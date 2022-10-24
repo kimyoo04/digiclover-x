@@ -16,8 +16,8 @@ const StorageTable = ({documents}) => {
   }, []);
   const defaultColumn = useMemo(
     () => ({
-      minWidth: 60,
-      width: 100,
+      minWidth: 20,
+      width: 40,
       maxWidth: Number.MAX_SAFE_INTEGER,
     }),
     []

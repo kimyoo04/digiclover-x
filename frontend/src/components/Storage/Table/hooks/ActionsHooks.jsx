@@ -6,26 +6,41 @@ import Button from "@components/Style/buttons";
 // firebase
 import {deleteDoc, doc} from "firebase/firestore";
 import {dbService} from "src/fbase";
+import {breakpoints} from "@components/Util/breakPoints";
 
 const ActionWrapper = styled.div`
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.6rem;
 `;
 
 const DeleteButton = styled(Button)`
-  width: auto;
-  min-width: 4rem;
-  height: 3.4rem;
-`;
-
-const ModalButton = styled(Button)`
-  width: auto;
-  min-width: 4rem;
+  width: 100%;
   height: 3.4rem;
 
   & i {
+    ${breakpoints("font-size", "rem", [
+      {300: 1},
+      {400: 1.2},
+      {500: 1.4},
+      {600: 1.6},
+    ])}
+  }
+`;
+
+const ModalButton = styled(Button)`
+  width: 100%;
+  height: 3.4rem;
+
+  & i {
+    ${breakpoints("font-size", "rem", [
+      {300: 1},
+      {400: 1.2},
+      {500: 1.4},
+      {600: 1.6},
+    ])}
   }
 `;
 
@@ -57,7 +72,7 @@ const ActionButtons = ({row}) => {
   );
 };
 
-const actionHooks = (hooks) => {
+const ActionHooks = (hooks) => {
   hooks.visibleColumns.push((columns) => [
     ...columns,
     {
@@ -70,4 +85,4 @@ const actionHooks = (hooks) => {
   ]);
 };
 
-export default actionHooks;
+export default ActionHooks;

@@ -17,5 +17,5 @@ export const breakpoints = (
     `);
   }, "");
 
-  return css(breakpointProps);
+  return css(() => breakpointProps);
 };

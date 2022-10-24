@@ -33,7 +33,7 @@ const HeaderAuth = () => {
 
   const navigate = useNavigate();
 
-  // 620px 이하 사이즈 체크 기능
+  // 690px 이하 사이즈 체크 기능
   const isMobile = useCheckMobile();
 
   // 로그아웃 기능
@@ -42,6 +42,7 @@ const HeaderAuth = () => {
     signOut(authService);
   }
 
+  // navigation hidden 유무 체크
   function scrollNav() {
     if (scrollY.get() < scrollY.getPrevious()) {
       setHidden(false);
@@ -50,6 +51,7 @@ const HeaderAuth = () => {
     }
   }
 
+  // 스크롤 트리거
   useEffect(() => {
     return scrollY.onChange(() => scrollNav());
   });
