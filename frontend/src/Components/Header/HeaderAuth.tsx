@@ -1,4 +1,6 @@
 // modules
+import {useEffect, useState} from "react";
+import {useScroll} from "framer-motion";
 import {Outlet, useNavigate} from "react-router-dom";
 // public
 import logo from "@public/assets/img/logo.png";
@@ -26,6 +28,9 @@ import {authService} from "src/fbase";
 import Footer from "@components/Footer";
 
 const HeaderAuth = () => {
+  const {scrollY} = useScroll();
+  const [hidden, setHidden] = useState(false);
+
   const navigate = useNavigate();
 
   // 620px 이하 사이즈 체크 기능
@@ -37,10 +42,27 @@ const HeaderAuth = () => {
     signOut(authService);
   }
 
+  function scrollNav() {
+    if (scrollY.get() < scrollY.getPrevious()) {
+      setHidden(false);
+    } else if (scrollY.get() > 20 && scrollY.get() > scrollY.getPrevious()) {
+      setHidden(true);
+    }
+  }
+
+  useEffect(() => {
+    return scrollY.onChange(() => scrollNav());
+  });
+
   return (
     <>
       {isMobile ? (
-        <SmallNav variants={appear} initial="initial" animate="in" exit="out">
+        <SmallNav
+          variants={appear}
+          initial="initial"
+          animate={hidden ? "hidden" : "in"}
+          exit="out"
+        >
           <div>
             <DropDownMenu />
           </div>
@@ -55,7 +77,12 @@ const HeaderAuth = () => {
           </AuthWrapper>
         </SmallNav>
       ) : (
-        <Nav variants={appear} initial="initial" animate="in" exit="out">
+        <Nav
+          variants={appear}
+          initial="initial"
+          animate={hidden ? "hidden" : "in"}
+          exit="out"
+        >
           <MenuWrapper>
             <Link to="/home">
               <Logo src={logo} />

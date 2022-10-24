@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export const Table = styled.table`
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  border-collapse: collapse;
   width: 100%;
 
   td,
@@ -47,6 +45,7 @@ export const Table = styled.table`
     text-align: center;
   }
 
+  /* column resize class */
   .resizer {
     display: inline-block;
     border-left: 1px solid ${(props) => props.theme.bgWhiteColor};
@@ -61,9 +60,26 @@ export const Table = styled.table`
     /* prevent scroll on touch devices */
     touch-action: none;
   }
-
   .isResizing {
     background: red;
+  }
+
+  /* sticky setting */
+
+  &.sticky {
+    overflow: scroll;
+
+    thead {
+      position: sticky;
+      z-index: 1;
+      width: fit-content;
+      top: 0;
+    }
+
+    tbody {
+      position: relative;
+      z-index: 0;
+    }
   }
 `;
 

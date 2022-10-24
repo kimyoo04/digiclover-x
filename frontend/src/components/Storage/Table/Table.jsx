@@ -1,6 +1,7 @@
 // modules
 import {useMemo} from "react";
 import {useTable, useFlexLayout, useResizeColumns} from "react-table";
+import {useSticky} from "react-table-sticky";
 // table
 import {COLUMNS} from "./config/columns";
 // style
@@ -42,7 +43,8 @@ const StorageTable = ({documents}) => {
     statusHooks,
     actionsHook,
     useFlexLayout,
-    useResizeColumns
+    useResizeColumns,
+    useSticky
   );
 
   return (
@@ -71,7 +73,7 @@ const StorageTable = ({documents}) => {
       </CheckboxWrapper>
 
       {/* 테이블 */}
-      <Table {...getTableProps()}>
+      <Table className="sticky" {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
