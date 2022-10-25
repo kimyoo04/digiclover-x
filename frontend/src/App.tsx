@@ -19,7 +19,6 @@ import NoMatch from "@routes/NoMatch";
 // components
 import HeaderAuth from "@components/Header/HeaderAuth";
 import HeaderNoAuth from "@components/Header/HeaderNoAuth";
-import Footer from "@components/Footer";
 import ScrollToTop from "@components/Util/ScrollToTop";
 import AuthenticatedRoute from "@components/Auth/AuthenticatedRoute";
 import UnauthenticatedRoute from "@components/Auth/UnauthenticatedRoute";
@@ -27,7 +26,7 @@ import UnauthenticatedRoute from "@components/Auth/UnauthenticatedRoute";
 import {darkTheme, lightTheme} from "@constants/styles/theme";
 
 // firebase
-import {onAuthStateChanged} from "firebase/auth";
+import {onAuthStateChanged, signOut} from "firebase/auth";
 import {authService} from "src/fbase";
 
 function App() {
@@ -41,32 +40,38 @@ function App() {
 
   // authencation check + add User doc first time
   useEffect(() => {
-    onAuthStateChanged(authService, (user) => {
-      if (user) {
-        // 이메일 인증 유무 확인
-        if (!user.emailVerified) {
-          throw new Error("이메일 인증을 하지 않았습니다.");
+    try {
+      onAuthStateChanged(authService, (user) => {
+        if (user) {
+          // 이메일 인증 유무 확인
+          if (!user.emailVerified) {
+            alert("이메일 인증을 하지 않았습니다.");
+            throw new Error("이메일 인증을 하지 않았습니다.");
+          }
+
+          // store 에 유저 정보 저장
+          dispatch(
+            authActions.signin({
+              id: user.uid,
+              email: user.email,
+              name: user.displayName,
+            })
+          );
+          console.log("authActions signin");
+          console.log("user \n", user);
+
+          // 로그인 유지를 위한 setUser state
+          setUser(true);
+        } else {
+          dispatch(authActions.signout());
+          console.log("authActions signout");
+          setUser(false);
         }
-
-        // store 에 유저 정보 저장
-        dispatch(
-          authActions.signin({
-            id: user.uid,
-            email: user.email,
-            name: user.displayName,
-          })
-        );
-        console.log("authActions signin");
-        console.log("user \n", user);
-
-        // 로그인 유지를 위한 setUser state
-        setUser(true);
-      } else {
-        dispatch(authActions.signout());
-        console.log("authActions signout");
-        setUser(false);
-      }
-    });
+      });
+    } catch (error) {
+      console.error(error);
+      signOut(authService);
+    }
   }, [dispatch]);
 
   return (
