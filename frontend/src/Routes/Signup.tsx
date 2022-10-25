@@ -96,10 +96,23 @@ const Signup = () => {
             <Input
               {...register("email", {
                 required: "Email is required",
-                pattern: {
-                  value:
-                    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
-                  message: "Only emails allowed",
+                validate: {
+                  onlyEmail: (value) => {
+                    return (
+                      [
+                        /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+                      ].every((pattern) => pattern.test(value)) ||
+                      "Only emails allowed"
+                    );
+                  },
+                  notGmail: (value) => {
+                    return (
+                      [
+                        /^[a-z0-9](\.?[a-z0-9]){5,}((?!@g(oogle)?mail\.com).)*$/i,
+                      ].every((pattern) => pattern.test(value)) ||
+                      "gmail is not allowed"
+                    );
+                  },
                 },
               })}
               placeholder="* Email"
