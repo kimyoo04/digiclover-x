@@ -44,9 +44,9 @@ const HeaderAuth = () => {
 
   // navigation hidden 유무 체크
   function scrollNav() {
-    if (scrollY.get() < scrollY.getPrevious()) {
+    if (scrollY.get() === 0) {
       setHidden(false);
-    } else if (scrollY.get() > 20 && scrollY.get() > scrollY.getPrevious()) {
+    } else if (scrollY.get() > 1 && scrollY.get() > scrollY.getPrevious()) {
       setHidden(true);
     }
   }
