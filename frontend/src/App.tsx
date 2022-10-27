@@ -12,7 +12,7 @@ import Signup from "@routes/Signup";
 import DocumentStart from "@routes/document/Start";
 import Document from "@routes/document/Document";
 import Storage from "@routes/Storage";
-import DocumentModal from "@components/Storage/Modal/DocumentModal";
+import Modal from "@components/Storage/Modal/Modal";
 import Profile from "@routes/Profile";
 import NoMatch from "@routes/NoMatch";
 
@@ -28,6 +28,7 @@ import {darkTheme, lightTheme} from "@constants/styles/theme";
 // firebase
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {authService} from "src/fbase";
+import DocuView from "@components/Storage/Modal/DocuView";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -84,7 +85,8 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/document/start" element={<DocumentStart />} />
               <Route path="/storage" element={<Storage />}>
-                <Route path=":id" element={<DocumentModal />} />
+                <Route path="docuview/:id" element={<DocuView />} />
+                <Route path=":id" element={<Modal />} />
               </Route>
               <Route path="/profile" element={<Profile />} />
             </Route>

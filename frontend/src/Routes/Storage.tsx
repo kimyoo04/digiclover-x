@@ -7,7 +7,7 @@ import {useAppSelector} from "@app/hook";
 // services
 import {IDocumentData} from "@constants/types/document";
 // components
-import DocumentModal from "@components/Storage/Modal/DocumentModal";
+import Modal from "@components/Storage/Modal/Modal";
 import StorageTable from "@components/Storage/Table/Table";
 import {Wrapper} from "@components/layout";
 // firebase
@@ -21,6 +21,7 @@ import {
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
 import {Text} from "@components/Style/text";
+import Preview from "@components/Storage/Modal/DocuView";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -30,6 +31,9 @@ const StorageWrapper = styled(Wrapper)`
 
 const Storage = () => {
   const docuMatch: PathMatch<string> | null = useMatch("/storage/:id");
+  const previewMatch: PathMatch<string> | null = useMatch(
+    "/storage/docuview/:id"
+  );
   // const [pages, setPages] = useState(1);
   // const [isLastPage, setIsLastPage] = useState(false);
 
@@ -91,7 +95,8 @@ const Storage = () => {
       )}
 
       {/* modal */}
-      {docuMatch ? <DocumentModal /> : null}
+      {docuMatch ? <Modal /> : null}
+      {previewMatch ? <Preview /> : null}
     </StorageWrapper>
   );
 };

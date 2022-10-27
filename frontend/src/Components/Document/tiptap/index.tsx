@@ -5,7 +5,6 @@ import {useEditor, EditorContent} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
 import FontFamily from "@tiptap/extension-font-family";
-import "./tiptap.scss";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
@@ -17,6 +16,7 @@ import {
   deptForm,
 } from "@components/Document/docukind";
 // tiptap components
+import "./tiptap.scss";
 import MenuBar from "./MenuBar";
 import TitleForm from "./TitleForm";
 import {FontSize} from "./FontSize";

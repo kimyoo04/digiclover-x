@@ -1,80 +1,19 @@
 // modules
-import styled from "styled-components";
-// components
-import {Text} from "@components/Style/text";
 import moment from "moment";
+// types
+import {IModalDataArr} from "@constants/types/modal";
+// styles
+import {
+  DateText,
+  HText,
+  SignatureImg,
+  UserInfoWrapper,
+  Wrapper,
+} from "./LoggingStyles";
 
-const LogginWrapper = styled.div`
-  display: flex;
-  flex-flow: column wrap;
-  justify-content: flex-start;
-  gap: 10px;
-  margin-bottom: 20px;
-`;
-
-const UserInfoWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  & div {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    flex-direction: column;
-  }
-
-  & div:first-child {
-    align-items: flex-start;
-
-    font-weight: 500;
-  }
-
-  & div:first-child {
-    align-items: flex-start;
-  }
-`;
-
-const DateText = styled(Text)`
-  display: block;
-  color: ${(props) => props.theme.textWhiteColor};
-`;
-
-const HText = styled(Text)`
-  display: block;
-  color: ${(props) => props.theme.textWhiteColor};
-  font-size: 18px;
-  font-weight: 700;
-`;
-
-const SignatureImg = styled.img`
-  width: 200px;
-  height: 100px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-`;
-
-interface IMergedDataArr {
-  id: string;
-  DocumentId: string;
-
-  isSigned: boolean;
-  hashValue: string;
-  imgUrl: string;
-
-  createdAt?: number;
-  updatedAt?: number;
-
-  UserId: string;
-  uid: string;
-  company: string;
-  email: string;
-  phone: string;
-  name: string;
-}
-
-const ModalLogging = ({data}: {data: IMergedDataArr}) => {
+const Logging = ({data}: {data: IModalDataArr}) => {
   return (
-    <LogginWrapper>
+    <Wrapper>
       <UserInfoWrapper>
         <div>
           <span>Company :</span>
@@ -125,10 +64,10 @@ const ModalLogging = ({data}: {data: IMergedDataArr}) => {
           <DateText>미완료</DateText>
         </>
       )}
-    </LogginWrapper>
+    </Wrapper>
   );
 };
 
-export default ModalLogging;
+export default Logging;
 /* modalData[index].updatedAt */
 /* modalData[index].imgUrl */
