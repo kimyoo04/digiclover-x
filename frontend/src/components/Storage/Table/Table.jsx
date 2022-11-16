@@ -1,6 +1,11 @@
 // modules
 import {useMemo} from "react";
-import {useTable, useFlexLayout, useResizeColumns} from "react-table";
+import {
+  useTable,
+  useFlexLayout,
+  useResizeColumns,
+  useSortBy,
+} from "react-table";
 import {useSticky} from "react-table-sticky";
 // table
 import {COLUMNS} from "./config/columns";
@@ -44,6 +49,7 @@ const StorageTable = ({documents}) => {
     actionsHook,
     useFlexLayout,
     useResizeColumns,
+    useSortBy,
     useSticky
   );
 
@@ -78,9 +84,18 @@ const StorageTable = ({documents}) => {
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column, index) => (
-                <th {...column.getHeaderProps()}>
+                <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {/* column header text */}
                   {column.render("Header")}
+
+                  {/* column sorting */}
+                  <span>
+                    {column.isSorted
+                      ? column.isSortedDesc
+                        ? "yes"
+                        : "no"
+                      : ""}
+                  </span>
 
                   {/* column width controller */}
                   {column.canResize &&
