@@ -75,6 +75,12 @@ a {
 div {
   box-sizing: border-box;
 }
+
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+}
+
 `;
 
 const client = new QueryClient();
