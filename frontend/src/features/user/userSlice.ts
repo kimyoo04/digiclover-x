@@ -4,7 +4,7 @@ import type {PayloadAction} from "@reduxjs/toolkit";
 // constants
 import http from "@constants/http-common";
 
-type User = {
+export type User = {
   id: number;
   company: string;
   name: string;

@@ -15,8 +15,6 @@ import {
   collection,
   documentId,
   getDocs,
-  limit,
-  onSnapshot,
   orderBy,
   query,
   where,
@@ -25,33 +23,12 @@ import {dbService} from "src/fbase";
 import {Text} from "@components/Style/text";
 import Preview from "@components/Storage/Modal/DocuView";
 import chunkArray from "@components/Util/chunkArray";
+import Page from "@components/Storage/Page";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
   padding-right: 3rem;
   padding-left: 3rem;
-`;
-
-const PageWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 4rem;
-
-  & span {
-    font-size: 20px;
-    font-weight: 600;
-    color: ${(props) => props.theme.bgWhiteColor};
-  }
-  & i {
-    font-size: 20px;
-    font-weight: 600;
-    color: ${(props) => props.theme.bgWhiteColor};
-  }
-
-  & i.disabled {
-    color: ${(props) => props.theme.grayscale3Color};
-  }
 `;
 
 const Storage = () => {
@@ -60,64 +37,56 @@ const Storage = () => {
     "/storage/docuview/:id"
   );
 
-  const goPrev = () => {
-    setPageNum(pageNum - 1);
-  };
-  const goNext = () => {
-    setPageNum(pageNum + 1);
-  };
-
   // firebase
-  const [documentIds, setDocumentIds] = useState<string[]>([]);
   const [documents, setDocuments] = useState<IDocumentData[] | null>(null);
   const [pageNum, setPageNum] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
-    const getDocumentIds = async () => {
+    const getDocuments = async () => {
       let documentsIdArr: string[] = [];
+      let documentsArr: any = [];
 
-      // 유저 아이디와 일치하는 서명 찾기
+      // 1. 유저 아이디와 일치하는 서명 찾기
       const signautesQuery = query(
         collection(dbService, "signatures"),
         where("UserId", "==", user.id),
         orderBy("createdAt", "desc")
       );
 
-      // 서명에서 DocumentId만 추출 후 배열 생성
+      // 2. 서명에서 DocumentId만 추출 후 배열 생성
       const signautesQuerySnapshot = await getDocs(signautesQuery);
       signautesQuerySnapshot.forEach((doc) => {
         documentsIdArr.push(doc.data().DocumentId);
       });
 
+      // 3. 10개씩 배열 분할
       let chunks = chunkArray(documentsIdArr, 10);
       setLastPage(Math.ceil(chunks.length));
-    };
 
-    const getDocuments = async () => {
-      const documentsQuery = query(
-        collection(dbService, "documents"),
-        where(documentId(), "in", documentIds)
-      );
+      // 4. 서명했던 or 서명할 문서가 있다면
+      if (documentsIdArr.length !== 0) {
+        // 5. chunks[pageNum-1]로 쿼리 생성
+        const documentsQuery = query(
+          collection(dbService, "documents"),
+          where(documentId(), "in", chunks[pageNum - 1])
+        );
 
-      // DocumentId로 이루어진 배열로 쿼리 생성
-      onSnapshot(documentsQuery, (querySnapshot) => {
-        const documentsArr: any = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
+        // 6. 페이지 번호마다 10개의 문서 조회 및 documents에 저장
+        const documentsQuerySnapshot = await getDocs(documentsQuery);
+        documentsQuerySnapshot.forEach((doc) => {
+          documentsArr.push({id: doc.id, ...doc.data()});
+        });
         setDocuments(documentsArr);
-      });
+      }
     };
 
-    const getData = async () => {
-      await getDocumentIds();
-      await getDocuments();
-    };
-
-    getData();
-  }, [pageNum]);
+    // 함수 호출
+    getDocuments().catch((error) =>
+      console.error("getDocuments - failure\n", error)
+    );
+  }, [user.id, pageNum]);
 
   return (
     <StorageWrapper>
@@ -133,29 +102,7 @@ const Storage = () => {
       {previewMatch ? <Preview /> : null}
 
       {/* pages */}
-      <PageWrapper>
-        {pageNum === 1 ? (
-          <>
-            <i className="ri-arrow-left-s-fill disabled"></i>
-          </>
-        ) : (
-          <>
-            <i className="ri-arrow-left-s-fill" onClick={goPrev}></i>
-          </>
-        )}
-
-        <span>{pageNum}</span>
-
-        {pageNum === lastPage ? (
-          <>
-            <i className="ri-arrow-right-s-fill disabled"></i>
-          </>
-        ) : (
-          <>
-            <i className="ri-arrow-right-s-fill" onClick={goNext}></i>
-          </>
-        )}
-      </PageWrapper>
+      <Page pageNum={pageNum} lastPage={lastPage} setPageNum={setPageNum} />
     </StorageWrapper>
   );
 };

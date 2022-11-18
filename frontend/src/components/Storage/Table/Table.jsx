@@ -18,7 +18,7 @@ const StorageTable = ({documents}) => {
   const columns = useMemo(() => COLUMNS, []);
   const data = useMemo(() => {
     return documents;
-  }, []);
+  }, [documents]);
   const defaultColumn = useMemo(
     () => ({
       minWidth: 20,
@@ -43,6 +43,12 @@ const StorageTable = ({documents}) => {
       initialState: {
         pageIndex: 0,
         hiddenColumns: ["id", "UserId1", "UserId2", "UserId3", "UserId4"],
+        sortBy: [
+          {
+            id: "createdAt",
+            desc: true,
+          },
+        ],
       },
     },
     statusHooks,
@@ -86,16 +92,19 @@ const StorageTable = ({documents}) => {
               {headerGroup.headers.map((column, index) => (
                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {/* column header text */}
-                  {column.render("Header")}
-
+                  <div>{column.render("Header")}</div>
                   {/* column sorting */}
-                  <span>
-                    {column.isSorted
-                      ? column.isSortedDesc
-                        ? "yes"
-                        : "no"
-                      : ""}
-                  </span>
+                  <div>
+                    {column.isSorted ? (
+                      column.isSortedDesc ? (
+                        <i className="ri-arrow-down-s-line"></i>
+                      ) : (
+                        <i className="ri-arrow-up-s-line"></i>
+                      )
+                    ) : (
+                      ""
+                    )}
+                  </div>
 
                   {/* column width controller */}
                   {column.canResize &&

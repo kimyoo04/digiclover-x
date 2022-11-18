@@ -1,26 +1,36 @@
 import React from "react";
-import Button from "@components/Style/buttons";
 import styled from "styled-components";
 
 const PageWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 4rem;
+  gap: 6rem;
 
   & span {
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 500;
     color: ${(props) => props.theme.bgWhiteColor};
   }
-  & i {
-    font-size: 20px;
-    font-weight: 600;
-    color: ${(props) => props.theme.bgWhiteColor};
-  }
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
 
-  & i.disabled {
-    color: ${(props) => props.theme.grayscale3Color};
+    & i {
+      font-size: 2rem;
+      font-weight: 500;
+      color: ${(props) => props.theme.bgWhiteColor};
+    }
+
+    & i.bigger {
+      font-size: 2.8rem;
+    }
+
+    & i.disabled {
+      color: ${(props) => props.theme.grayscale3Color};
+    }
   }
 `;
 
@@ -49,29 +59,29 @@ const Page = ({
   return (
     <PageWrapper>
       {pageNum === 1 ? (
-        <>
+        <div>
           <i className="ri-skip-back-fill disabled"></i>
-          <i className="ri-arrow-left-s-fill disabled"></i>
-        </>
+          <i className="ri-arrow-left-s-fill bigger disabled"></i>
+        </div>
       ) : (
-        <>
+        <div>
           <i className="ri-skip-back-fill" onClick={goFirst}></i>
-          <i className="ri-arrow-left-s-fill" onClick={goPrev}></i>
-        </>
+          <i className="ri-arrow-left-s-fill bigger" onClick={goPrev}></i>
+        </div>
       )}
 
       <span>{pageNum}</span>
 
       {pageNum === lastPage ? (
-        <>
-          <i className="ri-arrow-right-s-fill disabled"></i>
+        <div>
+          <i className="ri-arrow-right-s-fill bigger disabled"></i>
           <i className="ri-skip-forward-fill disabled"></i>
-        </>
+        </div>
       ) : (
-        <>
-          <i className="ri-arrow-right-s-fill" onClick={goNext}></i>
+        <div>
+          <i className="ri-arrow-right-s-fill bigger" onClick={goNext}></i>
           <i className="ri-skip-forward-fill" onClick={goLast}></i>
-        </>
+        </div>
       )}
     </PageWrapper>
   );

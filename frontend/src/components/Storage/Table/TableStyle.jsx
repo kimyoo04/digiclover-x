@@ -19,6 +19,9 @@ export const Table = styled.table`
   }
 
   th {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   td {
