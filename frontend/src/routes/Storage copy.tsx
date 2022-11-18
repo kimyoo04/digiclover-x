@@ -15,7 +15,6 @@ import {
   collection,
   documentId,
   getDocs,
-  limit,
   onSnapshot,
   orderBy,
   query,
@@ -59,23 +58,28 @@ const Storage = () => {
   const previewMatch: PathMatch<string> | null = useMatch(
     "/storage/docuview/:id"
   );
-
+  const goFirst = () => {
+    setPageNum(1);
+  };
   const goPrev = () => {
     setPageNum(pageNum - 1);
   };
   const goNext = () => {
     setPageNum(pageNum + 1);
   };
+  const goLast = () => {
+    setPageNum(lastPage);
+  };
 
   // firebase
-  const [documentIds, setDocumentIds] = useState<string[]>([]);
   const [documents, setDocuments] = useState<IDocumentData[] | null>(null);
   const [pageNum, setPageNum] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
-    const getDocumentIds = async () => {
+    // 1----------------------------------------------------
+    const getDocumentsArr = async () => {
       let documentsIdArr: string[] = [];
 
       // 유저 아이디와 일치하는 서명 찾기
@@ -93,30 +97,35 @@ const Storage = () => {
 
       let chunks = chunkArray(documentsIdArr, 10);
       setLastPage(Math.ceil(chunks.length));
+
+      // 서명했던 or 서명할 문서가 있다면
+      if (documentsIdArr.length !== 0) {
+        // DocumentId로 이루어진 배열로 쿼리 생성
+        const documentsQuery = query(
+          collection(dbService, "documents"),
+          where(documentId(), "in", chunks[pageNum - 1])
+        );
+        console.log(chunks[pageNum - 1]);
+
+        // DocumentId로 이루어진 배열로 쿼리 생성
+        onSnapshot(
+          documentsQuery,
+          {includeMetadataChanges: true},
+          (snapshot) => {
+            const documentsArr: any = snapshot.docs.map((doc) => ({
+              id: doc.id,
+              ...doc.data(),
+            }));
+            setDocuments(documentsArr);
+          }
+        );
+      }
     };
 
-    const getDocuments = async () => {
-      const documentsQuery = query(
-        collection(dbService, "documents"),
-        where(documentId(), "in", documentIds)
-      );
-
-      // DocumentId로 이루어진 배열로 쿼리 생성
-      onSnapshot(documentsQuery, (querySnapshot) => {
-        const documentsArr: any = querySnapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setDocuments(documentsArr);
-      });
-    };
-
-    const getData = async () => {
-      await getDocumentIds();
-      await getDocuments();
-    };
-
-    getData();
+    // 함수 호출
+    getDocumentsArr().catch((error) =>
+      console.error("getDocumentsArr - failure\n", error)
+    );
   }, [pageNum]);
 
   return (
@@ -136,10 +145,12 @@ const Storage = () => {
       <PageWrapper>
         {pageNum === 1 ? (
           <>
+            <i className="ri-skip-back-fill disabled"></i>
             <i className="ri-arrow-left-s-fill disabled"></i>
           </>
         ) : (
           <>
+            <i className="ri-skip-back-fill" onClick={goFirst}></i>
             <i className="ri-arrow-left-s-fill" onClick={goPrev}></i>
           </>
         )}
@@ -149,10 +160,12 @@ const Storage = () => {
         {pageNum === lastPage ? (
           <>
             <i className="ri-arrow-right-s-fill disabled"></i>
+            <i className="ri-skip-forward-fill disabled"></i>
           </>
         ) : (
           <>
             <i className="ri-arrow-right-s-fill" onClick={goNext}></i>
+            <i className="ri-skip-forward-fill" onClick={goLast}></i>
           </>
         )}
       </PageWrapper>
