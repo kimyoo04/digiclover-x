@@ -1,70 +1,22 @@
 // modules
 import {useForm} from "react-hook-form";
-import styled from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
 // components
 import Button from "@components/Style/buttons";
-import {
-  ErrorMessage,
-  FormWrapper,
-  Input,
-  Label,
-} from "@components/Document/documentStyles";
+import {ErrorMessage} from "@components/Document/documentStyles";
 // types
 import {DocuKind, IDocuKindForm} from "@constants/types/document";
-
-const FormRadioWrapper = styled(FormWrapper)``;
-
-const Form = styled.form`
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 20px;
-  margin-bottom: 20px;
-`;
-
-const RadioLabel = styled(Label)`
-  justify-self: stretch;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  width: 100%;
-  height: 100px;
-  margin: 0;
-
-  background-color: white;
-  border-radius: 6px;
-
-  font-size: 22px;
-  font-weight: 700;
-
-  cursor: pointer;
-`;
-
-const Span = styled.span`
-  transition: 0.2s;
-  white-space: nowrap;
-`;
-
-const RadioInput = styled(Input)`
-  display: none;
-
-  &:checked + Span {
-    transform: scale(1.2);
-    color: ${(props) => props.theme.primaryGreenColor};
-  }
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-`;
+// styles
+import {
+  ButtonWrapper,
+  Form,
+  FormRadioWrapper,
+  RadioInput,
+  RadioLabel,
+  Span,
+} from "./DocukindStyle";
 
 const Docukind = () => {
   const dispatch = useAppDispatch();

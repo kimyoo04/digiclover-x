@@ -1,6 +1,5 @@
 // modules
 import {useEffect} from "react";
-import styled from "styled-components";
 import {useEditor, EditorContent} from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import TextAlign from "@tiptap/extension-text-align";
@@ -19,33 +18,9 @@ import {
 import "./tiptap.scss";
 import MenuBar from "./MenuBar";
 import TitleForm from "./TitleForm";
-import {FontSize} from "./FontSize";
-
-const WritingWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Paper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: white;
-  padding: 40px 20px;
-  width: 100%;
-  /* 추후 종단점 별 Text Editor 폭 수정 */
-  max-width: 900px;
-  min-width: 900px;
-  min-height: 1000px;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-top: none;
-`;
-
-const EditorWrap = styled.div`
-  width: 100%;
-  padding: 0 40px;
-`;
+import {FontSize} from "./FontSizeExtension";
+// styles
+import {EditorWrap, Paper, WritingWrapper} from "./indexStyle";
 
 interface IIsEditable {
   isEditable: boolean;

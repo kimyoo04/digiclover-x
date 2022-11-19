@@ -2,82 +2,23 @@
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {useFieldArray, useForm} from "react-hook-form";
-import styled from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
 // components
 import Button from "@components/Style/buttons";
-import {
-  ErrorMessage,
-  FormWrapper,
-  Input,
-} from "@components/Document/documentStyles";
+import {ErrorMessage, FormWrapper} from "@components/Document/documentStyles";
 import {Row} from "@components/layout";
-
-const ContractorWrapper = styled.ul`
-  background-color: ${(props) => props.theme.bgWhiteColor};
-  margin-bottom: 20px;
-  padding: 20px;
-  border-radius: 10px;
-
-  & li {
-    display: flex;
-    margin-bottom: 10px;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-between;
-  }
-`;
-
-const InputHeader = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.4rem;
-
-  & span {
-    color: ${(props) => props.theme.textWhiteColor};
-    font-weight: 700;
-  }
-
-  & button {
-    background-color: transparent;
-    border: none;
-    padding: 0;
-
-    & i {
-      font-size: 20px;
-      font-weight: 700;
-      color: ${(props) => props.theme.textWhiteColor};
-      cursor: pointer;
-    }
-  }
-`;
-
-const EditButtonWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-`;
-const PlusButton = styled(Button)`
-  background-color: ${(props) => props.theme.primaryBlueColor};
-  & i {
-    font-size: 20px;
-  }
-`;
-const ResetButton = styled(Button)`
-  background-color: white;
-`;
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  margin-top: 20px;
-`;
-
-const ContractorInput = styled(Input)``;
+// style
+import {
+  ButtonWrapper,
+  ContractorInput,
+  ContractorWrapper,
+  EditButtonWrapper,
+  InputHeader,
+  PlusButton,
+  ResetButton,
+} from "./ContractorStyle";
 
 const Contractor = () => {
   // 버튼 4명까지 추가 되도록 설정

@@ -16,6 +16,7 @@ const ButtonWrapper = styled.div`
   max-width: 900px;
   margin-top: 20px;
 `;
+
 const SignaturePlacing = () => {
   const dispatch = useAppDispatch();
 
@@ -28,13 +29,15 @@ const SignaturePlacing = () => {
     <div>
       <Tiptap isEditable={false} />
       <ButtonWrapper>
-        <Button
+        {/* 서명 후 문서 수정 불가능 하기 때문에 주석 처리함 */}
+        {/* <Button
           onClick={prevClick}
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}
         >
           Prev
-        </Button>
+        </Button> */}
+
         <Button
           onClick={nextClick}
           whileHover={{scale: 1.1}}

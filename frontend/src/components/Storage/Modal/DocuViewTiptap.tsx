@@ -7,7 +7,7 @@ import TextAlign from "@tiptap/extension-text-align";
 import FontFamily from "@tiptap/extension-font-family";
 // tiptap components
 import "@components/Document/tiptap/tiptap.scss";
-import {FontSize} from "@components/Document/tiptap/FontSize";
+import {FontSize} from "@components/Document/tiptap/FontSizeExtension";
 // firebase
 
 const WritingWrapper = styled.div`

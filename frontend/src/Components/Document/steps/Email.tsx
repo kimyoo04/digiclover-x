@@ -1,7 +1,6 @@
 // modules
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import styled from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
@@ -13,33 +12,13 @@ import Button from "@components/Style/buttons";
 import EmailContractorCard from "@components/Document/EmailContractorCard";
 // controllers
 import {PostOneDocument} from "@controllers/documents.controller";
-
-const Main = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-flow: column wrap;
-`;
-
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-  width: 100%;
-  margin-bottom: 20px;
-`;
-
-const AgreeLabel = styled.label`
-  display: block;
-  font-weight: 500;
-  margin-bottom: 20px;
-  color: ${(props) => props.theme.textColor};
-`;
-
-const AgreeInput = styled.input`
-  margin-left: 20px;
-`;
+// styles
+import {
+  AgreeInput,
+  AgreeLabel,
+  ButtonWrapper,
+  EmailWrapper,
+} from "./EmailStyle";
 
 const Email = () => {
   const [isCheck, setIsCheck] = useState(false);
@@ -56,16 +35,15 @@ const Email = () => {
 
       // 문서 튜플 저장, 계약자별 서명 튜플 저장
       // await DocumentDataService.createOneDocument(document);
-      //--------------------------------------------------------------
       await PostOneDocument(user.id, document).catch((err) =>
         console.error(err)
       );
-      //--------------------------------------------------------------
 
       // documentSlice의 state 초기화
       dispatch(documentActions.initialDocumentData());
 
-      navigate(`/storage`, {replace: true}); // 이메일 전송 후 뒤로가기 방지
+      // 이메일 전송 후 뒤로가기 방지
+      navigate(`/storage`, {replace: true});
     } else {
       dispatch(
         alertActions.alert({
@@ -79,7 +57,7 @@ const Email = () => {
   const toggleChecking = () => setIsCheck((prev) => !prev);
 
   return (
-    <Main>
+    <EmailWrapper>
       {document.contractors.map((contractor: IContractor, index: number) => {
         return <EmailContractorCard key={index} {...contractor} />;
       })}
@@ -103,7 +81,7 @@ const Email = () => {
           Finish
         </Button>
       </ButtonWrapper>
-    </Main>
+    </EmailWrapper>
   );
 };
 
