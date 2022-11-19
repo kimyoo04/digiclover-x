@@ -26,7 +26,10 @@ const Writing = () => {
 
   return (
     <>
+      {/* 텍스트 에디터 */}
       <Tiptap isEditable={true} />
+
+      {/* 전 후 버튼 */}
       <ButtonWrapper>
         <Button
           onClick={prevClick}
