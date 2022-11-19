@@ -72,6 +72,7 @@ const Storage = () => {
           collection(dbService, "documents"),
           where(documentId(), "in", chunks[pageNum - 1])
         );
+        console.log(chunks);
 
         // 6. 페이지 번호마다 10개의 문서 조회 및 documents에 저장
         const documentsQuerySnapshot = await getDocs(documentsQuery);

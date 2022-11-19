@@ -16,6 +16,7 @@ export const Table = styled.table`
     padding: 0.8rem;
     vertical-align: middle;
     border-bottom: 1px solid ${(props) => props.theme.grayscale5Color};
+    overflow: hidden;
   }
 
   th {

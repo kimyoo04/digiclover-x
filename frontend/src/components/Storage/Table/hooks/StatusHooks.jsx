@@ -67,7 +67,7 @@ const statusHooks = (hooks) => {
             return <DocuStatusIcon color={"#E66F6F"} text={"거절"} />;
           // - 진행중 (흰색) - 문서의 UserId2~4 중 0 이 있는 경우
           case "0":
-            return <DocuStatusIcon color={"whitesmoke"} text={"진행중"} />;
+            return <DocuStatusIcon color={"whitesmoke"} text={"진행 중"} />;
           // - 완료 (초록색) - 문서의 UserId2~4 중 0 이 없는 경우
           case null:
             return <DocuStatusIcon color={"#44A26C"} text={"완료"} />;
