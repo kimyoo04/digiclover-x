@@ -45,7 +45,6 @@ const ActionButtons = ({row}) => {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
 
-  // 나중에 deletedAt: utc time 추가하는 것으로 대체하기
   const onDeleteAlert = async (documentId) => {
     if (
       window.confirm(
@@ -87,11 +86,10 @@ const ActionButtons = ({row}) => {
       </ModalButton>
 
       {/* 유저가 UserId1과 일치할 경우만 활성화하기 */}
-      {row.values.contractors[0].userId === user.id ? (
-        <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
-          <i className="ri-delete-bin-line"></i>
-        </DeleteButton>
-      ) : null}
+
+      <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
+        <i className="ri-delete-bin-line"></i>
+      </DeleteButton>
     </ActionWrapper>
   );
 };
