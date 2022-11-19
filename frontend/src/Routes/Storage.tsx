@@ -9,12 +9,14 @@ import {IDocumentData} from "@constants/types/document";
 // components
 import Modal from "@components/Storage/Modal/Modal";
 import StorageTable from "@components/Storage/StorageTable/Table";
+import OnGoingTable from "@components/Storage/OnGoingTable/Table";
 import {Wrapper} from "@components/layout";
 // firebase
 import {
   collection,
   documentId,
   getDocs,
+  limit,
   orderBy,
   query,
   where,
@@ -38,10 +40,35 @@ const Storage = () => {
   );
 
   // firebase
+  const [onGoings, setOnGoings] = useState<IDocumentData[] | null>(null);
   const [documents, setDocuments] = useState<IDocumentData[] | null>(null);
   const [pageNum, setPageNum] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const user = useAppSelector((state) => state.auth.user);
+
+  useEffect(() => {
+    const getOnGoings = async () => {
+      let onGoingsArr: any = [];
+
+      const onGoingsQuery = query(
+        collection(dbService, "ongoings"),
+        where("UserId", "==", user.id),
+        orderBy("updatedAt", "desc"),
+        limit(5)
+      );
+
+      const onGoingsQuerySnapshot = await getDocs(onGoingsQuery);
+      onGoingsQuerySnapshot.forEach((doc) => {
+        onGoingsArr.push({id: doc.id, ...doc.data()});
+      });
+      setOnGoings(onGoingsArr);
+    };
+
+    // 함수 호출
+    getOnGoings().catch((error) =>
+      console.error("getOnGoings - failure\n", error)
+    );
+  }, [user.id]);
 
   useEffect(() => {
     const getDocuments = async () => {
@@ -91,7 +118,10 @@ const Storage = () => {
 
   return (
     <StorageWrapper>
-      {/* table */}
+      {/* OnGoingTable */}
+      {onGoings && pageNum === 1 ? <OnGoingTable documents={onGoings} /> : null}
+
+      {/* StorageTable */}
       {documents ? (
         <StorageTable documents={documents} />
       ) : (
