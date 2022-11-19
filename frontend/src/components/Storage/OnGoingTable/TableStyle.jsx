@@ -15,7 +15,7 @@ export const Table = styled.table`
     color: ${(props) => props.theme.textColor};
     padding: 0.8rem;
     vertical-align: middle;
-    border-bottom: 1px solid ${(props) => props.theme.grayscale5Color};
+    border-bottom: 1px solid ${(props) => props.theme.grayscale4Color};
     overflow: hidden;
   }
 
@@ -55,9 +55,8 @@ export const Table = styled.table`
   /* column resize class */
   .resizer {
     display: inline-block;
-    border-left: 1px solid ${(props) => props.theme.bgWhiteColor};
-    border-right: 1px solid ${(props) => props.theme.bgWhiteColor};
-    width: 0.6rem;
+    border-left: 1px solid ${(props) => props.theme.grayscale4Color};
+    width: 1rem;
     height: 100%;
     position: absolute;
     right: 0;
@@ -68,7 +67,7 @@ export const Table = styled.table`
     touch-action: none;
   }
   .isResizing {
-    background: red;
+    background: ${(props) => props.theme.primaryBlueColor};
   }
 
   /* sticky setting */

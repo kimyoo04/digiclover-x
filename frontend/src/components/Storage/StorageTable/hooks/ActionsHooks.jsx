@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
 // components
 import Button from "@components/Style/buttons";
+import {breakpoints} from "@components/Util/breakPoints";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
 // firebase
@@ -15,7 +16,6 @@ import {
   where,
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
-import {breakpoints} from "@components/Util/breakPoints";
 
 const ActionWrapper = styled.div`
   width: 100%;

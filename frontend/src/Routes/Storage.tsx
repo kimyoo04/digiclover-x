@@ -8,7 +8,7 @@ import {useAppSelector} from "@app/hook";
 import {IDocumentData} from "@constants/types/document";
 // components
 import Modal from "@components/Storage/Modal/Modal";
-import StorageTable from "@components/Storage/Table/Table";
+import StorageTable from "@components/Storage/StorageTable/Table";
 import {Wrapper} from "@components/layout";
 // firebase
 import {
