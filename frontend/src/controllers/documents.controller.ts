@@ -1,26 +1,32 @@
+// firebase
 import {collection, doc, setDoc} from "firebase/firestore";
 import {dbService} from "src/fbase";
-import {addData} from "src/firebaseCRUD";
+// contants
+import {DocuKind, IContractor} from "@constants/types/document";
+// controller
+import {addData} from "@controllers/firebase.util";
 
-//--------------------------------------------------------------------------------
+// --------------------------------------------------------------------
 // Post - 문서생성
-//--------------------------------------------------------------------------------
-export const PostOneDocument = async (userId, dataObj) => {
-  // 문서 생성
-  await AddDocumentAndSignatures(userId, dataObj).catch((err) =>
-    console.error("postOneDocument ==> ", err)
-  );
-
-  console.log("apiPostOneDocument - success");
-};
-
-const AddDocumentAndSignatures = async (
-  userId,
-  {contractors, docuKind, docuTitle, docuContent, imgUrl}
+// --------------------------------------------------------------------
+export const postOneDocu = async (
+  userId: string,
+  {
+    contractors,
+    docuKind,
+    docuTitle,
+    docuContent,
+    imgUrl,
+  }: {
+    contractors: IContractor[];
+    docuKind: DocuKind;
+    docuTitle: string;
+    docuContent: string;
+    imgUrl: string;
+  }
 ) => {
   // 필요한 데이터 변수에 할당
   const contractorsNum = contractors.length;
-  const UsersId = [null, null, null, null];
   const createdAt = Date.now() + 9 * 60 * 60 * 1000;
 
   console.log("contractors \n", contractors);
@@ -31,26 +37,28 @@ const AddDocumentAndSignatures = async (
   console.log("createdAt \n", createdAt);
 
   // 요청자(UserId1)에는 해당 UserId, 수신자에는 0, 없으면 null 처리
+  for (let i = 0; i < 4; i++) {
+    contractors[i].uid = undefined;
+  }
+
   for (let i = 0; i < contractorsNum; i++) {
     if (i === 0) {
-      UsersId[i] = userId;
+      contractors[i].uid = userId;
     } else {
-      UsersId[i] = "0";
+      contractors[i].uid = "0";
     }
   }
 
   // 문서 튜플 1개 추가
   const documentObj = {
+    contractors,
+
     docuKind,
     docuTitle,
     docuContent,
-
     hashFile: "0",
 
-    UserId1: UsersId[0],
-    UserId2: UsersId[1],
-    UserId3: UsersId[2],
-    UserId4: UsersId[3],
+    sendEmails: false,
 
     createdAt,
   };
@@ -82,7 +90,7 @@ const AddDocumentAndSignatures = async (
   for (let i = 1; i < contractorsNum; i++) {
     const signaturesObj = {
       DocumentId: documentRef.id,
-      UserId: UsersId[i],
+      UserId: contractors[i].uid,
       isSigned: false,
       email: contractors[i].email, // 수신자 인증용
       createdAt,
@@ -93,3 +101,18 @@ const AddDocumentAndSignatures = async (
     );
   }
 };
+
+// --------------------------------------------------------------------
+// Update - 계약자 서명시 contractors[1,2,3] 중 uid 수정
+// --------------------------------------------------------------------
+export const updateContractorUID = async () => {};
+
+// --------------------------------------------------------------------
+// Update - 이메일 전송시 sendEmails: false -> true
+// --------------------------------------------------------------------
+export const updateSendEmailsStatus = async () => {};
+
+// --------------------------------------------------------------------
+// Delete one document (기본값 - documents)
+// --------------------------------------------------------------------
+export const deleteOneDocu = async () => {};

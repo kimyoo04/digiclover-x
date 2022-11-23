@@ -3,7 +3,8 @@ import {Wrapper} from "@components/layout";
 // firebase
 import {getRedirectResult, GoogleAuthProvider} from "firebase/auth";
 import {authService} from "../fbase";
-import {addUserDoc} from "src/firebaseCRUD";
+// controllers
+import {postGoogleUserDoc} from "@controllers/users.controller";
 
 const Home = () => {
   getRedirectResult(authService)
@@ -15,7 +16,7 @@ const Home = () => {
         const user = result.user;
         if (token && user) {
           // oauth user doc 생성 함수 호출
-          addUserDoc(user).catch((error) => console.error(error));
+          postGoogleUserDoc(user).catch((error) => console.error(error));
         }
       }
     })

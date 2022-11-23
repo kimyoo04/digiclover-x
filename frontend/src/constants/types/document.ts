@@ -64,7 +64,7 @@ export interface IContractorForm {
 }
 
 export interface IContractor {
-  userId?: string;
+  uid?: string;
   companyName: string;
   name: string;
   email: string;

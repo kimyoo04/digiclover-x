@@ -19,8 +19,9 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "firebase/auth";
-import {addDoc, collection} from "firebase/firestore";
-import {authService, dbService} from "src/fbase";
+import {authService} from "src/fbase";
+// controllers
+import {postLocalUserDoc} from "@controllers/users.controller";
 
 const Signup = () => {
   const navigate = useNavigate();
@@ -52,20 +53,10 @@ const Signup = () => {
           const user = userCredential.user;
           // displayName 저장
           await updateProfile(user, {displayName: name});
-
-          // users docuement 생성
-          const creatUser = async () => {
-            await addDoc(collection(dbService, "users"), {
-              uid: user.uid,
-              company,
-              name,
-              email,
-              phone,
-              providerId: user.providerData[0].providerId,
-              createdAt: Date.now() + 9 * 60 * 60 * 1000,
-            });
-          };
-          creatUser().catch((error) => console.log(error));
+          // user doc 생성
+          postLocalUserDoc(user, company, name, email, phone).catch((error) =>
+            console.log(error)
+          );
 
           // 인증 이메일 전송
           sendEmailVerification(user).then(() => {
