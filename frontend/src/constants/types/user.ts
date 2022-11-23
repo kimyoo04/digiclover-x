@@ -4,7 +4,7 @@ type initUser = {
   name?: string;
   email?: string;
   phone?: string;
-  uid?: string;
+  ongoings?: string[] | [];
 };
 
 export interface AuthState {
@@ -16,11 +16,12 @@ export interface AuthState {
 }
 
 export interface IUser {
+  uid: string;
   company: string;
   name: string;
   email: string;
   phone: string;
-  uid: string;
+  ongoings: string[] | [];
 }
 
 export interface IUserForm {

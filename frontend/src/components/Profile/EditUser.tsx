@@ -30,6 +30,7 @@ const EditUser = () => {
     email: "",
     phone: "",
     uid: "",
+    ongoings: [],
   });
   const user = useAppSelector((state) => state.auth.user);
 

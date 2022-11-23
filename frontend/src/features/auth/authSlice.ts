@@ -6,7 +6,7 @@ const initialState: AuthState = {
   loading: false,
   provider: "local",
   isAuthenticated: false,
-  user: {id: "", company: "", name: "", email: "", phone: "", uid: ""},
+  user: {id: "", company: "", name: "", email: "", phone: ""},
   error: "",
 };
 

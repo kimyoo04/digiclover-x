@@ -27,8 +27,9 @@ import {darkTheme, lightTheme} from "@constants/styles/theme";
 
 // firebase
 import {onAuthStateChanged, signOut} from "firebase/auth";
-import {authService} from "src/fbase";
+import {authService, dbService} from "src/fbase";
 import DocuView from "@components/Storage/Modal/DocuView";
+import {collection, getDocs, query, where} from "firebase/firestore";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -42,7 +43,7 @@ function App() {
   // authencation check + add User doc first time
   useEffect(() => {
     try {
-      onAuthStateChanged(authService, (user) => {
+      onAuthStateChanged(authService, async (user) => {
         if (user) {
           // 이메일 인증 유무 확인
           if (!user.emailVerified) {
@@ -50,12 +51,22 @@ function App() {
             throw new Error("이메일 인증을 하지 않았습니다.");
           }
 
+          const userQuery = query(
+            collection(dbService, "users"),
+            where("uid", "==", user.uid)
+          );
+          const querySnapshot = await getDocs(userQuery);
+          const userData: any = querySnapshot.docs[0].data();
+
           // store 에 유저 정보 저장
           dispatch(
             authActions.signin({
-              id: user.uid,
-              email: user.email,
-              name: user.displayName,
+              id: userData.uid,
+              company: userData.company,
+              email: userData.email,
+              phone: userData.phone,
+              name: userData.name,
+              ongoings: userData.ongoings,
             })
           );
           console.log("authActions signin");
