@@ -10,8 +10,6 @@ import {IContractor} from "@constants/types/document";
 // components
 import Button from "@components/Style/buttons";
 import EmailContractorCard from "@components/Document/EmailContractorCard";
-// controllers
-import {PostOneDocument} from "@controllers/documents.controller";
 // styles
 import {
   AgreeInput,
@@ -24,20 +22,23 @@ const Email = () => {
   const [isCheck, setIsCheck] = useState(false);
   const dispatch = useAppDispatch();
   const document = useAppSelector((state) => state.document);
-  const user = useAppSelector((state) => state.auth.user);
   const navigate = useNavigate();
 
   const prevClick = () => dispatch(documentActions.beforeEmail());
   const finishClick = async () => {
     // 동의 확인 경고창 - 동의 확인 후 /storage 로 navigate
     if (isCheck) {
-      // 이곳에 이메일 전송 비동기 처리하기
+      // --------------------------------------------------------------------
+      // 이메일 전송 비동기 처리하기
 
-      // 문서 튜플 저장, 계약자별 서명 튜플 저장
-      // await DocumentDataService.createOneDocument(document);
-      await PostOneDocument(user.id, document).catch((err) =>
-        console.error(err)
-      );
+      // --------------------------------------------------------------------
+
+      // --------------------------------------------------------------------
+      // ongoing collection의 문서 전체 삭제
+
+      // user collection의 ongoings 컬럼의 인덱스를 찾아서 삭제
+
+      // --------------------------------------------------------------------
 
       // documentSlice의 state 초기화
       dispatch(documentActions.initialDocumentData());

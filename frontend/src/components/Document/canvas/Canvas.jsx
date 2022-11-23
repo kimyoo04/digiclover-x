@@ -1,7 +1,7 @@
 // modules
 import {useRef, useState, useEffect} from "react";
 // redux-toolkit
-import {useAppDispatch} from "@app/hook";
+import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
 import {alertActions} from "@features/alert/alertSlice";
 // components
@@ -12,18 +12,28 @@ import {ButtonWrapper, CanvasItem, DivButton, LabelButton} from "./CanvasStyle";
 import {startDraw, draw, stopDraw} from "./CanvasMouseEvent";
 import {stopTouchDraw, touchDraw, startTouchDraw} from "./CanvasTouchEvent";
 import {clear, onFileChange, onSaveClick} from "./CanvasUtil";
+// controllers
+import {postOneDocu} from "@controllers/documents.controller";
 
 const Canvas = () => {
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useAppDispatch();
   const prevClick = () => {
     dispatch(documentActions.beforeSignning());
   };
 
   const nextClick = async () => {
-    if (isDrawn) {
+    if (isDrawn && user.id) {
       // 서명한 imgUrl 저장
       const imgUrl = await canvasRef.current.toDataURL();
+
+      // (추후) 서명 위치 설정 기능 구현 필요
       dispatch(documentActions.afterSignning(imgUrl));
+
+      // document doc signature doc 생성
+      await postOneDocu(user.id, document)
+        .then(() => console.log("postOneDocument - success"))
+        .catch((err) => console.error("postOneDocument - fail ==> ", err));
     } else {
       dispatch(
         alertActions.alert({
