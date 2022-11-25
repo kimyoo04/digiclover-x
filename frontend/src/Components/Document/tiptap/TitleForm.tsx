@@ -1,38 +1,12 @@
 // modules
 import {useForm} from "react-hook-form";
-import styled from "styled-components";
 // redux-toolkit
 import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
 // types
 import {IDocuTitle} from "@constants/types/document";
-
-const Form = styled.form`
-  width: 100%;
-`;
-
-const TitleInput = styled.input`
-  /* 추후 종단점 별 Text Editor 폭 수정 */
-  width: 100%;
-  padding: 80px 20px 30px 20px;
-
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-bottom: none;
-
-  z-index: 10;
-
-  &::placeholder {
-    color: rgba(0, 0, 0, 0.2);
-  }
-
-  &:focus {
-    outline: none;
-  }
-`;
+// style
+import {Form, TitleInput} from "./TitleFormStyle";
 
 interface IIsEditable {
   isEditable: boolean;
@@ -47,10 +21,11 @@ const TitleForm = ({isEditable}: IIsEditable) => {
   });
 
   const onValid = async (data: IDocuTitle) => {
-    if (!data) {
-    } else {
+    if (data) {
       console.log(data.docuTitle);
       dispatch(documentActions.afterWritingDocuTitle(data.docuTitle));
+    } else {
+      console.log("문서 제목을 입력해주세요.");
     }
   };
 
@@ -68,7 +43,10 @@ const TitleForm = ({isEditable}: IIsEditable) => {
         placeholder="Write a title"
         name="docuTitle"
         type="text"
-        defaultValue={""}
+        defaultValue={docuTitle === "" ? "" : docuTitle}
+        onChange={(data) => {
+          dispatch(documentActions.saveDocuTitle(data.target.value));
+        }}
         autoComplete="off"
       />
     </Form>
