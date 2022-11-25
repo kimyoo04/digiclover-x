@@ -6,6 +6,7 @@ import {DocuKind, DocumentState, IContractor} from "@constants/types/document";
 const initialState: DocumentState = {
   step: 1,
   isBack: false,
+  isNew: true,
   contractors: [],
   docuKind: "",
   docuTitle: "",
@@ -24,6 +25,7 @@ const documentSlice = createSlice({
     initialDocumentData(state) {
       state.step = 1;
       state.isBack = false;
+      state.isNew = true;
       state.contractors = [];
       state.docuKind = "";
       state.docuTitle = "";

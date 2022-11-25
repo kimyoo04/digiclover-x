@@ -47,6 +47,7 @@ export interface IDocuTitle {
 export interface DocumentState {
   step: number;
   isBack: boolean;
+  isNew: boolean;
   contractors: IContractor[];
   docuKind: DocuKind;
   docuTitle: string;
