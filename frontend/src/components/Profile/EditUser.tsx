@@ -6,17 +6,18 @@ import {Col, Row, Wrapper} from "@components/layout";
 import {ErrorMessage, Input} from "@components/Auth/authStyle";
 import ToggleIsDark from "@components/Util/ToggleIsDark";
 // types
-import {IUser, IUserForm} from "@constants/types/user";
+import {IUserForm} from "@constants/types/user";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
 // style
 import {Header, InputLabel, ProfileWrapper, SaveButton} from "./EditUserStyle";
+import {DocumentData} from "firebase/firestore";
 // controller
 import {getOneUserInfo, updateOneUserInfo} from "@controllers/users.controller";
 
 const EditUser = () => {
   const [readOnly, setReadOnly] = useState(true);
-  const [userData, setUserData] = useState<IUser>({
+  const [userData, setUserData] = useState<DocumentData | undefined>({
     company: "",
     name: "",
     email: "",
@@ -56,11 +57,10 @@ const EditUser = () => {
 
   // 로그인한 유저의 정보 조회
   useEffect(() => {
-    // get userDoc
     if (user.id) {
       getOneUserInfo(user.id)
+        // react-hook-form data update
         .then((userInfo) => {
-          // react-hook-form data update
           setUserData(userInfo);
           reset(userInfo);
         })
