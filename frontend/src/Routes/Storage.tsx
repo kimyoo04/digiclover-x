@@ -61,7 +61,7 @@ const Storage = () => {
 
           await getDocumentsByPageNum(chunks, pageNum)
             .then((documentsArr) => setDocuments(documentsArr))
-            .then(() => console.log("getDocumentsByPageNum getDocs success"))
+            .then(() => console.log("getDocumentsByPageNum success"))
             .catch((error) =>
               console.log("getDocumentsByPageNum error ==> ", error)
             );
@@ -74,7 +74,7 @@ const Storage = () => {
     };
 
     getDocuments().catch((error) =>
-      console.error("getDocuments error ==> ", error)
+      console.log("getDocuments error ==> ", error)
     );
   }, [user.id, pageNum]);
 

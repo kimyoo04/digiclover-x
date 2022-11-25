@@ -1,17 +1,17 @@
 // firebase
 import {
   collection,
+  doc,
   getDocs,
   limit,
   orderBy,
   query,
+  setDoc,
   where,
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
 // types
 import {DocuKind, IContractor} from "@constants/types/document";
-// controller
-import {addData} from "@controllers/firebase.util";
 
 //--------------------------------------------------------------------------------
 // Get - ongoings 문서 1개 조회
@@ -42,22 +42,22 @@ export const getFiveOngoingsDocu = async (uid: string) => {
 //--------------------------------------------------------------------------------
 // Post - ongoings 문서 생성
 //--------------------------------------------------------------------------------
-export const postOngoingDocu = async (
-  userId: string,
+export const postOneOngoingDocu = async (
+  uid: string,
   {
-    contractor,
+    contractors,
     docuKind,
     docuTitle,
     docuContent,
   }: {
-    contractor: IContractor;
+    contractors: IContractor[];
     docuKind: DocuKind;
     docuTitle: string;
     docuContent: string;
   }
 ) => {
   const createdAt = Date.now() + 9 * 60 * 60 * 1000;
-  contractor.uid = userId;
+  const contractor = {uid, ...contractors[0]};
 
   const ongoingObj = {
     contractor,
@@ -65,15 +65,16 @@ export const postOngoingDocu = async (
     docuKind,
     docuTitle,
     docuContent,
-    hashFile: "0",
 
     createdAt,
-    updatedAt: createdAt,
   };
 
-  await addData("ongoings", ongoingObj)
+  const ongoingRef = doc(collection(dbService, "ongoings"));
+  await setDoc(ongoingRef, ongoingObj)
     .then(() => console.log("ongoings addData success"))
     .catch((error) => console.log("ongoings addData error ==> ", error));
+
+  return ongoingRef.id;
 };
 
 //--------------------------------------------------------------------------------

@@ -50,7 +50,7 @@ export const getDocumentsByPageNum = async (
 // Post - 문서생성
 // --------------------------------------------------------------------
 export const postOneDocu = async (
-  userId: string,
+  uid: string,
   {
     contractors,
     docuKind,
@@ -69,27 +69,23 @@ export const postOneDocu = async (
   const contractorsNum = contractors.length;
   const createdAt = Date.now() + 9 * 60 * 60 * 1000;
 
-  console.log("contractors \n", contractors);
-  console.log("docuKind \n", docuKind);
-  console.log("docuTitle \n", docuTitle);
-  console.log("docuContent \n", docuContent);
-  console.log("imgUrl \n", imgUrl);
-  console.log("createdAt \n", createdAt);
+  // console.log("contractors \n", contractors);
+  // console.log("docuKind \n", docuKind);
+  // console.log("docuTitle \n", docuTitle);
+  // console.log("docuContent \n", docuContent);
+  // console.log("imgUrl \n", imgUrl);
+  // console.log("createdAt \n", createdAt);
 
-  // 요청자(UserId1)에는 해당 UserId, 수신자에는 0, 없으면 null 처리
-  for (let i = 0; i < 4; i++) {
-    contractors[i].uid = undefined;
-  }
-
+  // 요청자 = uid, 수신자 = 0
   for (let i = 0; i < contractorsNum; i++) {
     if (i === 0) {
-      contractors[i].uid = userId;
+      contractors[i].uid = uid;
     } else {
       contractors[i].uid = "0";
     }
   }
 
-  // 문서 튜플 1개 추가
+  // 문서 Obj 생성
   const documentObj = {
     contractors,
 
@@ -112,10 +108,10 @@ export const postOneDocu = async (
     .then(() => console.log("documents setDoc success"))
     .catch((error) => console.log("Document setDoc error ==> ", error));
 
-  // 요청자만 서명 튜플 1개 추가
+  // 요청자만 서명 Obj 생성
   const signatureObj = {
     DocumentId: documentRef.id,
-    UserId: userId,
+    uid,
     isSigned: true,
     hashValue: "0", // 임시
     imgUrl,
@@ -132,9 +128,10 @@ export const postOneDocu = async (
   // 요청자를 제외한 수신자 서명 튜플 0~3개 추가
 
   for (let i = 1; i < contractorsNum; i++) {
+    // 수신자 서명 Obj 생성
     const signaturesObj = {
       DocumentId: documentRef.id,
-      UserId: contractors[i].uid,
+      uid: contractors[i].uid,
       isSigned: false,
       email: contractors[i].email, // 수신자 인증용
       createdAt,

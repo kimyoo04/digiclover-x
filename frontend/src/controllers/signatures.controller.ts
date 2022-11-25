@@ -20,7 +20,7 @@ export const updateOneSignature = async (
 ) => {
   const updatedAt = Date.now() + 9 * 60 * 60 * 1000;
   const signatureUpdateObj = {
-    UserId: contractorUID,
+    uid: contractorUID,
     isSigned: true,
     hashValue: "0", // 임시
     imgUrl,
@@ -44,7 +44,7 @@ export const getDocumentIdsArr = async (uid: string) => {
   // 유저 아이디와 일치하는 서명 찾기
   const signautesQuery = query(
     collection(dbService, "signatures"),
-    where("UserId", "==", uid),
+    where("uid", "==", uid),
     orderBy("createdAt", "desc")
   );
 

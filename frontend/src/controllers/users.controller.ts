@@ -14,7 +14,7 @@ import {dbService} from "src/fbase";
 import {IUserForm} from "@constants/types/user";
 
 // --------------------------------------------------------------------
-// Get - 유저
+// Get - 유저 정보
 // --------------------------------------------------------------------
 export const getOneUserInfo = async (uid: string) => {
   const userQuery = query(
@@ -29,9 +29,7 @@ export const getOneUserInfo = async (uid: string) => {
     })
     .catch((error) => console.log("getOneUserInfo getDocs error ==> ", error));
 
-  const userInfo: any = querySnapshot?.docs[0].data();
-
-  return userInfo;
+  return querySnapshot?.docs[0].data();
 };
 
 // --------------------------------------------------------------------
@@ -132,5 +130,37 @@ export const updateOneUserInfo = async (
     })
     .catch((error) =>
       console.log("updateOneUserInfo updateDoc error ==> ", error)
+    );
+};
+
+// --------------------------------------------------------------------
+// Update - user doc의 ongoings 필드 수정
+// --------------------------------------------------------------------
+export const updateOngoingsId = async (uid: string, ongoingsID: string) => {
+  const userInfo = await getOneUserInfo(uid);
+  let ongoings: string[] = await userInfo?.ongoings;
+
+  ongoings.push(ongoingsID);
+
+  const userQuery = query(
+    collection(dbService, "users"),
+    where("uid", "==", uid)
+  );
+
+  const userSnapshot = await getDocs(userQuery)
+    .then((data) => {
+      console.log("updateOngoingsId getDocs success");
+      return data;
+    })
+    .catch((error) =>
+      console.log("updateOngoingsId getDocs error ==> ", error)
+    );
+
+  const [userDocId]: any = userSnapshot?.docs.map((doc) => doc.id);
+  const userDocRef = doc(dbService, "users", userDocId);
+  await updateDoc(userDocRef, {ongoings})
+    .then(() => console.log("updateOngoingsId updateDoc success"))
+    .catch((error) =>
+      console.log("updateOngoingsId updateDoc error ==> ", error)
     );
 };
