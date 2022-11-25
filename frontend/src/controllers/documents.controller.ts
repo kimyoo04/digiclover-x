@@ -28,9 +28,18 @@ export const getDocumentsByPageNum = async (
     where(documentId(), "in", documentIdsChunkArr[pageNum - 1])
   );
 
-  // 6. 페이지 번호마다 10개의 문서 조회 및 documents에 저장
-  const documentsQuerySnapshot = await getDocs(documentsQuery);
-  documentsQuerySnapshot.forEach((doc) => {
+  // 페이지 번호마다 문서 조회
+  const documentsQuerySnapshot = await getDocs(documentsQuery)
+    .then((data) => {
+      console.log("getDocumentsByPageNum getDocs success");
+      return data;
+    })
+    .catch((error) =>
+      console.log("getDocumentsByPageNum getDocs error ==> ", error)
+    );
+
+  // documentsArr 에 저장
+  documentsQuerySnapshot?.forEach((doc) => {
     documentsArr.push({id: doc.id, ...doc.data()});
   });
 

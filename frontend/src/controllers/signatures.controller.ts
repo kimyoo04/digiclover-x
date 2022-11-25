@@ -29,8 +29,10 @@ export const updateOneSignature = async (
 
   const signatureRef = doc(collection(dbService, "signatures", signatureId));
   await updateDoc(signatureRef, signatureUpdateObj)
-    .then(() => console.log("signature updateDoc success"))
-    .catch((error) => console.log("signature updateDoc error ==> ", error));
+    .then(() => console.log("updateOneSignature updateDoc success"))
+    .catch((error) =>
+      console.log("updateOneSignature updateDoc error ==> ", error)
+    );
 };
 
 // --------------------------------------------------------------------
@@ -46,9 +48,18 @@ export const getDocumentIdsArr = async (uid: string) => {
     orderBy("createdAt", "desc")
   );
 
-  // 서명에서 DocumentId만 추출 후 배열 생성
-  const signautesQuerySnapshot = await getDocs(signautesQuery);
-  signautesQuerySnapshot.forEach((doc) => {
+  // 서명에서 DocumentId만 추출
+  const signautesQuerySnapshot = await getDocs(signautesQuery)
+    .then((data) => {
+      console.log("signautesQuerySnapshot getDocs success");
+      return data;
+    })
+    .catch((error) =>
+      console.log("signautesQuerySnapshot getDocs error ==> ", error)
+    );
+
+  // 배열 생성
+  signautesQuerySnapshot?.forEach((doc) => {
     documentIdsArr.push(doc.data().DocumentId);
   });
 

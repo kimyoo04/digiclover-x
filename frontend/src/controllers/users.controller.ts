@@ -22,8 +22,14 @@ export const getOneUserInfo = async (uid: string) => {
     where("uid", "==", uid)
   );
 
-  const querySnapshot = await getDocs(userQuery);
-  const userInfo: any = querySnapshot.docs[0].data();
+  const querySnapshot = await getDocs(userQuery)
+    .then((data) => {
+      console.log("getOneUserInfo getDocs success");
+      return data;
+    })
+    .catch((error) => console.log("getOneUserInfo getDocs error ==> ", error));
+
+  const userInfo: any = querySnapshot?.docs[0].data();
 
   return userInfo;
 };
@@ -36,10 +42,17 @@ export const postGoogleUserDoc = async (user: User) => {
     collection(dbService, "users"),
     where("uid", "==", user.uid)
   );
-  const querySnapshot = await getDocs(userQuery);
+  const querySnapshot = await getDocs(userQuery)
+    .then((data) => {
+      console.log("postGoogleUserDoc getDocs success");
+      return data;
+    })
+    .catch((error) =>
+      console.log("postGoogleUserDoc getDocs error ==> ", error)
+    );
 
   // user doc 에 정보가 존재하지 않으면 (구글로그인 첫 방문일 경우)
-  if (querySnapshot.docs.length === 0) {
+  if (querySnapshot?.docs.length === 0) {
     // user doc 생성
     console.log("google user doc 생성");
     await addDoc(collection(dbService, "users"), {
@@ -51,7 +64,14 @@ export const postGoogleUserDoc = async (user: User) => {
       providerId: user.providerData[0].providerId,
       ongoings: [],
       createdAt: Date.now() + 9 * 60 * 60 * 1000,
-    });
+    })
+      .then((data) => {
+        console.log("postGoogleUserDoc addDoc success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("postGoogleUserDoc addDoc error ==> ", error)
+      );
   }
 };
 
@@ -74,7 +94,12 @@ export const postLocalUserDoc = async (
     providerId: user.providerData[0].providerId,
     ongoings: [],
     createdAt: Date.now() + 9 * 60 * 60 * 1000,
-  });
+  })
+    .then((data) => {
+      console.log("postLocalUserDoc addDoc success");
+      return data;
+    })
+    .catch((error) => console.log("postLocalUserDoc addDoc error ==> ", error));
 };
 
 // --------------------------------------------------------------------
@@ -88,10 +113,24 @@ export const updateOneUserInfo = async (
     collection(dbService, "users"),
     where("uid", "==", uid)
   );
-  const querySnapshot = await getDocs(userQuery);
-  const [userDocId]: any = querySnapshot.docs.map((doc) => {
-    return doc.id;
-  });
+
+  const userSnapshot = await getDocs(userQuery)
+    .then((data) => {
+      console.log("updateOneUserInfo getDocs success");
+      return data;
+    })
+    .catch((error) =>
+      console.log("updateOneUserInfo getDocs error ==> ", error)
+    );
+
+  const [userDocId]: any = userSnapshot?.docs.map((doc) => doc.id);
   const userDocRef = doc(dbService, "users", userDocId);
-  await updateDoc(userDocRef, {company, email, phone, name});
+  await updateDoc(userDocRef, {company, email, phone, name})
+    .then((data) => {
+      console.log("updateOneUserInfo updateDoc success");
+      return data;
+    })
+    .catch((error) =>
+      console.log("updateOneUserInfo updateDoc error ==> ", error)
+    );
 };
