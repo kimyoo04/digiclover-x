@@ -9,9 +9,10 @@ export const SaveBtn = styled.div`
   background-color: ${(props) => props.theme.primaryBlueColor};
   padding: 0 0.6rem;
   border-radius: 0.6rem;
+  cursor: pointer;
 
   & span {
     font-size: 1.6rem;
-    font-weight: 500;
+    font-weight: 600;
   }
 `;
