@@ -1,4 +1,4 @@
-const chunkArray = (list: any[], chunk: number): any[][] => {
+const chunkArray = (list: string[], chunk: number): string[][] => {
   const result = [];
 
   for (let i = 0; i < list.length; i += chunk) {

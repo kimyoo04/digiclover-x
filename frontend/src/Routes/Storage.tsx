@@ -11,21 +11,14 @@ import Modal from "@components/Storage/Modal/Modal";
 import StorageTable from "@components/Storage/StorageTable/Table";
 import OnGoingTable from "@components/Storage/OnGoingTable/Table";
 import {Wrapper} from "@components/layout";
-// firebase
-import {
-  collection,
-  documentId,
-  getDocs,
-  limit,
-  orderBy,
-  query,
-  where,
-} from "firebase/firestore";
-import {dbService} from "src/fbase";
 import {Text} from "@components/Style/text";
 import Preview from "@components/Storage/Modal/DocuView";
 import chunkArray from "@components/Util/chunkArray";
 import Page from "@components/Storage/Page";
+// controllers
+import {getFiveOngoingsDocu} from "@controllers/ongoings.controller";
+import {getDocumentIdsArr} from "@controllers/signatures.controller";
+import {getDocumentsByPageNum} from "@controllers/documents.controller";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -47,72 +40,41 @@ const Storage = () => {
   const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
-    const getOnGoings = async () => {
-      let onGoingsArr: any = [];
-
-      const onGoingsQuery = query(
-        collection(dbService, "ongoings"),
-        where("UserId", "==", user.id),
-        orderBy("updatedAt", "desc"),
-        limit(5)
-      );
-
-      const onGoingsQuerySnapshot = await getDocs(onGoingsQuery);
-      onGoingsQuerySnapshot.forEach((doc) => {
-        onGoingsArr.push({id: doc.id, ...doc.data()});
-      });
-      setOnGoings(onGoingsArr);
-    };
-
-    // 함수 호출
-    getOnGoings().catch((error) =>
-      console.error("getOnGoings - failure\n", error)
-    );
+    if (user.id) {
+      getFiveOngoingsDocu(user.id)
+        .then((onGoingsArr) => setOnGoings(onGoingsArr))
+        .then(() => console.log("getFiveOngoingsDocu getDocs success"))
+        .catch((error) => console.log("getFiveOngoingsDocu error ==> ", error));
+    } else {
+      console.log("getFiveOngoingsDocu - 유저 정보가 없습니다.");
+    }
   }, [user.id]);
 
   useEffect(() => {
     const getDocuments = async () => {
-      let documentsIdArr: string[] = [];
-      let documentsArr: any = [];
+      if (user.id) {
+        const documentIdsArr = await getDocumentIdsArr(user.id);
 
-      // 1. 유저 아이디와 일치하는 서명 찾기
-      const signautesQuery = query(
-        collection(dbService, "signatures"),
-        where("UserId", "==", user.id),
-        orderBy("createdAt", "desc")
-      );
+        if (documentIdsArr.length !== 0) {
+          let chunks = chunkArray(documentIdsArr, 10); // 10개씩 배열 분할
+          setLastPage(Math.ceil(chunks.length));
 
-      // 2. 서명에서 DocumentId만 추출 후 배열 생성
-      const signautesQuerySnapshot = await getDocs(signautesQuery);
-      signautesQuerySnapshot.forEach((doc) => {
-        documentsIdArr.push(doc.data().DocumentId);
-      });
-
-      // 3. 10개씩 배열 분할
-      let chunks = chunkArray(documentsIdArr, 10);
-      setLastPage(Math.ceil(chunks.length));
-
-      // 4. 서명했던 or 서명할 문서가 있다면
-      if (documentsIdArr.length !== 0) {
-        // 5. chunks[pageNum-1]로 쿼리 생성
-        const documentsQuery = query(
-          collection(dbService, "documents"),
-          where(documentId(), "in", chunks[pageNum - 1])
-        );
-        console.log(chunks);
-
-        // 6. 페이지 번호마다 10개의 문서 조회 및 documents에 저장
-        const documentsQuerySnapshot = await getDocs(documentsQuery);
-        documentsQuerySnapshot.forEach((doc) => {
-          documentsArr.push({id: doc.id, ...doc.data()});
-        });
-        setDocuments(documentsArr);
+          await getDocumentsByPageNum(chunks, pageNum)
+            .then((documentsArr) => setDocuments(documentsArr))
+            .then(() => console.log("getDocumentsByPageNum getDocs success"))
+            .catch((error) =>
+              console.log("getDocumentsByPageNum error ==> ", error)
+            );
+        } else {
+          console.log("getDocumentsByPageNum - 유저와 관련된 문서가 없습니다.");
+        }
+      } else {
+        console.log("getDocumentIdsArr - 유저 정보가 없습니다.");
       }
     };
 
-    // 함수 호출
     getDocuments().catch((error) =>
-      console.error("getDocuments - failure\n", error)
+      console.error("getDocuments error ==> ", error)
     );
   }, [user.id, pageNum]);
 

@@ -9,18 +9,10 @@ import ToggleIsDark from "@components/Util/ToggleIsDark";
 import {IUser, IUserForm} from "@constants/types/user";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
-// firebase
-import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  updateDoc,
-  where,
-} from "firebase/firestore";
-import {dbService} from "src/fbase";
 // style
 import {Header, InputLabel, ProfileWrapper, SaveButton} from "./EditUserStyle";
+// controller
+import {getOneUserInfo, updateOneUserInfo} from "@controllers/users.controller";
 
 const EditUser = () => {
   const [readOnly, setReadOnly] = useState(true);
@@ -41,58 +33,42 @@ const EditUser = () => {
     formState: {errors},
   } = useForm<IUserForm>();
 
-  // 1. 회원 정보 저장 클릭
-  // 2. updateUser 수행
-  // 3. 다시 getUser 수행
-  // 4. reset 함수 실행
-  const onValid = async ({company, email, phone, name}: IUserForm) => {
+  // 회원 정보 저장 클릭시 호출
+  const onValid = async (infoObj: IUserForm) => {
     setReadOnly((prev) => !prev);
-
-    // 유저 정보 수정했을 경우만 PUT 요청 수행
+    const {company, email, phone, name} = infoObj;
+    // 유저 정보 수정했을 경우만 updateOneUserInfo 실행
     if (
       userData?.company !== company ||
       userData?.email !== email ||
       userData?.phone !== phone ||
       userData?.name !== name
     ) {
-      // update userDoc
-      const updateUser = async () => {
-        if (user.id) {
-          const userQuery = query(
-            collection(dbService, "users"),
-            where("uid", "==", user.id)
-          );
-          const querySnapshot = await getDocs(userQuery);
-          const [userDocId]: any = querySnapshot.docs.map((doc) => {
-            return doc.id;
-          });
-          const userDocRef = doc(dbService, "users", userDocId);
-          await updateDoc(userDocRef, {company, email, phone, name});
-        }
-      };
-      updateUser();
+      if (user.id) {
+        updateOneUserInfo(user.id, infoObj)
+          .then(() => console.log("updateOneUserInfo updateDoc success"))
+          .catch((error) => console.log("updateOneUserInfo error ==> ", error));
+      } else {
+        console.log("updateOneUserInfo - 유저 정보가 없습니다.");
+      }
     }
   };
 
-  // 로그인한 유저의 정보 input에 reset
+  // 로그인한 유저의 정보 조회
   useEffect(() => {
     // get userDoc
-    const getUser = async () => {
-      const userQuery = query(
-        collection(dbService, "users"),
-        where("uid", "==", user.id)
-      );
-      const querySnapshot = await getDocs(userQuery);
-      const data: any = querySnapshot.docs[0].data();
-
-      if (data) {
-        // 폼에 입력
-        setUserData(data);
-        // 폼에 입력
-        reset(data);
-      }
-    };
-    getUser().catch((error) => console.log(error));
+    if (user.id) {
+      getOneUserInfo(user.id)
+        .then((userInfo) => {
+          // react-hook-form data update
+          setUserData(userInfo);
+          reset(userInfo);
+        })
+        .then(() => console.log("getOneUserInfo gerDocs success"))
+        .catch((error) => console.log("getOneUserInfo error ==> ", error));
+    } else {
+      console.log("getOneUserInfo - 유저 정보가 없습니다.");
+    }
   }, [reset, user.id]);
 
   return (

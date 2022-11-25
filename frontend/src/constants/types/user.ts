@@ -1,4 +1,4 @@
-type initUser = {
+export type initUser = {
   id?: string;
   company?: string;
   name?: string;

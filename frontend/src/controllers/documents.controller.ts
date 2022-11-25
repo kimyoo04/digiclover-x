@@ -1,10 +1,41 @@
 // firebase
-import {collection, doc, setDoc} from "firebase/firestore";
+import {
+  collection,
+  doc,
+  documentId,
+  getDocs,
+  query,
+  setDoc,
+  where,
+} from "firebase/firestore";
 import {dbService} from "src/fbase";
 // contants
 import {DocuKind, IContractor} from "@constants/types/document";
 // controller
 import {addData} from "@controllers/firebase.util";
+
+// --------------------------------------------------------------------
+// Get - 문서 조회
+// --------------------------------------------------------------------
+export const getDocumentsByPageNum = async (
+  documentIdsChunkArr: string[][],
+  pageNum: number
+) => {
+  let documentsArr: any = [];
+
+  const documentsQuery = query(
+    collection(dbService, "documents"),
+    where(documentId(), "in", documentIdsChunkArr[pageNum - 1])
+  );
+
+  // 6. 페이지 번호마다 10개의 문서 조회 및 documents에 저장
+  const documentsQuerySnapshot = await getDocs(documentsQuery);
+  documentsQuerySnapshot.forEach((doc) => {
+    documentsArr.push({id: doc.id, ...doc.data()});
+  });
+
+  return documentsArr;
+};
 
 // --------------------------------------------------------------------
 // Post - 문서생성
@@ -61,15 +92,16 @@ export const postOneDocu = async (
     sendEmails: false,
 
     createdAt,
+    updatedAt: createdAt,
   };
 
   // 미리 document 생성 후 documentRef에 할당
   const documentRef = doc(collection(dbService, "documents"));
 
   // document에 데이터 set
-  await setDoc(documentRef, documentObj).catch((error) =>
-    console.log("Document create error ==> ", error)
-  );
+  await setDoc(documentRef, documentObj)
+    .then(() => console.log("documents setDoc success"))
+    .catch((error) => console.log("Document setDoc error ==> ", error));
 
   // 요청자만 서명 튜플 1개 추가
   const signatureObj = {
@@ -78,12 +110,15 @@ export const postOneDocu = async (
     isSigned: true,
     hashValue: "0", // 임시
     imgUrl,
-    createdAt, // 요청자만 createdAt 없고 updatedAt 있음
+    createdAt,
+    updatedAt: createdAt,
   };
 
-  addData("signatures", signatureObj).catch((error) =>
-    console.log("요청자 Signature create error ==> ", error)
-  );
+  await addData("signatures", signatureObj)
+    .then(() => console.log("요청자 signature addData success"))
+    .catch((error) =>
+      console.log("요청자 signature addData error ==> ", error)
+    );
 
   // 요청자를 제외한 수신자 서명 튜플 0~3개 추가
 
@@ -94,18 +129,24 @@ export const postOneDocu = async (
       isSigned: false,
       email: contractors[i].email, // 수신자 인증용
       createdAt,
+      updatedAt: createdAt,
     };
 
-    addData("signatures", signaturesObj).catch((error) =>
-      console.log("수신자 Signature create error ==> ", error)
-    );
+    await addData("signatures", signaturesObj)
+      .then(() => console.log("수신자 signatures addData success"))
+      .catch((error) =>
+        console.log("수신자 signatures addData error ==> ", error)
+      );
   }
 };
 
 // --------------------------------------------------------------------
 // Update - 계약자 서명시 contractors[1,2,3] 중 uid 수정
 // --------------------------------------------------------------------
-export const updateContractorUID = async () => {};
+export const updateContractorUID = async (
+  documentID: string,
+  contractorUID: string
+) => {};
 
 // --------------------------------------------------------------------
 // Update - 이메일 전송시 sendEmails: false -> true
