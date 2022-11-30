@@ -6,7 +6,7 @@ import * as _ from "lodash";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
 // types
-import {ISignatureData} from "@constants/types/document";
+import {ISignatureData} from "@constants/types/signature";
 import {IUser} from "@constants/types/user";
 // components
 import Logging from "@components/Storage/Modal/Logging";

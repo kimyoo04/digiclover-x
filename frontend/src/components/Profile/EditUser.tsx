@@ -50,7 +50,7 @@ const EditUser = () => {
           .then(() => console.log("updateOneUserInfo updateDoc success"))
           .catch((error) => console.log("updateOneUserInfo error ==> ", error));
       } else {
-        console.log("updateOneUserInfo - 유저 정보가 없습니다.");
+        console.log("updateOneUserInfo - user's info doesn't exist.");
       }
     }
   };
@@ -58,16 +58,12 @@ const EditUser = () => {
   // 로그인한 유저의 정보 조회
   useEffect(() => {
     if (user.id) {
-      getOneUserInfo(user.id)
-        // react-hook-form data update
-        .then((userInfo) => {
-          setUserData(userInfo);
-          reset(userInfo);
-        })
-        .then(() => console.log("getOneUserInfo gerDocs success"))
-        .catch((error) => console.log("getOneUserInfo error ==> ", error));
+      getOneUserInfo(user.id).then((userInfo) => {
+        setUserData(userInfo);
+        reset(userInfo);
+      });
     } else {
-      console.log("getOneUserInfo - 유저 정보가 없습니다.");
+      console.log("getOneUserInfo - user's info doesn't exist.");
     }
   }, [reset, user.id]);
 

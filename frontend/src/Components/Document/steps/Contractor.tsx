@@ -24,10 +24,8 @@ const Contractor = () => {
   // 버튼 4명까지 추가 되도록 설정
   const [person, setPerson] = useState(0);
   const personName = ["갑", "을", "병", "정"];
-
   const dispatch = useAppDispatch();
   const isBack = useAppSelector((state) => state.document.isBack);
-
   const navigate = useNavigate();
 
   // 이전 페이지 이동 버튼
@@ -93,7 +91,7 @@ const Contractor = () => {
                   {...register(`contractor.${index}.companyName`, {
                     required: "Company name is required",
                     maxLength: {
-                      value: 20,
+                      value: 40,
                       message: "Your Company name is too long.",
                     },
                   })}
@@ -188,7 +186,7 @@ const Contractor = () => {
             whileHover={{scale: 1.1}}
             transition={{duration: 0.05}}
           >
-            Prev
+            Go Home
           </Button>
           <Button whileHover={{scale: 1.1}} transition={{duration: 0.05}}>
             Next

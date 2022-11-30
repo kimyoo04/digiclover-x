@@ -7,7 +7,7 @@ import {documentActions} from "@features/document/documentSlice";
 import Button from "@components/Style/buttons";
 import {ErrorMessage} from "@components/Document/documentStyles";
 // types
-import {DocuKind, IDocuKindForm} from "@constants/types/document";
+import {DocuKind, IDocuKindForm} from "@constants/types/docukind";
 // styles
 import {
   ButtonWrapper,

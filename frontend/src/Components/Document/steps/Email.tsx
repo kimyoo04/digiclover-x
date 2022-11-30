@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from "@app/hook";
 import {documentActions} from "@features/document/documentSlice";
 import {alertActions} from "@features/alert/alertSlice";
 // types
-import {IContractor} from "@constants/types/document";
+import {IContractor} from "@constants/types/contractor";
 // components
 import Button from "@components/Style/buttons";
 import EmailContractorCard from "@components/Document/EmailContractorCard";
@@ -37,7 +37,6 @@ const Email = () => {
       // ongoing collection의 문서 전체 삭제
 
       // user collection의 ongoings 컬럼의 인덱스를 찾아서 삭제
-
       // --------------------------------------------------------------------
 
       // documentSlice의 state 초기화

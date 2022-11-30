@@ -1,7 +1,7 @@
 // modules
 import styled from "styled-components";
 // types
-import {IContractor} from "@constants/types/document";
+import {IContractor} from "@constants/types/contractor";
 
 const Card = styled.div`
   display: flex;
