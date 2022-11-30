@@ -1,6 +1,7 @@
 // firebase
 import {
   collection,
+  deleteDoc,
   doc,
   getDocs,
   orderBy,
@@ -41,27 +42,75 @@ export const updateOneSignature = async (
 export const getDocumentIdsArr = async (uid: string) => {
   let documentIdsArr: string[] = [];
 
-  // 유저 아이디와 일치하는 서명 찾기
-  const signautesQuery = query(
-    collection(dbService, "signatures"),
-    where("uid", "==", uid),
-    orderBy("createdAt", "desc")
-  );
-
-  // 서명에서 DocumentId만 추출
-  const signautesQuerySnapshot = await getDocs(signautesQuery)
-    .then((data) => {
-      console.log("signautesQuerySnapshot getDocs success");
-      return data;
-    })
-    .catch((error) =>
-      console.log("signautesQuerySnapshot getDocs error ==> ", error)
+  try {
+    const signautesQuery = query(
+      collection(dbService, "signatures"),
+      where("uid", "==", uid),
+      orderBy("createdAt", "desc")
     );
 
-  // 배열 생성
-  signautesQuerySnapshot?.forEach((doc) => {
-    documentIdsArr.push(doc.data().DocumentId);
-  });
+    const signautesQuerySnapshot = await getDocs(signautesQuery)
+      .then((data) => {
+        console.log("getDocumentIdsArr getDocs success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("getDocumentIdsArr getDocs error ==> ", error)
+      );
 
+    signautesQuerySnapshot?.forEach((doc) => {
+      documentIdsArr.push(doc.data().DocumentId);
+    });
+  } catch (error) {
+    console.log("getDocumentIdsArr error ==> ", error);
+  }
+  console.log("getDocumentIdsArr success");
   return documentIdsArr;
+};
+
+// --------------------------------------------------------------------
+// Delete - documentId와 일치하는 서명 삭제
+// --------------------------------------------------------------------
+export const deleteSignaturesByDocumentId = async (documentID: string) => {
+  try {
+    // 유저 아이디와 일치하는 서명 찾기
+    let signaturesId: string[] = [];
+    const signautesQuery = query(
+      collection(dbService, "signatures"),
+      where("DocumentId", "==", documentID)
+    );
+
+    // 서명에서 id만 추출 후 배열 생성
+    const signautesQuerySnapshot = await getDocs(signautesQuery)
+      .then((data) => {
+        console.log("deleteSignaturesByDocumentId getDocs success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("deleteSignaturesByDocumentId getDocs error ==> ", error)
+      );
+
+    signautesQuerySnapshot?.forEach((doc) => {
+      signaturesId.push(doc.id);
+    });
+
+    // 서명 삭제 반복
+    for (let signatureId of signaturesId) {
+      console.log(signatureId);
+      const signatureRef = doc(dbService, "signatures", signatureId);
+      await deleteDoc(signatureRef)
+        .then(() =>
+          console.log("deleteSignaturesByDocumentId deleteDoc success")
+        )
+        .catch((error) =>
+          console.log(
+            "deleteSignaturesByDocumentId deleteDoc error ==> ",
+            error
+          )
+        );
+    }
+  } catch (error) {
+    console.log("deleteSignaturesByDocumentId error ==> ", error);
+  }
+  console.log("deleteSignaturesByDocumentId success");
 };

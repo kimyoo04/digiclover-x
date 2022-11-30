@@ -1,9 +1,10 @@
 // firebase
 import {
   collection,
+  deleteDoc,
   doc,
+  getDoc,
   getDocs,
-  limit,
   orderBy,
   query,
   setDoc,
@@ -11,38 +12,68 @@ import {
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
 // types
-import {DocuKind, IContractor} from "@constants/types/document";
-
-//--------------------------------------------------------------------------------
-// Get - ongoings 문서 1개 조회
-//--------------------------------------------------------------------------------
-export const getOneOngoingsDocu = async () => {};
+import {IContractor} from "@constants/types/contractor";
+import {DocuKind} from "@constants/types/docukind";
 
 //--------------------------------------------------------------------------------
 // Get - ongoings 문서 유저별 조회
 //--------------------------------------------------------------------------------
-export const getFiveOngoingsDocu = async (uid: string) => {
-  let onGoingsArr: any = [];
+export const getOneOngoing = async (ongoingId: string) => {
+  const ongoingRef = doc(dbService, "ongoings", ongoingId);
+  try {
+    const ongoingSnap = await getDoc(ongoingRef)
+      .then((data) => {
+        console.log("getOneOngoing getDocs success");
+        return data;
+      })
+      .catch((error) => console.log("getOneOngoing getDocs error ==> ", error));
 
-  const onGoingsQuery = query(
-    collection(dbService, "ongoings"),
-    where("UserId", "==", uid),
-    orderBy("updatedAt", "desc"),
-    limit(5)
-  );
+    if (ongoingSnap?.exists()) return ongoingSnap.data();
+  } catch (error) {
+    console.log(`getOneOngoing error ==> ${error}`);
+  }
+  console.log(`getOneOngoing success`);
+};
 
-  const onGoingsQuerySnapshot = await getDocs(onGoingsQuery);
-  onGoingsQuerySnapshot.forEach(async (doc) => {
-    await onGoingsArr.push({id: doc.id, ...doc.data()});
-  });
+//--------------------------------------------------------------------------------
+// Get - ongoings 문서 유저별 조회
+//--------------------------------------------------------------------------------
+export const getAllOngoingsByUser = async (uid: string) => {
+  let ongoingsArr: any = [];
+  const DateNow = Date.now() + 9 * 60 * 60 * 1000; // 한국 시간 9시간 추가
 
-  return onGoingsArr;
+  try {
+    const ongoingsQuery = query(
+      collection(dbService, "ongoings"),
+      where("uid", "==", uid),
+      where("expiresAt", "<=", DateNow), // 만료 확인
+      orderBy("expiresAt", "asc")
+    );
+
+    const onGoingsQuerySnapshot = await getDocs(ongoingsQuery)
+      .then((data) => {
+        console.log("getAllOngoingsByUser getDocs success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("getAllOngoingsByUser getDocs error ==> ", error)
+      );
+
+    onGoingsQuerySnapshot?.forEach(async (doc) => {
+      await ongoingsArr.push({id: doc.id, ...doc.data()});
+    });
+  } catch (error) {
+    console.log("getAllOngoingsByUser error ==> ", error);
+  }
+
+  console.log(`getAllOngoingsByUser success`);
+  return ongoingsArr;
 };
 
 //--------------------------------------------------------------------------------
 // Post - ongoings 문서 생성
 //--------------------------------------------------------------------------------
-export const postOneOngoingDocu = async (
+export const postOneOngoing = async (
   uid: string,
   {
     contractors,
@@ -56,10 +87,12 @@ export const postOneOngoingDocu = async (
     docuContent: string;
   }
 ) => {
-  const createdAt = Date.now() + 9 * 60 * 60 * 1000;
-  const contractor = {uid, ...contractors[0]};
+  const createdAt = Date.now() + 9 * 60 * 60 * 1000; // 한국 시간 9시간 추가
+  const expiresAt = createdAt + 14 * 24 * 60 * 60 * 1000; // 2주일 뒤 만료
+  const contractor = contractors[0]; // 요청자
 
   const ongoingObj = {
+    uid,
     contractor,
 
     docuKind,
@@ -67,22 +100,36 @@ export const postOneOngoingDocu = async (
     docuContent,
 
     createdAt,
+    expiresAt,
   };
 
   const ongoingRef = doc(collection(dbService, "ongoings"));
   await setDoc(ongoingRef, ongoingObj)
-    .then(() => console.log("ongoings addData success"))
-    .catch((error) => console.log("ongoings addData error ==> ", error));
+    .then(() => console.log("ongoings setDoc success"))
+    .catch((error) => console.log("ongoings setDoc error ==> ", error));
 
   return ongoingRef.id;
 };
 
 //--------------------------------------------------------------------------------
-// Update - 임시 저장 / ongoings 문서 (docuContent, docuTitle) 수정
+// Update - 임시 저장 / ongoing doc (docuContent, docuTitle) 수정
 //--------------------------------------------------------------------------------
 export const updateOngoingDocu = async () => {};
 
 //--------------------------------------------------------------------------------
-// Delete - ongoings 문서 삭제
+// Delete - 유호기간 지난 ongoing doc 삭제
 //--------------------------------------------------------------------------------
-export const deleteOngoingDocu = async () => {};
+export const deleteOneOngoing = async (documentID: string) => {
+  try {
+    const ongoingRef = doc(dbService, "ongoings", documentID);
+    await deleteDoc(ongoingRef);
+  } catch (error) {
+    console.log("deleteOneOngoing error ==> ", error);
+  }
+  console.log("deleteOneOngoing success");
+};
+
+//--------------------------------------------------------------------------------
+// Delete - 유호기간 지난 ongoing doc 반복 삭제
+//--------------------------------------------------------------------------------
+export const deleteExpiredOngoings = async () => {};

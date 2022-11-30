@@ -4,8 +4,9 @@ import {PathMatch, useMatch} from "react-router-dom";
 import styled from "styled-components";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
-// services
+// types
 import {IDocumentData} from "@constants/types/document";
+import {ISignatureData} from "@constants/types/signature";
 // components
 import Modal from "@components/Storage/Modal/Modal";
 import StorageTable from "@components/Storage/StorageTable/Table";
@@ -16,7 +17,7 @@ import Preview from "@components/Storage/Modal/DocuView";
 import chunkArray from "@components/Util/chunkArray";
 import Page from "@components/Storage/Page";
 // controllers
-import {getFiveOngoingsDocu} from "@controllers/ongoings.controller";
+import {getAllOngoingsByUser} from "@controllers/ongoings.controller";
 import {getDocumentIdsArr} from "@controllers/signatures.controller";
 import {getDocumentsByPageNum} from "@controllers/documents.controller";
 
@@ -33,55 +34,63 @@ const Storage = () => {
   );
 
   // firebase
-  const [onGoings, setOnGoings] = useState<IDocumentData[] | null>(null);
+  const [ongoings, setOngoings] = useState<ISignatureData[] | null>(null);
   const [documents, setDocuments] = useState<IDocumentData[] | null>(null);
   const [pageNum, setPageNum] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const user = useAppSelector((state) => state.auth.user);
 
   useEffect(() => {
-    if (user.id) {
-      getFiveOngoingsDocu(user.id)
-        .then((onGoingsArr) => setOnGoings(onGoingsArr))
-        .then(() => console.log("getFiveOngoingsDocu getDocs success"))
-        .catch((error) => console.log("getFiveOngoingsDocu error ==> ", error));
-    } else {
-      console.log("getFiveOngoingsDocu - 유저 정보가 없습니다.");
-    }
+    const getOngoings = async () => {
+      let ongoingsArr: ISignatureData[] = [];
+
+      if (user.id) {
+        ongoingsArr = await getAllOngoingsByUser(user.id);
+      } else {
+        console.log("getOngoings - user's info doesn't exist.");
+      }
+
+      if (ongoingsArr.length !== 0) {
+        // console.log(`ongoingsArr = ${ongoingsArr}`);
+        setOngoings(ongoingsArr);
+      } else {
+        console.log("getOngoings - user's ongoings don't exist");
+      }
+    };
+
+    getOngoings();
   }, [user.id]);
 
   useEffect(() => {
     const getDocuments = async () => {
+      let documentIdsArr: string[] = [];
+
       if (user.id) {
-        const documentIdsArr = await getDocumentIdsArr(user.id);
-
-        if (documentIdsArr.length !== 0) {
-          let chunks = chunkArray(documentIdsArr, 10); // 10개씩 배열 분할
-          setLastPage(Math.ceil(chunks.length));
-
-          await getDocumentsByPageNum(chunks, pageNum)
-            .then((documentsArr) => setDocuments(documentsArr))
-            .then(() => console.log("getDocumentsByPageNum success"))
-            .catch((error) =>
-              console.log("getDocumentsByPageNum error ==> ", error)
-            );
-        } else {
-          console.log("getDocumentsByPageNum - 유저와 관련된 문서가 없습니다.");
-        }
+        documentIdsArr = await getDocumentIdsArr(user.id);
       } else {
-        console.log("getDocumentIdsArr - 유저 정보가 없습니다.");
+        console.log("getDocumentIdsArr - user's info doesn't exist.");
+      }
+
+      if (documentIdsArr.length !== 0) {
+        let chunks = chunkArray(documentIdsArr, 10); // 10개씩 배열 분할
+        setLastPage(Math.ceil(chunks.length));
+
+        await getDocumentsByPageNum(chunks, pageNum).then((documentsArr) => {
+          // console.log(`documentsArr = ${documentsArr}`);
+          setDocuments(documentsArr);
+        });
+      } else {
+        console.log("getDocumentsByPageNum - user's documents don't exist");
       }
     };
 
-    getDocuments().catch((error) =>
-      console.log("getDocuments error ==> ", error)
-    );
+    getDocuments();
   }, [user.id, pageNum]);
 
   return (
     <StorageWrapper>
       {/* OnGoingTable */}
-      {onGoings && pageNum === 1 ? <OnGoingTable documents={onGoings} /> : null}
+      {ongoings && pageNum === 1 ? <OnGoingTable documents={ongoings} /> : null}
 
       {/* StorageTable */}
       {documents ? (

@@ -1,7 +1,9 @@
 // redux-toolkit
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 // types
-import {DocuKind, DocumentState, IContractor} from "@constants/types/document";
+import {DocumentState} from "@constants/types/document";
+import {DocuKind} from "@constants/types/docukind";
+import {IContractor} from "@constants/types/contractor";
 
 const initialState: DocumentState = {
   step: 1,
