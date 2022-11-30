@@ -6,7 +6,7 @@ import styled from "styled-components";
 import {useAppSelector} from "@app/hook";
 // types
 import {IDocumentData} from "@constants/types/document";
-import {ISignatureData} from "@constants/types/signature";
+import {IOngoingData} from "@constants/types/ongoing";
 // components
 import Modal from "@components/Storage/Modal/Modal";
 import StorageTable from "@components/Storage/StorageTable/Table";
@@ -19,7 +19,7 @@ import Page from "@components/Storage/Page";
 // controllers
 import {getAllOngoingsByUser} from "@controllers/ongoings.controller";
 import {getDocumentIdsArr} from "@controllers/signatures.controller";
-import {getDocumentsByPageNum} from "@controllers/documents.controller";
+import {getEmailedDocumentsByPageNum} from "@controllers/documents.controller";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -34,7 +34,7 @@ const Storage = () => {
   );
 
   // firebase
-  const [ongoings, setOngoings] = useState<ISignatureData[] | null>(null);
+  const [ongoings, setOngoings] = useState<IOngoingData[] | null>(null);
   const [documents, setDocuments] = useState<IDocumentData[] | null>(null);
   const [pageNum, setPageNum] = useState(1);
   const [lastPage, setLastPage] = useState(1);
@@ -42,7 +42,7 @@ const Storage = () => {
 
   useEffect(() => {
     const getOngoings = async () => {
-      let ongoingsArr: ISignatureData[] = [];
+      let ongoingsArr: IOngoingData[] = [];
 
       if (user.id) {
         ongoingsArr = await getAllOngoingsByUser(user.id);
@@ -75,12 +75,16 @@ const Storage = () => {
         let chunks = chunkArray(documentIdsArr, 10); // 10개씩 배열 분할
         setLastPage(Math.ceil(chunks.length));
 
-        await getDocumentsByPageNum(chunks, pageNum).then((documentsArr) => {
-          // console.log(`documentsArr = ${documentsArr}`);
-          setDocuments(documentsArr);
-        });
+        await getEmailedDocumentsByPageNum(chunks, pageNum).then(
+          (documentsArr) => {
+            // console.log(`documentsArr = ${documentsArr}`);
+            setDocuments(documentsArr);
+          }
+        );
       } else {
-        console.log("getDocumentsByPageNum - user's documents don't exist");
+        console.log(
+          "getEmailedDocumentsByPageNum - user's documents don't exist"
+        );
       }
     };
 

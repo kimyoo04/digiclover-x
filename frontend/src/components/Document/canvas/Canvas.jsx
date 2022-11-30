@@ -13,7 +13,7 @@ import {startDraw, draw, stopDraw} from "./CanvasMouseEvent";
 import {stopTouchDraw, touchDraw, startTouchDraw} from "./CanvasTouchEvent";
 import {clear, onFileChange, onSaveClick} from "./CanvasUtil";
 // controllers
-import {postOneDocu} from "@controllers/documents.controller";
+import {postOneDocument} from "@controllers/documents.controller";
 
 const Canvas = () => {
   const user = useAppSelector((state) => state.auth.user);
@@ -31,7 +31,7 @@ const Canvas = () => {
       dispatch(documentActions.afterSignning(imgUrl));
 
       // document doc signature doc 생성
-      await postOneDocu(user.id, document)
+      await postOneDocument(user.id, document)
         .then(() => console.log("postOneDocument - success"))
         .catch((err) => console.error("postOneDocument - fail ==> ", err));
     } else {

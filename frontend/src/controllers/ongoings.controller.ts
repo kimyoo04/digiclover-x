@@ -8,6 +8,7 @@ import {
   orderBy,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
@@ -18,8 +19,8 @@ import {DocuKind} from "@constants/types/docukind";
 //--------------------------------------------------------------------------------
 // Get - ongoings 문서 유저별 조회
 //--------------------------------------------------------------------------------
-export const getOneOngoing = async (ongoingId: string) => {
-  const ongoingRef = doc(dbService, "ongoings", ongoingId);
+export const getOneOngoing = async (ongoingID: string) => {
+  const ongoingRef = doc(dbService, "ongoings", ongoingID);
   try {
     const ongoingSnap = await getDoc(ongoingRef)
       .then((data) => {
@@ -40,13 +41,13 @@ export const getOneOngoing = async (ongoingId: string) => {
 //--------------------------------------------------------------------------------
 export const getAllOngoingsByUser = async (uid: string) => {
   let ongoingsArr: any = [];
-  const DateNow = Date.now() + 9 * 60 * 60 * 1000; // 한국 시간 9시간 추가
 
   try {
+    await deleteExpiredOngoings(uid);
+
     const ongoingsQuery = query(
       collection(dbService, "ongoings"),
       where("uid", "==", uid),
-      where("expiresAt", "<=", DateNow), // 만료 확인
       orderBy("expiresAt", "asc")
     );
 
@@ -59,8 +60,8 @@ export const getAllOngoingsByUser = async (uid: string) => {
         console.log("getAllOngoingsByUser getDocs error ==> ", error)
       );
 
-    onGoingsQuerySnapshot?.forEach(async (doc) => {
-      await ongoingsArr.push({id: doc.id, ...doc.data()});
+    onGoingsQuerySnapshot?.forEach((doc) => {
+      ongoingsArr.push({id: doc.id, ...doc.data()});
     });
   } catch (error) {
     console.log("getAllOngoingsByUser error ==> ", error);
@@ -114,15 +115,35 @@ export const postOneOngoing = async (
 //--------------------------------------------------------------------------------
 // Update - 임시 저장 / ongoing doc (docuContent, docuTitle) 수정
 //--------------------------------------------------------------------------------
-export const updateOngoingDocu = async () => {};
+export const updateOngoingDocu = async (
+  ongoingID: string,
+  docuContent: string,
+  docuTitle: string
+) => {
+  try {
+    const ongoingRef = doc(dbService, "ongoings", ongoingID);
+    await updateDoc(ongoingRef, {docuContent, docuTitle})
+      .then(() => console.log("updateOngoingDocu updateDoc success"))
+      .catch((error) =>
+        console.log("updateOngoingDocu updateDoc error ==> ", error)
+      );
+  } catch (error) {
+    console.log("updateOngoingDocu error ==> ", error);
+  }
+  console.log("updateOngoingDocu success");
+};
 
 //--------------------------------------------------------------------------------
 // Delete - 유호기간 지난 ongoing doc 삭제
 //--------------------------------------------------------------------------------
-export const deleteOneOngoing = async (documentID: string) => {
+export const deleteOneOngoing = async (ongoingID: string) => {
   try {
-    const ongoingRef = doc(dbService, "ongoings", documentID);
-    await deleteDoc(ongoingRef);
+    const ongoingRef = doc(dbService, "ongoings", ongoingID);
+    await deleteDoc(ongoingRef)
+      .then(() => console.log("deleteOneOngoing deleteDoc success"))
+      .catch((error) =>
+        console.log("deleteOneOngoing deleteDoc error ==> ", error)
+      );
   } catch (error) {
     console.log("deleteOneOngoing error ==> ", error);
   }
@@ -132,4 +153,44 @@ export const deleteOneOngoing = async (documentID: string) => {
 //--------------------------------------------------------------------------------
 // Delete - 유호기간 지난 ongoing doc 반복 삭제
 //--------------------------------------------------------------------------------
-export const deleteExpiredOngoings = async () => {};
+export const deleteExpiredOngoings = async (uid: string) => {
+  try {
+    const DateNow = Date.now() + 9 * 60 * 60 * 1000; // 한국 시간 9시간 추가
+    let expiredOngoingIdsArr: string[] = [];
+
+    const expiredOngoingsQuery = query(
+      collection(dbService, "ongoings"),
+      where("uid", "==", uid),
+      where("expiresAt", "<=", DateNow)
+    );
+
+    const expiredOngoingsQuerySnapshot = await getDocs(expiredOngoingsQuery)
+      .then((data) => {
+        console.log("deleteExpiredOngoings getDocs success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("deleteExpiredOngoings getDocs error ==> ", error)
+      );
+
+    if (expiredOngoingsQuerySnapshot !== undefined) {
+      expiredOngoingsQuerySnapshot.forEach((doc) => {
+        expiredOngoingIdsArr.push(doc.id);
+      });
+
+      for (let expiredOngoingId of expiredOngoingIdsArr) {
+        const expiredOngoingRef = doc(dbService, "documents", expiredOngoingId);
+        await deleteDoc(expiredOngoingRef)
+          .then(() => console.log("deleteExpiredOngoings deleteDoc success"))
+          .catch((error) =>
+            console.log("deleteExpiredOngoings deleteDoc error ==> ", error)
+          );
+      }
+    } else {
+      console.log("deleteExpiredOngoings - expired ongoings don't exist");
+    }
+  } catch (error) {
+    console.log("deleteExpiredOngoings error ==> ", error);
+  }
+  console.log("deleteExpiredOngoings success");
+};

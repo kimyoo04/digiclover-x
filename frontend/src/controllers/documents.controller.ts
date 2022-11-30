@@ -19,9 +19,9 @@ import {DocuKind} from "@constants/types/docukind";
 import {addData} from "@controllers/firebase.util";
 
 // --------------------------------------------------------------------
-// Get - 문서 조회
+// Get - 이메일 전송 동의한 문서 조회
 // --------------------------------------------------------------------
-export const getDocumentsByPageNum = async (
+export const getEmailedDocumentsByPageNum = async (
   documentIdsChunkArr: string[][],
   pageNum: number
 ) => {
@@ -30,9 +30,52 @@ export const getDocumentsByPageNum = async (
   try {
     const documentsQuery = query(
       collection(dbService, "documents"),
-      where(documentId(), "in", documentIdsChunkArr[pageNum - 1])
+      where(documentId(), "in", documentIdsChunkArr[pageNum - 1]),
+      where("sendEmails", "==", true)
     );
-    const documentsQuerySnapshot = await getDocs(documentsQuery);
+    const documentsQuerySnapshot = await getDocs(documentsQuery)
+      .then((data) => {
+        console.log("getEmailedDocumentsByPageNum getDocs success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("getEmailedDocumentsByPageNum getDocs error ==> ", error)
+      );
+
+    documentsQuerySnapshot?.forEach((doc) => {
+      documentsArr.push({id: doc.id, ...doc.data()});
+    });
+  } catch (error) {
+    console.log("getDocumentsByPageNum error ==> ", error);
+  }
+
+  console.log("getDocumentsByPageNum success");
+  return documentsArr;
+};
+
+// --------------------------------------------------------------------
+// Get - 이메일 전송 동의한 문서 조회
+// --------------------------------------------------------------------
+export const getNotEmailedDocumentsByPageNum = async (
+  documentIdsChunkArr: string[][],
+  pageNum: number
+) => {
+  let documentsArr: any = [];
+
+  try {
+    const documentsQuery = query(
+      collection(dbService, "documents"),
+      where(documentId(), "in", documentIdsChunkArr[pageNum - 1]),
+      where("sendEmails", "==", false)
+    );
+    const documentsQuerySnapshot = await getDocs(documentsQuery)
+      .then((data) => {
+        console.log("getNotEmailedDocumentsByPageNum getDocs success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("getNotEmailedDocumentsByPageNum getDocs error ==> ", error)
+      );
 
     documentsQuerySnapshot?.forEach((doc) => {
       documentsArr.push({id: doc.id, ...doc.data()});
@@ -48,7 +91,7 @@ export const getDocumentsByPageNum = async (
 // --------------------------------------------------------------------
 // Post - 문서 생성
 // --------------------------------------------------------------------
-export const postOneDocu = async (
+export const postOneDocument = async (
   uid: string,
   {
     contractors,
@@ -149,9 +192,9 @@ export const postOneDocu = async (
         );
     }
   } catch (error) {
-    console.log("postOneDocu error ==> ", error);
+    console.log("postOneDocument error ==> ", error);
   }
-  console.log("postOneDocu success");
+  console.log("postOneDocument success");
 };
 
 // --------------------------------------------------------------------
@@ -159,11 +202,43 @@ export const postOneDocu = async (
 // --------------------------------------------------------------------
 export const updateContractorUID = async (
   documentID: string,
-  contractor: IContractor,
-  contractorUID: string
+  contractorUID: string,
+  contractorIndex: 1 | 2 | 3
 ) => {
-  const documentRef = doc(collection(dbService, "documents", documentID));
-  const document = await getDoc(documentRef);
+  try {
+    const documentRef = doc(collection(dbService, "documents", documentID));
+    const documentSnapShot = await getDoc(documentRef)
+      .then((data) => {
+        console.log("updateContractorUID getDoc success");
+        return data;
+      })
+      .catch((error) =>
+        console.log("updateContractorUID getDoc error ==> ", error)
+      );
+
+    const oldContractors = documentSnapShot?.data();
+    let contractors: IContractor[] = [];
+
+    if (oldContractors) {
+      for (let i = 1; i < oldContractors.length; i++) {
+        if (i === contractorIndex) {
+          oldContractors[i].uid = contractorUID;
+          contractors.push(oldContractors[i]);
+        } else {
+          contractors.push(oldContractors[i]);
+        }
+      }
+    }
+
+    await updateDoc(documentRef, {contractors})
+      .then(() => console.log("updateContractorUID updateDoc success"))
+      .catch((error) =>
+        console.log("updateContractorUID updateDoc error ==> ", error)
+      );
+  } catch (error) {
+    console.log("updateContractorUID error ==> ", error);
+  }
+  console.log("updateContractorUID success");
 };
 
 // --------------------------------------------------------------------
@@ -187,16 +262,16 @@ export const updateSendEmailsStatus = async (documentID: string) => {
 // --------------------------------------------------------------------
 // Delete - one document (기본값 - documents)
 // --------------------------------------------------------------------
-export const deleteOneDocu = async (documentID: string) => {
+export const deleteOneDocument = async (documentID: string) => {
   try {
     const documentRef = doc(dbService, "documents", documentID);
     await deleteDoc(documentRef)
-      .then(() => console.log("deleteOneDocu deleteDoc success"))
+      .then(() => console.log("deleteOneDocument deleteDoc success"))
       .catch((error) =>
-        console.log("deleteOneDocu deleteDoc error ==> ", error)
+        console.log("deleteOneDocument deleteDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("deleteOneDocu error ==> ", error);
+    console.log("deleteOneDocument error ==> ", error);
   }
-  console.log("deleteOneDocu success");
+  console.log("deleteOneDocument success");
 };

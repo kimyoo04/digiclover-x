@@ -15,20 +15,23 @@ import {dbService} from "src/fbase";
 // Update - 계약자 서명시 signature doc 수정
 // --------------------------------------------------------------------
 export const updateOneSignature = async (
-  signatureId: string,
+  signatureID: string,
   contractorUID: string,
   imgUrl: string
 ) => {
   const updatedAt = Date.now() + 9 * 60 * 60 * 1000;
+
   const signatureUpdateObj = {
     uid: contractorUID,
+
     isSigned: true,
     hashValue: "0", // 임시
     imgUrl,
+
     updatedAt,
   };
 
-  const signatureRef = doc(collection(dbService, "signatures", signatureId));
+  const signatureRef = doc(collection(dbService, "signatures", signatureID));
   await updateDoc(signatureRef, signatureUpdateObj)
     .then(() => console.log("updateOneSignature updateDoc success"))
     .catch((error) =>
@@ -74,7 +77,7 @@ export const getDocumentIdsArr = async (uid: string) => {
 export const deleteSignaturesByDocumentId = async (documentID: string) => {
   try {
     // 유저 아이디와 일치하는 서명 찾기
-    let signaturesId: string[] = [];
+    let signaturesIdArr: string[] = [];
     const signautesQuery = query(
       collection(dbService, "signatures"),
       where("DocumentId", "==", documentID)
@@ -91,13 +94,13 @@ export const deleteSignaturesByDocumentId = async (documentID: string) => {
       );
 
     signautesQuerySnapshot?.forEach((doc) => {
-      signaturesId.push(doc.id);
+      signaturesIdArr.push(doc.id);
     });
 
     // 서명 삭제 반복
-    for (let signatureId of signaturesId) {
-      console.log(signatureId);
-      const signatureRef = doc(dbService, "signatures", signatureId);
+    for (let signatureID of signaturesIdArr) {
+      console.log(signatureID);
+      const signatureRef = doc(dbService, "signatures", signatureID);
       await deleteDoc(signatureRef)
         .then(() =>
           console.log("deleteSignaturesByDocumentId deleteDoc success")

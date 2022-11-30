@@ -27,6 +27,6 @@ export const saveNewDraft = async (uid: string, docuInfo: DocumentState) => {
 };
 
 // --------------------------------------------------------------------
-// saveNewDraft - 기존 임시 저장 문서
+// saveExistingDraft - 기존 임시 저장 문서 (보류)
 // --------------------------------------------------------------------
 export const saveExistingDraft = async () => {};

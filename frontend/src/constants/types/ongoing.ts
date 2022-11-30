@@ -2,6 +2,7 @@ import {IContractor} from "./contractor";
 import {DocuKind} from "./docukind";
 
 export interface IOngoingData {
+  id?: string;
   uid: string;
   contractor: IContractor;
 

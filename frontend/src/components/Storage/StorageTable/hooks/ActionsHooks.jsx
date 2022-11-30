@@ -7,7 +7,7 @@ import {breakpoints} from "@components/Util/breakPoints";
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
 // controllers
-import {deleteOneDocu} from "@controllers/documents.controller";
+import {deleteOneDocument} from "@controllers/documents.controller";
 import {deleteSignaturesByDocumentId} from "@controllers/signatures.controller";
 
 const ActionWrapper = styled.div`
@@ -43,7 +43,7 @@ const ActionButtons = ({row}) => {
     const msg = "정말로 문서를 삭제하시겠습니까? 삭제되면 복구되지 않습니다.";
     if (window.confirm(msg) === true) {
       // 문서 삭제 및 서명들 삭제
-      await deleteOneDocu(documentID);
+      await deleteOneDocument(documentID);
       await deleteSignaturesByDocumentId(documentID);
     }
   };
