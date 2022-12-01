@@ -40,13 +40,16 @@ export const getOneUser = async (uid: string) => {
 // Get - 유저 전체 필드
 // --------------------------------------------------------------------
 export const getOneUserInfo = async (uid: string) => {
+  let userSnapshot;
+
   try {
-    const userSnapshot = await getOneUser(uid);
-    return userSnapshot?.docs[0].data();
+    userSnapshot = await getOneUser(uid);
   } catch (error) {
     console.error("getOneUserInfo error ==> ", error);
   }
+
   console.log("getOneUserInfo success");
+  return userSnapshot?.docs[0].data();
 };
 
 // --------------------------------------------------------------------
@@ -177,12 +180,22 @@ export const updateUserOngoingsId = async (uid: string, ongoingsID: string) => {
   try {
     const userInfo = await getOneUserInfo(uid);
     let ongoings: string[] = await userInfo?.ongoings;
-    ongoings.push(ongoingsID);
-    await updateUser(uid, {ongoings})
-      .then(() => console.log("updateUserOngoingsId updateDoc success"))
-      .catch((error) =>
-        console.error("updateUserOngoingsId updateDoc error ==> ", error)
-      );
+    if (ongoings) {
+      ongoings.push(ongoingsID);
+      await updateUser(uid, {ongoings})
+        .then(() => console.log("updateUserOngoingsId updateDoc success"))
+        .catch((error) =>
+          console.error("updateUserOngoingsId updateDoc error ==> ", error)
+        );
+    } else {
+      ongoings = [];
+      ongoings.push(ongoingsID);
+      await updateUser(uid, {ongoings})
+        .then(() => console.log("updateUserOngoingsId updateDoc success"))
+        .catch((error) =>
+          console.error("updateUserOngoingsId updateDoc error ==> ", error)
+        );
+    }
   } catch (error) {
     console.error("updateUserOngoingsId error ==> ", error);
   }
