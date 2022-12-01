@@ -11,7 +11,6 @@ import {useSticky} from "react-table-sticky";
 import {COLUMNS} from "./config/columns";
 // style
 import {CheckboxWrapper, Table} from "./TableStyle";
-import statusHooks from "./hooks/StatusHooks";
 import actionsHook from "./hooks/ActionsHooks";
 
 const StorageTable = ({documents}) => {
@@ -42,7 +41,7 @@ const StorageTable = ({documents}) => {
       defaultColumn,
       initialState: {
         pageIndex: 0,
-        hiddenColumns: ["id", "UserId1", "UserId2", "UserId3", "UserId4"],
+        hiddenColumns: ["id"],
         sortBy: [
           {
             id: "createdAt",
@@ -51,7 +50,6 @@ const StorageTable = ({documents}) => {
         ],
       },
     },
-    statusHooks,
     actionsHook,
     useFlexLayout,
     useResizeColumns,

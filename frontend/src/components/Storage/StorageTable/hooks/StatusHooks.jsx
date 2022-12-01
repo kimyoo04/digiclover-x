@@ -43,37 +43,27 @@ const statusHooks = (hooks) => {
       id: "status",
       Header: "Status",
       Cell: ({row}) => {
-        // userId2~4 (-1 최우선, 그다음 0, 그다음 null)
-        const statusArr = [
-          row.values.contractors[1].userId,
-          row.values.contractors[2].userId,
-          row.values.contractors[3].userId,
-        ];
-        let status;
-        if (statusArr.includes("-1")) {
-          status = "-1";
-        } else if (statusArr.includes("0")) {
-          status = "0";
-        } else if (statusArr.includes(null)) {
-          status = null;
-        } else {
-          status = "만료";
+        let uidsArr = [];
+        for (let contractor of row.values.contractors) {
+          if (contractor.uid) uidsArr.push(contractor.uid);
         }
 
-        // userId2~4 검사 후 status 반환
+        let status;
+        if (uidsArr.includes("-1")) {
+          status = "-1";
+        } else if (uidsArr.includes("0")) {
+          status = "0";
+        } else {
+          status = null;
+        }
+
         switch (status) {
-          // - 거절 (빨강색) - 문서의 UserId2~4 중 -1 이 있는 경우
           case "-1":
             return <DocuStatusIcon color={"#E66F6F"} text={"거절"} />;
-          // - 진행중 (흰색) - 문서의 UserId2~4 중 0 이 있는 경우
           case "0":
-            return <DocuStatusIcon color={"whitesmoke"} text={"진행 중"} />;
-          // - 완료 (초록색) - 문서의 UserId2~4 중 0 이 없는 경우
-          case null:
-            return <DocuStatusIcon color={"#44A26C"} text={"완료"} />;
-          // - 만료 (노랑색) - 문서의 createdAt로 부터 *2주(특정 기간 컬럼 생성?)*가 지난 경우
+            return <DocuStatusIcon color={"whitesmoke"} text={"진행중"} />;
           default:
-            return <DocuStatusIcon color={"#EBCB67"} text={"만료"} />;
+            return <DocuStatusIcon color={"#44A26C"} text={"완료"} />;
         }
       },
     },

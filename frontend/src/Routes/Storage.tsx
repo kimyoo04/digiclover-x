@@ -47,7 +47,7 @@ const Storage = () => {
       if (user.id) {
         ongoingsArr = await getAllOngoingsByUser(user.id);
       } else {
-        console.log("getOngoings - user's info doesn't exist.");
+        console.error("getOngoings - user's info doesn't exist.");
       }
 
       if (ongoingsArr.length !== 0) {
@@ -68,7 +68,7 @@ const Storage = () => {
       if (user.id) {
         documentIdsArr = await getDocumentIdsArr(user.id);
       } else {
-        console.log("getDocumentIdsArr - user's info doesn't exist.");
+        console.error("getDocumentIdsArr - user's info doesn't exist.");
       }
 
       if (documentIdsArr.length !== 0) {
@@ -77,7 +77,7 @@ const Storage = () => {
 
         await getEmailedDocumentsByPageNum(chunks, pageNum).then(
           (documentsArr) => {
-            // console.log(`documentsArr = ${documentsArr}`);
+            console.log(`documentsArr = ${documentsArr}`);
             setDocuments(documentsArr);
           }
         );

@@ -1,3 +1,5 @@
+// modules
+import _ from "lodash";
 // firebase
 import {
   collection,
@@ -113,7 +115,6 @@ export const postOneDocument = async (
   // 필요한 데이터 변수에 할당
   const contractorsNum = contractors.length;
   const createdAt = Date.now() + 9 * 60 * 60 * 1000;
-
   // console.log("contractors \n", contractors);
   // console.log("docuKind \n", docuKind);
   // console.log("docuTitle \n", docuTitle);
@@ -122,17 +123,23 @@ export const postOneDocument = async (
   // console.log("createdAt \n", createdAt);
 
   // 요청자 = uid, 수신자 = 0
+
+  let newContractors = contractors;
   for (let i = 0; i < contractorsNum; i++) {
     if (i === 0) {
-      contractors[i].uid = uid;
+      newContractors = _.map(contractors, function (element) {
+        return _.extend({}, element, {uid});
+      });
     } else {
-      contractors[i].uid = "0";
+      newContractors = _.map(contractors, function (element) {
+        return _.extend({}, element, {uid: 0});
+      });
     }
   }
 
   // 문서 Obj 생성
   const documentObj = {
-    contractors,
+    contractors: newContractors,
 
     docuKind,
     docuTitle,
@@ -156,8 +163,8 @@ export const postOneDocument = async (
 
     // 요청자만 서명 Obj 생성
     const signatureObj = {
-      uid: contractors[0].uid,
-      email: contractors[0].email,
+      uid: newContractors[0].uid,
+      email: newContractors[0].email,
       DocumentId: documentRef.id,
 
       hashValue: "0", // 임시
@@ -179,8 +186,8 @@ export const postOneDocument = async (
     for (let i = 1; i < contractorsNum; i++) {
       // 수신자 서명 Obj 생성
       const signaturesObj = {
-        uid: contractors[i].uid,
-        email: contractors[i].email, // 수신자 인증용
+        uid: newContractors[i].uid,
+        email: newContractors[i].email, // 수신자 인증용
         DocumentId: documentRef.id,
 
         isSigned: false,

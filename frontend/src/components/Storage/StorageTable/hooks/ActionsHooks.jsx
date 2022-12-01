@@ -55,7 +55,7 @@ const ActionButtons = ({row}) => {
       </ModalButton>
 
       {/* 유저가 UserId1과 일치할 경우만 활성화하기 */}
-      {row.values.contractors[0].userId === user.id ? (
+      {row.values.contractors[0].uid === user.id ? (
         <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
           <i className="ri-delete-bin-line"></i>
         </DeleteButton>

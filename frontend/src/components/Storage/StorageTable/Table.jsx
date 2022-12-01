@@ -42,7 +42,7 @@ const StorageTable = ({documents}) => {
       defaultColumn,
       initialState: {
         pageIndex: 0,
-        hiddenColumns: ["id", "UserId1", "UserId2", "UserId3", "UserId4"],
+        hiddenColumns: ["id", "contractors"],
         sortBy: [
           {
             id: "createdAt",
