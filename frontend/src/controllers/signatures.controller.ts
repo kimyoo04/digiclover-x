@@ -35,7 +35,7 @@ export const updateOneSignature = async (
   await updateDoc(signatureRef, signatureUpdateObj)
     .then(() => console.log("updateOneSignature updateDoc success"))
     .catch((error) =>
-      console.log("updateOneSignature updateDoc error ==> ", error)
+      console.error("updateOneSignature updateDoc error ==> ", error)
     );
 };
 
@@ -58,14 +58,14 @@ export const getDocumentIdsArr = async (uid: string) => {
         return data;
       })
       .catch((error) =>
-        console.log("getDocumentIdsArr getDocs error ==> ", error)
+        console.error("getDocumentIdsArr getDocs error ==> ", error)
       );
 
     signautesQuerySnapshot?.forEach((doc) => {
       documentIdsArr.push(doc.data().DocumentId);
     });
   } catch (error) {
-    console.log("getDocumentIdsArr error ==> ", error);
+    console.error("getDocumentIdsArr error ==> ", error);
   }
   console.log("getDocumentIdsArr success");
   return documentIdsArr;
@@ -90,7 +90,7 @@ export const deleteSignaturesByDocumentId = async (documentID: string) => {
         return data;
       })
       .catch((error) =>
-        console.log("deleteSignaturesByDocumentId getDocs error ==> ", error)
+        console.error("deleteSignaturesByDocumentId getDocs error ==> ", error)
       );
 
     signautesQuerySnapshot?.forEach((doc) => {
@@ -106,14 +106,14 @@ export const deleteSignaturesByDocumentId = async (documentID: string) => {
           console.log("deleteSignaturesByDocumentId deleteDoc success")
         )
         .catch((error) =>
-          console.log(
+          console.error(
             "deleteSignaturesByDocumentId deleteDoc error ==> ",
             error
           )
         );
     }
   } catch (error) {
-    console.log("deleteSignaturesByDocumentId error ==> ", error);
+    console.error("deleteSignaturesByDocumentId error ==> ", error);
   }
   console.log("deleteSignaturesByDocumentId success");
 };

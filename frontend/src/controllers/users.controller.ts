@@ -29,9 +29,9 @@ export const getOneUser = async (uid: string) => {
         console.log("getOneUser getDocs success");
         return data;
       })
-      .catch((error) => console.log("getOneUser getDocs error ==> ", error));
+      .catch((error) => console.error("getOneUser getDocs error ==> ", error));
   } catch (error) {
-    console.log("getOneUser error ==> ", error);
+    console.error("getOneUser error ==> ", error);
   }
   console.log("getOneUser success");
   return userSnapshot;
@@ -44,7 +44,7 @@ export const getOneUserInfo = async (uid: string) => {
     const userSnapshot = await getOneUser(uid);
     return userSnapshot?.docs[0].data();
   } catch (error) {
-    console.log("getOneUserInfo error ==> ", error);
+    console.error("getOneUserInfo error ==> ", error);
   }
   console.log("getOneUserInfo success");
 };
@@ -57,7 +57,7 @@ export const getOneUserOngoings = async (uid: string) => {
     const userSnapshot = await getOneUser(uid);
     return userSnapshot?.docs[0].data().ongoings;
   } catch (error) {
-    console.log("getOneUserOngoings error ==> ", error);
+    console.error("getOneUserOngoings error ==> ", error);
   }
   console.log("getOneUserOngoings success");
 };
@@ -87,13 +87,13 @@ export const postGoogleUserDoc = async (user: User) => {
           return data;
         })
         .catch((error) =>
-          console.log("postGoogleUserDoc addDoc error ==> ", error)
+          console.error("postGoogleUserDoc addDoc error ==> ", error)
         );
     } else {
       console.log("구글 계정 로그인");
     }
   } catch (error) {
-    console.log("postGoogleUserDoc error ==> ", error);
+    console.error("postGoogleUserDoc error ==> ", error);
   }
   console.log("postGoogleUserDoc success");
 };
@@ -124,10 +124,10 @@ export const postLocalUserDoc = async (
         return data;
       })
       .catch((error) =>
-        console.log("postLocalUserDoc addDoc error ==> ", error)
+        console.error("postLocalUserDoc addDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("postLocalUserDoc error ==> ", error);
+    console.error("postLocalUserDoc error ==> ", error);
   }
   console.log("postLocalUserDoc success");
 };
@@ -142,9 +142,11 @@ export const updateUser = async (uid: string, obj: initUser) => {
     const userDocRef = doc(dbService, "users", userDocId);
     await updateDoc(userDocRef, obj)
       .then(() => console.log("updateUser updateDoc success"))
-      .catch((error) => console.log("updateUser updateDoc error ==> ", error));
+      .catch((error) =>
+        console.error("updateUser updateDoc error ==> ", error)
+      );
   } catch (error) {
-    console.log("updateUser error ==> ", error);
+    console.error("updateUser error ==> ", error);
   }
   console.log("updateUser success");
 };
@@ -160,10 +162,10 @@ export const updateOneUserInfo = async (
     await updateUser(uid, {company, email, phone, name})
       .then(() => console.log("updateOneUserInfo updateDoc success"))
       .catch((error) =>
-        console.log("updateOneUserInfo updateDoc error ==> ", error)
+        console.error("updateOneUserInfo updateDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("updateOneUserInfo error ==> ", error);
+    console.error("updateOneUserInfo error ==> ", error);
   }
   console.log("updateOneUserInfo success");
 };
@@ -179,10 +181,10 @@ export const updateUserOngoingsId = async (uid: string, ongoingsID: string) => {
     await updateUser(uid, {ongoings})
       .then(() => console.log("updateUserOngoingsId updateDoc success"))
       .catch((error) =>
-        console.log("updateUserOngoingsId updateDoc error ==> ", error)
+        console.error("updateUserOngoingsId updateDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("updateUserOngoingsId error ==> ", error);
+    console.error("updateUserOngoingsId error ==> ", error);
   }
   console.log("updateUserOngoingsId success");
 };

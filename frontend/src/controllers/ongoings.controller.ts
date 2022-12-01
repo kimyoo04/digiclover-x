@@ -27,11 +27,13 @@ export const getOneOngoing = async (ongoingID: string) => {
         console.log("getOneOngoing getDocs success");
         return data;
       })
-      .catch((error) => console.log("getOneOngoing getDocs error ==> ", error));
+      .catch((error) =>
+        console.error("getOneOngoing getDocs error ==> ", error)
+      );
 
     if (ongoingSnap?.exists()) return ongoingSnap.data();
   } catch (error) {
-    console.log(`getOneOngoing error ==> ${error}`);
+    console.error(`getOneOngoing error ==> ${error}`);
   }
   console.log(`getOneOngoing success`);
 };
@@ -57,14 +59,14 @@ export const getAllOngoingsByUser = async (uid: string) => {
         return data;
       })
       .catch((error) =>
-        console.log("getAllOngoingsByUser getDocs error ==> ", error)
+        console.error("getAllOngoingsByUser getDocs error ==> ", error)
       );
 
     onGoingsQuerySnapshot?.forEach((doc) => {
       ongoingsArr.push({id: doc.id, ...doc.data()});
     });
   } catch (error) {
-    console.log("getAllOngoingsByUser error ==> ", error);
+    console.error("getAllOngoingsByUser error ==> ", error);
   }
 
   console.log(`getAllOngoingsByUser success`);
@@ -107,7 +109,7 @@ export const postOneOngoing = async (
   const ongoingRef = doc(collection(dbService, "ongoings"));
   await setDoc(ongoingRef, ongoingObj)
     .then(() => console.log("ongoings setDoc success"))
-    .catch((error) => console.log("ongoings setDoc error ==> ", error));
+    .catch((error) => console.error("ongoings setDoc error ==> ", error));
 
   return ongoingRef.id;
 };
@@ -125,10 +127,10 @@ export const updateOngoingDocu = async (
     await updateDoc(ongoingRef, {docuContent, docuTitle})
       .then(() => console.log("updateOngoingDocu updateDoc success"))
       .catch((error) =>
-        console.log("updateOngoingDocu updateDoc error ==> ", error)
+        console.error("updateOngoingDocu updateDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("updateOngoingDocu error ==> ", error);
+    console.error("updateOngoingDocu error ==> ", error);
   }
   console.log("updateOngoingDocu success");
 };
@@ -142,10 +144,10 @@ export const deleteOneOngoing = async (ongoingID: string) => {
     await deleteDoc(ongoingRef)
       .then(() => console.log("deleteOneOngoing deleteDoc success"))
       .catch((error) =>
-        console.log("deleteOneOngoing deleteDoc error ==> ", error)
+        console.error("deleteOneOngoing deleteDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("deleteOneOngoing error ==> ", error);
+    console.error("deleteOneOngoing error ==> ", error);
   }
   console.log("deleteOneOngoing success");
 };
@@ -170,7 +172,7 @@ export const deleteExpiredOngoings = async (uid: string) => {
         return data;
       })
       .catch((error) =>
-        console.log("deleteExpiredOngoings getDocs error ==> ", error)
+        console.error("deleteExpiredOngoings getDocs error ==> ", error)
       );
 
     if (expiredOngoingsQuerySnapshot !== undefined) {
@@ -183,14 +185,14 @@ export const deleteExpiredOngoings = async (uid: string) => {
         await deleteDoc(expiredOngoingRef)
           .then(() => console.log("deleteExpiredOngoings deleteDoc success"))
           .catch((error) =>
-            console.log("deleteExpiredOngoings deleteDoc error ==> ", error)
+            console.error("deleteExpiredOngoings deleteDoc error ==> ", error)
           );
       }
     } else {
-      console.log("deleteExpiredOngoings - expired ongoings don't exist");
+      console.error("deleteExpiredOngoings - expired ongoings don't exist");
     }
   } catch (error) {
-    console.log("deleteExpiredOngoings error ==> ", error);
+    console.error("deleteExpiredOngoings error ==> ", error);
   }
   console.log("deleteExpiredOngoings success");
 };

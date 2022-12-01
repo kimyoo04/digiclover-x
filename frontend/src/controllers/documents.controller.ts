@@ -39,14 +39,14 @@ export const getEmailedDocumentsByPageNum = async (
         return data;
       })
       .catch((error) =>
-        console.log("getEmailedDocumentsByPageNum getDocs error ==> ", error)
+        console.error("getEmailedDocumentsByPageNum getDocs error ==> ", error)
       );
 
     documentsQuerySnapshot?.forEach((doc) => {
       documentsArr.push({id: doc.id, ...doc.data()});
     });
   } catch (error) {
-    console.log("getDocumentsByPageNum error ==> ", error);
+    console.error("getDocumentsByPageNum error ==> ", error);
   }
 
   console.log("getDocumentsByPageNum success");
@@ -74,14 +74,17 @@ export const getNotEmailedDocumentsByPageNum = async (
         return data;
       })
       .catch((error) =>
-        console.log("getNotEmailedDocumentsByPageNum getDocs error ==> ", error)
+        console.error(
+          "getNotEmailedDocumentsByPageNum getDocs error ==> ",
+          error
+        )
       );
 
     documentsQuerySnapshot?.forEach((doc) => {
       documentsArr.push({id: doc.id, ...doc.data()});
     });
   } catch (error) {
-    console.log("getDocumentsByPageNum error ==> ", error);
+    console.error("getDocumentsByPageNum error ==> ", error);
   }
 
   console.log("getDocumentsByPageNum success");
@@ -149,7 +152,7 @@ export const postOneDocument = async (
     // document에 데이터 set
     await setDoc(documentRef, documentObj)
       .then(() => console.log("documents setDoc success"))
-      .catch((error) => console.log("Document setDoc error ==> ", error));
+      .catch((error) => console.error("Document setDoc error ==> ", error));
 
     // 요청자만 서명 Obj 생성
     const signatureObj = {
@@ -168,7 +171,7 @@ export const postOneDocument = async (
     await addData("signatures", signatureObj)
       .then(() => console.log("요청자 signature addData success"))
       .catch((error) =>
-        console.log("요청자 signature addData error ==> ", error)
+        console.error("요청자 signature addData error ==> ", error)
       );
 
     // 요청자를 제외한 수신자 서명 튜플 0~3개 추가
@@ -188,11 +191,11 @@ export const postOneDocument = async (
       await addData("signatures", signaturesObj)
         .then(() => console.log("수신자 signatures addData success"))
         .catch((error) =>
-          console.log("수신자 signatures addData error ==> ", error)
+          console.error("수신자 signatures addData error ==> ", error)
         );
     }
   } catch (error) {
-    console.log("postOneDocument error ==> ", error);
+    console.error("postOneDocument error ==> ", error);
   }
   console.log("postOneDocument success");
 };
@@ -213,7 +216,7 @@ export const updateContractorUID = async (
         return data;
       })
       .catch((error) =>
-        console.log("updateContractorUID getDoc error ==> ", error)
+        console.error("updateContractorUID getDoc error ==> ", error)
       );
 
     const oldContractors = documentSnapShot?.data();
@@ -233,10 +236,10 @@ export const updateContractorUID = async (
     await updateDoc(documentRef, {contractors})
       .then(() => console.log("updateContractorUID updateDoc success"))
       .catch((error) =>
-        console.log("updateContractorUID updateDoc error ==> ", error)
+        console.error("updateContractorUID updateDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("updateContractorUID error ==> ", error);
+    console.error("updateContractorUID error ==> ", error);
   }
   console.log("updateContractorUID success");
 };
@@ -251,10 +254,10 @@ export const updateSendEmailsStatus = async (documentID: string) => {
     await updateDoc(documentRef, {sendEmails})
       .then(() => console.log("updateSendEmailsStatus updateDoc success"))
       .catch((error) =>
-        console.log("updateSendEmailsStatus updateDoc error ==> ", error)
+        console.error("updateSendEmailsStatus updateDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("updateSendEmailsStatus error ==> ", error);
+    console.error("updateSendEmailsStatus error ==> ", error);
   }
   console.log("updateSendEmailsStatus success");
 };
@@ -268,10 +271,10 @@ export const deleteOneDocument = async (documentID: string) => {
     await deleteDoc(documentRef)
       .then(() => console.log("deleteOneDocument deleteDoc success"))
       .catch((error) =>
-        console.log("deleteOneDocument deleteDoc error ==> ", error)
+        console.error("deleteOneDocument deleteDoc error ==> ", error)
       );
   } catch (error) {
-    console.log("deleteOneDocument error ==> ", error);
+    console.error("deleteOneDocument error ==> ", error);
   }
   console.log("deleteOneDocument success");
 };

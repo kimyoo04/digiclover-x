@@ -22,13 +22,13 @@ import HeaderNoAuth from "@components/Header/HeaderNoAuth";
 import ScrollToTop from "@components/Util/ScrollToTop";
 import AuthenticatedRoute from "@components/Auth/AuthenticatedRoute";
 import UnauthenticatedRoute from "@components/Auth/UnauthenticatedRoute";
+import DocuView from "@components/Storage/Modal/DocuView";
 // styles
 import {darkTheme, lightTheme} from "@constants/styles/theme";
 
 // firebase
 import {onAuthStateChanged, signOut} from "firebase/auth";
 import {authService, dbService} from "src/fbase";
-import DocuView from "@components/Storage/Modal/DocuView";
 import {collection, getDocs, query, where} from "firebase/firestore";
 
 function App() {

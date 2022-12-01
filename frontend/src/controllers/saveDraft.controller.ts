@@ -21,7 +21,7 @@ export const saveNewDraft = async (uid: string, docuInfo: DocumentState) => {
     // 유저의 ongoings 문서 저장
     await updateUserOngoingsId(uid, ongoingId);
   } catch (error) {
-    console.log("saveNewDraft error ==> ", error);
+    console.error("saveNewDraft error ==> ", error);
   }
   console.log("saveNewDraft success");
 };

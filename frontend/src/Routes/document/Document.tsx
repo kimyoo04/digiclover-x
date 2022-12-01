@@ -32,7 +32,7 @@ const Document = () => {
 
       {[1, 2, 3, 4, 5, 6].map((i) =>
         i === documentStep ? (
-          <DocuWrapper index={i}>
+          <DocuWrapper key={i}>
             <DocumentsStep index={i} key={i} />
           </DocuWrapper>
         ) : null
