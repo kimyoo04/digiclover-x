@@ -35,7 +35,7 @@ const Canvas = () => {
       dispatch(documentActions.afterSignning(imgUrl));
 
       // ongoing collection의 문서 삭제
-      await deleteOneOngoing(documentID);
+      if (documentID !== "") await deleteOneOngoing(documentID);
 
       // document doc & signature doc 생성
       const newDocumentID = await postOneDocument(user.id, document);
