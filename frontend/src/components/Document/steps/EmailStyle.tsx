@@ -22,8 +22,8 @@ export const AgreeLabel = styled.label`
   font-weight: 500;
   margin-bottom: 20px;
   color: ${(props) => props.theme.textColor};
-`;
 
-export const AgreeInput = styled.input`
-  margin-left: 20px;
+  & input {
+    margin-left: 20px;
+  }
 `;

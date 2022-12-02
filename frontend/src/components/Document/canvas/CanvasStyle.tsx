@@ -57,3 +57,20 @@ export const DivButton = styled(motion.a)`
   transition: 0.1s;
   cursor: pointer;
 `;
+
+export const Agreement = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: ${(props) => props.theme.textColor};
+
+    & input {
+      margin-left: 20px;
+    }
+  }
+`;

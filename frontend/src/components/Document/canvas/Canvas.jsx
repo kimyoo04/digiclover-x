@@ -7,7 +7,13 @@ import {alertActions} from "@features/alert/alertSlice";
 // components
 import Button from "@components/Style/buttons";
 // style
-import {ButtonWrapper, CanvasItem, DivButton, LabelButton} from "./CanvasStyle";
+import {
+  Agreement,
+  ButtonWrapper,
+  CanvasItem,
+  DivButton,
+  LabelButton,
+} from "./CanvasStyle";
 // canvas functions
 import {startDraw, draw, stopDraw} from "./CanvasMouseEvent";
 import {stopTouchDraw, touchDraw, startTouchDraw} from "./CanvasTouchEvent";
@@ -17,6 +23,7 @@ import {postOneDocument} from "@controllers/documents.controller";
 import {deleteOneOngoing} from "@controllers/ongoings.controller";
 
 const Canvas = () => {
+  const [isCheck, setIsCheck] = useState(false);
   const user = useAppSelector((state) => state.auth.user);
   const document = useAppSelector((state) => state.document);
   const dispatch = useAppDispatch();
@@ -26,21 +33,30 @@ const Canvas = () => {
 
   const nextClick = async () => {
     if (isDrawn && user.id) {
-      const {documentID} = document;
+      if (isCheck) {
+        const {documentID} = document;
 
-      // 서명한 imgUrl 저장
-      const imgUrl = await canvasRef.current.toDataURL();
+        // 서명한 imgUrl 저장
+        const imgUrl = await canvasRef.current.toDataURL();
 
-      // (추후) 서명 위치 설정 기능 구현 필요
-      dispatch(documentActions.afterSignning(imgUrl));
+        // (추후) 서명 위치 설정 기능 구현 필요
+        dispatch(documentActions.afterSignning(imgUrl));
 
-      // ongoing collection의 문서 삭제
-      if (documentID !== "") await deleteOneOngoing(documentID);
+        // ongoing collection의 문서 삭제
+        if (documentID !== "") await deleteOneOngoing(documentID);
 
-      // document doc & signature doc 생성
-      const newDocumentID = await postOneDocument(user.id, document);
-      if (newDocumentID)
-        dispatch(documentActions.saveDocumentID(newDocumentID));
+        // document doc & signature doc 생성
+        const newDocumentID = await postOneDocument(user.id, document);
+        if (newDocumentID)
+          dispatch(documentActions.saveDocumentID(newDocumentID));
+      } else {
+        dispatch(
+          alertActions.alert({
+            alertType: "Infomation",
+            content: "문서 저장 및 정보 이용 동의를 체크해 주세요.",
+          })
+        );
+      }
     } else {
       dispatch(
         alertActions.alert({
@@ -50,6 +66,8 @@ const Canvas = () => {
       );
     }
   };
+
+  const toggleChecking = () => setIsCheck((prev) => !prev);
 
   // 서명 했는지 안했는지 체크
   const [isDrawn, setIsDrawn] = useState(false);
@@ -117,7 +135,12 @@ const Canvas = () => {
           }}
         />
       </ButtonWrapper>
-
+      <Agreement>
+        <label htmlFor="agree">
+          이메일 전송 및 개인정보 이용 동의
+          <input id="agree" type="checkbox" onChange={toggleChecking} />
+        </label>
+      </Agreement>
       <ButtonWrapper>
         <DivButton
           onClick={prevClick}
@@ -133,7 +156,6 @@ const Canvas = () => {
         >
           Next
         </Button>
-        {/* // onCanvasSubmit 으로 추후 수정 */}
       </ButtonWrapper>
     </>
   );

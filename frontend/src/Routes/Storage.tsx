@@ -25,6 +25,10 @@ const ToggleWrapper = styled.div`
 
   border-top: 1px solid ${(props) => props.theme.grayscale4Color};
   border-bottom: 1px solid ${(props) => props.theme.grayscale4Color};
+
+  & span {
+    color: ${(props) => props.theme.grayscale4Color};
+  }
 `;
 
 const Link = styled(NavLink)`

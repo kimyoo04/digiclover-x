@@ -11,12 +11,7 @@ import {IContractor} from "@constants/types/contractor";
 import Button from "@components/Style/buttons";
 import EmailContractorCard from "@components/Document/EmailContractorCard";
 // styles
-import {
-  AgreeInput,
-  AgreeLabel,
-  ButtonWrapper,
-  EmailWrapper,
-} from "./EmailStyle";
+import {AgreeLabel, ButtonWrapper, EmailWrapper} from "./EmailStyle";
 import {updateSendEmailsStatus} from "@controllers/documents.controller";
 
 const Email = () => {
@@ -45,7 +40,7 @@ const Email = () => {
       dispatch(
         alertActions.alert({
           alertType: "Infomation",
-          content: "이메일 전송 및 개인정보 이용 동의를 체크해 주세요.",
+          content: "이메일 전송 및 정보 이용 동의를 체크해 주세요.",
         })
       );
     }
@@ -60,7 +55,7 @@ const Email = () => {
       })}
       <AgreeLabel htmlFor="agree">
         이메일 전송 및 개인정보 이용 동의
-        <AgreeInput id="agree" type="checkbox" onChange={toggleChecking} />
+        <input id="agree" type="checkbox" onChange={toggleChecking} />
       </AgreeLabel>
       <ButtonWrapper>
         <Button
