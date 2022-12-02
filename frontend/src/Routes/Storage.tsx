@@ -6,7 +6,7 @@ import {Wrapper} from "@components/layout";
 import Emailed from "@components/Storage/Tables/Emailed";
 import NotEmailed from "@components/Storage/Tables/NotEmailed";
 import Ongoing from "@components/Storage/Tables/Ongoing";
-import Button from "@components/Style/buttons";
+import {NavLink} from "react-router-dom";
 
 const StorageWrapper = styled(Wrapper)`
   justify-content: flex-start;
@@ -16,11 +16,39 @@ const StorageWrapper = styled(Wrapper)`
 
 const ToggleWrapper = styled.div`
   width: 100%;
+  height: 5rem;
 
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 3rem;
+
+  border-top: 1px solid ${(props) => props.theme.grayscale4Color};
+  border-bottom: 1px solid ${(props) => props.theme.grayscale4Color};
+`;
+
+const Link = styled(NavLink)`
+  color: ${(props) => props.theme.textColor};
+  font-weight: 500;
+  white-space: nowrap;
+
+  display: flex;
+  align-items: center;
+
+  &.active {
+    color: ${(props) => props.theme.primaryBlueColor};
+    font-weight: 600;
+  }
+
+  & i {
+    font-size: 2rem;
+    margin-right: 0.6rem;
+  }
+`;
+export const LinkDropDown = styled(Link)`
+  &:hover {
+    background-color: ${(props) => props.theme.bgBlackTransColor};
+  }
 `;
 
 const Storage = () => {
@@ -37,15 +65,11 @@ const Storage = () => {
   return (
     <StorageWrapper>
       <ToggleWrapper>
-        <Button onClick={() => navigate("/storage/emailed")}>
-          Emailed Document
-        </Button>
-        <Button onClick={() => navigate("/storage/notemailed")}>
-          Not Emailed Document
-        </Button>
-        <Button onClick={() => navigate("/storage/ongoing")}>
-          Ongoing Draft
-        </Button>
+        <Link to={"/storage/emailed"}>Emailed</Link>
+        <span>|</span>
+        <Link to={"/storage/notemailed"}>Not Emailed</Link>
+        <span>|</span>
+        <Link to={"/storage/ongoing"}>Draft</Link>
       </ToggleWrapper>
 
       {emailedTableMatch ? <Emailed /> : null}
