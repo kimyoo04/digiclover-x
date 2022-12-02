@@ -136,7 +136,7 @@ export const postOneDocument = async (
       });
     }
   }
-
+  let documentRef;
   // 문서 Obj 생성
   const documentObj = {
     contractors: newContractors,
@@ -154,7 +154,7 @@ export const postOneDocument = async (
 
   try {
     // 미리 document 생성 후 documentRef에 할당
-    const documentRef = doc(collection(dbService, "documents"));
+    documentRef = doc(collection(dbService, "documents"));
 
     // document에 데이터 set
     await setDoc(documentRef, documentObj)
@@ -205,6 +205,7 @@ export const postOneDocument = async (
     console.error("postOneDocument error ==> ", error);
   }
   console.log("postOneDocument success");
+  if (documentRef) return documentRef.id;
 };
 
 // --------------------------------------------------------------------
@@ -255,9 +256,10 @@ export const updateContractorUID = async (
 // Update - 이메일 전송시 sendEmails: false -> true
 // --------------------------------------------------------------------
 export const updateSendEmailsStatus = async (documentID: string) => {
+  console.log("documentID=======================", documentID);
   try {
     const sendEmails = true;
-    const documentRef = doc(collection(dbService, "documents", documentID));
+    const documentRef = doc(dbService, "documents", documentID);
     await updateDoc(documentRef, {sendEmails})
       .then(() => console.log("updateSendEmailsStatus updateDoc success"))
       .catch((error) =>

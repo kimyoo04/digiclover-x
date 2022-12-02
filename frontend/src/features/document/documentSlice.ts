@@ -10,6 +10,7 @@ const initialState: DocumentState = {
   isBack: false,
   isNew: true,
   contractors: [],
+  documentID: "",
   docuKind: "",
   docuTitle: "",
   docuContent: "",
@@ -68,7 +69,7 @@ const documentSlice = createSlice({
       state.docuTitle = action.payload;
     },
     // 문서 제목 저장
-    afterWritingDocuTitle(state, action: PayloadAction<string>) {
+    afterWritingDocuTitle(state) {
       state.step += 1;
       state.isBack = false;
     },
@@ -77,6 +78,7 @@ const documentSlice = createSlice({
       state.isBack = false;
       state.docuContent = action.payload;
     },
+
     // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
@@ -112,6 +114,12 @@ const documentSlice = createSlice({
     beforeEmail(state) {
       state.step = 5;
       state.isBack = true;
+    },
+    // ----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
+    saveDocumentID(state, action: PayloadAction<string>) {
+      state.documentID = action.payload;
     },
   },
 });

@@ -24,6 +24,7 @@ export interface DocumentState {
   isBack: boolean;
   isNew: boolean;
   contractors: IContractor[];
+  documentID: string;
   docuKind: DocuKind;
   docuTitle: string;
   docuContent: string;

@@ -6,6 +6,7 @@ import {useAppDispatch} from "@app/hook";
 // components
 import Tiptap from "@components/Document/tiptap";
 import Button from "@components/Style/buttons";
+import {useNavigate} from "react-router-dom";
 
 const ButtonWrapper = styled.div`
   display: flex;
@@ -19,8 +20,9 @@ const ButtonWrapper = styled.div`
 
 const SignaturePlacing = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-  const prevClick = () => dispatch(documentActions.beforeSignaturePlacing());
+  const prevClick = () => navigate("/");
 
   const nextClick = async () =>
     dispatch(documentActions.afterSignaturePlacing());
@@ -29,14 +31,13 @@ const SignaturePlacing = () => {
     <div>
       <Tiptap isEditable={false} />
       <ButtonWrapper>
-        {/* 서명 후 문서 수정 불가능 하기 때문에 주석 처리함 */}
-        {/* <Button
+        <Button
           onClick={prevClick}
           whileHover={{scale: 1.1}}
           transition={{duration: 0.05}}
         >
-          Prev
-        </Button> */}
+          Go Home
+        </Button>
 
         <Button
           onClick={nextClick}

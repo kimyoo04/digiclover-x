@@ -23,7 +23,7 @@ const TitleForm = ({isEditable}: IIsEditable) => {
   const onValid = async (data: IDocuTitle) => {
     if (data) {
       console.log(data.docuTitle);
-      dispatch(documentActions.afterWritingDocuTitle(data.docuTitle));
+      dispatch(documentActions.afterWritingDocuTitle());
     } else {
       console.log("문서 제목을 입력해주세요.");
     }

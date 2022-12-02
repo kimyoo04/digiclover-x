@@ -14,9 +14,11 @@ import {stopTouchDraw, touchDraw, startTouchDraw} from "./CanvasTouchEvent";
 import {clear, onFileChange, onSaveClick} from "./CanvasUtil";
 // controllers
 import {postOneDocument} from "@controllers/documents.controller";
+import {deleteOneOngoing} from "@controllers/ongoings.controller";
 
 const Canvas = () => {
   const user = useAppSelector((state) => state.auth.user);
+  const document = useAppSelector((state) => state.document);
   const dispatch = useAppDispatch();
   const prevClick = () => {
     dispatch(documentActions.beforeSignning());
@@ -24,16 +26,21 @@ const Canvas = () => {
 
   const nextClick = async () => {
     if (isDrawn && user.id) {
+      const {documentID} = document;
+
       // 서명한 imgUrl 저장
       const imgUrl = await canvasRef.current.toDataURL();
 
       // (추후) 서명 위치 설정 기능 구현 필요
       dispatch(documentActions.afterSignning(imgUrl));
 
-      // document doc signature doc 생성
-      await postOneDocument(user.id, document)
-        .then(() => console.log("postOneDocument - success"))
-        .catch((err) => console.error("postOneDocument - fail ==> ", err));
+      // ongoing collection의 문서 삭제
+      await deleteOneOngoing(documentID);
+
+      // document doc & signature doc 생성
+      const newDocumentID = await postOneDocument(user.id, document);
+      if (newDocumentID)
+        dispatch(documentActions.saveDocumentID(newDocumentID));
     } else {
       dispatch(
         alertActions.alert({

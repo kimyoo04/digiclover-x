@@ -17,6 +17,7 @@ import {
   ButtonWrapper,
   EmailWrapper,
 } from "./EmailStyle";
+import {updateSendEmailsStatus} from "@controllers/documents.controller";
 
 const Email = () => {
   const [isCheck, setIsCheck] = useState(false);
@@ -28,17 +29,13 @@ const Email = () => {
   const finishClick = async () => {
     // 동의 확인 경고창 - 동의 확인 후 /storage 로 navigate
     if (isCheck) {
+      const {documentID} = document;
       // --------------------------------------------------------------------
       // 이메일 전송 비동기 처리하기
 
       // --------------------------------------------------------------------
 
-      // --------------------------------------------------------------------
-      // ongoing collection의 문서 전체 삭제
-
-      // user collection의 ongoings 컬럼의 인덱스를 찾아서 삭제
-      // --------------------------------------------------------------------
-
+      await updateSendEmailsStatus(documentID);
       // documentSlice의 state 초기화
       dispatch(documentActions.initialDocumentData());
 

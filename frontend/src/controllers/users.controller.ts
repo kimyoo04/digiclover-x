@@ -36,6 +36,7 @@ export const getOneUser = async (uid: string) => {
   console.log("getOneUser success");
   return userSnapshot;
 };
+
 // --------------------------------------------------------------------
 // Get - 유저 전체 필드
 // --------------------------------------------------------------------
@@ -50,19 +51,6 @@ export const getOneUserInfo = async (uid: string) => {
 
   console.log("getOneUserInfo success");
   return userSnapshot?.docs[0].data();
-};
-
-// --------------------------------------------------------------------
-// Get - 유저의 ongoings 필드
-// --------------------------------------------------------------------
-export const getOneUserOngoings = async (uid: string) => {
-  try {
-    const userSnapshot = await getOneUser(uid);
-    return userSnapshot?.docs[0].data().ongoings;
-  } catch (error) {
-    console.error("getOneUserOngoings error ==> ", error);
-  }
-  console.log("getOneUserOngoings success");
 };
 
 // --------------------------------------------------------------------
@@ -171,33 +159,4 @@ export const updateOneUserInfo = async (
     console.error("updateOneUserInfo error ==> ", error);
   }
   console.log("updateOneUserInfo success");
-};
-
-// --------------------------------------------------------------------
-// Update - 1개 유저의 ongoings 필드 수정
-// --------------------------------------------------------------------
-export const updateUserOngoingsId = async (uid: string, ongoingsID: string) => {
-  try {
-    const userInfo = await getOneUserInfo(uid);
-    let ongoings: string[] = await userInfo?.ongoings;
-    if (ongoings) {
-      ongoings.push(ongoingsID);
-      await updateUser(uid, {ongoings})
-        .then(() => console.log("updateUserOngoingsId updateDoc success"))
-        .catch((error) =>
-          console.error("updateUserOngoingsId updateDoc error ==> ", error)
-        );
-    } else {
-      ongoings = [];
-      ongoings.push(ongoingsID);
-      await updateUser(uid, {ongoings})
-        .then(() => console.log("updateUserOngoingsId updateDoc success"))
-        .catch((error) =>
-          console.error("updateUserOngoingsId updateDoc error ==> ", error)
-        );
-    }
-  } catch (error) {
-    console.error("updateUserOngoingsId error ==> ", error);
-  }
-  console.log("updateUserOngoingsId success");
 };
