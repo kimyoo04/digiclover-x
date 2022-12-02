@@ -51,13 +51,13 @@ const ActionButtons = ({row}) => {
   return (
     <ActionWrapper>
       <ModalButton
-        onClick={() => navigate(`/storage/notemailed/${row.values.id}`)}
+        onClick={() => navigate(`/storage/emailed/${row.values.id}`)}
       >
         <i className="ri-file-list-2-line"></i>
       </ModalButton>
 
       {/* 유저가 UserId1과 일치할 경우만 활성화하기 */}
-      {row.values.contractors[0].uid === user.id ? (
+      {row.values.requester.uid === user.id ? (
         <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
           <i className="ri-delete-bin-line"></i>
         </DeleteButton>

@@ -43,19 +43,7 @@ const statusHooks = (hooks) => {
       id: "status",
       Header: "Status",
       Cell: ({row}) => {
-        let uidsArr = [];
-        for (let contractor of row.values.contractors) {
-          if (contractor.uid) uidsArr.push(contractor.uid);
-        }
-
-        let status;
-        if (uidsArr.includes("-1")) {
-          status = "-1";
-        } else if (uidsArr.includes("0")) {
-          status = "0";
-        } else {
-          status = null;
-        }
+        let status = row.values.statusData;
 
         switch (status) {
           case "-1":
