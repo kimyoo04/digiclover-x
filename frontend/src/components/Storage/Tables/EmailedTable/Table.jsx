@@ -6,7 +6,6 @@ import {
   useResizeColumns,
   useSortBy,
 } from "react-table";
-import {useSticky} from "react-table-sticky";
 // table
 import {COLUMNS} from "./config/columns";
 // style
@@ -55,8 +54,7 @@ const StorageTable = ({documents}) => {
     actionsHook,
     useFlexLayout,
     useResizeColumns,
-    useSortBy,
-    useSticky
+    useSortBy
   );
 
   return (

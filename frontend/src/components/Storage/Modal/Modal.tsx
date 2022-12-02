@@ -36,6 +36,7 @@ const Modal = () => {
   const [signaturesData, setSignaturesData] = useState<ISignatureData[]>([]);
   const [usersData, setUsersData] = useState<IUser[]>([]);
   let {id} = useParams();
+  console.log(id);
 
   useEffect(() => {
     if (user) {
@@ -57,6 +58,7 @@ const Modal = () => {
                 ...document.data(),
               };
             });
+            console.log("signaturesArr", signaturesArr);
             setSignaturesData(signaturesArr);
           });
 
@@ -82,6 +84,7 @@ const Modal = () => {
               id: document.id,
               ...document.data(),
             }));
+            console.log("usersArr", usersArr);
             setUsersData(usersArr);
           });
           //----------------------------------------------------------------
@@ -126,7 +129,7 @@ const Modal = () => {
       {signaturesData && usersData ? (
         <>
           <Overlay
-            onClick={() => navigate("/storage")}
+            onClick={() => navigate("/storage/ongoing")}
             exit={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{duration: 0.2}}
