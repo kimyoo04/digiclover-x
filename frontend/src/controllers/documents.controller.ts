@@ -28,7 +28,6 @@ export const getEmailedDocumentsByPageNum = async (
   pageNum: number
 ) => {
   let documentsArr: any = [];
-
   try {
     const documentsQuery = query(
       collection(dbService, "documents"),
@@ -122,20 +121,17 @@ export const postOneDocument = async (
   // console.log("imgUrl \n", imgUrl);
   // console.log("createdAt \n", createdAt);
 
-  // 요청자 = uid, 수신자 = 0
-
-  let newContractors = contractors;
-  for (let i = 0; i < contractorsNum; i++) {
+  let i = 0;
+  let newContractors = _.cloneDeep(contractors);
+  for (let contractor of newContractors) {
     if (i === 0) {
-      newContractors = _.map(contractors, function (element) {
-        return _.extend({}, element, {uid});
-      });
+      contractor.uid = uid;
+      i++;
     } else {
-      newContractors = _.map(contractors, function (element) {
-        return _.extend({}, element, {uid: 0});
-      });
+      contractor.uid = "0";
     }
   }
+
   let documentRef;
   // 문서 Obj 생성
   const documentObj = {
