@@ -1,6 +1,6 @@
 // modules
 import {Editor} from "@tiptap/react";
-import OnGoingButton from "../onGoings/SaveDraftButton";
+import SaveDraftButton from "@components/Document/onGoings/SaveDraftButton";
 // tiptap components
 import FontFamilyDropDown from "./DropDown/FontFamily";
 import FontSizeDropDown from "./DropDown/FontSize";
@@ -97,7 +97,7 @@ const MenuBar = ({editor, isEditable}: IEditor) => {
         </EditorButton>
 
         {/* 임시 저장 버튼 */}
-        <OnGoingButton />
+        <SaveDraftButton />
       </MenuBarWrap>
     </Background>
   ) : null;

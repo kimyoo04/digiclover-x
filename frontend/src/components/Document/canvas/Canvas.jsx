@@ -20,7 +20,7 @@ import {stopTouchDraw, touchDraw, startTouchDraw} from "./CanvasTouchEvent";
 import {clear, onFileChange, onSaveClick} from "./CanvasUtil";
 // controllers
 import {postOneDocument} from "@controllers/documents.controller";
-import {deleteOneOngoing} from "@controllers/ongoings.controller";
+import {deleteOneDraft} from "@controllers/drafts.controller";
 
 const Canvas = () => {
   const [isCheck, setIsCheck] = useState(false);
@@ -42,8 +42,8 @@ const Canvas = () => {
         // (추후) 서명 위치 설정 기능 구현 필요
         dispatch(documentActions.afterSignning(imgUrl));
 
-        // ongoing collection의 문서 삭제
-        if (documentID !== "") await deleteOneOngoing(documentID);
+        // drafts collection의 문서 삭제
+        if (documentID !== "") await deleteOneDraft(documentID);
 
         // document doc & signature doc 생성
         const newDocumentID = await postOneDocument(user.id, document);

@@ -1,11 +1,11 @@
 // modules
 import styled from "styled-components";
-import {PathMatch, useMatch, useNavigate} from "react-router-dom";
+import {PathMatch, useMatch} from "react-router-dom";
 // components
 import {Wrapper} from "@components/layout";
 import Emailed from "@components/Storage/Tables/Emailed";
 import NotEmailed from "@components/Storage/Tables/NotEmailed";
-import Ongoing from "@components/Storage/Tables/Ongoing";
+import Draft from "@components/Storage/Tables/Draft";
 import {NavLink} from "react-router-dom";
 
 const StorageWrapper = styled(Wrapper)`
@@ -56,15 +56,12 @@ export const LinkDropDown = styled(Link)`
 `;
 
 const Storage = () => {
-  const navigate = useNavigate();
-
   const emailedTableMatch: PathMatch<string> | null =
     useMatch("/storage/emailed");
   const notEmailedTableMatch: PathMatch<string> | null = useMatch(
     "/storage/notemailed"
   );
-  const ongoingTableMatch: PathMatch<string> | null =
-    useMatch("/storage/ongoing");
+  const draftTableMatch: PathMatch<string> | null = useMatch("/storage/draft");
 
   return (
     <StorageWrapper>
@@ -73,12 +70,12 @@ const Storage = () => {
         <span>|</span>
         <Link to={"/storage/notemailed"}>Not Emailed</Link>
         <span>|</span>
-        <Link to={"/storage/ongoing"}>Draft</Link>
+        <Link to={"/storage/draft"}>Draft</Link>
       </ToggleWrapper>
 
       {emailedTableMatch ? <Emailed /> : null}
       {notEmailedTableMatch ? <NotEmailed /> : null}
-      {ongoingTableMatch ? <Ongoing /> : null}
+      {draftTableMatch ? <Draft /> : null}
     </StorageWrapper>
   );
 };

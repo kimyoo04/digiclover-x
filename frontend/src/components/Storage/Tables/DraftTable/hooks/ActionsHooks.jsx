@@ -5,7 +5,7 @@ import styled from "styled-components";
 import Button from "@components/Style/buttons";
 import {breakpoints} from "@components/Util/breakPoints";
 // controllers
-import {deleteOneOngoing} from "@controllers/ongoings.controller";
+import {deleteOneDraft} from "@controllers/drafts.controller";
 
 const ActionWrapper = styled.div`
   width: 100%;
@@ -37,14 +37,12 @@ const ActionButtons = ({row}) => {
   // 나중에 deletedAt: utc time 추가하는 것으로 대체하기
   const onDeleteAlert = async (documentID) => {
     const msg = "정말로 문서를 삭제하시겠습니까? 삭제되면 복구되지 않습니다.";
-    if (window.confirm(msg) === true) await deleteOneOngoing(documentID);
+    if (window.confirm(msg) === true) await deleteOneDraft(documentID);
   };
 
   return (
     <ActionWrapper>
-      <ModalButton
-        onClick={() => navigate(`/storage/ongoing/${row.values.id}`)}
-      >
+      <ModalButton onClick={() => navigate(`/storage/draft/${row.values.id}`)}>
         <i className="ri-file-list-2-line"></i>
       </ModalButton>
 

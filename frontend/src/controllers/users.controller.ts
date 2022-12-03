@@ -70,7 +70,6 @@ export const postGoogleUserDoc = async (user: User) => {
         email: user.email,
         phoneL: "",
         providerId: user.providerData[0].providerId,
-        ongoings: [],
         createdAt: Date.now() + 9 * 60 * 60 * 1000,
       })
         .then((data) => {
@@ -107,7 +106,6 @@ export const postLocalUserDoc = async (
       email,
       phone,
       providerId: user.providerData[0].providerId,
-      ongoings: [],
       createdAt: Date.now() + 9 * 60 * 60 * 1000,
     })
       .then((data) => {

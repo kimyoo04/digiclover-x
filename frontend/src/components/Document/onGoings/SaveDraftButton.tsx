@@ -1,7 +1,7 @@
 // redux-toolkit
 import {useAppSelector} from "@app/hook";
 // controllers
-import {saveNewDraft} from "@controllers/saveDraft.controller";
+import {saveDraft} from "@controllers/saveDraft.controller";
 import {documentActions} from "@features/document/documentSlice";
 import {useDispatch} from "react-redux";
 // style
@@ -16,9 +16,9 @@ const SaveDraftButton = () => {
     if (window.confirm("임시 저장 후 화면을 종료하시겠습니까?")) {
       // yes
       if (user.id) {
-        // const ongoings = await getOneUserOngoings(user.id);
-        const ongoingId = await saveNewDraft(user.id, docuInfo);
-        if (ongoingId) dispatch(documentActions.saveDocumentID(ongoingId));
+        // const draftrs = await getOneUserDrafts(user.id);
+        const draftId = await saveDraft(user.id, docuInfo);
+        if (draftId) dispatch(documentActions.saveDocumentID(draftId));
       }
     }
   };

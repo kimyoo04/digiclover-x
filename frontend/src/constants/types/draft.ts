@@ -1,7 +1,7 @@
 import {IContractor} from "./contractor";
 import {DocuKind} from "./docukind";
 
-export interface IOngoingData {
+export interface IDraftData {
   id?: string;
   uid: string;
   contractor: IContractor;

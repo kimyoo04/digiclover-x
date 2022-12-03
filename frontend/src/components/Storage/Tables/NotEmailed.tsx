@@ -46,7 +46,6 @@ const NotEmailed = () => {
 
         await getNotEmailedDocumentsByPageNum(chunks, pageNum).then(
           (documentsArr) => {
-            console.log(`documentsArr = ${documentsArr}`);
             setNotEmaileddocuments(documentsArr);
           }
         );
@@ -68,7 +67,7 @@ const NotEmailed = () => {
       ) : null}
 
       {/* modal */}
-      {docuMatch ? <Modal /> : null}
+      {docuMatch ? <Modal prevURL="notemailed" /> : null}
       {previewMatch ? <Preview /> : null}
 
       {/* pages */}

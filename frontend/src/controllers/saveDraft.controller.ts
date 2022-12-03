@@ -1,29 +1,29 @@
 // types
 import {DocumentState} from "@constants/types/document";
 // controllers
-import {postOneOngoing} from "@controllers/ongoings.controller";
+import {postOneDraft} from "@controllers/drafts.controller";
 
 // --------------------------------------------------------------------
-// saveNewDraft - 새로운 임시 저장 문서
+// saveDraft - 새로운 임시 저장 문서
 // --------------------------------------------------------------------
-export const saveNewDraft = async (uid: string, docuInfo: DocumentState) => {
+export const saveDraft = async (uid: string, docuInfo: DocumentState) => {
   const {contractors, docuKind, docuTitle, docuContent} = docuInfo;
-  let ongoingId;
+  let draftId;
 
   try {
-    // ongoings 문서 저장
-    ongoingId = await postOneOngoing(uid, {
+    // drafts 문서 저장
+    draftId = await postOneDraft(uid, {
       contractors,
       docuKind,
       docuTitle,
       docuContent,
     });
   } catch (error) {
-    console.error("saveNewDraft error ==> ", error);
+    console.error("saveDraft error ==> ", error);
   }
 
-  console.log("saveNewDraft success");
-  return ongoingId;
+  console.log("saveDraft success");
+  return draftId;
 };
 
 // --------------------------------------------------------------------

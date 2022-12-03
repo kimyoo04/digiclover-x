@@ -44,7 +44,6 @@ const Emailed = () => {
 
         await getEmailedDocumentsByPageNum(chunks, pageNum).then(
           (documentsArr) => {
-            console.log(`documentsArr = ${documentsArr}`);
             setEmaileddocuments(documentsArr);
           }
         );
@@ -64,7 +63,7 @@ const Emailed = () => {
       {emaileddocuments ? <EmailedTable documents={emaileddocuments} /> : null}
 
       {/* modal */}
-      {docuMatch ? <Modal /> : null}
+      {docuMatch ? <Modal prevURL="emailed" /> : null}
       {previewMatch ? <Preview /> : null}
 
       {/* pages */}
