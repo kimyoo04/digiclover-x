@@ -97,13 +97,13 @@ function App() {
               <Route path="/document/start" element={<DocumentStart />} />
               <Route path="/storage" element={<Storage />}>
                 <Route path="emailed" element={<Storage />}>
-                  <Route path=":id" element={<Modal />} />
+                  <Route path=":id" element={<Modal prevURL="emailed" />} />
                 </Route>
                 <Route path="notemailed" element={<Storage />}>
-                  <Route path=":id" element={<Modal />} />
+                  <Route path=":id" element={<Modal prevURL="notemailed" />} />
                 </Route>
-                <Route path="ongoing" element={<Storage />}>
-                  <Route path=":id" element={<Modal />} />
+                <Route path="draft" element={<Storage />}>
+                  <Route path=":id" element={<Modal prevURL="draft" />} />
                 </Route>
                 <Route path="docuview/:id" element={<DocuView />} />
               </Route>

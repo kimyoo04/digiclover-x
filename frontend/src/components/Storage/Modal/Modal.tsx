@@ -28,7 +28,7 @@ import {
 import {dbService} from "src/fbase";
 
 // props로 클릭한 문서의 정보 받아오기
-const Modal = () => {
+const Modal = ({prevURL}: {prevURL: string}) => {
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.auth.user);
 
@@ -129,7 +129,7 @@ const Modal = () => {
       {signaturesData && usersData ? (
         <>
           <Overlay
-            onClick={() => navigate("/storage/ongoing")}
+            onClick={() => navigate(`/storage/${prevURL}`)}
             exit={{opacity: 0}}
             animate={{opacity: 1}}
             transition={{duration: 0.2}}
