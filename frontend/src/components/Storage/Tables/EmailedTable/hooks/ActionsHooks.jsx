@@ -51,7 +51,7 @@ const ActionButtons = ({row}) => {
   return (
     <ActionWrapper>
       <ModalButton
-        onClick={() => navigate(`/storage/notemailed/${row.values.id}`)}
+        onClick={() => navigate(`/storage/emailed/${row.values.id}`)}
       >
         <i className="ri-file-list-2-line"></i>
       </ModalButton>
