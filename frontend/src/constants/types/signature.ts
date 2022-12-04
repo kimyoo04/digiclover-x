@@ -1,5 +1,6 @@
 export interface ISignatureData {
-  uid: string | null;
+  id?: string;
+  uid: string;
   email: string;
   DocumentId: number;
 
@@ -9,8 +10,4 @@ export interface ISignatureData {
 
   createdAt: string;
   updatedAt: string;
-}
-
-export interface ISignatureData {
-  [key: number]: ISignatureData; // 정확히 맞는지 확인하기
 }

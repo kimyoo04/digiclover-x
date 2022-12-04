@@ -15,6 +15,7 @@ export interface AuthState {
 }
 
 export interface IUser {
+  id?: string;
   uid: string;
   company: string;
   name: string;

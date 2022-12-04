@@ -57,7 +57,7 @@ export const LinkDropDown = styled(Link)`
 
 const Storage = () => {
   const emailedTableMatch: PathMatch<string> | null =
-    useMatch("/storage/emailed");
+    useMatch("/storage/emailed/*");
   const notEmailedTableMatch: PathMatch<string> | null = useMatch(
     "/storage/notemailed"
   );

@@ -4,6 +4,7 @@ import {
   addDoc,
   collection,
   doc,
+  DocumentData,
   getDocs,
   query,
   updateDoc,
@@ -11,9 +12,11 @@ import {
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
 // types
-import {initUser, IUserForm} from "@constants/types/user";
+import {initUser, IUser, IUserForm} from "@constants/types/user";
+import {ISignatureData} from "@constants/types/signature";
+
 // --------------------------------------------------------------------
-// Get - 유저 snapshot
+// Get - one user
 // --------------------------------------------------------------------
 export const getOneUser = async (uid: string) => {
   let userSnapshot;
@@ -23,7 +26,6 @@ export const getOneUser = async (uid: string) => {
       collection(dbService, "users"),
       where("uid", "==", uid)
     );
-
     userSnapshot = await getDocs(userQuery)
       .then((data) => {
         console.log("getOneUser getDocs success");
@@ -33,12 +35,13 @@ export const getOneUser = async (uid: string) => {
   } catch (error) {
     console.error("getOneUser error ==> ", error);
   }
+
   console.log("getOneUser success");
   return userSnapshot;
 };
 
 // --------------------------------------------------------------------
-// Get - 유저 전체 필드
+// Get - user info
 // --------------------------------------------------------------------
 export const getOneUserInfo = async (uid: string) => {
   let userSnapshot;
@@ -51,6 +54,52 @@ export const getOneUserInfo = async (uid: string) => {
 
   console.log("getOneUserInfo success");
   return userSnapshot?.docs[0].data();
+};
+
+// --------------------------------------------------------------------
+// Get - users (최대 10개)
+// --------------------------------------------------------------------
+export const getUsers = async (uidsArr: string[]) => {
+  let userSnapshot;
+
+  try {
+    const userQuery = query(
+      collection(dbService, "users"),
+      where("uid", "in", uidsArr)
+    );
+    userSnapshot = await getDocs(userQuery)
+      .then((data) => {
+        console.log("getUsers getDocs success");
+        return data;
+      })
+      .catch((error) => console.error("getUsers getDocs error ==> ", error));
+  } catch (error) {
+    console.error("getUsers error ==> ", error);
+  }
+
+  console.log("getUsers success");
+  return userSnapshot;
+};
+
+// --------------------------------------------------------------------
+// Get - users info (최대 10개)
+// --------------------------------------------------------------------
+export const getUsersInfo = async (uidsArr: string[]) => {
+  let userSnapshot;
+  let userArr: IUser[] = [];
+
+  try {
+    userSnapshot = await getUsers(uidsArr);
+    userSnapshot?.forEach((doc) => {
+      let {uid, company, name, email, phone} = doc.data();
+      userArr.push({id: doc.data().id, uid, company, name, email, phone});
+    });
+  } catch (error) {
+    console.error("getOneUserInfo error ==> ", error);
+  }
+
+  console.log("getOneUserInfo success");
+  return userArr;
 };
 
 // --------------------------------------------------------------------

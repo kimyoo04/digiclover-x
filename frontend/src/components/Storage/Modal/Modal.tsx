@@ -17,15 +17,9 @@ import {
   DocumentModal,
   Overlay,
 } from "./ModalStyles";
-// firebase
-import {
-  collection,
-  getDocs,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
-import {dbService} from "src/fbase";
+// controllers
+import {getSignaturesByDocumentId} from "@controllers/signatures.controller";
+import {getUsersInfo} from "@controllers/users.controller";
 
 // props로 클릭한 문서의 정보 받아오기
 const Modal = ({prevURL}: {prevURL: string}) => {
@@ -36,67 +30,39 @@ const Modal = ({prevURL}: {prevURL: string}) => {
   const [signaturesData, setSignaturesData] = useState<ISignatureData[]>([]);
   const [usersData, setUsersData] = useState<IUser[]>([]);
   let {id} = useParams();
-  console.log(id);
+  console.log("documentId = ", id);
 
   useEffect(() => {
     if (user) {
-      const getAllData = async () => {
+      const getModalData = async () => {
         if (id) {
-          //----------------------------------------------------------------
-          // useParams로 얻은 DocumentId로 signatures doc 쿼리 생성
-          const SignautesNUsersQuery = query(
-            collection(dbService, "signatures"),
-            where("DocumentId", "==", id)
-          );
-          //----------------------------------------------------------------
-          // signatures doc data 생성 + UserId만 추출한 배열 생성
-          let UserIdsArr: string[] = [];
-          onSnapshot(SignautesNUsersQuery, (snapshot) => {
-            const signaturesArr: any = snapshot.docs.map((document) => {
-              return {
-                id: document.id,
-                ...document.data(),
-              };
-            });
-            console.log("signaturesArr", signaturesArr);
-            setSignaturesData(signaturesArr);
-          });
+          const signaturesArr = await getSignaturesByDocumentId(id);
+          console.log("signaturesArr", signaturesArr);
+          setSignaturesData(signaturesArr);
 
-          // 서명에서 DocumentId만 추출 후 배열 생성
-          const signautesQuerySnapshot = await getDocs(SignautesNUsersQuery);
-          signautesQuerySnapshot.forEach((doc) => {
-            UserIdsArr.push(doc.data().UserId);
-          });
+          const uidsArr = signaturesArr.map((doc) => doc.uid);
+          const usersArr: IUser[] = await getUsersInfo(uidsArr);
+          console.log("usersArr", usersArr);
+          setUsersData(usersArr);
 
-          // console.log("UserIdsArr \n", UserIdsArr);
+          // 현재 상황 :
+          // - 서명, 유저, 문서 정보 3개가 한번에 필요하다.
+          // - 모달의 디자인이 미완이라 헤매고 있다.
+          // - 아직 서명을 안한 사람들의 처리와 갑을병정의 순서를 못정 했다.
 
-          //----------------------------------------------------------------
-          // UserIds를 통해 users doc 쿼리 생성
-          const userQuery = query(
-            collection(dbService, "users"),
-            where("uid", "in", UserIdsArr)
-          );
-
-          //----------------------------------------------------------------
-          // users doc data 생성
-          onSnapshot(userQuery, (snapshot) => {
-            const usersArr: any = snapshot.docs.map((document) => ({
-              id: document.id,
-              ...document.data(),
-            }));
-            console.log("usersArr", usersArr);
-            setUsersData(usersArr);
-          });
-          //----------------------------------------------------------------
+          // 다른 방법 :
+          // -> table의 row로 문서 정보를 받아서 contractors의 아이디를 그대로 출력..
+          // -> 서명 유무는 contractors의 uid로 확인 가능해서 modal UI 생성
+          // -> 문서 보기를 클릭했을 때 documentId를 가지고 문서 get하기 + 서명 get 하기
+          // -> 문서 제목, 문서내용, 서명 이미지로 docuview UI 생성
         }
       };
 
-      getAllData().catch((error) => console.log(error));
+      getModalData().catch((error) =>
+        console.error("getModalData error ==> ", error)
+      );
     }
   }, [user, id]);
-
-  console.log("signaturesData", signaturesData);
-  console.log("usersArr", usersData);
 
   // 데이터 전처리
   const getMergedData = (
