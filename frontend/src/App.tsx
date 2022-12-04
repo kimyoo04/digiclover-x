@@ -94,7 +94,7 @@ function App() {
           <Route element={<AuthenticatedRoute user={user} />}>
             <Route element={<HeaderAuth />}>
               <Route path="/home" element={<Home />} />
-              <Route path="/document/start" element={<DocumentStart />} />
+              <Route path="/document" element={<DocumentStart />} />
               <Route path="/storage" element={<Storage />}>
                 <Route path="emailed" element={<Storage />}>
                   <Route path=":id" element={<Modal prevURL="emailed" />} />
@@ -109,7 +109,7 @@ function App() {
               </Route>
               <Route path="/profile" element={<Profile />} />
             </Route>
-            <Route path="/document" element={<Document />} />
+            <Route path="/document/write" element={<Document />} />
           </Route>
 
           <Route element={<UnauthenticatedRoute user={user} />}>

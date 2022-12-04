@@ -89,7 +89,7 @@ const HeaderAuth = () => {
             <Link to="/home">
               <Logo src={logo} />
             </Link>
-            <Link to="/document/start">
+            <Link to="/document">
               <i className="ri-edit-2-line"></i> 문서 작성
             </Link>
             <Link to="/storage">

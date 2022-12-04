@@ -66,7 +66,7 @@ const DropDownMenu = () => {
         variants={variants}
       >
         <li>
-          <LinkDropDown to="/document/start">
+          <LinkDropDown to="/document">
             <i className="ri-edit-2-line"></i> 문서 작성
           </LinkDropDown>
         </li>
