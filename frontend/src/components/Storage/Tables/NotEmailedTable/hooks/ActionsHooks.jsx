@@ -62,7 +62,7 @@ const ActionButtons = ({row}) => {
           navigate(`/document/write`);
         }}
       >
-        <i className="ri-file-list-2-line"></i>
+        <i className="ri-mail-send-line"></i>
       </EnterWritingButton>
 
       {row.values.requester.uid === user.id ? (

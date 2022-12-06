@@ -32,7 +32,7 @@ const DeleteButton = styled(Button)`
   }
 `;
 
-const ModalButton = styled(DeleteButton)``;
+const EnterWritingButton = styled(DeleteButton)``;
 
 const ActionButtons = ({row}) => {
   const navigate = useNavigate();
@@ -46,15 +46,15 @@ const ActionButtons = ({row}) => {
 
   return (
     <ActionWrapper>
-      <ModalButton
+      <EnterWritingButton
         onClick={async () => {
           const draftData = await getOneDraft(row.values.id);
           dispatch(documentActions.enterWriting(draftData));
           navigate(`/document/write`);
         }}
       >
-        <i className="ri-file-list-2-line"></i>
-      </ModalButton>
+        <i className="ri-edit-2-line"></i>
+      </EnterWritingButton>
 
       <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
         <i className="ri-delete-bin-line"></i>
