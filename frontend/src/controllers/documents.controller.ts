@@ -25,40 +25,41 @@ export const getOneDocument = async (documentID: string) => {
   let documentData = {} as IDocumentData;
 
   try {
-    const documentsQuery = query(
-      collection(dbService, "documents"),
-      where(documentId(), "==", documentID)
-    );
+    const documentRef = doc(dbService, "documents", documentID);
 
-    await getDocs(documentsQuery)
+    const documentSnap = await getDoc(documentRef)
       .then((data) => {
-        const {
-          contractors,
-          docuKind,
-          docuTitle,
-          docuContent,
-          hashFile,
-          sendEmails,
-          createdAt,
-          updatedAt,
-        } = data.docs[0].data();
-
-        documentData = {
-          id: data.docs[0].id,
-          contractors,
-          docuKind,
-          docuTitle,
-          docuContent,
-          hashFile,
-          sendEmails,
-          createdAt,
-          updatedAt,
-        };
         console.log("getOneDocument getDocs success");
+        return data;
       })
       .catch((error) =>
         console.error("getOneDocument getDocs error ==> ", error)
       );
+
+    if (documentSnap?.exists()) {
+      const {
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        hashFile,
+        sendEmails,
+        createdAt,
+        updatedAt,
+      } = documentSnap.data();
+
+      documentData = {
+        id: documentSnap.id,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        hashFile,
+        sendEmails,
+        createdAt,
+        updatedAt,
+      };
+    }
   } catch (error) {
     console.error("getOneDocument error ==> ", error);
   }

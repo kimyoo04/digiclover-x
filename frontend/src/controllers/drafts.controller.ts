@@ -15,11 +15,14 @@ import {dbService} from "src/fbase";
 // types
 import {IContractor} from "@constants/types/contractor";
 import {DocuKind} from "@constants/types/docukind";
+import {IDraftData} from "@constants/types/draft";
 
 //--------------------------------------------------------------------------------
 // Get - drafts 문서 유저별 조회
 //--------------------------------------------------------------------------------
 export const getOneDraft = async (draftID: string) => {
+  let draftData = {} as IDraftData;
+
   const draftRef = doc(dbService, "drafts", draftID);
   try {
     const draftSnap = await getDoc(draftRef)
@@ -29,18 +32,40 @@ export const getOneDraft = async (draftID: string) => {
       })
       .catch((error) => console.error("getOneDraft getDocs error ==> ", error));
 
-    if (draftSnap?.exists()) return draftSnap.data();
+    if (draftSnap?.exists()) {
+      const {
+        uid,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        createdAt,
+        expiresAt,
+      } = draftSnap.data();
+      draftData = {
+        id: draftSnap.id,
+        uid,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        createdAt,
+        expiresAt,
+      };
+    }
   } catch (error) {
     console.error(`getOneDraft error ==> ${error}`);
   }
   console.log(`getOneDraft success`);
+  console.log(draftData);
+  return draftData;
 };
 
 //--------------------------------------------------------------------------------
 // Get - drafts 문서 유저별 조회
 //--------------------------------------------------------------------------------
 export const getAllDraftsByUser = async (uid: string) => {
-  let draftsArr: any = [];
+  let draftsArr: IDraftData[] = [];
 
   try {
     await deleteExpiredDrafts(uid);
@@ -61,7 +86,26 @@ export const getAllDraftsByUser = async (uid: string) => {
       );
 
     draftsQuerySnapshot?.forEach((doc) => {
-      draftsArr.push({id: doc.id, ...doc.data()});
+      let {
+        uid,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        createdAt,
+        expiresAt,
+      } = doc.data();
+
+      draftsArr.push({
+        id: doc.id,
+        uid,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        createdAt,
+        expiresAt,
+      });
     });
   } catch (error) {
     console.error("getAllDraftsByUser error ==> ", error);
@@ -90,11 +134,10 @@ export const postOneDraft = async (
 ) => {
   const createdAt = Date.now() + 9 * 60 * 60 * 1000; // 한국 시간 9시간 추가
   const expiresAt = createdAt + 14 * 24 * 60 * 60 * 1000; // 2주일 뒤 만료
-  const contractor = contractors[0]; // 요청자
 
   const draftObj = {
     uid,
-    contractor,
+    contractors,
 
     docuKind,
     docuTitle,

@@ -5,6 +5,7 @@ import {
   collection,
   doc,
   getDocs,
+  limit,
   query,
   updateDoc,
   where,
@@ -22,7 +23,8 @@ export const getOneUser = async (uid: string) => {
   try {
     const userQuery = query(
       collection(dbService, "users"),
-      where("uid", "==", uid)
+      where("uid", "==", uid),
+      limit(1)
     );
     userSnapshot = await getDocs(userQuery)
       .then((data) => {
@@ -39,7 +41,7 @@ export const getOneUser = async (uid: string) => {
 };
 
 // --------------------------------------------------------------------
-// Get - user info
+// Get - one user info
 // --------------------------------------------------------------------
 export const getOneUserInfo = async (uid: string) => {
   let userSnapshot;
@@ -101,7 +103,7 @@ export const getUsersInfo = async (uidsArr: string[]) => {
 };
 
 // --------------------------------------------------------------------
-// Post - 구글 유저
+// Post - google user
 // --------------------------------------------------------------------
 export const postGoogleUserDoc = async (user: User) => {
   try {
@@ -136,7 +138,7 @@ export const postGoogleUserDoc = async (user: User) => {
 };
 
 // --------------------------------------------------------------------
-// Post - 로컬 유저
+// Post - local user
 // --------------------------------------------------------------------
 export const postLocalUserDoc = async (
   user: User,
