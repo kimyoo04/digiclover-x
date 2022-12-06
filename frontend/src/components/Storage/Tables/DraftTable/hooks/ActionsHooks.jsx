@@ -1,11 +1,14 @@
 // modules
 import {useNavigate} from "react-router-dom";
 import styled from "styled-components";
+// redux-toolkit
+import {useAppDispatch} from "@app/hook";
+import {documentActions} from "@features/document/documentSlice";
 // components
 import Button from "@components/Style/buttons";
 import {breakpoints} from "@components/Util/breakPoints";
 // controllers
-import {deleteOneDraft} from "@controllers/drafts.controller";
+import {deleteOneDraft, getOneDraft} from "@controllers/drafts.controller";
 
 const ActionWrapper = styled.div`
   width: 100%;
@@ -33,6 +36,7 @@ const ModalButton = styled(DeleteButton)``;
 
 const ActionButtons = ({row}) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   // 나중에 deletedAt: utc time 추가하는 것으로 대체하기
   const onDeleteAlert = async (documentID) => {
@@ -42,7 +46,13 @@ const ActionButtons = ({row}) => {
 
   return (
     <ActionWrapper>
-      <ModalButton onClick={() => navigate(`/storage/draft/${row.values.id}`)}>
+      <ModalButton
+        onClick={async () => {
+          const draftData = await getOneDraft(row.values.id);
+          dispatch(documentActions.enterWriting(draftData));
+          navigate(`/document/write`);
+        }}
+      >
         <i className="ri-file-list-2-line"></i>
       </ModalButton>
 

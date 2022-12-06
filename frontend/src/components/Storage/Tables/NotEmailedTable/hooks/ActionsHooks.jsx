@@ -65,7 +65,6 @@ const ActionButtons = ({row}) => {
         <i className="ri-file-list-2-line"></i>
       </EnterWritingButton>
 
-      {/* 유저가 UserId1과 일치할 경우만 활성화하기 */}
       {row.values.requester.uid === user.id ? (
         <DeleteButton onClick={() => onDeleteAlert(row.values.id)}>
           <i className="ri-delete-bin-line"></i>

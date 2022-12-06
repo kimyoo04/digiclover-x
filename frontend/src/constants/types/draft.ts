@@ -4,7 +4,7 @@ import {DocuKind} from "./docukind";
 export interface IDraftData {
   id?: string;
   uid: string;
-  contractor: IContractor;
+  contractors: IContractor[];
 
   docuKind: DocuKind;
   docuTitle: string;

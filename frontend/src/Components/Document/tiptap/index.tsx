@@ -38,19 +38,22 @@ const Tiptap = ({isEditable}: IIsEditable) => {
     }
   }, []);
 
-  // 앞 단계에서 선택한 문서양식에 따라서 에디터 출력 다르게 설정
   function selectDocukind() {
-    switch (docuKind) {
-      case "자유양식":
-        return freeForm;
-      case "MOU":
-        return mouForm;
-      case "근로계약서":
-        return laborForm;
-      case "차용증":
-        return deptForm;
-      default:
-        return "Didn't select docukind. Go back to docukind page";
+    if (docuContent === "") {
+      switch (docuKind) {
+        case "자유양식":
+          return freeForm;
+        case "MOU":
+          return mouForm;
+        case "근로계약서":
+          return laborForm;
+        case "차용증":
+          return deptForm;
+        default:
+          return "Didn't select docukind. Go back to docukind page";
+      }
+    } else {
+      return docuContent;
     }
   }
 
