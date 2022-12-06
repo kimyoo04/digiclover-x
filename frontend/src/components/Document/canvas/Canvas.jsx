@@ -40,13 +40,13 @@ const Canvas = () => {
         const imgUrl = await canvasRef.current.toDataURL();
 
         // (추후) 서명 위치 설정 기능 구현 필요
-        dispatch(documentActions.afterSignning(imgUrl));
+        dispatch(documentActions.afterSignning());
 
         // drafts collection의 문서 삭제
         if (documentID !== "") await deleteOneDraft(documentID);
 
         // document doc & signature doc 생성
-        const newDocumentID = await postOneDocument(user.id, document);
+        const newDocumentID = await postOneDocument(user.id, imgUrl, document);
         if (newDocumentID)
           dispatch(documentActions.saveDocumentID(newDocumentID));
       } else {

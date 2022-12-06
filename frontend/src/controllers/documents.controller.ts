@@ -97,18 +97,17 @@ export const getNotEmailedDocumentsByPageNum = async (
 // --------------------------------------------------------------------
 export const postOneDocument = async (
   uid: string,
+  imgUrl: string,
   {
     contractors,
     docuKind,
     docuTitle,
     docuContent,
-    imgUrl,
   }: {
     contractors: IContractor[];
     docuKind: DocuKind;
     docuTitle: string;
     docuContent: string;
-    imgUrl: string;
   }
 ) => {
   // 필요한 데이터 변수에 할당

@@ -2,6 +2,8 @@ import {IContractor} from "./contractor";
 import {DocuKind} from "./docukind";
 
 export interface IDocumentData {
+  id: string;
+
   contractors: IContractor[];
 
   docuKind: DocuKind;
@@ -28,6 +30,5 @@ export interface DocumentState {
   docuKind: DocuKind;
   docuTitle: string;
   docuContent: string;
-  imgUrl: string;
   error: string;
 }
