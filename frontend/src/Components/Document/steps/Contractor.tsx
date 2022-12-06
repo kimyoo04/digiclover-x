@@ -33,11 +33,6 @@ const Contractor = () => {
     navigate(-1);
   };
 
-  // documentSlice의 state 초기화
-  useEffect(() => {
-    if (isBack === false) dispatch(documentActions.initialDocumentData());
-  }, []);
-
   // 계약자 정보 받는 리액트-훅-폼
   const {
     register,

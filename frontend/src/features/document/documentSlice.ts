@@ -26,6 +26,7 @@ const documentSlice = createSlice({
       state.step = 1;
       state.isBack = false;
       state.isNew = true;
+      state.documentID = "";
       state.contractors = [];
       state.docuKind = "";
       state.docuTitle = "";

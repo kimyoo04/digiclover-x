@@ -5,10 +5,14 @@ import styled from "styled-components";
 import Button from "@components/Style/buttons";
 import {breakpoints} from "@components/Util/breakPoints";
 // redux-toolkit
-import {useAppSelector} from "@app/hook";
+import {useAppDispatch, useAppSelector} from "@app/hook";
 // controllers
-import {deleteOneDocument} from "@controllers/documents.controller";
+import {
+  deleteOneDocument,
+  getOneDocument,
+} from "@controllers/documents.controller";
 import {deleteSignaturesByDocumentId} from "@controllers/signatures.controller";
+import {documentActions} from "@features/document/documentSlice";
 
 const ActionWrapper = styled.div`
   width: 100%;
@@ -32,10 +36,11 @@ const DeleteButton = styled(Button)`
   }
 `;
 
-const ModalButton = styled(DeleteButton)``;
+const EnterWritingButton = styled(DeleteButton)``;
 
 const ActionButtons = ({row}) => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.auth.user);
 
   // 나중에 deletedAt: utc time 추가하는 것으로 대체하기
@@ -50,11 +55,15 @@ const ActionButtons = ({row}) => {
 
   return (
     <ActionWrapper>
-      <ModalButton
-        onClick={() => navigate(`/storage/notemailed/${row.values.id}`)}
+      <EnterWritingButton
+        onClick={async () => {
+          const documentData = await getOneDocument(row.values.id);
+          dispatch(documentActions.enterSignaturePlacing(documentData));
+          navigate(`/document/write`);
+        }}
       >
         <i className="ri-file-list-2-line"></i>
-      </ModalButton>
+      </EnterWritingButton>
 
       {/* 유저가 UserId1과 일치할 경우만 활성화하기 */}
       {row.values.requester.uid === user.id ? (
