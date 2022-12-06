@@ -15,10 +15,57 @@ import {
 } from "firebase/firestore";
 import {dbService} from "src/fbase";
 // types
+import {IDocumentData} from "@constants/types/document";
 import {IContractor} from "@constants/types/contractor";
 import {DocuKind} from "@constants/types/docukind";
 // controllers
 import {addData} from "@controllers/firebase.util";
+
+export const getOneDocument = async (documentID: string) => {
+  let documentData = {} as IDocumentData;
+
+  try {
+    const documentsQuery = query(
+      collection(dbService, "documents"),
+      where(documentId(), "==", documentID)
+    );
+
+    await getDocs(documentsQuery)
+      .then((data) => {
+        const {
+          contractors,
+          docuKind,
+          docuTitle,
+          docuContent,
+          hashFile,
+          sendEmails,
+          createdAt,
+          updatedAt,
+        } = data.docs[0].data();
+
+        documentData = {
+          id: data.docs[0].id,
+          contractors,
+          docuKind,
+          docuTitle,
+          docuContent,
+          hashFile,
+          sendEmails,
+          createdAt,
+          updatedAt,
+        };
+        console.log("getOneDocument getDocs success");
+      })
+      .catch((error) =>
+        console.error("getOneDocument getDocs error ==> ", error)
+      );
+  } catch (error) {
+    console.error("getOneDocument error ==> ", error);
+  }
+
+  console.log("getOneDocument success");
+  return documentData;
+};
 
 // --------------------------------------------------------------------
 // Get - 이메일 전송 동의한 문서 조회
@@ -27,7 +74,7 @@ export const getEmailedDocumentsByPageNum = async (
   documentIdsChunkArr: string[][],
   pageNum: number
 ) => {
-  let documentsArr: any = [];
+  let documentsArr: IDocumentData[] = [];
   try {
     const documentsQuery = query(
       collection(dbService, "documents"),
@@ -44,13 +91,34 @@ export const getEmailedDocumentsByPageNum = async (
       );
 
     documentsQuerySnapshot?.forEach((doc) => {
-      documentsArr.push({id: doc.id, ...doc.data()});
+      let {
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        hashFile,
+        sendEmails,
+        createdAt,
+        updatedAt,
+      } = doc.data();
+
+      documentsArr.push({
+        id: doc.id,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        hashFile,
+        sendEmails,
+        createdAt,
+        updatedAt,
+      });
     });
   } catch (error) {
-    console.error("getDocumentsByPageNum error ==> ", error);
+    console.error("getEmailedDocumentsByPageNum error ==> ", error);
   }
 
-  console.log("getDocumentsByPageNum success");
+  console.log("getEmailedDocumentsByPageNum success");
   return documentsArr;
 };
 
@@ -61,7 +129,7 @@ export const getNotEmailedDocumentsByPageNum = async (
   documentIdsChunkArr: string[][],
   pageNum: number
 ) => {
-  let documentsArr: any = [];
+  let documentsArr: IDocumentData[] = [];
 
   try {
     const documentsQuery = query(
@@ -82,13 +150,34 @@ export const getNotEmailedDocumentsByPageNum = async (
       );
 
     documentsQuerySnapshot?.forEach((doc) => {
-      documentsArr.push({id: doc.id, ...doc.data()});
+      let {
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        hashFile,
+        sendEmails,
+        createdAt,
+        updatedAt,
+      } = doc.data();
+
+      documentsArr.push({
+        id: doc.id,
+        contractors,
+        docuKind,
+        docuTitle,
+        docuContent,
+        hashFile,
+        sendEmails,
+        createdAt,
+        updatedAt,
+      });
     });
   } catch (error) {
-    console.error("getDocumentsByPageNum error ==> ", error);
+    console.error("getNotEmailedDocumentsByPageNum error ==> ", error);
   }
 
-  console.log("getDocumentsByPageNum success");
+  console.log("getNotEmailedDocumentsByPageNum success");
   return documentsArr;
 };
 

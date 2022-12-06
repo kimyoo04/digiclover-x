@@ -4,7 +4,6 @@ import {
   addDoc,
   collection,
   doc,
-  DocumentData,
   getDocs,
   query,
   updateDoc,
@@ -13,7 +12,6 @@ import {
 import {dbService} from "src/fbase";
 // types
 import {initUser, IUser, IUserForm} from "@constants/types/user";
-import {ISignatureData} from "@constants/types/signature";
 
 // --------------------------------------------------------------------
 // Get - one user

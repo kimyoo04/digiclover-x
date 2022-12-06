@@ -24,38 +24,35 @@ export const getSignaturesByDocumentId = async (documentID: string) => {
       where("DocumentId", "==", documentID)
     );
 
-    const signautesQuerySnapshot = await getDocs(signaturesQuery)
+    await getDocs(signaturesQuery)
       .then((data) => {
+        const {
+          uid,
+          email,
+          DocumentId,
+          hashValue,
+          isSigned,
+          imgUrl,
+          createdAt,
+          updatedAt,
+        } = data.docs[0].data();
+
+        signaturesArr.push({
+          id: data.docs[0].id,
+          uid,
+          email,
+          DocumentId,
+          hashValue,
+          isSigned,
+          imgUrl,
+          createdAt,
+          updatedAt,
+        });
         console.log("getSignaturesByDocumentId getDocs success");
-        return data;
       })
       .catch((error) =>
         console.error("getSignaturesByDocumentId getDocs error ==> ", error)
       );
-
-    signautesQuerySnapshot?.forEach((doc) => {
-      let {
-        uid,
-        email,
-        DocumentId,
-        hashValue,
-        isSigned,
-        imgUrl,
-        createdAt,
-        updatedAt,
-      } = doc.data();
-      signaturesArr.push({
-        id: doc.id,
-        uid,
-        email,
-        DocumentId,
-        hashValue,
-        isSigned,
-        imgUrl,
-        createdAt,
-        updatedAt,
-      });
-    });
   } catch (error) {
     console.error("getSignaturesByDocumentId error ==> ", error);
   }
